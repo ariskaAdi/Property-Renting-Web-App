@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model account_table {
+  id                Int                 @id @default(autoincrement())
+  fullname          String
+  username          String              @unique
+  email             String              @unique
+  role              account_role
+  password          String
+  created_at        DateTime            @default(now())
+  transaction_table transaction_table[]
+  properties_table  properties_table[]
+  user_review       user_review[]
+  booked_user_list  booked_user_list[]
+}
+
+enum account_role {
+  USER
+  TENANT
+}
+
+model transaction_table {
+  id                 Int                @id @default(autoincrement())
+  account_id         Int
+  properties_id      Int
+  booking_date_start DateTime
+  booking_date_end   DateTime
+  payment_proof_url  String
+  created_at         DateTime           @default(now())
+  transaction_status trx_status
+  account_table      account_table      @relation(fields: [account_id], references: [id])
+  properties_table   properties_table   @relation(fields: [properties_id], references: [id])
+  user_review        user_review[]
+  booked_user_list   booked_user_list[]
+}
+
+enum trx_status {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model properties_table {
+  id                Int                 @id @default(autoincrement())
+  account_id        Int
+  room_id           Int
+  name              String
+  category          String
+  address           String
+  description       String
+  city              String
+  images            String
+  created_at        DateTime            @default(now())
+  updated_at        DateTime
+  transaction_table transaction_table[]
+  account_table     account_table       @relation(fields: [account_id], references: [id])
+  user_review       user_review[]
+  booked_user_list  booked_user_list[]
+}
+
+model room_table {
+  id            Int      @id @default(autoincrement())
+  properties_id Int
+  name          String
+  capacity      Int
+  price         Int
+  description   String
+  images        String
+  created_at    DateTime @default(now())
+  updated_at    DateTime
+}
+
+model user_review {
+  id                Int               @id @default(autoincrement())
+  account_id        Int
+  properties_id     Int
+  transaction_id    Int
+  review            String
+  account_table     account_table     @relation(fields: [account_id], references: [id])
+  properties_table  properties_table  @relation(fields: [properties_id], references: [id])
+  transaction_table transaction_table @relation(fields: [transaction_id], references: [id])
+}
+
+model booked_user_list {
+  id                Int               @id @default(autoincrement())
+  transaction_id    Int
+  account_id        Int
+  properties_id     Int
+  total_price       Int
+  booking_date_end  DateTime
+  account_table     account_table     @relation(fields: [account_id], references: [id])
+  properties_table  properties_table  @relation(fields: [properties_id], references: [id])
+  transaction_table transaction_table @relation(fields: [transaction_id], references: [id])
+}

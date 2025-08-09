@@ -127,6 +127,7 @@ exports.Prisma.Account_tableScalarFieldEnum = {
   email: 'email',
   role: 'role',
   password: 'password',
+  image: 'image',
   created_at: 'created_at'
 };
 
@@ -134,10 +135,13 @@ exports.Prisma.Transaction_tableScalarFieldEnum = {
   id: 'id',
   account_id: 'account_id',
   properties_id: 'properties_id',
+  price: 'price',
   booking_date_start: 'booking_date_start',
   booking_date_end: 'booking_date_end',
   payment_proof_url: 'payment_proof_url',
   created_at: 'created_at',
+  expires_at: 'expires_at',
+  quantity: 'quantity',
   transaction_status: 'transaction_status'
 };
 
@@ -172,7 +176,9 @@ exports.Prisma.User_reviewScalarFieldEnum = {
   account_id: 'account_id',
   properties_id: 'properties_id',
   transaction_id: 'transaction_id',
-  review: 'review'
+  rating: 'rating',
+  review: 'review',
+  created_at: 'created_at'
 };
 
 exports.Prisma.Booked_user_listScalarFieldEnum = {

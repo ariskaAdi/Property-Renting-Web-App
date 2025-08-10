@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -22,8 +21,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Filter, Star, Clock, Search } from "lucide-react";
+import { MapPin, Filter, Star, Clock } from "lucide-react";
 import Image from "next/image";
+import MapPages from "../layouts/search-property/Map";
 
 const property = [
   {
@@ -250,73 +250,23 @@ export default function PropertyDiscovery() {
               </Select>
             </div>
           </div>
-
-          {/* Search Bar */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <Input placeholder="Search property..." className="pl-10" />
-          </div>
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 flex">
-          {/* Map/Content Area */}
-          <div className="flex-1 relative">
-            {mapView ? (
-              <div className="w-full h-full bg-gray-100 relative">
-                {/* Placeholder Map */}
-                <div className="absolute inset-0 flex items-center justify-center text-gray-500">
-                  <div className="text-center">
-                    <MapPin className="w-12 h-12 mx-auto mb-2" />
-                    <p>Interactive Map View</p>
-                  </div>
-                </div>
-
-                {/* Map Pins */}
-                <div className="absolute top-1/4 left-1/3">
-                  <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center shadow-lg">
-                    <MapPin className="w-4 h-4 text-white" />
-                  </div>
-                </div>
-                <div className="absolute top-1/2 left-1/2">
-                  <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center shadow-lg">
-                    <MapPin className="w-4 h-4 text-white" />
-                  </div>
-                </div>
-                <div className="absolute bottom-1/3 right-1/4">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
-                    <MapPin className="w-4 h-4 text-white" />
-                  </div>
-                </div>
-
-                {/* Mobile Results Toggle */}
-                <Button
-                  onClick={() => setResultsOpen(true)}
-                  className="lg:hidden absolute bottom-4 left-1/2 transform -translate-x-1/2">
-                  Show Results ({property.length})
-                </Button>
-              </div>
-            ) : (
-              <div className="p-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                {property.map((restaurant) => (
-                  <RestaurantCard key={restaurant.id} restaurant={restaurant} />
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Desktop Results Panel */}
-          <div className="hidden lg:block w-80 bg-white border-l">
-            <div className="p-4 border-b">
-              <h3 className="font-semibold">Results</h3>
-            </div>
-            <div className="p-4 space-y-4 overflow-y-auto">
+        <MapPages>
+          <div className="hidden lg:block">
+            <div className="p-4 space-y-4">
               {property.map((restaurant) => (
                 <RestaurantCard key={restaurant.id} restaurant={restaurant} />
               ))}
             </div>
           </div>
-        </div>
+          <Button
+            onClick={() => setResultsOpen(true)}
+            className="bg-blue-500 text-white px-4 py-2 rounded ">
+            Show All Results ({property.length})
+          </Button>
+        </MapPages>
       </div>
 
       {/* Mobile Results Panel */}

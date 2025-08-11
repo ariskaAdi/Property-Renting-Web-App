@@ -59,8 +59,8 @@ model users {
   verify_token_expires_at   DateTime?
   reset_password_token      String?   @db.VarChar(255)
   reset_password_expires_at DateTime?
-  created_at                DateTime
-  updated_at                DateTime
+  created_at                DateTime  @default(now())
+  updated_at                DateTime  @updatedAt
 
   tenants  tenants[]
   bookings bookings[]
@@ -74,8 +74,8 @@ model tenants {
   address      String
   phone_number String   @db.VarChar(20)
   logo         String?  @db.VarChar(255)
-  created_at   DateTime
-  updated_at   DateTime
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
 
   user       users        @relation(fields: [user_id], references: [id])
   properties properties[]
@@ -85,8 +85,8 @@ model property_categories {
   id          String   @id @default(uuid())
   name        String   @db.VarChar(100)
   description String?
-  created_at  DateTime
-  updated_at  DateTime
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
   properties properties[]
 }
@@ -104,8 +104,8 @@ model properties {
   latitude    Decimal  @db.Decimal(10, 8)
   longitude   Decimal  @db.Decimal(11, 8)
   main_image  String?  @db.VarChar(255)
-  created_at  DateTime
-  updated_at  DateTime
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
   tenant            tenants             @relation(fields: [tenant_id], references: [id])
   category          property_categories @relation(fields: [category_id], references: [id])
@@ -120,7 +120,7 @@ model property_images {
   id          String   @id @default(uuid())
   property_id String
   image_url   String   @db.VarChar(255)
-  created_at  DateTime
+  created_at  DateTime @default(now())
 
   property properties @relation(fields: [property_id], references: [id])
 }
@@ -133,8 +133,8 @@ model rooms {
   base_price  Decimal  @db.Decimal(12, 2)
   capacity    Int
   image       String?  @db.VarChar(255)
-  created_at  DateTime
-  updated_at  DateTime
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
   property          properties          @relation(fields: [property_id], references: [id])
   room_images       room_images[]
@@ -147,7 +147,7 @@ model room_images {
   id         String   @id @default(uuid())
   room_id    String
   image_url  String   @db.VarChar(255)
-  created_at DateTime
+  created_at DateTime @default(now())
 
   room rooms @relation(fields: [room_id], references: [id])
 }
@@ -158,10 +158,12 @@ model room_availability {
   date           DateTime @db.Date
   is_available   Boolean
   price_override Decimal? @db.Decimal(12, 2)
-  created_at     DateTime
-  updated_at     DateTime
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
 
   room rooms @relation(fields: [room_id], references: [id])
+
+  @@unique([room_id, date])
 }
 
 model peak_season_rates {
@@ -172,8 +174,8 @@ model peak_season_rates {
   end_date           DateTime        @db.Date
   price_change_type  PriceChangeType
   price_change_value Decimal         @db.Decimal(12, 2)
-  created_at         DateTime
-  updated_at         DateTime
+  created_at         DateTime        @default(now())
+  updated_at         DateTime        @updatedAt
 
   property properties @relation(fields: [property_id], references: [id])
   room     rooms      @relation(fields: [room_id], references: [id])
@@ -187,9 +189,9 @@ model bookings {
   check_in_date    DateTime      @db.Date
   check_out_date   DateTime      @db.Date
   total_price      Decimal       @db.Decimal(12, 2)
-  payment_deadline DateTime
-  created_at       DateTime
-  updated_at       DateTime
+  payment_deadline DateTime      @default(dbgenerated("now() + interval '1 hour'"))
+  created_at       DateTime      @default(now())
+  updated_at       DateTime      @updatedAt
 
   user          users           @relation(fields: [user_id], references: [id])
   property      properties      @relation(fields: [property_id], references: [id])
@@ -206,8 +208,8 @@ model booking_rooms {
   price_per_night Decimal  @db.Decimal(12, 2)
   nights          Int
   subtotal        Decimal  @db.Decimal(12, 2)
-  created_at      DateTime
-  updated_at      DateTime
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
 
   booking bookings @relation(fields: [booking_id], references: [id])
   room    rooms    @relation(fields: [room_id], references: [id])
@@ -221,8 +223,8 @@ model payments {
   amount         Decimal       @db.Decimal(12, 2)
   status         PaymentStatus
   paid_at        DateTime?
-  created_at     DateTime
-  updated_at     DateTime
+  created_at     DateTime      @default(now())
+  updated_at     DateTime      @updatedAt
 
   booking bookings @relation(fields: [booking_id], references: [id])
 }
@@ -234,8 +236,8 @@ model reviews {
   property_id  String
   comment      String?
   tenant_reply String?
-  created_at   DateTime
-  updated_at   DateTime
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
 
   booking  bookings   @relation(fields: [booking_id], references: [id])
   user     users      @relation(fields: [user_id], references: [id])

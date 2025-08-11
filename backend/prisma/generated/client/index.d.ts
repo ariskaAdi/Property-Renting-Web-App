@@ -18356,6 +18356,7 @@ export namespace Prisma {
 
   export type room_availabilityWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    room_id_date?: room_availabilityRoom_idDateCompoundUniqueInput
     AND?: room_availabilityWhereInput | room_availabilityWhereInput[]
     OR?: room_availabilityWhereInput[]
     NOT?: room_availabilityWhereInput | room_availabilityWhereInput[]
@@ -18366,7 +18367,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"room_availability"> | Date | string
     updated_at?: DateTimeFilter<"room_availability"> | Date | string
     room?: XOR<RoomsScalarRelationFilter, roomsWhereInput>
-  }, "id">
+  }, "id" | "room_id_date">
 
   export type room_availabilityOrderByWithAggregationInput = {
     id?: SortOrder
@@ -18815,8 +18816,8 @@ export namespace Prisma {
     verify_token_expires_at?: Date | string | null
     reset_password_token?: string | null
     reset_password_expires_at?: Date | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     tenants?: tenantsCreateNestedManyWithoutUserInput
     bookings?: bookingsCreateNestedManyWithoutUserInput
     reviews?: reviewsCreateNestedManyWithoutUserInput
@@ -18834,8 +18835,8 @@ export namespace Prisma {
     verify_token_expires_at?: Date | string | null
     reset_password_token?: string | null
     reset_password_expires_at?: Date | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     tenants?: tenantsUncheckedCreateNestedManyWithoutUserInput
     bookings?: bookingsUncheckedCreateNestedManyWithoutUserInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUserInput
@@ -18891,8 +18892,8 @@ export namespace Prisma {
     verify_token_expires_at?: Date | string | null
     reset_password_token?: string | null
     reset_password_expires_at?: Date | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type usersUpdateManyMutationInput = {
@@ -18933,8 +18934,8 @@ export namespace Prisma {
     address: string
     phone_number: string
     logo?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     user: usersCreateNestedOneWithoutTenantsInput
     properties?: propertiesCreateNestedManyWithoutTenantInput
   }
@@ -18946,8 +18947,8 @@ export namespace Prisma {
     address: string
     phone_number: string
     logo?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     properties?: propertiesUncheckedCreateNestedManyWithoutTenantInput
   }
 
@@ -18982,8 +18983,8 @@ export namespace Prisma {
     address: string
     phone_number: string
     logo?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type tenantsUpdateManyMutationInput = {
@@ -19011,8 +19012,8 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     properties?: propertiesCreateNestedManyWithoutCategoryInput
   }
 
@@ -19020,8 +19021,8 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     properties?: propertiesUncheckedCreateNestedManyWithoutCategoryInput
   }
 
@@ -19047,8 +19048,8 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type property_categoriesUpdateManyMutationInput = {
@@ -19078,8 +19079,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     tenant: tenantsCreateNestedOneWithoutPropertiesInput
     category: property_categoriesCreateNestedOneWithoutPropertiesInput
     property_images?: property_imagesCreateNestedManyWithoutPropertyInput
@@ -19102,8 +19103,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     property_images?: property_imagesUncheckedCreateNestedManyWithoutPropertyInput
     rooms?: roomsUncheckedCreateNestedManyWithoutPropertyInput
     peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutPropertyInput
@@ -19168,8 +19169,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type propertiesUpdateManyMutationInput = {
@@ -19207,7 +19208,7 @@ export namespace Prisma {
   export type property_imagesCreateInput = {
     id?: string
     image_url: string
-    created_at: Date | string
+    created_at?: Date | string
     property: propertiesCreateNestedOneWithoutProperty_imagesInput
   }
 
@@ -19215,7 +19216,7 @@ export namespace Prisma {
     id?: string
     property_id: string
     image_url: string
-    created_at: Date | string
+    created_at?: Date | string
   }
 
   export type property_imagesUpdateInput = {
@@ -19236,7 +19237,7 @@ export namespace Prisma {
     id?: string
     property_id: string
     image_url: string
-    created_at: Date | string
+    created_at?: Date | string
   }
 
   export type property_imagesUpdateManyMutationInput = {
@@ -19259,8 +19260,8 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     property: propertiesCreateNestedOneWithoutRoomsInput
     room_images?: room_imagesCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityCreateNestedManyWithoutRoomInput
@@ -19276,8 +19277,8 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     room_images?: room_imagesUncheckedCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityUncheckedCreateNestedManyWithoutRoomInput
     peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutRoomInput
@@ -19324,8 +19325,8 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type roomsUpdateManyMutationInput = {
@@ -19354,7 +19355,7 @@ export namespace Prisma {
   export type room_imagesCreateInput = {
     id?: string
     image_url: string
-    created_at: Date | string
+    created_at?: Date | string
     room: roomsCreateNestedOneWithoutRoom_imagesInput
   }
 
@@ -19362,7 +19363,7 @@ export namespace Prisma {
     id?: string
     room_id: string
     image_url: string
-    created_at: Date | string
+    created_at?: Date | string
   }
 
   export type room_imagesUpdateInput = {
@@ -19383,7 +19384,7 @@ export namespace Prisma {
     id?: string
     room_id: string
     image_url: string
-    created_at: Date | string
+    created_at?: Date | string
   }
 
   export type room_imagesUpdateManyMutationInput = {
@@ -19404,8 +19405,8 @@ export namespace Prisma {
     date: Date | string
     is_available: boolean
     price_override?: Decimal | DecimalJsLike | number | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     room: roomsCreateNestedOneWithoutRoom_availabilityInput
   }
 
@@ -19415,8 +19416,8 @@ export namespace Prisma {
     date: Date | string
     is_available: boolean
     price_override?: Decimal | DecimalJsLike | number | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type room_availabilityUpdateInput = {
@@ -19445,8 +19446,8 @@ export namespace Prisma {
     date: Date | string
     is_available: boolean
     price_override?: Decimal | DecimalJsLike | number | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type room_availabilityUpdateManyMutationInput = {
@@ -19474,8 +19475,8 @@ export namespace Prisma {
     end_date: Date | string
     price_change_type: $Enums.PriceChangeType
     price_change_value: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     property: propertiesCreateNestedOneWithoutPeak_season_ratesInput
     room: roomsCreateNestedOneWithoutPeak_season_ratesInput
   }
@@ -19488,8 +19489,8 @@ export namespace Prisma {
     end_date: Date | string
     price_change_type: $Enums.PriceChangeType
     price_change_value: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type peak_season_ratesUpdateInput = {
@@ -19524,8 +19525,8 @@ export namespace Prisma {
     end_date: Date | string
     price_change_type: $Enums.PriceChangeType
     price_change_value: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type peak_season_ratesUpdateManyMutationInput = {
@@ -19556,9 +19557,9 @@ export namespace Prisma {
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
-    payment_deadline: Date | string
-    created_at: Date | string
-    updated_at: Date | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     user: usersCreateNestedOneWithoutBookingsInput
     property: propertiesCreateNestedOneWithoutBookingsInput
     booking_rooms?: booking_roomsCreateNestedManyWithoutBookingInput
@@ -19574,9 +19575,9 @@ export namespace Prisma {
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
-    payment_deadline: Date | string
-    created_at: Date | string
-    updated_at: Date | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutBookingInput
     payments?: paymentsUncheckedCreateNestedManyWithoutBookingInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutBookingInput
@@ -19622,9 +19623,9 @@ export namespace Prisma {
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
-    payment_deadline: Date | string
-    created_at: Date | string
-    updated_at: Date | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type bookingsUpdateManyMutationInput = {
@@ -19657,8 +19658,8 @@ export namespace Prisma {
     price_per_night: Decimal | DecimalJsLike | number | string
     nights: number
     subtotal: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     booking: bookingsCreateNestedOneWithoutBooking_roomsInput
     room: roomsCreateNestedOneWithoutBooking_roomsInput
   }
@@ -19671,8 +19672,8 @@ export namespace Prisma {
     price_per_night: Decimal | DecimalJsLike | number | string
     nights: number
     subtotal: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type booking_roomsUpdateInput = {
@@ -19707,8 +19708,8 @@ export namespace Prisma {
     price_per_night: Decimal | DecimalJsLike | number | string
     nights: number
     subtotal: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type booking_roomsUpdateManyMutationInput = {
@@ -19740,8 +19741,8 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     status: $Enums.PaymentStatus
     paid_at?: Date | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     booking: bookingsCreateNestedOneWithoutPaymentsInput
   }
 
@@ -19753,8 +19754,8 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     status: $Enums.PaymentStatus
     paid_at?: Date | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type paymentsUpdateInput = {
@@ -19789,8 +19790,8 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     status: $Enums.PaymentStatus
     paid_at?: Date | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type paymentsUpdateManyMutationInput = {
@@ -19820,8 +19821,8 @@ export namespace Prisma {
     id?: string
     comment?: string | null
     tenant_reply?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     booking: bookingsCreateNestedOneWithoutReviewsInput
     user: usersCreateNestedOneWithoutReviewsInput
     property: propertiesCreateNestedOneWithoutReviewsInput
@@ -19834,8 +19835,8 @@ export namespace Prisma {
     property_id: string
     comment?: string | null
     tenant_reply?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type reviewsUpdateInput = {
@@ -19867,8 +19868,8 @@ export namespace Prisma {
     property_id: string
     comment?: string | null
     tenant_reply?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type reviewsUpdateManyMutationInput = {
@@ -20483,6 +20484,11 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type room_availabilityRoom_idDateCompoundUniqueInput = {
+    room_id: string
+    date: Date | string
   }
 
   export type room_availabilityCountOrderByAggregateInput = {
@@ -22175,8 +22181,8 @@ export namespace Prisma {
     address: string
     phone_number: string
     logo?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     properties?: propertiesCreateNestedManyWithoutTenantInput
   }
 
@@ -22186,8 +22192,8 @@ export namespace Prisma {
     address: string
     phone_number: string
     logo?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     properties?: propertiesUncheckedCreateNestedManyWithoutTenantInput
   }
 
@@ -22207,9 +22213,9 @@ export namespace Prisma {
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
-    payment_deadline: Date | string
-    created_at: Date | string
-    updated_at: Date | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     property: propertiesCreateNestedOneWithoutBookingsInput
     booking_rooms?: booking_roomsCreateNestedManyWithoutBookingInput
     payments?: paymentsCreateNestedManyWithoutBookingInput
@@ -22223,9 +22229,9 @@ export namespace Prisma {
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
-    payment_deadline: Date | string
-    created_at: Date | string
-    updated_at: Date | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutBookingInput
     payments?: paymentsUncheckedCreateNestedManyWithoutBookingInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutBookingInput
@@ -22245,8 +22251,8 @@ export namespace Prisma {
     id?: string
     comment?: string | null
     tenant_reply?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     booking: bookingsCreateNestedOneWithoutReviewsInput
     property: propertiesCreateNestedOneWithoutReviewsInput
   }
@@ -22257,8 +22263,8 @@ export namespace Prisma {
     property_id: string
     comment?: string | null
     tenant_reply?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type reviewsCreateOrConnectWithoutUserInput = {
@@ -22375,8 +22381,8 @@ export namespace Prisma {
     verify_token_expires_at?: Date | string | null
     reset_password_token?: string | null
     reset_password_expires_at?: Date | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     bookings?: bookingsCreateNestedManyWithoutUserInput
     reviews?: reviewsCreateNestedManyWithoutUserInput
   }
@@ -22393,8 +22399,8 @@ export namespace Prisma {
     verify_token_expires_at?: Date | string | null
     reset_password_token?: string | null
     reset_password_expires_at?: Date | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     bookings?: bookingsUncheckedCreateNestedManyWithoutUserInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUserInput
   }
@@ -22415,8 +22421,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     category: property_categoriesCreateNestedOneWithoutPropertiesInput
     property_images?: property_imagesCreateNestedManyWithoutPropertyInput
     rooms?: roomsCreateNestedManyWithoutPropertyInput
@@ -22437,8 +22443,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     property_images?: property_imagesUncheckedCreateNestedManyWithoutPropertyInput
     rooms?: roomsUncheckedCreateNestedManyWithoutPropertyInput
     peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutPropertyInput
@@ -22550,8 +22556,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     tenant: tenantsCreateNestedOneWithoutPropertiesInput
     property_images?: property_imagesCreateNestedManyWithoutPropertyInput
     rooms?: roomsCreateNestedManyWithoutPropertyInput
@@ -22572,8 +22578,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     property_images?: property_imagesUncheckedCreateNestedManyWithoutPropertyInput
     rooms?: roomsUncheckedCreateNestedManyWithoutPropertyInput
     peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutPropertyInput
@@ -22613,8 +22619,8 @@ export namespace Prisma {
     address: string
     phone_number: string
     logo?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     user: usersCreateNestedOneWithoutTenantsInput
   }
 
@@ -22625,8 +22631,8 @@ export namespace Prisma {
     address: string
     phone_number: string
     logo?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type tenantsCreateOrConnectWithoutPropertiesInput = {
@@ -22638,16 +22644,16 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type property_categoriesUncheckedCreateWithoutPropertiesInput = {
     id?: string
     name: string
     description?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type property_categoriesCreateOrConnectWithoutPropertiesInput = {
@@ -22658,13 +22664,13 @@ export namespace Prisma {
   export type property_imagesCreateWithoutPropertyInput = {
     id?: string
     image_url: string
-    created_at: Date | string
+    created_at?: Date | string
   }
 
   export type property_imagesUncheckedCreateWithoutPropertyInput = {
     id?: string
     image_url: string
-    created_at: Date | string
+    created_at?: Date | string
   }
 
   export type property_imagesCreateOrConnectWithoutPropertyInput = {
@@ -22684,8 +22690,8 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     room_images?: room_imagesCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityCreateNestedManyWithoutRoomInput
     peak_season_rates?: peak_season_ratesCreateNestedManyWithoutRoomInput
@@ -22699,8 +22705,8 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     room_images?: room_imagesUncheckedCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityUncheckedCreateNestedManyWithoutRoomInput
     peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutRoomInput
@@ -22723,8 +22729,8 @@ export namespace Prisma {
     end_date: Date | string
     price_change_type: $Enums.PriceChangeType
     price_change_value: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     room: roomsCreateNestedOneWithoutPeak_season_ratesInput
   }
 
@@ -22735,8 +22741,8 @@ export namespace Prisma {
     end_date: Date | string
     price_change_type: $Enums.PriceChangeType
     price_change_value: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type peak_season_ratesCreateOrConnectWithoutPropertyInput = {
@@ -22755,9 +22761,9 @@ export namespace Prisma {
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
-    payment_deadline: Date | string
-    created_at: Date | string
-    updated_at: Date | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     user: usersCreateNestedOneWithoutBookingsInput
     booking_rooms?: booking_roomsCreateNestedManyWithoutBookingInput
     payments?: paymentsCreateNestedManyWithoutBookingInput
@@ -22771,9 +22777,9 @@ export namespace Prisma {
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
-    payment_deadline: Date | string
-    created_at: Date | string
-    updated_at: Date | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutBookingInput
     payments?: paymentsUncheckedCreateNestedManyWithoutBookingInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutBookingInput
@@ -22793,8 +22799,8 @@ export namespace Prisma {
     id?: string
     comment?: string | null
     tenant_reply?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     booking: bookingsCreateNestedOneWithoutReviewsInput
     user: usersCreateNestedOneWithoutReviewsInput
   }
@@ -22805,8 +22811,8 @@ export namespace Prisma {
     user_id: string
     comment?: string | null
     tenant_reply?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type reviewsCreateOrConnectWithoutPropertyInput = {
@@ -23010,8 +23016,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     tenant: tenantsCreateNestedOneWithoutPropertiesInput
     category: property_categoriesCreateNestedOneWithoutPropertiesInput
     rooms?: roomsCreateNestedManyWithoutPropertyInput
@@ -23033,8 +23039,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     rooms?: roomsUncheckedCreateNestedManyWithoutPropertyInput
     peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutPropertyInput
     bookings?: bookingsUncheckedCreateNestedManyWithoutPropertyInput
@@ -23110,8 +23116,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     tenant: tenantsCreateNestedOneWithoutPropertiesInput
     category: property_categoriesCreateNestedOneWithoutPropertiesInput
     property_images?: property_imagesCreateNestedManyWithoutPropertyInput
@@ -23133,8 +23139,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     property_images?: property_imagesUncheckedCreateNestedManyWithoutPropertyInput
     peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutPropertyInput
     bookings?: bookingsUncheckedCreateNestedManyWithoutPropertyInput
@@ -23149,13 +23155,13 @@ export namespace Prisma {
   export type room_imagesCreateWithoutRoomInput = {
     id?: string
     image_url: string
-    created_at: Date | string
+    created_at?: Date | string
   }
 
   export type room_imagesUncheckedCreateWithoutRoomInput = {
     id?: string
     image_url: string
-    created_at: Date | string
+    created_at?: Date | string
   }
 
   export type room_imagesCreateOrConnectWithoutRoomInput = {
@@ -23173,8 +23179,8 @@ export namespace Prisma {
     date: Date | string
     is_available: boolean
     price_override?: Decimal | DecimalJsLike | number | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type room_availabilityUncheckedCreateWithoutRoomInput = {
@@ -23182,8 +23188,8 @@ export namespace Prisma {
     date: Date | string
     is_available: boolean
     price_override?: Decimal | DecimalJsLike | number | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type room_availabilityCreateOrConnectWithoutRoomInput = {
@@ -23202,8 +23208,8 @@ export namespace Prisma {
     end_date: Date | string
     price_change_type: $Enums.PriceChangeType
     price_change_value: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     property: propertiesCreateNestedOneWithoutPeak_season_ratesInput
   }
 
@@ -23214,8 +23220,8 @@ export namespace Prisma {
     end_date: Date | string
     price_change_type: $Enums.PriceChangeType
     price_change_value: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type peak_season_ratesCreateOrConnectWithoutRoomInput = {
@@ -23234,8 +23240,8 @@ export namespace Prisma {
     price_per_night: Decimal | DecimalJsLike | number | string
     nights: number
     subtotal: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     booking: bookingsCreateNestedOneWithoutBooking_roomsInput
   }
 
@@ -23246,8 +23252,8 @@ export namespace Prisma {
     price_per_night: Decimal | DecimalJsLike | number | string
     nights: number
     subtotal: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type booking_roomsCreateOrConnectWithoutRoomInput = {
@@ -23422,8 +23428,8 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     property: propertiesCreateNestedOneWithoutRoomsInput
     room_availability?: room_availabilityCreateNestedManyWithoutRoomInput
     peak_season_rates?: peak_season_ratesCreateNestedManyWithoutRoomInput
@@ -23438,8 +23444,8 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     room_availability?: room_availabilityUncheckedCreateNestedManyWithoutRoomInput
     peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutRoomInput
     booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutRoomInput
@@ -23498,8 +23504,8 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     property: propertiesCreateNestedOneWithoutRoomsInput
     room_images?: room_imagesCreateNestedManyWithoutRoomInput
     peak_season_rates?: peak_season_ratesCreateNestedManyWithoutRoomInput
@@ -23514,8 +23520,8 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     room_images?: room_imagesUncheckedCreateNestedManyWithoutRoomInput
     peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutRoomInput
     booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutRoomInput
@@ -23578,8 +23584,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     tenant: tenantsCreateNestedOneWithoutPropertiesInput
     category: property_categoriesCreateNestedOneWithoutPropertiesInput
     property_images?: property_imagesCreateNestedManyWithoutPropertyInput
@@ -23601,8 +23607,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     property_images?: property_imagesUncheckedCreateNestedManyWithoutPropertyInput
     rooms?: roomsUncheckedCreateNestedManyWithoutPropertyInput
     bookings?: bookingsUncheckedCreateNestedManyWithoutPropertyInput
@@ -23621,8 +23627,8 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     property: propertiesCreateNestedOneWithoutRoomsInput
     room_images?: room_imagesCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityCreateNestedManyWithoutRoomInput
@@ -23637,8 +23643,8 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     room_images?: room_imagesUncheckedCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityUncheckedCreateNestedManyWithoutRoomInput
     booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutRoomInput
@@ -23755,8 +23761,8 @@ export namespace Prisma {
     verify_token_expires_at?: Date | string | null
     reset_password_token?: string | null
     reset_password_expires_at?: Date | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     tenants?: tenantsCreateNestedManyWithoutUserInput
     reviews?: reviewsCreateNestedManyWithoutUserInput
   }
@@ -23773,8 +23779,8 @@ export namespace Prisma {
     verify_token_expires_at?: Date | string | null
     reset_password_token?: string | null
     reset_password_expires_at?: Date | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     tenants?: tenantsUncheckedCreateNestedManyWithoutUserInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUserInput
   }
@@ -23795,8 +23801,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     tenant: tenantsCreateNestedOneWithoutPropertiesInput
     category: property_categoriesCreateNestedOneWithoutPropertiesInput
     property_images?: property_imagesCreateNestedManyWithoutPropertyInput
@@ -23818,8 +23824,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     property_images?: property_imagesUncheckedCreateNestedManyWithoutPropertyInput
     rooms?: roomsUncheckedCreateNestedManyWithoutPropertyInput
     peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutPropertyInput
@@ -23837,8 +23843,8 @@ export namespace Prisma {
     price_per_night: Decimal | DecimalJsLike | number | string
     nights: number
     subtotal: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     room: roomsCreateNestedOneWithoutBooking_roomsInput
   }
 
@@ -23849,8 +23855,8 @@ export namespace Prisma {
     price_per_night: Decimal | DecimalJsLike | number | string
     nights: number
     subtotal: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type booking_roomsCreateOrConnectWithoutBookingInput = {
@@ -23870,8 +23876,8 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     status: $Enums.PaymentStatus
     paid_at?: Date | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type paymentsUncheckedCreateWithoutBookingInput = {
@@ -23881,8 +23887,8 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     status: $Enums.PaymentStatus
     paid_at?: Date | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type paymentsCreateOrConnectWithoutBookingInput = {
@@ -23899,8 +23905,8 @@ export namespace Prisma {
     id?: string
     comment?: string | null
     tenant_reply?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     user: usersCreateNestedOneWithoutReviewsInput
     property: propertiesCreateNestedOneWithoutReviewsInput
   }
@@ -23911,8 +23917,8 @@ export namespace Prisma {
     property_id: string
     comment?: string | null
     tenant_reply?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type reviewsCreateOrConnectWithoutBookingInput = {
@@ -24094,9 +24100,9 @@ export namespace Prisma {
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
-    payment_deadline: Date | string
-    created_at: Date | string
-    updated_at: Date | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     user: usersCreateNestedOneWithoutBookingsInput
     property: propertiesCreateNestedOneWithoutBookingsInput
     payments?: paymentsCreateNestedManyWithoutBookingInput
@@ -24111,9 +24117,9 @@ export namespace Prisma {
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
-    payment_deadline: Date | string
-    created_at: Date | string
-    updated_at: Date | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     payments?: paymentsUncheckedCreateNestedManyWithoutBookingInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutBookingInput
   }
@@ -24130,8 +24136,8 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     property: propertiesCreateNestedOneWithoutRoomsInput
     room_images?: room_imagesCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityCreateNestedManyWithoutRoomInput
@@ -24146,8 +24152,8 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     room_images?: room_imagesUncheckedCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityUncheckedCreateNestedManyWithoutRoomInput
     peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutRoomInput
@@ -24246,9 +24252,9 @@ export namespace Prisma {
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
-    payment_deadline: Date | string
-    created_at: Date | string
-    updated_at: Date | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     user: usersCreateNestedOneWithoutBookingsInput
     property: propertiesCreateNestedOneWithoutBookingsInput
     booking_rooms?: booking_roomsCreateNestedManyWithoutBookingInput
@@ -24263,9 +24269,9 @@ export namespace Prisma {
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
-    payment_deadline: Date | string
-    created_at: Date | string
-    updated_at: Date | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutBookingInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutBookingInput
   }
@@ -24322,9 +24328,9 @@ export namespace Prisma {
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
-    payment_deadline: Date | string
-    created_at: Date | string
-    updated_at: Date | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     user: usersCreateNestedOneWithoutBookingsInput
     property: propertiesCreateNestedOneWithoutBookingsInput
     booking_rooms?: booking_roomsCreateNestedManyWithoutBookingInput
@@ -24339,9 +24345,9 @@ export namespace Prisma {
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
-    payment_deadline: Date | string
-    created_at: Date | string
-    updated_at: Date | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutBookingInput
     payments?: paymentsUncheckedCreateNestedManyWithoutBookingInput
   }
@@ -24363,8 +24369,8 @@ export namespace Prisma {
     verify_token_expires_at?: Date | string | null
     reset_password_token?: string | null
     reset_password_expires_at?: Date | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     tenants?: tenantsCreateNestedManyWithoutUserInput
     bookings?: bookingsCreateNestedManyWithoutUserInput
   }
@@ -24381,8 +24387,8 @@ export namespace Prisma {
     verify_token_expires_at?: Date | string | null
     reset_password_token?: string | null
     reset_password_expires_at?: Date | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     tenants?: tenantsUncheckedCreateNestedManyWithoutUserInput
     bookings?: bookingsUncheckedCreateNestedManyWithoutUserInput
   }
@@ -24403,8 +24409,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     tenant: tenantsCreateNestedOneWithoutPropertiesInput
     category: property_categoriesCreateNestedOneWithoutPropertiesInput
     property_images?: property_imagesCreateNestedManyWithoutPropertyInput
@@ -24426,8 +24432,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
     property_images?: property_imagesUncheckedCreateNestedManyWithoutPropertyInput
     rooms?: roomsUncheckedCreateNestedManyWithoutPropertyInput
     peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutPropertyInput
@@ -24586,8 +24592,8 @@ export namespace Prisma {
     address: string
     phone_number: string
     logo?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type bookingsCreateManyUserInput = {
@@ -24597,9 +24603,9 @@ export namespace Prisma {
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
-    payment_deadline: Date | string
-    created_at: Date | string
-    updated_at: Date | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type reviewsCreateManyUserInput = {
@@ -24608,8 +24614,8 @@ export namespace Prisma {
     property_id: string
     comment?: string | null
     tenant_reply?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type tenantsUpdateWithoutUserInput = {
@@ -24728,8 +24734,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type propertiesUpdateWithoutTenantInput = {
@@ -24802,8 +24808,8 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type propertiesUpdateWithoutCategoryInput = {
@@ -24867,7 +24873,7 @@ export namespace Prisma {
   export type property_imagesCreateManyPropertyInput = {
     id?: string
     image_url: string
-    created_at: Date | string
+    created_at?: Date | string
   }
 
   export type roomsCreateManyPropertyInput = {
@@ -24877,8 +24883,8 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type peak_season_ratesCreateManyPropertyInput = {
@@ -24888,8 +24894,8 @@ export namespace Prisma {
     end_date: Date | string
     price_change_type: $Enums.PriceChangeType
     price_change_value: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type bookingsCreateManyPropertyInput = {
@@ -24899,9 +24905,9 @@ export namespace Prisma {
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
-    payment_deadline: Date | string
-    created_at: Date | string
-    updated_at: Date | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type reviewsCreateManyPropertyInput = {
@@ -24910,8 +24916,8 @@ export namespace Prisma {
     user_id: string
     comment?: string | null
     tenant_reply?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type property_imagesUpdateWithoutPropertyInput = {
@@ -25081,7 +25087,7 @@ export namespace Prisma {
   export type room_imagesCreateManyRoomInput = {
     id?: string
     image_url: string
-    created_at: Date | string
+    created_at?: Date | string
   }
 
   export type room_availabilityCreateManyRoomInput = {
@@ -25089,8 +25095,8 @@ export namespace Prisma {
     date: Date | string
     is_available: boolean
     price_override?: Decimal | DecimalJsLike | number | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type peak_season_ratesCreateManyRoomInput = {
@@ -25100,8 +25106,8 @@ export namespace Prisma {
     end_date: Date | string
     price_change_type: $Enums.PriceChangeType
     price_change_value: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type booking_roomsCreateManyRoomInput = {
@@ -25111,8 +25117,8 @@ export namespace Prisma {
     price_per_night: Decimal | DecimalJsLike | number | string
     nights: number
     subtotal: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type room_imagesUpdateWithoutRoomInput = {
@@ -25233,8 +25239,8 @@ export namespace Prisma {
     price_per_night: Decimal | DecimalJsLike | number | string
     nights: number
     subtotal: Decimal | DecimalJsLike | number | string
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type paymentsCreateManyBookingInput = {
@@ -25244,8 +25250,8 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     status: $Enums.PaymentStatus
     paid_at?: Date | string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type reviewsCreateManyBookingInput = {
@@ -25254,8 +25260,8 @@ export namespace Prisma {
     property_id: string
     comment?: string | null
     tenant_reply?: string | null
-    created_at: Date | string
-    updated_at: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type booking_roomsUpdateWithoutBookingInput = {

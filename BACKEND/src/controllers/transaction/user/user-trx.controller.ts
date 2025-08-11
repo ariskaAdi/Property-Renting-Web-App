@@ -40,9 +40,10 @@ class UserTransactions {
       // Checking Room Availability
       const roomAvailability = await prisma.room_availability.findUnique({
         where: {
-          id: req.params.id, // ! Make sure the route includes id in its path
-          room_id: room_id,
-          is_available: true,
+          room_id_date: {
+            room_id,
+            date: new Date(check_in_date)
+          }
         },
       });
 

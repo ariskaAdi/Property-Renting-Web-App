@@ -22,6 +22,7 @@ model account_table {
   email             String              @unique
   role              account_role
   password          String
+  image             String
   created_at        DateTime            @default(now())
   transaction_table transaction_table[]
   properties_table  properties_table[]
@@ -38,10 +39,13 @@ model transaction_table {
   id                 Int                @id @default(autoincrement())
   account_id         Int
   properties_id      Int
+  price              Int
   booking_date_start DateTime
   booking_date_end   DateTime
   payment_proof_url  String
   created_at         DateTime           @default(now())
+  expires_at         DateTime
+  quantity           Int
   transaction_status trx_status
   account_table      account_table      @relation(fields: [account_id], references: [id])
   properties_table   properties_table   @relation(fields: [properties_id], references: [id])
@@ -90,7 +94,9 @@ model user_review {
   account_id        Int
   properties_id     Int
   transaction_id    Int
+  rating            Int
   review            String
+  created_at        DateTime          @default(now())
   account_table     account_table     @relation(fields: [account_id], references: [id])
   properties_table  properties_table  @relation(fields: [properties_id], references: [id])
   transaction_table transaction_table @relation(fields: [transaction_id], references: [id])

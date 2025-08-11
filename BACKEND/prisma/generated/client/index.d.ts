@@ -1540,6 +1540,7 @@ export namespace Prisma {
     email: string | null
     role: $Enums.account_role | null
     password: string | null
+    image: string | null
     created_at: Date | null
   }
 
@@ -1550,6 +1551,7 @@ export namespace Prisma {
     email: string | null
     role: $Enums.account_role | null
     password: string | null
+    image: string | null
     created_at: Date | null
   }
 
@@ -1560,6 +1562,7 @@ export namespace Prisma {
     email: number
     role: number
     password: number
+    image: number
     created_at: number
     _all: number
   }
@@ -1580,6 +1583,7 @@ export namespace Prisma {
     email?: true
     role?: true
     password?: true
+    image?: true
     created_at?: true
   }
 
@@ -1590,6 +1594,7 @@ export namespace Prisma {
     email?: true
     role?: true
     password?: true
+    image?: true
     created_at?: true
   }
 
@@ -1600,6 +1605,7 @@ export namespace Prisma {
     email?: true
     role?: true
     password?: true
+    image?: true
     created_at?: true
     _all?: true
   }
@@ -1697,6 +1703,7 @@ export namespace Prisma {
     email: string
     role: $Enums.account_role
     password: string
+    image: string
     created_at: Date
     _count: Account_tableCountAggregateOutputType | null
     _avg: Account_tableAvgAggregateOutputType | null
@@ -1726,6 +1733,7 @@ export namespace Prisma {
     email?: boolean
     role?: boolean
     password?: boolean
+    image?: boolean
     created_at?: boolean
     transaction_table?: boolean | account_table$transaction_tableArgs<ExtArgs>
     properties_table?: boolean | account_table$properties_tableArgs<ExtArgs>
@@ -1741,6 +1749,7 @@ export namespace Prisma {
     email?: boolean
     role?: boolean
     password?: boolean
+    image?: boolean
     created_at?: boolean
   }, ExtArgs["result"]["account_table"]>
 
@@ -1751,6 +1760,7 @@ export namespace Prisma {
     email?: boolean
     role?: boolean
     password?: boolean
+    image?: boolean
     created_at?: boolean
   }, ExtArgs["result"]["account_table"]>
 
@@ -1761,10 +1771,11 @@ export namespace Prisma {
     email?: boolean
     role?: boolean
     password?: boolean
+    image?: boolean
     created_at?: boolean
   }
 
-  export type account_tableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullname" | "username" | "email" | "role" | "password" | "created_at", ExtArgs["result"]["account_table"]>
+  export type account_tableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullname" | "username" | "email" | "role" | "password" | "image" | "created_at", ExtArgs["result"]["account_table"]>
   export type account_tableInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     transaction_table?: boolean | account_table$transaction_tableArgs<ExtArgs>
     properties_table?: boolean | account_table$properties_tableArgs<ExtArgs>
@@ -1790,6 +1801,7 @@ export namespace Prisma {
       email: string
       role: $Enums.account_role
       password: string
+      image: string
       created_at: Date
     }, ExtArgs["result"]["account_table"]>
     composites: {}
@@ -2224,6 +2236,7 @@ export namespace Prisma {
     readonly email: FieldRef<"account_table", 'String'>
     readonly role: FieldRef<"account_table", 'account_role'>
     readonly password: FieldRef<"account_table", 'String'>
+    readonly image: FieldRef<"account_table", 'String'>
     readonly created_at: FieldRef<"account_table", 'DateTime'>
   }
     
@@ -2743,22 +2756,29 @@ export namespace Prisma {
     id: number | null
     account_id: number | null
     properties_id: number | null
+    price: number | null
+    quantity: number | null
   }
 
   export type Transaction_tableSumAggregateOutputType = {
     id: number | null
     account_id: number | null
     properties_id: number | null
+    price: number | null
+    quantity: number | null
   }
 
   export type Transaction_tableMinAggregateOutputType = {
     id: number | null
     account_id: number | null
     properties_id: number | null
+    price: number | null
     booking_date_start: Date | null
     booking_date_end: Date | null
     payment_proof_url: string | null
     created_at: Date | null
+    expires_at: Date | null
+    quantity: number | null
     transaction_status: $Enums.trx_status | null
   }
 
@@ -2766,10 +2786,13 @@ export namespace Prisma {
     id: number | null
     account_id: number | null
     properties_id: number | null
+    price: number | null
     booking_date_start: Date | null
     booking_date_end: Date | null
     payment_proof_url: string | null
     created_at: Date | null
+    expires_at: Date | null
+    quantity: number | null
     transaction_status: $Enums.trx_status | null
   }
 
@@ -2777,10 +2800,13 @@ export namespace Prisma {
     id: number
     account_id: number
     properties_id: number
+    price: number
     booking_date_start: number
     booking_date_end: number
     payment_proof_url: number
     created_at: number
+    expires_at: number
+    quantity: number
     transaction_status: number
     _all: number
   }
@@ -2790,22 +2816,29 @@ export namespace Prisma {
     id?: true
     account_id?: true
     properties_id?: true
+    price?: true
+    quantity?: true
   }
 
   export type Transaction_tableSumAggregateInputType = {
     id?: true
     account_id?: true
     properties_id?: true
+    price?: true
+    quantity?: true
   }
 
   export type Transaction_tableMinAggregateInputType = {
     id?: true
     account_id?: true
     properties_id?: true
+    price?: true
     booking_date_start?: true
     booking_date_end?: true
     payment_proof_url?: true
     created_at?: true
+    expires_at?: true
+    quantity?: true
     transaction_status?: true
   }
 
@@ -2813,10 +2846,13 @@ export namespace Prisma {
     id?: true
     account_id?: true
     properties_id?: true
+    price?: true
     booking_date_start?: true
     booking_date_end?: true
     payment_proof_url?: true
     created_at?: true
+    expires_at?: true
+    quantity?: true
     transaction_status?: true
   }
 
@@ -2824,10 +2860,13 @@ export namespace Prisma {
     id?: true
     account_id?: true
     properties_id?: true
+    price?: true
     booking_date_start?: true
     booking_date_end?: true
     payment_proof_url?: true
     created_at?: true
+    expires_at?: true
+    quantity?: true
     transaction_status?: true
     _all?: true
   }
@@ -2922,10 +2961,13 @@ export namespace Prisma {
     id: number
     account_id: number
     properties_id: number
+    price: number
     booking_date_start: Date
     booking_date_end: Date
     payment_proof_url: string
     created_at: Date
+    expires_at: Date
+    quantity: number
     transaction_status: $Enums.trx_status
     _count: Transaction_tableCountAggregateOutputType | null
     _avg: Transaction_tableAvgAggregateOutputType | null
@@ -2952,10 +2994,13 @@ export namespace Prisma {
     id?: boolean
     account_id?: boolean
     properties_id?: boolean
+    price?: boolean
     booking_date_start?: boolean
     booking_date_end?: boolean
     payment_proof_url?: boolean
     created_at?: boolean
+    expires_at?: boolean
+    quantity?: boolean
     transaction_status?: boolean
     account_table?: boolean | account_tableDefaultArgs<ExtArgs>
     properties_table?: boolean | properties_tableDefaultArgs<ExtArgs>
@@ -2968,10 +3013,13 @@ export namespace Prisma {
     id?: boolean
     account_id?: boolean
     properties_id?: boolean
+    price?: boolean
     booking_date_start?: boolean
     booking_date_end?: boolean
     payment_proof_url?: boolean
     created_at?: boolean
+    expires_at?: boolean
+    quantity?: boolean
     transaction_status?: boolean
     account_table?: boolean | account_tableDefaultArgs<ExtArgs>
     properties_table?: boolean | properties_tableDefaultArgs<ExtArgs>
@@ -2981,10 +3029,13 @@ export namespace Prisma {
     id?: boolean
     account_id?: boolean
     properties_id?: boolean
+    price?: boolean
     booking_date_start?: boolean
     booking_date_end?: boolean
     payment_proof_url?: boolean
     created_at?: boolean
+    expires_at?: boolean
+    quantity?: boolean
     transaction_status?: boolean
     account_table?: boolean | account_tableDefaultArgs<ExtArgs>
     properties_table?: boolean | properties_tableDefaultArgs<ExtArgs>
@@ -2994,14 +3045,17 @@ export namespace Prisma {
     id?: boolean
     account_id?: boolean
     properties_id?: boolean
+    price?: boolean
     booking_date_start?: boolean
     booking_date_end?: boolean
     payment_proof_url?: boolean
     created_at?: boolean
+    expires_at?: boolean
+    quantity?: boolean
     transaction_status?: boolean
   }
 
-  export type transaction_tableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "account_id" | "properties_id" | "booking_date_start" | "booking_date_end" | "payment_proof_url" | "created_at" | "transaction_status", ExtArgs["result"]["transaction_table"]>
+  export type transaction_tableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "account_id" | "properties_id" | "price" | "booking_date_start" | "booking_date_end" | "payment_proof_url" | "created_at" | "expires_at" | "quantity" | "transaction_status", ExtArgs["result"]["transaction_table"]>
   export type transaction_tableInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     account_table?: boolean | account_tableDefaultArgs<ExtArgs>
     properties_table?: boolean | properties_tableDefaultArgs<ExtArgs>
@@ -3030,10 +3084,13 @@ export namespace Prisma {
       id: number
       account_id: number
       properties_id: number
+      price: number
       booking_date_start: Date
       booking_date_end: Date
       payment_proof_url: string
       created_at: Date
+      expires_at: Date
+      quantity: number
       transaction_status: $Enums.trx_status
     }, ExtArgs["result"]["transaction_table"]>
     composites: {}
@@ -3465,10 +3522,13 @@ export namespace Prisma {
     readonly id: FieldRef<"transaction_table", 'Int'>
     readonly account_id: FieldRef<"transaction_table", 'Int'>
     readonly properties_id: FieldRef<"transaction_table", 'Int'>
+    readonly price: FieldRef<"transaction_table", 'Int'>
     readonly booking_date_start: FieldRef<"transaction_table", 'DateTime'>
     readonly booking_date_end: FieldRef<"transaction_table", 'DateTime'>
     readonly payment_proof_url: FieldRef<"transaction_table", 'String'>
     readonly created_at: FieldRef<"transaction_table", 'DateTime'>
+    readonly expires_at: FieldRef<"transaction_table", 'DateTime'>
+    readonly quantity: FieldRef<"transaction_table", 'Int'>
     readonly transaction_status: FieldRef<"transaction_table", 'trx_status'>
   }
     
@@ -6306,6 +6366,7 @@ export namespace Prisma {
     account_id: number | null
     properties_id: number | null
     transaction_id: number | null
+    rating: number | null
   }
 
   export type User_reviewSumAggregateOutputType = {
@@ -6313,6 +6374,7 @@ export namespace Prisma {
     account_id: number | null
     properties_id: number | null
     transaction_id: number | null
+    rating: number | null
   }
 
   export type User_reviewMinAggregateOutputType = {
@@ -6320,7 +6382,9 @@ export namespace Prisma {
     account_id: number | null
     properties_id: number | null
     transaction_id: number | null
+    rating: number | null
     review: string | null
+    created_at: Date | null
   }
 
   export type User_reviewMaxAggregateOutputType = {
@@ -6328,7 +6392,9 @@ export namespace Prisma {
     account_id: number | null
     properties_id: number | null
     transaction_id: number | null
+    rating: number | null
     review: string | null
+    created_at: Date | null
   }
 
   export type User_reviewCountAggregateOutputType = {
@@ -6336,7 +6402,9 @@ export namespace Prisma {
     account_id: number
     properties_id: number
     transaction_id: number
+    rating: number
     review: number
+    created_at: number
     _all: number
   }
 
@@ -6346,6 +6414,7 @@ export namespace Prisma {
     account_id?: true
     properties_id?: true
     transaction_id?: true
+    rating?: true
   }
 
   export type User_reviewSumAggregateInputType = {
@@ -6353,6 +6422,7 @@ export namespace Prisma {
     account_id?: true
     properties_id?: true
     transaction_id?: true
+    rating?: true
   }
 
   export type User_reviewMinAggregateInputType = {
@@ -6360,7 +6430,9 @@ export namespace Prisma {
     account_id?: true
     properties_id?: true
     transaction_id?: true
+    rating?: true
     review?: true
+    created_at?: true
   }
 
   export type User_reviewMaxAggregateInputType = {
@@ -6368,7 +6440,9 @@ export namespace Prisma {
     account_id?: true
     properties_id?: true
     transaction_id?: true
+    rating?: true
     review?: true
+    created_at?: true
   }
 
   export type User_reviewCountAggregateInputType = {
@@ -6376,7 +6450,9 @@ export namespace Prisma {
     account_id?: true
     properties_id?: true
     transaction_id?: true
+    rating?: true
     review?: true
+    created_at?: true
     _all?: true
   }
 
@@ -6471,7 +6547,9 @@ export namespace Prisma {
     account_id: number
     properties_id: number
     transaction_id: number
+    rating: number
     review: string
+    created_at: Date
     _count: User_reviewCountAggregateOutputType | null
     _avg: User_reviewAvgAggregateOutputType | null
     _sum: User_reviewSumAggregateOutputType | null
@@ -6498,7 +6576,9 @@ export namespace Prisma {
     account_id?: boolean
     properties_id?: boolean
     transaction_id?: boolean
+    rating?: boolean
     review?: boolean
+    created_at?: boolean
     account_table?: boolean | account_tableDefaultArgs<ExtArgs>
     properties_table?: boolean | properties_tableDefaultArgs<ExtArgs>
     transaction_table?: boolean | transaction_tableDefaultArgs<ExtArgs>
@@ -6509,7 +6589,9 @@ export namespace Prisma {
     account_id?: boolean
     properties_id?: boolean
     transaction_id?: boolean
+    rating?: boolean
     review?: boolean
+    created_at?: boolean
     account_table?: boolean | account_tableDefaultArgs<ExtArgs>
     properties_table?: boolean | properties_tableDefaultArgs<ExtArgs>
     transaction_table?: boolean | transaction_tableDefaultArgs<ExtArgs>
@@ -6520,7 +6602,9 @@ export namespace Prisma {
     account_id?: boolean
     properties_id?: boolean
     transaction_id?: boolean
+    rating?: boolean
     review?: boolean
+    created_at?: boolean
     account_table?: boolean | account_tableDefaultArgs<ExtArgs>
     properties_table?: boolean | properties_tableDefaultArgs<ExtArgs>
     transaction_table?: boolean | transaction_tableDefaultArgs<ExtArgs>
@@ -6531,10 +6615,12 @@ export namespace Prisma {
     account_id?: boolean
     properties_id?: boolean
     transaction_id?: boolean
+    rating?: boolean
     review?: boolean
+    created_at?: boolean
   }
 
-  export type user_reviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "account_id" | "properties_id" | "transaction_id" | "review", ExtArgs["result"]["user_review"]>
+  export type user_reviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "account_id" | "properties_id" | "transaction_id" | "rating" | "review" | "created_at", ExtArgs["result"]["user_review"]>
   export type user_reviewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     account_table?: boolean | account_tableDefaultArgs<ExtArgs>
     properties_table?: boolean | properties_tableDefaultArgs<ExtArgs>
@@ -6563,7 +6649,9 @@ export namespace Prisma {
       account_id: number
       properties_id: number
       transaction_id: number
+      rating: number
       review: string
+      created_at: Date
     }, ExtArgs["result"]["user_review"]>
     composites: {}
   }
@@ -6994,7 +7082,9 @@ export namespace Prisma {
     readonly account_id: FieldRef<"user_review", 'Int'>
     readonly properties_id: FieldRef<"user_review", 'Int'>
     readonly transaction_id: FieldRef<"user_review", 'Int'>
+    readonly rating: FieldRef<"user_review", 'Int'>
     readonly review: FieldRef<"user_review", 'String'>
+    readonly created_at: FieldRef<"user_review", 'DateTime'>
   }
     
 
@@ -8567,6 +8657,7 @@ export namespace Prisma {
     email: 'email',
     role: 'role',
     password: 'password',
+    image: 'image',
     created_at: 'created_at'
   };
 
@@ -8577,10 +8668,13 @@ export namespace Prisma {
     id: 'id',
     account_id: 'account_id',
     properties_id: 'properties_id',
+    price: 'price',
     booking_date_start: 'booking_date_start',
     booking_date_end: 'booking_date_end',
     payment_proof_url: 'payment_proof_url',
     created_at: 'created_at',
+    expires_at: 'expires_at',
+    quantity: 'quantity',
     transaction_status: 'transaction_status'
   };
 
@@ -8624,7 +8718,9 @@ export namespace Prisma {
     account_id: 'account_id',
     properties_id: 'properties_id',
     transaction_id: 'transaction_id',
-    review: 'review'
+    rating: 'rating',
+    review: 'review',
+    created_at: 'created_at'
   };
 
   export type User_reviewScalarFieldEnum = (typeof User_reviewScalarFieldEnum)[keyof typeof User_reviewScalarFieldEnum]
@@ -8760,6 +8856,7 @@ export namespace Prisma {
     email?: StringFilter<"account_table"> | string
     role?: Enumaccount_roleFilter<"account_table"> | $Enums.account_role
     password?: StringFilter<"account_table"> | string
+    image?: StringFilter<"account_table"> | string
     created_at?: DateTimeFilter<"account_table"> | Date | string
     transaction_table?: Transaction_tableListRelationFilter
     properties_table?: Properties_tableListRelationFilter
@@ -8774,6 +8871,7 @@ export namespace Prisma {
     email?: SortOrder
     role?: SortOrder
     password?: SortOrder
+    image?: SortOrder
     created_at?: SortOrder
     transaction_table?: transaction_tableOrderByRelationAggregateInput
     properties_table?: properties_tableOrderByRelationAggregateInput
@@ -8791,6 +8889,7 @@ export namespace Prisma {
     fullname?: StringFilter<"account_table"> | string
     role?: Enumaccount_roleFilter<"account_table"> | $Enums.account_role
     password?: StringFilter<"account_table"> | string
+    image?: StringFilter<"account_table"> | string
     created_at?: DateTimeFilter<"account_table"> | Date | string
     transaction_table?: Transaction_tableListRelationFilter
     properties_table?: Properties_tableListRelationFilter
@@ -8805,6 +8904,7 @@ export namespace Prisma {
     email?: SortOrder
     role?: SortOrder
     password?: SortOrder
+    image?: SortOrder
     created_at?: SortOrder
     _count?: account_tableCountOrderByAggregateInput
     _avg?: account_tableAvgOrderByAggregateInput
@@ -8823,6 +8923,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"account_table"> | string
     role?: Enumaccount_roleWithAggregatesFilter<"account_table"> | $Enums.account_role
     password?: StringWithAggregatesFilter<"account_table"> | string
+    image?: StringWithAggregatesFilter<"account_table"> | string
     created_at?: DateTimeWithAggregatesFilter<"account_table"> | Date | string
   }
 
@@ -8833,10 +8934,13 @@ export namespace Prisma {
     id?: IntFilter<"transaction_table"> | number
     account_id?: IntFilter<"transaction_table"> | number
     properties_id?: IntFilter<"transaction_table"> | number
+    price?: IntFilter<"transaction_table"> | number
     booking_date_start?: DateTimeFilter<"transaction_table"> | Date | string
     booking_date_end?: DateTimeFilter<"transaction_table"> | Date | string
     payment_proof_url?: StringFilter<"transaction_table"> | string
     created_at?: DateTimeFilter<"transaction_table"> | Date | string
+    expires_at?: DateTimeFilter<"transaction_table"> | Date | string
+    quantity?: IntFilter<"transaction_table"> | number
     transaction_status?: Enumtrx_statusFilter<"transaction_table"> | $Enums.trx_status
     account_table?: XOR<Account_tableScalarRelationFilter, account_tableWhereInput>
     properties_table?: XOR<Properties_tableScalarRelationFilter, properties_tableWhereInput>
@@ -8848,10 +8952,13 @@ export namespace Prisma {
     id?: SortOrder
     account_id?: SortOrder
     properties_id?: SortOrder
+    price?: SortOrder
     booking_date_start?: SortOrder
     booking_date_end?: SortOrder
     payment_proof_url?: SortOrder
     created_at?: SortOrder
+    expires_at?: SortOrder
+    quantity?: SortOrder
     transaction_status?: SortOrder
     account_table?: account_tableOrderByWithRelationInput
     properties_table?: properties_tableOrderByWithRelationInput
@@ -8866,10 +8973,13 @@ export namespace Prisma {
     NOT?: transaction_tableWhereInput | transaction_tableWhereInput[]
     account_id?: IntFilter<"transaction_table"> | number
     properties_id?: IntFilter<"transaction_table"> | number
+    price?: IntFilter<"transaction_table"> | number
     booking_date_start?: DateTimeFilter<"transaction_table"> | Date | string
     booking_date_end?: DateTimeFilter<"transaction_table"> | Date | string
     payment_proof_url?: StringFilter<"transaction_table"> | string
     created_at?: DateTimeFilter<"transaction_table"> | Date | string
+    expires_at?: DateTimeFilter<"transaction_table"> | Date | string
+    quantity?: IntFilter<"transaction_table"> | number
     transaction_status?: Enumtrx_statusFilter<"transaction_table"> | $Enums.trx_status
     account_table?: XOR<Account_tableScalarRelationFilter, account_tableWhereInput>
     properties_table?: XOR<Properties_tableScalarRelationFilter, properties_tableWhereInput>
@@ -8881,10 +8991,13 @@ export namespace Prisma {
     id?: SortOrder
     account_id?: SortOrder
     properties_id?: SortOrder
+    price?: SortOrder
     booking_date_start?: SortOrder
     booking_date_end?: SortOrder
     payment_proof_url?: SortOrder
     created_at?: SortOrder
+    expires_at?: SortOrder
+    quantity?: SortOrder
     transaction_status?: SortOrder
     _count?: transaction_tableCountOrderByAggregateInput
     _avg?: transaction_tableAvgOrderByAggregateInput
@@ -8900,10 +9013,13 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"transaction_table"> | number
     account_id?: IntWithAggregatesFilter<"transaction_table"> | number
     properties_id?: IntWithAggregatesFilter<"transaction_table"> | number
+    price?: IntWithAggregatesFilter<"transaction_table"> | number
     booking_date_start?: DateTimeWithAggregatesFilter<"transaction_table"> | Date | string
     booking_date_end?: DateTimeWithAggregatesFilter<"transaction_table"> | Date | string
     payment_proof_url?: StringWithAggregatesFilter<"transaction_table"> | string
     created_at?: DateTimeWithAggregatesFilter<"transaction_table"> | Date | string
+    expires_at?: DateTimeWithAggregatesFilter<"transaction_table"> | Date | string
+    quantity?: IntWithAggregatesFilter<"transaction_table"> | number
     transaction_status?: Enumtrx_statusWithAggregatesFilter<"transaction_table"> | $Enums.trx_status
   }
 
@@ -9085,7 +9201,9 @@ export namespace Prisma {
     account_id?: IntFilter<"user_review"> | number
     properties_id?: IntFilter<"user_review"> | number
     transaction_id?: IntFilter<"user_review"> | number
+    rating?: IntFilter<"user_review"> | number
     review?: StringFilter<"user_review"> | string
+    created_at?: DateTimeFilter<"user_review"> | Date | string
     account_table?: XOR<Account_tableScalarRelationFilter, account_tableWhereInput>
     properties_table?: XOR<Properties_tableScalarRelationFilter, properties_tableWhereInput>
     transaction_table?: XOR<Transaction_tableScalarRelationFilter, transaction_tableWhereInput>
@@ -9096,7 +9214,9 @@ export namespace Prisma {
     account_id?: SortOrder
     properties_id?: SortOrder
     transaction_id?: SortOrder
+    rating?: SortOrder
     review?: SortOrder
+    created_at?: SortOrder
     account_table?: account_tableOrderByWithRelationInput
     properties_table?: properties_tableOrderByWithRelationInput
     transaction_table?: transaction_tableOrderByWithRelationInput
@@ -9110,7 +9230,9 @@ export namespace Prisma {
     account_id?: IntFilter<"user_review"> | number
     properties_id?: IntFilter<"user_review"> | number
     transaction_id?: IntFilter<"user_review"> | number
+    rating?: IntFilter<"user_review"> | number
     review?: StringFilter<"user_review"> | string
+    created_at?: DateTimeFilter<"user_review"> | Date | string
     account_table?: XOR<Account_tableScalarRelationFilter, account_tableWhereInput>
     properties_table?: XOR<Properties_tableScalarRelationFilter, properties_tableWhereInput>
     transaction_table?: XOR<Transaction_tableScalarRelationFilter, transaction_tableWhereInput>
@@ -9121,7 +9243,9 @@ export namespace Prisma {
     account_id?: SortOrder
     properties_id?: SortOrder
     transaction_id?: SortOrder
+    rating?: SortOrder
     review?: SortOrder
+    created_at?: SortOrder
     _count?: user_reviewCountOrderByAggregateInput
     _avg?: user_reviewAvgOrderByAggregateInput
     _max?: user_reviewMaxOrderByAggregateInput
@@ -9137,7 +9261,9 @@ export namespace Prisma {
     account_id?: IntWithAggregatesFilter<"user_review"> | number
     properties_id?: IntWithAggregatesFilter<"user_review"> | number
     transaction_id?: IntWithAggregatesFilter<"user_review"> | number
+    rating?: IntWithAggregatesFilter<"user_review"> | number
     review?: StringWithAggregatesFilter<"user_review"> | string
+    created_at?: DateTimeWithAggregatesFilter<"user_review"> | Date | string
   }
 
   export type booked_user_listWhereInput = {
@@ -9214,6 +9340,7 @@ export namespace Prisma {
     email: string
     role: $Enums.account_role
     password: string
+    image: string
     created_at?: Date | string
     transaction_table?: transaction_tableCreateNestedManyWithoutAccount_tableInput
     properties_table?: properties_tableCreateNestedManyWithoutAccount_tableInput
@@ -9228,6 +9355,7 @@ export namespace Prisma {
     email: string
     role: $Enums.account_role
     password: string
+    image: string
     created_at?: Date | string
     transaction_table?: transaction_tableUncheckedCreateNestedManyWithoutAccount_tableInput
     properties_table?: properties_tableUncheckedCreateNestedManyWithoutAccount_tableInput
@@ -9241,6 +9369,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: Enumaccount_roleFieldUpdateOperationsInput | $Enums.account_role
     password?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     transaction_table?: transaction_tableUpdateManyWithoutAccount_tableNestedInput
     properties_table?: properties_tableUpdateManyWithoutAccount_tableNestedInput
@@ -9255,6 +9384,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: Enumaccount_roleFieldUpdateOperationsInput | $Enums.account_role
     password?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     transaction_table?: transaction_tableUncheckedUpdateManyWithoutAccount_tableNestedInput
     properties_table?: properties_tableUncheckedUpdateManyWithoutAccount_tableNestedInput
@@ -9269,6 +9399,7 @@ export namespace Prisma {
     email: string
     role: $Enums.account_role
     password: string
+    image: string
     created_at?: Date | string
   }
 
@@ -9278,6 +9409,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: Enumaccount_roleFieldUpdateOperationsInput | $Enums.account_role
     password?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -9288,14 +9420,18 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: Enumaccount_roleFieldUpdateOperationsInput | $Enums.account_role
     password?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type transaction_tableCreateInput = {
+    price: number
     booking_date_start: Date | string
     booking_date_end: Date | string
     payment_proof_url: string
     created_at?: Date | string
+    expires_at: Date | string
+    quantity: number
     transaction_status: $Enums.trx_status
     account_table: account_tableCreateNestedOneWithoutTransaction_tableInput
     properties_table: properties_tableCreateNestedOneWithoutTransaction_tableInput
@@ -9307,20 +9443,26 @@ export namespace Prisma {
     id?: number
     account_id: number
     properties_id: number
+    price: number
     booking_date_start: Date | string
     booking_date_end: Date | string
     payment_proof_url: string
     created_at?: Date | string
+    expires_at: Date | string
+    quantity: number
     transaction_status: $Enums.trx_status
     user_review?: user_reviewUncheckedCreateNestedManyWithoutTransaction_tableInput
     booked_user_list?: booked_user_listUncheckedCreateNestedManyWithoutTransaction_tableInput
   }
 
   export type transaction_tableUpdateInput = {
+    price?: IntFieldUpdateOperationsInput | number
     booking_date_start?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
     payment_proof_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
     transaction_status?: Enumtrx_statusFieldUpdateOperationsInput | $Enums.trx_status
     account_table?: account_tableUpdateOneRequiredWithoutTransaction_tableNestedInput
     properties_table?: properties_tableUpdateOneRequiredWithoutTransaction_tableNestedInput
@@ -9332,10 +9474,13 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     account_id?: IntFieldUpdateOperationsInput | number
     properties_id?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
     booking_date_start?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
     payment_proof_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
     transaction_status?: Enumtrx_statusFieldUpdateOperationsInput | $Enums.trx_status
     user_review?: user_reviewUncheckedUpdateManyWithoutTransaction_tableNestedInput
     booked_user_list?: booked_user_listUncheckedUpdateManyWithoutTransaction_tableNestedInput
@@ -9345,18 +9490,24 @@ export namespace Prisma {
     id?: number
     account_id: number
     properties_id: number
+    price: number
     booking_date_start: Date | string
     booking_date_end: Date | string
     payment_proof_url: string
     created_at?: Date | string
+    expires_at: Date | string
+    quantity: number
     transaction_status: $Enums.trx_status
   }
 
   export type transaction_tableUpdateManyMutationInput = {
+    price?: IntFieldUpdateOperationsInput | number
     booking_date_start?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
     payment_proof_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
     transaction_status?: Enumtrx_statusFieldUpdateOperationsInput | $Enums.trx_status
   }
 
@@ -9364,10 +9515,13 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     account_id?: IntFieldUpdateOperationsInput | number
     properties_id?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
     booking_date_start?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
     payment_proof_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
     transaction_status?: Enumtrx_statusFieldUpdateOperationsInput | $Enums.trx_status
   }
 
@@ -9559,7 +9713,9 @@ export namespace Prisma {
   }
 
   export type user_reviewCreateInput = {
+    rating: number
     review: string
+    created_at?: Date | string
     account_table: account_tableCreateNestedOneWithoutUser_reviewInput
     properties_table: properties_tableCreateNestedOneWithoutUser_reviewInput
     transaction_table: transaction_tableCreateNestedOneWithoutUser_reviewInput
@@ -9570,11 +9726,15 @@ export namespace Prisma {
     account_id: number
     properties_id: number
     transaction_id: number
+    rating: number
     review: string
+    created_at?: Date | string
   }
 
   export type user_reviewUpdateInput = {
+    rating?: IntFieldUpdateOperationsInput | number
     review?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     account_table?: account_tableUpdateOneRequiredWithoutUser_reviewNestedInput
     properties_table?: properties_tableUpdateOneRequiredWithoutUser_reviewNestedInput
     transaction_table?: transaction_tableUpdateOneRequiredWithoutUser_reviewNestedInput
@@ -9585,7 +9745,9 @@ export namespace Prisma {
     account_id?: IntFieldUpdateOperationsInput | number
     properties_id?: IntFieldUpdateOperationsInput | number
     transaction_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
     review?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type user_reviewCreateManyInput = {
@@ -9593,11 +9755,15 @@ export namespace Prisma {
     account_id: number
     properties_id: number
     transaction_id: number
+    rating: number
     review: string
+    created_at?: Date | string
   }
 
   export type user_reviewUpdateManyMutationInput = {
+    rating?: IntFieldUpdateOperationsInput | number
     review?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type user_reviewUncheckedUpdateManyInput = {
@@ -9605,7 +9771,9 @@ export namespace Prisma {
     account_id?: IntFieldUpdateOperationsInput | number
     properties_id?: IntFieldUpdateOperationsInput | number
     transaction_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
     review?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type booked_user_listCreateInput = {
@@ -9756,6 +9924,7 @@ export namespace Prisma {
     email?: SortOrder
     role?: SortOrder
     password?: SortOrder
+    image?: SortOrder
     created_at?: SortOrder
   }
 
@@ -9770,6 +9939,7 @@ export namespace Prisma {
     email?: SortOrder
     role?: SortOrder
     password?: SortOrder
+    image?: SortOrder
     created_at?: SortOrder
   }
 
@@ -9780,6 +9950,7 @@ export namespace Prisma {
     email?: SortOrder
     role?: SortOrder
     password?: SortOrder
+    image?: SortOrder
     created_at?: SortOrder
   }
 
@@ -9866,10 +10037,13 @@ export namespace Prisma {
     id?: SortOrder
     account_id?: SortOrder
     properties_id?: SortOrder
+    price?: SortOrder
     booking_date_start?: SortOrder
     booking_date_end?: SortOrder
     payment_proof_url?: SortOrder
     created_at?: SortOrder
+    expires_at?: SortOrder
+    quantity?: SortOrder
     transaction_status?: SortOrder
   }
 
@@ -9877,16 +10051,21 @@ export namespace Prisma {
     id?: SortOrder
     account_id?: SortOrder
     properties_id?: SortOrder
+    price?: SortOrder
+    quantity?: SortOrder
   }
 
   export type transaction_tableMaxOrderByAggregateInput = {
     id?: SortOrder
     account_id?: SortOrder
     properties_id?: SortOrder
+    price?: SortOrder
     booking_date_start?: SortOrder
     booking_date_end?: SortOrder
     payment_proof_url?: SortOrder
     created_at?: SortOrder
+    expires_at?: SortOrder
+    quantity?: SortOrder
     transaction_status?: SortOrder
   }
 
@@ -9894,10 +10073,13 @@ export namespace Prisma {
     id?: SortOrder
     account_id?: SortOrder
     properties_id?: SortOrder
+    price?: SortOrder
     booking_date_start?: SortOrder
     booking_date_end?: SortOrder
     payment_proof_url?: SortOrder
     created_at?: SortOrder
+    expires_at?: SortOrder
+    quantity?: SortOrder
     transaction_status?: SortOrder
   }
 
@@ -9905,6 +10087,8 @@ export namespace Prisma {
     id?: SortOrder
     account_id?: SortOrder
     properties_id?: SortOrder
+    price?: SortOrder
+    quantity?: SortOrder
   }
 
   export type Enumtrx_statusWithAggregatesFilter<$PrismaModel = never> = {
@@ -10031,7 +10215,9 @@ export namespace Prisma {
     account_id?: SortOrder
     properties_id?: SortOrder
     transaction_id?: SortOrder
+    rating?: SortOrder
     review?: SortOrder
+    created_at?: SortOrder
   }
 
   export type user_reviewAvgOrderByAggregateInput = {
@@ -10039,6 +10225,7 @@ export namespace Prisma {
     account_id?: SortOrder
     properties_id?: SortOrder
     transaction_id?: SortOrder
+    rating?: SortOrder
   }
 
   export type user_reviewMaxOrderByAggregateInput = {
@@ -10046,7 +10233,9 @@ export namespace Prisma {
     account_id?: SortOrder
     properties_id?: SortOrder
     transaction_id?: SortOrder
+    rating?: SortOrder
     review?: SortOrder
+    created_at?: SortOrder
   }
 
   export type user_reviewMinOrderByAggregateInput = {
@@ -10054,7 +10243,9 @@ export namespace Prisma {
     account_id?: SortOrder
     properties_id?: SortOrder
     transaction_id?: SortOrder
+    rating?: SortOrder
     review?: SortOrder
+    created_at?: SortOrder
   }
 
   export type user_reviewSumOrderByAggregateInput = {
@@ -10062,6 +10253,7 @@ export namespace Prisma {
     account_id?: SortOrder
     properties_id?: SortOrder
     transaction_id?: SortOrder
+    rating?: SortOrder
   }
 
   export type booked_user_listCountOrderByAggregateInput = {
@@ -10764,10 +10956,13 @@ export namespace Prisma {
   }
 
   export type transaction_tableCreateWithoutAccount_tableInput = {
+    price: number
     booking_date_start: Date | string
     booking_date_end: Date | string
     payment_proof_url: string
     created_at?: Date | string
+    expires_at: Date | string
+    quantity: number
     transaction_status: $Enums.trx_status
     properties_table: properties_tableCreateNestedOneWithoutTransaction_tableInput
     user_review?: user_reviewCreateNestedManyWithoutTransaction_tableInput
@@ -10777,10 +10972,13 @@ export namespace Prisma {
   export type transaction_tableUncheckedCreateWithoutAccount_tableInput = {
     id?: number
     properties_id: number
+    price: number
     booking_date_start: Date | string
     booking_date_end: Date | string
     payment_proof_url: string
     created_at?: Date | string
+    expires_at: Date | string
+    quantity: number
     transaction_status: $Enums.trx_status
     user_review?: user_reviewUncheckedCreateNestedManyWithoutTransaction_tableInput
     booked_user_list?: booked_user_listUncheckedCreateNestedManyWithoutTransaction_tableInput
@@ -10838,7 +11036,9 @@ export namespace Prisma {
   }
 
   export type user_reviewCreateWithoutAccount_tableInput = {
+    rating: number
     review: string
+    created_at?: Date | string
     properties_table: properties_tableCreateNestedOneWithoutUser_reviewInput
     transaction_table: transaction_tableCreateNestedOneWithoutUser_reviewInput
   }
@@ -10847,7 +11047,9 @@ export namespace Prisma {
     id?: number
     properties_id: number
     transaction_id: number
+    rating: number
     review: string
+    created_at?: Date | string
   }
 
   export type user_reviewCreateOrConnectWithoutAccount_tableInput = {
@@ -10908,10 +11110,13 @@ export namespace Prisma {
     id?: IntFilter<"transaction_table"> | number
     account_id?: IntFilter<"transaction_table"> | number
     properties_id?: IntFilter<"transaction_table"> | number
+    price?: IntFilter<"transaction_table"> | number
     booking_date_start?: DateTimeFilter<"transaction_table"> | Date | string
     booking_date_end?: DateTimeFilter<"transaction_table"> | Date | string
     payment_proof_url?: StringFilter<"transaction_table"> | string
     created_at?: DateTimeFilter<"transaction_table"> | Date | string
+    expires_at?: DateTimeFilter<"transaction_table"> | Date | string
+    quantity?: IntFilter<"transaction_table"> | number
     transaction_status?: Enumtrx_statusFilter<"transaction_table"> | $Enums.trx_status
   }
 
@@ -10972,7 +11177,9 @@ export namespace Prisma {
     account_id?: IntFilter<"user_review"> | number
     properties_id?: IntFilter<"user_review"> | number
     transaction_id?: IntFilter<"user_review"> | number
+    rating?: IntFilter<"user_review"> | number
     review?: StringFilter<"user_review"> | string
+    created_at?: DateTimeFilter<"user_review"> | Date | string
   }
 
   export type booked_user_listUpsertWithWhereUniqueWithoutAccount_tableInput = {
@@ -11009,6 +11216,7 @@ export namespace Prisma {
     email: string
     role: $Enums.account_role
     password: string
+    image: string
     created_at?: Date | string
     properties_table?: properties_tableCreateNestedManyWithoutAccount_tableInput
     user_review?: user_reviewCreateNestedManyWithoutAccount_tableInput
@@ -11022,6 +11230,7 @@ export namespace Prisma {
     email: string
     role: $Enums.account_role
     password: string
+    image: string
     created_at?: Date | string
     properties_table?: properties_tableUncheckedCreateNestedManyWithoutAccount_tableInput
     user_review?: user_reviewUncheckedCreateNestedManyWithoutAccount_tableInput
@@ -11070,7 +11279,9 @@ export namespace Prisma {
   }
 
   export type user_reviewCreateWithoutTransaction_tableInput = {
+    rating: number
     review: string
+    created_at?: Date | string
     account_table: account_tableCreateNestedOneWithoutUser_reviewInput
     properties_table: properties_tableCreateNestedOneWithoutUser_reviewInput
   }
@@ -11079,7 +11290,9 @@ export namespace Prisma {
     id?: number
     account_id: number
     properties_id: number
+    rating: number
     review: string
+    created_at?: Date | string
   }
 
   export type user_reviewCreateOrConnectWithoutTransaction_tableInput = {
@@ -11134,6 +11347,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: Enumaccount_roleFieldUpdateOperationsInput | $Enums.account_role
     password?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     properties_table?: properties_tableUpdateManyWithoutAccount_tableNestedInput
     user_review?: user_reviewUpdateManyWithoutAccount_tableNestedInput
@@ -11147,6 +11361,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: Enumaccount_roleFieldUpdateOperationsInput | $Enums.account_role
     password?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     properties_table?: properties_tableUncheckedUpdateManyWithoutAccount_tableNestedInput
     user_review?: user_reviewUncheckedUpdateManyWithoutAccount_tableNestedInput
@@ -11228,10 +11443,13 @@ export namespace Prisma {
   }
 
   export type transaction_tableCreateWithoutProperties_tableInput = {
+    price: number
     booking_date_start: Date | string
     booking_date_end: Date | string
     payment_proof_url: string
     created_at?: Date | string
+    expires_at: Date | string
+    quantity: number
     transaction_status: $Enums.trx_status
     account_table: account_tableCreateNestedOneWithoutTransaction_tableInput
     user_review?: user_reviewCreateNestedManyWithoutTransaction_tableInput
@@ -11241,10 +11459,13 @@ export namespace Prisma {
   export type transaction_tableUncheckedCreateWithoutProperties_tableInput = {
     id?: number
     account_id: number
+    price: number
     booking_date_start: Date | string
     booking_date_end: Date | string
     payment_proof_url: string
     created_at?: Date | string
+    expires_at: Date | string
+    quantity: number
     transaction_status: $Enums.trx_status
     user_review?: user_reviewUncheckedCreateNestedManyWithoutTransaction_tableInput
     booked_user_list?: booked_user_listUncheckedCreateNestedManyWithoutTransaction_tableInput
@@ -11266,6 +11487,7 @@ export namespace Prisma {
     email: string
     role: $Enums.account_role
     password: string
+    image: string
     created_at?: Date | string
     transaction_table?: transaction_tableCreateNestedManyWithoutAccount_tableInput
     user_review?: user_reviewCreateNestedManyWithoutAccount_tableInput
@@ -11279,6 +11501,7 @@ export namespace Prisma {
     email: string
     role: $Enums.account_role
     password: string
+    image: string
     created_at?: Date | string
     transaction_table?: transaction_tableUncheckedCreateNestedManyWithoutAccount_tableInput
     user_review?: user_reviewUncheckedCreateNestedManyWithoutAccount_tableInput
@@ -11291,7 +11514,9 @@ export namespace Prisma {
   }
 
   export type user_reviewCreateWithoutProperties_tableInput = {
+    rating: number
     review: string
+    created_at?: Date | string
     account_table: account_tableCreateNestedOneWithoutUser_reviewInput
     transaction_table: transaction_tableCreateNestedOneWithoutUser_reviewInput
   }
@@ -11300,7 +11525,9 @@ export namespace Prisma {
     id?: number
     account_id: number
     transaction_id: number
+    rating: number
     review: string
+    created_at?: Date | string
   }
 
   export type user_reviewCreateOrConnectWithoutProperties_tableInput = {
@@ -11371,6 +11598,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: Enumaccount_roleFieldUpdateOperationsInput | $Enums.account_role
     password?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     transaction_table?: transaction_tableUpdateManyWithoutAccount_tableNestedInput
     user_review?: user_reviewUpdateManyWithoutAccount_tableNestedInput
@@ -11384,6 +11612,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: Enumaccount_roleFieldUpdateOperationsInput | $Enums.account_role
     password?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     transaction_table?: transaction_tableUncheckedUpdateManyWithoutAccount_tableNestedInput
     user_review?: user_reviewUncheckedUpdateManyWithoutAccount_tableNestedInput
@@ -11428,6 +11657,7 @@ export namespace Prisma {
     email: string
     role: $Enums.account_role
     password: string
+    image: string
     created_at?: Date | string
     transaction_table?: transaction_tableCreateNestedManyWithoutAccount_tableInput
     properties_table?: properties_tableCreateNestedManyWithoutAccount_tableInput
@@ -11441,6 +11671,7 @@ export namespace Prisma {
     email: string
     role: $Enums.account_role
     password: string
+    image: string
     created_at?: Date | string
     transaction_table?: transaction_tableUncheckedCreateNestedManyWithoutAccount_tableInput
     properties_table?: properties_tableUncheckedCreateNestedManyWithoutAccount_tableInput
@@ -11489,10 +11720,13 @@ export namespace Prisma {
   }
 
   export type transaction_tableCreateWithoutUser_reviewInput = {
+    price: number
     booking_date_start: Date | string
     booking_date_end: Date | string
     payment_proof_url: string
     created_at?: Date | string
+    expires_at: Date | string
+    quantity: number
     transaction_status: $Enums.trx_status
     account_table: account_tableCreateNestedOneWithoutTransaction_tableInput
     properties_table: properties_tableCreateNestedOneWithoutTransaction_tableInput
@@ -11503,10 +11737,13 @@ export namespace Prisma {
     id?: number
     account_id: number
     properties_id: number
+    price: number
     booking_date_start: Date | string
     booking_date_end: Date | string
     payment_proof_url: string
     created_at?: Date | string
+    expires_at: Date | string
+    quantity: number
     transaction_status: $Enums.trx_status
     booked_user_list?: booked_user_listUncheckedCreateNestedManyWithoutTransaction_tableInput
   }
@@ -11533,6 +11770,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: Enumaccount_roleFieldUpdateOperationsInput | $Enums.account_role
     password?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     transaction_table?: transaction_tableUpdateManyWithoutAccount_tableNestedInput
     properties_table?: properties_tableUpdateManyWithoutAccount_tableNestedInput
@@ -11546,6 +11784,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: Enumaccount_roleFieldUpdateOperationsInput | $Enums.account_role
     password?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     transaction_table?: transaction_tableUncheckedUpdateManyWithoutAccount_tableNestedInput
     properties_table?: properties_tableUncheckedUpdateManyWithoutAccount_tableNestedInput
@@ -11606,10 +11845,13 @@ export namespace Prisma {
   }
 
   export type transaction_tableUpdateWithoutUser_reviewInput = {
+    price?: IntFieldUpdateOperationsInput | number
     booking_date_start?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
     payment_proof_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
     transaction_status?: Enumtrx_statusFieldUpdateOperationsInput | $Enums.trx_status
     account_table?: account_tableUpdateOneRequiredWithoutTransaction_tableNestedInput
     properties_table?: properties_tableUpdateOneRequiredWithoutTransaction_tableNestedInput
@@ -11620,10 +11862,13 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     account_id?: IntFieldUpdateOperationsInput | number
     properties_id?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
     booking_date_start?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
     payment_proof_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
     transaction_status?: Enumtrx_statusFieldUpdateOperationsInput | $Enums.trx_status
     booked_user_list?: booked_user_listUncheckedUpdateManyWithoutTransaction_tableNestedInput
   }
@@ -11634,6 +11879,7 @@ export namespace Prisma {
     email: string
     role: $Enums.account_role
     password: string
+    image: string
     created_at?: Date | string
     transaction_table?: transaction_tableCreateNestedManyWithoutAccount_tableInput
     properties_table?: properties_tableCreateNestedManyWithoutAccount_tableInput
@@ -11647,6 +11893,7 @@ export namespace Prisma {
     email: string
     role: $Enums.account_role
     password: string
+    image: string
     created_at?: Date | string
     transaction_table?: transaction_tableUncheckedCreateNestedManyWithoutAccount_tableInput
     properties_table?: properties_tableUncheckedCreateNestedManyWithoutAccount_tableInput
@@ -11695,10 +11942,13 @@ export namespace Prisma {
   }
 
   export type transaction_tableCreateWithoutBooked_user_listInput = {
+    price: number
     booking_date_start: Date | string
     booking_date_end: Date | string
     payment_proof_url: string
     created_at?: Date | string
+    expires_at: Date | string
+    quantity: number
     transaction_status: $Enums.trx_status
     account_table: account_tableCreateNestedOneWithoutTransaction_tableInput
     properties_table: properties_tableCreateNestedOneWithoutTransaction_tableInput
@@ -11709,10 +11959,13 @@ export namespace Prisma {
     id?: number
     account_id: number
     properties_id: number
+    price: number
     booking_date_start: Date | string
     booking_date_end: Date | string
     payment_proof_url: string
     created_at?: Date | string
+    expires_at: Date | string
+    quantity: number
     transaction_status: $Enums.trx_status
     user_review?: user_reviewUncheckedCreateNestedManyWithoutTransaction_tableInput
   }
@@ -11739,6 +11992,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: Enumaccount_roleFieldUpdateOperationsInput | $Enums.account_role
     password?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     transaction_table?: transaction_tableUpdateManyWithoutAccount_tableNestedInput
     properties_table?: properties_tableUpdateManyWithoutAccount_tableNestedInput
@@ -11752,6 +12006,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: Enumaccount_roleFieldUpdateOperationsInput | $Enums.account_role
     password?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     transaction_table?: transaction_tableUncheckedUpdateManyWithoutAccount_tableNestedInput
     properties_table?: properties_tableUncheckedUpdateManyWithoutAccount_tableNestedInput
@@ -11812,10 +12067,13 @@ export namespace Prisma {
   }
 
   export type transaction_tableUpdateWithoutBooked_user_listInput = {
+    price?: IntFieldUpdateOperationsInput | number
     booking_date_start?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
     payment_proof_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
     transaction_status?: Enumtrx_statusFieldUpdateOperationsInput | $Enums.trx_status
     account_table?: account_tableUpdateOneRequiredWithoutTransaction_tableNestedInput
     properties_table?: properties_tableUpdateOneRequiredWithoutTransaction_tableNestedInput
@@ -11826,10 +12084,13 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     account_id?: IntFieldUpdateOperationsInput | number
     properties_id?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
     booking_date_start?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
     payment_proof_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
     transaction_status?: Enumtrx_statusFieldUpdateOperationsInput | $Enums.trx_status
     user_review?: user_reviewUncheckedUpdateManyWithoutTransaction_tableNestedInput
   }
@@ -11837,10 +12098,13 @@ export namespace Prisma {
   export type transaction_tableCreateManyAccount_tableInput = {
     id?: number
     properties_id: number
+    price: number
     booking_date_start: Date | string
     booking_date_end: Date | string
     payment_proof_url: string
     created_at?: Date | string
+    expires_at: Date | string
+    quantity: number
     transaction_status: $Enums.trx_status
   }
 
@@ -11861,7 +12125,9 @@ export namespace Prisma {
     id?: number
     properties_id: number
     transaction_id: number
+    rating: number
     review: string
+    created_at?: Date | string
   }
 
   export type booked_user_listCreateManyAccount_tableInput = {
@@ -11873,10 +12139,13 @@ export namespace Prisma {
   }
 
   export type transaction_tableUpdateWithoutAccount_tableInput = {
+    price?: IntFieldUpdateOperationsInput | number
     booking_date_start?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
     payment_proof_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
     transaction_status?: Enumtrx_statusFieldUpdateOperationsInput | $Enums.trx_status
     properties_table?: properties_tableUpdateOneRequiredWithoutTransaction_tableNestedInput
     user_review?: user_reviewUpdateManyWithoutTransaction_tableNestedInput
@@ -11886,10 +12155,13 @@ export namespace Prisma {
   export type transaction_tableUncheckedUpdateWithoutAccount_tableInput = {
     id?: IntFieldUpdateOperationsInput | number
     properties_id?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
     booking_date_start?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
     payment_proof_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
     transaction_status?: Enumtrx_statusFieldUpdateOperationsInput | $Enums.trx_status
     user_review?: user_reviewUncheckedUpdateManyWithoutTransaction_tableNestedInput
     booked_user_list?: booked_user_listUncheckedUpdateManyWithoutTransaction_tableNestedInput
@@ -11898,10 +12170,13 @@ export namespace Prisma {
   export type transaction_tableUncheckedUpdateManyWithoutAccount_tableInput = {
     id?: IntFieldUpdateOperationsInput | number
     properties_id?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
     booking_date_start?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
     payment_proof_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
     transaction_status?: Enumtrx_statusFieldUpdateOperationsInput | $Enums.trx_status
   }
 
@@ -11950,7 +12225,9 @@ export namespace Prisma {
   }
 
   export type user_reviewUpdateWithoutAccount_tableInput = {
+    rating?: IntFieldUpdateOperationsInput | number
     review?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     properties_table?: properties_tableUpdateOneRequiredWithoutUser_reviewNestedInput
     transaction_table?: transaction_tableUpdateOneRequiredWithoutUser_reviewNestedInput
   }
@@ -11959,14 +12236,18 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     properties_id?: IntFieldUpdateOperationsInput | number
     transaction_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
     review?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type user_reviewUncheckedUpdateManyWithoutAccount_tableInput = {
     id?: IntFieldUpdateOperationsInput | number
     properties_id?: IntFieldUpdateOperationsInput | number
     transaction_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
     review?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type booked_user_listUpdateWithoutAccount_tableInput = {
@@ -11996,7 +12277,9 @@ export namespace Prisma {
     id?: number
     account_id: number
     properties_id: number
+    rating: number
     review: string
+    created_at?: Date | string
   }
 
   export type booked_user_listCreateManyTransaction_tableInput = {
@@ -12008,7 +12291,9 @@ export namespace Prisma {
   }
 
   export type user_reviewUpdateWithoutTransaction_tableInput = {
+    rating?: IntFieldUpdateOperationsInput | number
     review?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     account_table?: account_tableUpdateOneRequiredWithoutUser_reviewNestedInput
     properties_table?: properties_tableUpdateOneRequiredWithoutUser_reviewNestedInput
   }
@@ -12017,14 +12302,18 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     account_id?: IntFieldUpdateOperationsInput | number
     properties_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
     review?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type user_reviewUncheckedUpdateManyWithoutTransaction_tableInput = {
     id?: IntFieldUpdateOperationsInput | number
     account_id?: IntFieldUpdateOperationsInput | number
     properties_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
     review?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type booked_user_listUpdateWithoutTransaction_tableInput = {
@@ -12053,10 +12342,13 @@ export namespace Prisma {
   export type transaction_tableCreateManyProperties_tableInput = {
     id?: number
     account_id: number
+    price: number
     booking_date_start: Date | string
     booking_date_end: Date | string
     payment_proof_url: string
     created_at?: Date | string
+    expires_at: Date | string
+    quantity: number
     transaction_status: $Enums.trx_status
   }
 
@@ -12064,7 +12356,9 @@ export namespace Prisma {
     id?: number
     account_id: number
     transaction_id: number
+    rating: number
     review: string
+    created_at?: Date | string
   }
 
   export type booked_user_listCreateManyProperties_tableInput = {
@@ -12076,10 +12370,13 @@ export namespace Prisma {
   }
 
   export type transaction_tableUpdateWithoutProperties_tableInput = {
+    price?: IntFieldUpdateOperationsInput | number
     booking_date_start?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
     payment_proof_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
     transaction_status?: Enumtrx_statusFieldUpdateOperationsInput | $Enums.trx_status
     account_table?: account_tableUpdateOneRequiredWithoutTransaction_tableNestedInput
     user_review?: user_reviewUpdateManyWithoutTransaction_tableNestedInput
@@ -12089,10 +12386,13 @@ export namespace Prisma {
   export type transaction_tableUncheckedUpdateWithoutProperties_tableInput = {
     id?: IntFieldUpdateOperationsInput | number
     account_id?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
     booking_date_start?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
     payment_proof_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
     transaction_status?: Enumtrx_statusFieldUpdateOperationsInput | $Enums.trx_status
     user_review?: user_reviewUncheckedUpdateManyWithoutTransaction_tableNestedInput
     booked_user_list?: booked_user_listUncheckedUpdateManyWithoutTransaction_tableNestedInput
@@ -12101,15 +12401,20 @@ export namespace Prisma {
   export type transaction_tableUncheckedUpdateManyWithoutProperties_tableInput = {
     id?: IntFieldUpdateOperationsInput | number
     account_id?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
     booking_date_start?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
     payment_proof_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
     transaction_status?: Enumtrx_statusFieldUpdateOperationsInput | $Enums.trx_status
   }
 
   export type user_reviewUpdateWithoutProperties_tableInput = {
+    rating?: IntFieldUpdateOperationsInput | number
     review?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     account_table?: account_tableUpdateOneRequiredWithoutUser_reviewNestedInput
     transaction_table?: transaction_tableUpdateOneRequiredWithoutUser_reviewNestedInput
   }
@@ -12118,14 +12423,18 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     account_id?: IntFieldUpdateOperationsInput | number
     transaction_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
     review?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type user_reviewUncheckedUpdateManyWithoutProperties_tableInput = {
     id?: IntFieldUpdateOperationsInput | number
     account_id?: IntFieldUpdateOperationsInput | number
     transaction_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
     review?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type booked_user_listUpdateWithoutProperties_tableInput = {

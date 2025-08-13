@@ -11,3 +11,14 @@ export type CreateUser = {
   verify_otp?: string | null;
   verify_otp_expires_at?: Date | null;
 };
+
+export type CreateNewOtp = {
+  email: string;
+  verify_otp?: string | null;
+  verify_otp_expires_at?: Date | null;
+};
+
+export type VerifyEmail = {
+  email: string;
+  is_verified: boolean;
+};

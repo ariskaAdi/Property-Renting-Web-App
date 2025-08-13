@@ -1,5 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { registerService } from "../../services/auth/auth.service";
+import {
+  newOtpService,
+  registerService,
+  verifyEmailService,
+} from "../../services/auth/auth.service";
 
 class AuthController {
   public async register(
@@ -21,6 +25,32 @@ class AuthController {
     next: NextFunction
   ): Promise<void> {
     // code
+  }
+
+  public async verifyEmail(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      await verifyEmailService(req.body);
+      res.send({ message: "Email verified", success: true });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async newOtp(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      await newOtpService(req.body);
+      res.send({ message: "OTP sent to your email", success: true });
+    } catch (error) {
+      next(error);
+    }
   }
 }
 

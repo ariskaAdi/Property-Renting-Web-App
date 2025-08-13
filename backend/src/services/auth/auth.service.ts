@@ -2,8 +2,10 @@ import { Role } from "../../../prisma/generated/client";
 import { transport } from "../../config/nodemailer";
 import AppError from "../../errors/AppError";
 import {
+  createNewOtp,
   createUser,
   findUserByEmail,
+  updateStatusEmail,
 } from "../../repositories/user/user.repository";
 import { VERIFICATION_EMAIL_TEMPLATE } from "../../utils/emailTemplates";
 import { generatedOtp } from "../../utils/generateOtp";
@@ -45,6 +47,62 @@ export const registerService = async (data: any) => {
       verificationOtp
     ),
   });
+
   const { password_hash: _, ...userWithoutPassword } = newUser;
+  return userWithoutPassword;
+};
+
+export const verifyEmailService = async (data: any) => {
+  const { email, verify_otp } = data;
+  const existingUser = await findUserByEmail(email);
+  // pengecekan email
+  if (!existingUser) {
+    throw new AppError("User not found", 400);
+  }
+  // pengecekan otp
+  if (existingUser.verify_otp !== verify_otp) {
+    throw new AppError("Invalid verification code", 400);
+  }
+  // pengecekan expired otp
+  if (existingUser.verify_otp_expires_at! < new Date()) {
+    throw new AppError("Verification code has expired", 400);
+  }
+
+  const verifyEmail = await updateStatusEmail({
+    email,
+    is_verified: true,
+  });
+
+  const { password_hash: _, ...userWithoutPassword } = verifyEmail;
+  return userWithoutPassword;
+};
+
+export const newOtpService = async (data: any) => {
+  const { email } = data;
+  const existingUser = await findUserByEmail(email);
+  //   validasi email
+  if (!existingUser) {
+    throw new AppError("User not found", 400);
+  }
+  // generate otp
+  const verificationOtp = generatedOtp();
+  // update otp to verify email user
+  const newOtpUser = await createNewOtp({
+    email,
+    verify_otp: verificationOtp,
+    verify_otp_expires_at: new Date(Date.now() + 15 * 60 * 1000),
+  });
+
+  await transport.sendMail({
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: "Verify Your Email",
+    html: VERIFICATION_EMAIL_TEMPLATE.replace(
+      "{verificationCode}",
+      verificationOtp
+    ),
+  });
+
+  const { password_hash: _, ...userWithoutPassword } = newOtpUser;
   return userWithoutPassword;
 };

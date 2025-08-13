@@ -14,6 +14,8 @@ class AuthRouter {
   private initializeRoutes() {
     this.route.post("/register", this.authController.register);
     this.route.post("/login", this.authController.login);
+    this.route.patch("/new-otp", this.authController.newOtp);
+    this.route.patch("/verify-email", this.authController.verifyEmail);
   }
   public getRouter(): Router {
     return this.route;

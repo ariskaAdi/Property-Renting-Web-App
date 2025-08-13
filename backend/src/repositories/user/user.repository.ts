@@ -1,5 +1,9 @@
 import { prisma } from "../../config/prisma";
-import { CreateUser } from "../../types/user/users.types";
+import {
+  CreateNewOtp,
+  CreateUser,
+  VerifyEmail,
+} from "../../types/user/users.types";
 
 export const findUserByEmail = async (email: string) => {
   return prisma.users.findUnique({
@@ -9,6 +13,20 @@ export const findUserByEmail = async (email: string) => {
 
 export const createUser = async (data: CreateUser) => {
   return prisma.users.create({
+    data,
+  });
+};
+
+export const createNewOtp = async (data: CreateNewOtp) => {
+  return prisma.users.update({
+    where: { email: data.email },
+    data,
+  });
+};
+
+export const updateStatusEmail = async (data: VerifyEmail) => {
+  return prisma.users.update({
+    where: { email: data.email },
     data,
   });
 };

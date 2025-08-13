@@ -24,11 +24,6 @@ export type users = $Result.DefaultSelection<Prisma.$usersPayload>
  */
 export type tenants = $Result.DefaultSelection<Prisma.$tenantsPayload>
 /**
- * Model property_categories
- * 
- */
-export type property_categories = $Result.DefaultSelection<Prisma.$property_categoriesPayload>
-/**
  * Model properties
  * 
  */
@@ -69,11 +64,6 @@ export type bookings = $Result.DefaultSelection<Prisma.$bookingsPayload>
  */
 export type booking_rooms = $Result.DefaultSelection<Prisma.$booking_roomsPayload>
 /**
- * Model payments
- * 
- */
-export type payments = $Result.DefaultSelection<Prisma.$paymentsPayload>
-/**
  * Model reviews
  * 
  */
@@ -110,21 +100,16 @@ export const BookingStatus: {
 export type BookingStatus = (typeof BookingStatus)[keyof typeof BookingStatus]
 
 
-export const PaymentMethod: {
-  manual_transfer: 'manual_transfer',
-  payment_gateway: 'payment_gateway'
+export const PropertyCategory: {
+  apartment: 'apartment',
+  house: 'house',
+  villa: 'villa',
+  hotel: 'hotel',
+  hostel: 'hostel',
+  guesthouse: 'guesthouse'
 };
 
-export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
-
-
-export const PaymentStatus: {
-  pending: 'pending',
-  confirmed: 'confirmed',
-  rejected: 'rejected'
-};
-
-export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+export type PropertyCategory = (typeof PropertyCategory)[keyof typeof PropertyCategory]
 
 }
 
@@ -140,13 +125,9 @@ export type BookingStatus = $Enums.BookingStatus
 
 export const BookingStatus: typeof $Enums.BookingStatus
 
-export type PaymentMethod = $Enums.PaymentMethod
+export type PropertyCategory = $Enums.PropertyCategory
 
-export const PaymentMethod: typeof $Enums.PaymentMethod
-
-export type PaymentStatus = $Enums.PaymentStatus
-
-export const PaymentStatus: typeof $Enums.PaymentStatus
+export const PropertyCategory: typeof $Enums.PropertyCategory
 
 /**
  * ##  Prisma Client ʲˢ
@@ -294,16 +275,6 @@ export class PrismaClient<
   get tenants(): Prisma.tenantsDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.property_categories`: Exposes CRUD operations for the **property_categories** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Property_categories
-    * const property_categories = await prisma.property_categories.findMany()
-    * ```
-    */
-  get property_categories(): Prisma.property_categoriesDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.properties`: Exposes CRUD operations for the **properties** model.
     * Example usage:
     * ```ts
@@ -382,16 +353,6 @@ export class PrismaClient<
     * ```
     */
   get booking_rooms(): Prisma.booking_roomsDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.payments`: Exposes CRUD operations for the **payments** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Payments
-    * const payments = await prisma.payments.findMany()
-    * ```
-    */
-  get payments(): Prisma.paymentsDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.reviews`: Exposes CRUD operations for the **reviews** model.
@@ -844,7 +805,6 @@ export namespace Prisma {
   export const ModelName: {
     users: 'users',
     tenants: 'tenants',
-    property_categories: 'property_categories',
     properties: 'properties',
     property_images: 'property_images',
     rooms: 'rooms',
@@ -853,7 +813,6 @@ export namespace Prisma {
     peak_season_rates: 'peak_season_rates',
     bookings: 'bookings',
     booking_rooms: 'booking_rooms',
-    payments: 'payments',
     reviews: 'reviews'
   };
 
@@ -873,7 +832,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "users" | "tenants" | "property_categories" | "properties" | "property_images" | "rooms" | "room_images" | "room_availability" | "peak_season_rates" | "bookings" | "booking_rooms" | "payments" | "reviews"
+      modelProps: "users" | "tenants" | "properties" | "property_images" | "rooms" | "room_images" | "room_availability" | "peak_season_rates" | "bookings" | "booking_rooms" | "reviews"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1022,80 +981,6 @@ export namespace Prisma {
           count: {
             args: Prisma.tenantsCountArgs<ExtArgs>
             result: $Utils.Optional<TenantsCountAggregateOutputType> | number
-          }
-        }
-      }
-      property_categories: {
-        payload: Prisma.$property_categoriesPayload<ExtArgs>
-        fields: Prisma.property_categoriesFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.property_categoriesFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$property_categoriesPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.property_categoriesFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$property_categoriesPayload>
-          }
-          findFirst: {
-            args: Prisma.property_categoriesFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$property_categoriesPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.property_categoriesFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$property_categoriesPayload>
-          }
-          findMany: {
-            args: Prisma.property_categoriesFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$property_categoriesPayload>[]
-          }
-          create: {
-            args: Prisma.property_categoriesCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$property_categoriesPayload>
-          }
-          createMany: {
-            args: Prisma.property_categoriesCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.property_categoriesCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$property_categoriesPayload>[]
-          }
-          delete: {
-            args: Prisma.property_categoriesDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$property_categoriesPayload>
-          }
-          update: {
-            args: Prisma.property_categoriesUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$property_categoriesPayload>
-          }
-          deleteMany: {
-            args: Prisma.property_categoriesDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.property_categoriesUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.property_categoriesUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$property_categoriesPayload>[]
-          }
-          upsert: {
-            args: Prisma.property_categoriesUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$property_categoriesPayload>
-          }
-          aggregate: {
-            args: Prisma.Property_categoriesAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateProperty_categories>
-          }
-          groupBy: {
-            args: Prisma.property_categoriesGroupByArgs<ExtArgs>
-            result: $Utils.Optional<Property_categoriesGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.property_categoriesCountArgs<ExtArgs>
-            result: $Utils.Optional<Property_categoriesCountAggregateOutputType> | number
           }
         }
       }
@@ -1691,80 +1576,6 @@ export namespace Prisma {
           }
         }
       }
-      payments: {
-        payload: Prisma.$paymentsPayload<ExtArgs>
-        fields: Prisma.paymentsFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.paymentsFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$paymentsPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.paymentsFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$paymentsPayload>
-          }
-          findFirst: {
-            args: Prisma.paymentsFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$paymentsPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.paymentsFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$paymentsPayload>
-          }
-          findMany: {
-            args: Prisma.paymentsFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$paymentsPayload>[]
-          }
-          create: {
-            args: Prisma.paymentsCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$paymentsPayload>
-          }
-          createMany: {
-            args: Prisma.paymentsCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.paymentsCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$paymentsPayload>[]
-          }
-          delete: {
-            args: Prisma.paymentsDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$paymentsPayload>
-          }
-          update: {
-            args: Prisma.paymentsUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$paymentsPayload>
-          }
-          deleteMany: {
-            args: Prisma.paymentsDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.paymentsUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.paymentsUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$paymentsPayload>[]
-          }
-          upsert: {
-            args: Prisma.paymentsUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$paymentsPayload>
-          }
-          aggregate: {
-            args: Prisma.PaymentsAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregatePayments>
-          }
-          groupBy: {
-            args: Prisma.paymentsGroupByArgs<ExtArgs>
-            result: $Utils.Optional<PaymentsGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.paymentsCountArgs<ExtArgs>
-            result: $Utils.Optional<PaymentsCountAggregateOutputType> | number
-          }
-        }
-      }
       reviews: {
         payload: Prisma.$reviewsPayload<ExtArgs>
         fields: Prisma.reviewsFieldRefs
@@ -1933,7 +1744,6 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     users?: usersOmit
     tenants?: tenantsOmit
-    property_categories?: property_categoriesOmit
     properties?: propertiesOmit
     property_images?: property_imagesOmit
     rooms?: roomsOmit
@@ -1942,7 +1752,6 @@ export namespace Prisma {
     peak_season_rates?: peak_season_ratesOmit
     bookings?: bookingsOmit
     booking_rooms?: booking_roomsOmit
-    payments?: paymentsOmit
     reviews?: reviewsOmit
   }
 
@@ -2119,37 +1928,6 @@ export namespace Prisma {
 
 
   /**
-   * Count Type Property_categoriesCountOutputType
-   */
-
-  export type Property_categoriesCountOutputType = {
-    properties: number
-  }
-
-  export type Property_categoriesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    properties?: boolean | Property_categoriesCountOutputTypeCountPropertiesArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * Property_categoriesCountOutputType without action
-   */
-  export type Property_categoriesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Property_categoriesCountOutputType
-     */
-    select?: Property_categoriesCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * Property_categoriesCountOutputType without action
-   */
-  export type Property_categoriesCountOutputTypeCountPropertiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: propertiesWhereInput
-  }
-
-
-  /**
    * Count Type PropertiesCountOutputType
    */
 
@@ -2280,13 +2058,11 @@ export namespace Prisma {
 
   export type BookingsCountOutputType = {
     booking_rooms: number
-    payments: number
     reviews: number
   }
 
   export type BookingsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     booking_rooms?: boolean | BookingsCountOutputTypeCountBooking_roomsArgs
-    payments?: boolean | BookingsCountOutputTypeCountPaymentsArgs
     reviews?: boolean | BookingsCountOutputTypeCountReviewsArgs
   }
 
@@ -2306,13 +2082,6 @@ export namespace Prisma {
    */
   export type BookingsCountOutputTypeCountBooking_roomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: booking_roomsWhereInput
-  }
-
-  /**
-   * BookingsCountOutputType without action
-   */
-  export type BookingsCountOutputTypeCountPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: paymentsWhereInput
   }
 
   /**
@@ -2345,10 +2114,8 @@ export namespace Prisma {
     password_hash: string | null
     profile_picture: string | null
     is_verified: boolean | null
-    verify_token: string | null
-    verify_token_expires_at: Date | null
-    reset_password_token: string | null
-    reset_password_expires_at: Date | null
+    verify_otp: string | null
+    reset_password_otp: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -2361,10 +2128,8 @@ export namespace Prisma {
     password_hash: string | null
     profile_picture: string | null
     is_verified: boolean | null
-    verify_token: string | null
-    verify_token_expires_at: Date | null
-    reset_password_token: string | null
-    reset_password_expires_at: Date | null
+    verify_otp: string | null
+    reset_password_otp: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -2377,10 +2142,8 @@ export namespace Prisma {
     password_hash: number
     profile_picture: number
     is_verified: number
-    verify_token: number
-    verify_token_expires_at: number
-    reset_password_token: number
-    reset_password_expires_at: number
+    verify_otp: number
+    reset_password_otp: number
     created_at: number
     updated_at: number
     _all: number
@@ -2395,10 +2158,8 @@ export namespace Prisma {
     password_hash?: true
     profile_picture?: true
     is_verified?: true
-    verify_token?: true
-    verify_token_expires_at?: true
-    reset_password_token?: true
-    reset_password_expires_at?: true
+    verify_otp?: true
+    reset_password_otp?: true
     created_at?: true
     updated_at?: true
   }
@@ -2411,10 +2172,8 @@ export namespace Prisma {
     password_hash?: true
     profile_picture?: true
     is_verified?: true
-    verify_token?: true
-    verify_token_expires_at?: true
-    reset_password_token?: true
-    reset_password_expires_at?: true
+    verify_otp?: true
+    reset_password_otp?: true
     created_at?: true
     updated_at?: true
   }
@@ -2427,10 +2186,8 @@ export namespace Prisma {
     password_hash?: true
     profile_picture?: true
     is_verified?: true
-    verify_token?: true
-    verify_token_expires_at?: true
-    reset_password_token?: true
-    reset_password_expires_at?: true
+    verify_otp?: true
+    reset_password_otp?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -2516,10 +2273,8 @@ export namespace Prisma {
     password_hash: string
     profile_picture: string | null
     is_verified: boolean
-    verify_token: string | null
-    verify_token_expires_at: Date | null
-    reset_password_token: string | null
-    reset_password_expires_at: Date | null
+    verify_otp: string | null
+    reset_password_otp: string | null
     created_at: Date
     updated_at: Date
     _count: UsersCountAggregateOutputType | null
@@ -2549,10 +2304,8 @@ export namespace Prisma {
     password_hash?: boolean
     profile_picture?: boolean
     is_verified?: boolean
-    verify_token?: boolean
-    verify_token_expires_at?: boolean
-    reset_password_token?: boolean
-    reset_password_expires_at?: boolean
+    verify_otp?: boolean
+    reset_password_otp?: boolean
     created_at?: boolean
     updated_at?: boolean
     tenants?: boolean | users$tenantsArgs<ExtArgs>
@@ -2569,10 +2322,8 @@ export namespace Prisma {
     password_hash?: boolean
     profile_picture?: boolean
     is_verified?: boolean
-    verify_token?: boolean
-    verify_token_expires_at?: boolean
-    reset_password_token?: boolean
-    reset_password_expires_at?: boolean
+    verify_otp?: boolean
+    reset_password_otp?: boolean
     created_at?: boolean
     updated_at?: boolean
   }, ExtArgs["result"]["users"]>
@@ -2585,10 +2336,8 @@ export namespace Prisma {
     password_hash?: boolean
     profile_picture?: boolean
     is_verified?: boolean
-    verify_token?: boolean
-    verify_token_expires_at?: boolean
-    reset_password_token?: boolean
-    reset_password_expires_at?: boolean
+    verify_otp?: boolean
+    reset_password_otp?: boolean
     created_at?: boolean
     updated_at?: boolean
   }, ExtArgs["result"]["users"]>
@@ -2601,15 +2350,13 @@ export namespace Prisma {
     password_hash?: boolean
     profile_picture?: boolean
     is_verified?: boolean
-    verify_token?: boolean
-    verify_token_expires_at?: boolean
-    reset_password_token?: boolean
-    reset_password_expires_at?: boolean
+    verify_otp?: boolean
+    reset_password_otp?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "role" | "full_name" | "email" | "password_hash" | "profile_picture" | "is_verified" | "verify_token" | "verify_token_expires_at" | "reset_password_token" | "reset_password_expires_at" | "created_at" | "updated_at", ExtArgs["result"]["users"]>
+  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "role" | "full_name" | "email" | "password_hash" | "profile_picture" | "is_verified" | "verify_otp" | "reset_password_otp" | "created_at" | "updated_at", ExtArgs["result"]["users"]>
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenants?: boolean | users$tenantsArgs<ExtArgs>
     bookings?: boolean | users$bookingsArgs<ExtArgs>
@@ -2634,10 +2381,8 @@ export namespace Prisma {
       password_hash: string
       profile_picture: string | null
       is_verified: boolean
-      verify_token: string | null
-      verify_token_expires_at: Date | null
-      reset_password_token: string | null
-      reset_password_expires_at: Date | null
+      verify_otp: string | null
+      reset_password_otp: string | null
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["users"]>
@@ -3073,10 +2818,8 @@ export namespace Prisma {
     readonly password_hash: FieldRef<"users", 'String'>
     readonly profile_picture: FieldRef<"users", 'String'>
     readonly is_verified: FieldRef<"users", 'Boolean'>
-    readonly verify_token: FieldRef<"users", 'String'>
-    readonly verify_token_expires_at: FieldRef<"users", 'DateTime'>
-    readonly reset_password_token: FieldRef<"users", 'String'>
-    readonly reset_password_expires_at: FieldRef<"users", 'DateTime'>
+    readonly verify_otp: FieldRef<"users", 'String'>
+    readonly reset_password_otp: FieldRef<"users", 'String'>
     readonly created_at: FieldRef<"users", 'DateTime'>
     readonly updated_at: FieldRef<"users", 'DateTime'>
   }
@@ -4685,1076 +4428,6 @@ export namespace Prisma {
 
 
   /**
-   * Model property_categories
-   */
-
-  export type AggregateProperty_categories = {
-    _count: Property_categoriesCountAggregateOutputType | null
-    _min: Property_categoriesMinAggregateOutputType | null
-    _max: Property_categoriesMaxAggregateOutputType | null
-  }
-
-  export type Property_categoriesMinAggregateOutputType = {
-    id: string | null
-    name: string | null
-    description: string | null
-    created_at: Date | null
-    updated_at: Date | null
-  }
-
-  export type Property_categoriesMaxAggregateOutputType = {
-    id: string | null
-    name: string | null
-    description: string | null
-    created_at: Date | null
-    updated_at: Date | null
-  }
-
-  export type Property_categoriesCountAggregateOutputType = {
-    id: number
-    name: number
-    description: number
-    created_at: number
-    updated_at: number
-    _all: number
-  }
-
-
-  export type Property_categoriesMinAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    created_at?: true
-    updated_at?: true
-  }
-
-  export type Property_categoriesMaxAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    created_at?: true
-    updated_at?: true
-  }
-
-  export type Property_categoriesCountAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    created_at?: true
-    updated_at?: true
-    _all?: true
-  }
-
-  export type Property_categoriesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which property_categories to aggregate.
-     */
-    where?: property_categoriesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of property_categories to fetch.
-     */
-    orderBy?: property_categoriesOrderByWithRelationInput | property_categoriesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: property_categoriesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` property_categories from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` property_categories.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned property_categories
-    **/
-    _count?: true | Property_categoriesCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: Property_categoriesMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: Property_categoriesMaxAggregateInputType
-  }
-
-  export type GetProperty_categoriesAggregateType<T extends Property_categoriesAggregateArgs> = {
-        [P in keyof T & keyof AggregateProperty_categories]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateProperty_categories[P]>
-      : GetScalarType<T[P], AggregateProperty_categories[P]>
-  }
-
-
-
-
-  export type property_categoriesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: property_categoriesWhereInput
-    orderBy?: property_categoriesOrderByWithAggregationInput | property_categoriesOrderByWithAggregationInput[]
-    by: Property_categoriesScalarFieldEnum[] | Property_categoriesScalarFieldEnum
-    having?: property_categoriesScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: Property_categoriesCountAggregateInputType | true
-    _min?: Property_categoriesMinAggregateInputType
-    _max?: Property_categoriesMaxAggregateInputType
-  }
-
-  export type Property_categoriesGroupByOutputType = {
-    id: string
-    name: string
-    description: string | null
-    created_at: Date
-    updated_at: Date
-    _count: Property_categoriesCountAggregateOutputType | null
-    _min: Property_categoriesMinAggregateOutputType | null
-    _max: Property_categoriesMaxAggregateOutputType | null
-  }
-
-  type GetProperty_categoriesGroupByPayload<T extends property_categoriesGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<Property_categoriesGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof Property_categoriesGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], Property_categoriesGroupByOutputType[P]>
-            : GetScalarType<T[P], Property_categoriesGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type property_categoriesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    properties?: boolean | property_categories$propertiesArgs<ExtArgs>
-    _count?: boolean | Property_categoriesCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["property_categories"]>
-
-  export type property_categoriesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-  }, ExtArgs["result"]["property_categories"]>
-
-  export type property_categoriesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-  }, ExtArgs["result"]["property_categories"]>
-
-  export type property_categoriesSelectScalar = {
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-  }
-
-  export type property_categoriesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "created_at" | "updated_at", ExtArgs["result"]["property_categories"]>
-  export type property_categoriesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    properties?: boolean | property_categories$propertiesArgs<ExtArgs>
-    _count?: boolean | Property_categoriesCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type property_categoriesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type property_categoriesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-
-  export type $property_categoriesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "property_categories"
-    objects: {
-      properties: Prisma.$propertiesPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      name: string
-      description: string | null
-      created_at: Date
-      updated_at: Date
-    }, ExtArgs["result"]["property_categories"]>
-    composites: {}
-  }
-
-  type property_categoriesGetPayload<S extends boolean | null | undefined | property_categoriesDefaultArgs> = $Result.GetResult<Prisma.$property_categoriesPayload, S>
-
-  type property_categoriesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<property_categoriesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: Property_categoriesCountAggregateInputType | true
-    }
-
-  export interface property_categoriesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['property_categories'], meta: { name: 'property_categories' } }
-    /**
-     * Find zero or one Property_categories that matches the filter.
-     * @param {property_categoriesFindUniqueArgs} args - Arguments to find a Property_categories
-     * @example
-     * // Get one Property_categories
-     * const property_categories = await prisma.property_categories.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends property_categoriesFindUniqueArgs>(args: SelectSubset<T, property_categoriesFindUniqueArgs<ExtArgs>>): Prisma__property_categoriesClient<$Result.GetResult<Prisma.$property_categoriesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Property_categories that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {property_categoriesFindUniqueOrThrowArgs} args - Arguments to find a Property_categories
-     * @example
-     * // Get one Property_categories
-     * const property_categories = await prisma.property_categories.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends property_categoriesFindUniqueOrThrowArgs>(args: SelectSubset<T, property_categoriesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__property_categoriesClient<$Result.GetResult<Prisma.$property_categoriesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Property_categories that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {property_categoriesFindFirstArgs} args - Arguments to find a Property_categories
-     * @example
-     * // Get one Property_categories
-     * const property_categories = await prisma.property_categories.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends property_categoriesFindFirstArgs>(args?: SelectSubset<T, property_categoriesFindFirstArgs<ExtArgs>>): Prisma__property_categoriesClient<$Result.GetResult<Prisma.$property_categoriesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Property_categories that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {property_categoriesFindFirstOrThrowArgs} args - Arguments to find a Property_categories
-     * @example
-     * // Get one Property_categories
-     * const property_categories = await prisma.property_categories.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends property_categoriesFindFirstOrThrowArgs>(args?: SelectSubset<T, property_categoriesFindFirstOrThrowArgs<ExtArgs>>): Prisma__property_categoriesClient<$Result.GetResult<Prisma.$property_categoriesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Property_categories that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {property_categoriesFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Property_categories
-     * const property_categories = await prisma.property_categories.findMany()
-     * 
-     * // Get first 10 Property_categories
-     * const property_categories = await prisma.property_categories.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const property_categoriesWithIdOnly = await prisma.property_categories.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends property_categoriesFindManyArgs>(args?: SelectSubset<T, property_categoriesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$property_categoriesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Property_categories.
-     * @param {property_categoriesCreateArgs} args - Arguments to create a Property_categories.
-     * @example
-     * // Create one Property_categories
-     * const Property_categories = await prisma.property_categories.create({
-     *   data: {
-     *     // ... data to create a Property_categories
-     *   }
-     * })
-     * 
-     */
-    create<T extends property_categoriesCreateArgs>(args: SelectSubset<T, property_categoriesCreateArgs<ExtArgs>>): Prisma__property_categoriesClient<$Result.GetResult<Prisma.$property_categoriesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Property_categories.
-     * @param {property_categoriesCreateManyArgs} args - Arguments to create many Property_categories.
-     * @example
-     * // Create many Property_categories
-     * const property_categories = await prisma.property_categories.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends property_categoriesCreateManyArgs>(args?: SelectSubset<T, property_categoriesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Property_categories and returns the data saved in the database.
-     * @param {property_categoriesCreateManyAndReturnArgs} args - Arguments to create many Property_categories.
-     * @example
-     * // Create many Property_categories
-     * const property_categories = await prisma.property_categories.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Property_categories and only return the `id`
-     * const property_categoriesWithIdOnly = await prisma.property_categories.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends property_categoriesCreateManyAndReturnArgs>(args?: SelectSubset<T, property_categoriesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$property_categoriesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Property_categories.
-     * @param {property_categoriesDeleteArgs} args - Arguments to delete one Property_categories.
-     * @example
-     * // Delete one Property_categories
-     * const Property_categories = await prisma.property_categories.delete({
-     *   where: {
-     *     // ... filter to delete one Property_categories
-     *   }
-     * })
-     * 
-     */
-    delete<T extends property_categoriesDeleteArgs>(args: SelectSubset<T, property_categoriesDeleteArgs<ExtArgs>>): Prisma__property_categoriesClient<$Result.GetResult<Prisma.$property_categoriesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Property_categories.
-     * @param {property_categoriesUpdateArgs} args - Arguments to update one Property_categories.
-     * @example
-     * // Update one Property_categories
-     * const property_categories = await prisma.property_categories.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends property_categoriesUpdateArgs>(args: SelectSubset<T, property_categoriesUpdateArgs<ExtArgs>>): Prisma__property_categoriesClient<$Result.GetResult<Prisma.$property_categoriesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Property_categories.
-     * @param {property_categoriesDeleteManyArgs} args - Arguments to filter Property_categories to delete.
-     * @example
-     * // Delete a few Property_categories
-     * const { count } = await prisma.property_categories.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends property_categoriesDeleteManyArgs>(args?: SelectSubset<T, property_categoriesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Property_categories.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {property_categoriesUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Property_categories
-     * const property_categories = await prisma.property_categories.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends property_categoriesUpdateManyArgs>(args: SelectSubset<T, property_categoriesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Property_categories and returns the data updated in the database.
-     * @param {property_categoriesUpdateManyAndReturnArgs} args - Arguments to update many Property_categories.
-     * @example
-     * // Update many Property_categories
-     * const property_categories = await prisma.property_categories.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Property_categories and only return the `id`
-     * const property_categoriesWithIdOnly = await prisma.property_categories.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends property_categoriesUpdateManyAndReturnArgs>(args: SelectSubset<T, property_categoriesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$property_categoriesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Property_categories.
-     * @param {property_categoriesUpsertArgs} args - Arguments to update or create a Property_categories.
-     * @example
-     * // Update or create a Property_categories
-     * const property_categories = await prisma.property_categories.upsert({
-     *   create: {
-     *     // ... data to create a Property_categories
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Property_categories we want to update
-     *   }
-     * })
-     */
-    upsert<T extends property_categoriesUpsertArgs>(args: SelectSubset<T, property_categoriesUpsertArgs<ExtArgs>>): Prisma__property_categoriesClient<$Result.GetResult<Prisma.$property_categoriesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Property_categories.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {property_categoriesCountArgs} args - Arguments to filter Property_categories to count.
-     * @example
-     * // Count the number of Property_categories
-     * const count = await prisma.property_categories.count({
-     *   where: {
-     *     // ... the filter for the Property_categories we want to count
-     *   }
-     * })
-    **/
-    count<T extends property_categoriesCountArgs>(
-      args?: Subset<T, property_categoriesCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], Property_categoriesCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Property_categories.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {Property_categoriesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends Property_categoriesAggregateArgs>(args: Subset<T, Property_categoriesAggregateArgs>): Prisma.PrismaPromise<GetProperty_categoriesAggregateType<T>>
-
-    /**
-     * Group by Property_categories.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {property_categoriesGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends property_categoriesGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: property_categoriesGroupByArgs['orderBy'] }
-        : { orderBy?: property_categoriesGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, property_categoriesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProperty_categoriesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the property_categories model
-   */
-  readonly fields: property_categoriesFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for property_categories.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__property_categoriesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    properties<T extends property_categories$propertiesArgs<ExtArgs> = {}>(args?: Subset<T, property_categories$propertiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$propertiesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the property_categories model
-   */
-  interface property_categoriesFieldRefs {
-    readonly id: FieldRef<"property_categories", 'String'>
-    readonly name: FieldRef<"property_categories", 'String'>
-    readonly description: FieldRef<"property_categories", 'String'>
-    readonly created_at: FieldRef<"property_categories", 'DateTime'>
-    readonly updated_at: FieldRef<"property_categories", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * property_categories findUnique
-   */
-  export type property_categoriesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the property_categories
-     */
-    select?: property_categoriesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the property_categories
-     */
-    omit?: property_categoriesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: property_categoriesInclude<ExtArgs> | null
-    /**
-     * Filter, which property_categories to fetch.
-     */
-    where: property_categoriesWhereUniqueInput
-  }
-
-  /**
-   * property_categories findUniqueOrThrow
-   */
-  export type property_categoriesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the property_categories
-     */
-    select?: property_categoriesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the property_categories
-     */
-    omit?: property_categoriesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: property_categoriesInclude<ExtArgs> | null
-    /**
-     * Filter, which property_categories to fetch.
-     */
-    where: property_categoriesWhereUniqueInput
-  }
-
-  /**
-   * property_categories findFirst
-   */
-  export type property_categoriesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the property_categories
-     */
-    select?: property_categoriesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the property_categories
-     */
-    omit?: property_categoriesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: property_categoriesInclude<ExtArgs> | null
-    /**
-     * Filter, which property_categories to fetch.
-     */
-    where?: property_categoriesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of property_categories to fetch.
-     */
-    orderBy?: property_categoriesOrderByWithRelationInput | property_categoriesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for property_categories.
-     */
-    cursor?: property_categoriesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` property_categories from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` property_categories.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of property_categories.
-     */
-    distinct?: Property_categoriesScalarFieldEnum | Property_categoriesScalarFieldEnum[]
-  }
-
-  /**
-   * property_categories findFirstOrThrow
-   */
-  export type property_categoriesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the property_categories
-     */
-    select?: property_categoriesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the property_categories
-     */
-    omit?: property_categoriesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: property_categoriesInclude<ExtArgs> | null
-    /**
-     * Filter, which property_categories to fetch.
-     */
-    where?: property_categoriesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of property_categories to fetch.
-     */
-    orderBy?: property_categoriesOrderByWithRelationInput | property_categoriesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for property_categories.
-     */
-    cursor?: property_categoriesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` property_categories from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` property_categories.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of property_categories.
-     */
-    distinct?: Property_categoriesScalarFieldEnum | Property_categoriesScalarFieldEnum[]
-  }
-
-  /**
-   * property_categories findMany
-   */
-  export type property_categoriesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the property_categories
-     */
-    select?: property_categoriesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the property_categories
-     */
-    omit?: property_categoriesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: property_categoriesInclude<ExtArgs> | null
-    /**
-     * Filter, which property_categories to fetch.
-     */
-    where?: property_categoriesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of property_categories to fetch.
-     */
-    orderBy?: property_categoriesOrderByWithRelationInput | property_categoriesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing property_categories.
-     */
-    cursor?: property_categoriesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` property_categories from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` property_categories.
-     */
-    skip?: number
-    distinct?: Property_categoriesScalarFieldEnum | Property_categoriesScalarFieldEnum[]
-  }
-
-  /**
-   * property_categories create
-   */
-  export type property_categoriesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the property_categories
-     */
-    select?: property_categoriesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the property_categories
-     */
-    omit?: property_categoriesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: property_categoriesInclude<ExtArgs> | null
-    /**
-     * The data needed to create a property_categories.
-     */
-    data: XOR<property_categoriesCreateInput, property_categoriesUncheckedCreateInput>
-  }
-
-  /**
-   * property_categories createMany
-   */
-  export type property_categoriesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many property_categories.
-     */
-    data: property_categoriesCreateManyInput | property_categoriesCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * property_categories createManyAndReturn
-   */
-  export type property_categoriesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the property_categories
-     */
-    select?: property_categoriesSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the property_categories
-     */
-    omit?: property_categoriesOmit<ExtArgs> | null
-    /**
-     * The data used to create many property_categories.
-     */
-    data: property_categoriesCreateManyInput | property_categoriesCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * property_categories update
-   */
-  export type property_categoriesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the property_categories
-     */
-    select?: property_categoriesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the property_categories
-     */
-    omit?: property_categoriesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: property_categoriesInclude<ExtArgs> | null
-    /**
-     * The data needed to update a property_categories.
-     */
-    data: XOR<property_categoriesUpdateInput, property_categoriesUncheckedUpdateInput>
-    /**
-     * Choose, which property_categories to update.
-     */
-    where: property_categoriesWhereUniqueInput
-  }
-
-  /**
-   * property_categories updateMany
-   */
-  export type property_categoriesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update property_categories.
-     */
-    data: XOR<property_categoriesUpdateManyMutationInput, property_categoriesUncheckedUpdateManyInput>
-    /**
-     * Filter which property_categories to update
-     */
-    where?: property_categoriesWhereInput
-    /**
-     * Limit how many property_categories to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * property_categories updateManyAndReturn
-   */
-  export type property_categoriesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the property_categories
-     */
-    select?: property_categoriesSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the property_categories
-     */
-    omit?: property_categoriesOmit<ExtArgs> | null
-    /**
-     * The data used to update property_categories.
-     */
-    data: XOR<property_categoriesUpdateManyMutationInput, property_categoriesUncheckedUpdateManyInput>
-    /**
-     * Filter which property_categories to update
-     */
-    where?: property_categoriesWhereInput
-    /**
-     * Limit how many property_categories to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * property_categories upsert
-   */
-  export type property_categoriesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the property_categories
-     */
-    select?: property_categoriesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the property_categories
-     */
-    omit?: property_categoriesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: property_categoriesInclude<ExtArgs> | null
-    /**
-     * The filter to search for the property_categories to update in case it exists.
-     */
-    where: property_categoriesWhereUniqueInput
-    /**
-     * In case the property_categories found by the `where` argument doesn't exist, create a new property_categories with this data.
-     */
-    create: XOR<property_categoriesCreateInput, property_categoriesUncheckedCreateInput>
-    /**
-     * In case the property_categories was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<property_categoriesUpdateInput, property_categoriesUncheckedUpdateInput>
-  }
-
-  /**
-   * property_categories delete
-   */
-  export type property_categoriesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the property_categories
-     */
-    select?: property_categoriesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the property_categories
-     */
-    omit?: property_categoriesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: property_categoriesInclude<ExtArgs> | null
-    /**
-     * Filter which property_categories to delete.
-     */
-    where: property_categoriesWhereUniqueInput
-  }
-
-  /**
-   * property_categories deleteMany
-   */
-  export type property_categoriesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which property_categories to delete
-     */
-    where?: property_categoriesWhereInput
-    /**
-     * Limit how many property_categories to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * property_categories.properties
-   */
-  export type property_categories$propertiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the properties
-     */
-    select?: propertiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the properties
-     */
-    omit?: propertiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: propertiesInclude<ExtArgs> | null
-    where?: propertiesWhereInput
-    orderBy?: propertiesOrderByWithRelationInput | propertiesOrderByWithRelationInput[]
-    cursor?: propertiesWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PropertiesScalarFieldEnum | PropertiesScalarFieldEnum[]
-  }
-
-  /**
-   * property_categories without action
-   */
-  export type property_categoriesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the property_categories
-     */
-    select?: property_categoriesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the property_categories
-     */
-    omit?: property_categoriesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: property_categoriesInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model properties
    */
 
@@ -5779,8 +4452,8 @@ export namespace Prisma {
   export type PropertiesMinAggregateOutputType = {
     id: string | null
     tenant_id: string | null
-    category_id: string | null
     name: string | null
+    property_category: $Enums.PropertyCategory | null
     description: string | null
     address: string | null
     city: string | null
@@ -5789,6 +4462,7 @@ export namespace Prisma {
     latitude: Decimal | null
     longitude: Decimal | null
     main_image: string | null
+    deleted_at: Date | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -5796,8 +4470,8 @@ export namespace Prisma {
   export type PropertiesMaxAggregateOutputType = {
     id: string | null
     tenant_id: string | null
-    category_id: string | null
     name: string | null
+    property_category: $Enums.PropertyCategory | null
     description: string | null
     address: string | null
     city: string | null
@@ -5806,6 +4480,7 @@ export namespace Prisma {
     latitude: Decimal | null
     longitude: Decimal | null
     main_image: string | null
+    deleted_at: Date | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -5813,8 +4488,8 @@ export namespace Prisma {
   export type PropertiesCountAggregateOutputType = {
     id: number
     tenant_id: number
-    category_id: number
     name: number
+    property_category: number
     description: number
     address: number
     city: number
@@ -5823,6 +4498,7 @@ export namespace Prisma {
     latitude: number
     longitude: number
     main_image: number
+    deleted_at: number
     created_at: number
     updated_at: number
     _all: number
@@ -5842,8 +4518,8 @@ export namespace Prisma {
   export type PropertiesMinAggregateInputType = {
     id?: true
     tenant_id?: true
-    category_id?: true
     name?: true
+    property_category?: true
     description?: true
     address?: true
     city?: true
@@ -5852,6 +4528,7 @@ export namespace Prisma {
     latitude?: true
     longitude?: true
     main_image?: true
+    deleted_at?: true
     created_at?: true
     updated_at?: true
   }
@@ -5859,8 +4536,8 @@ export namespace Prisma {
   export type PropertiesMaxAggregateInputType = {
     id?: true
     tenant_id?: true
-    category_id?: true
     name?: true
+    property_category?: true
     description?: true
     address?: true
     city?: true
@@ -5869,6 +4546,7 @@ export namespace Prisma {
     latitude?: true
     longitude?: true
     main_image?: true
+    deleted_at?: true
     created_at?: true
     updated_at?: true
   }
@@ -5876,8 +4554,8 @@ export namespace Prisma {
   export type PropertiesCountAggregateInputType = {
     id?: true
     tenant_id?: true
-    category_id?: true
     name?: true
+    property_category?: true
     description?: true
     address?: true
     city?: true
@@ -5886,6 +4564,7 @@ export namespace Prisma {
     latitude?: true
     longitude?: true
     main_image?: true
+    deleted_at?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -5980,8 +4659,8 @@ export namespace Prisma {
   export type PropertiesGroupByOutputType = {
     id: string
     tenant_id: string
-    category_id: string
     name: string
+    property_category: $Enums.PropertyCategory
     description: string | null
     address: string
     city: string
@@ -5990,6 +4669,7 @@ export namespace Prisma {
     latitude: Decimal
     longitude: Decimal
     main_image: string | null
+    deleted_at: Date | null
     created_at: Date
     updated_at: Date
     _count: PropertiesCountAggregateOutputType | null
@@ -6016,8 +4696,8 @@ export namespace Prisma {
   export type propertiesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tenant_id?: boolean
-    category_id?: boolean
     name?: boolean
+    property_category?: boolean
     description?: boolean
     address?: boolean
     city?: boolean
@@ -6026,10 +4706,10 @@ export namespace Prisma {
     latitude?: boolean
     longitude?: boolean
     main_image?: boolean
+    deleted_at?: boolean
     created_at?: boolean
     updated_at?: boolean
     tenant?: boolean | tenantsDefaultArgs<ExtArgs>
-    category?: boolean | property_categoriesDefaultArgs<ExtArgs>
     property_images?: boolean | properties$property_imagesArgs<ExtArgs>
     rooms?: boolean | properties$roomsArgs<ExtArgs>
     peak_season_rates?: boolean | properties$peak_season_ratesArgs<ExtArgs>
@@ -6041,8 +4721,8 @@ export namespace Prisma {
   export type propertiesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tenant_id?: boolean
-    category_id?: boolean
     name?: boolean
+    property_category?: boolean
     description?: boolean
     address?: boolean
     city?: boolean
@@ -6051,17 +4731,17 @@ export namespace Prisma {
     latitude?: boolean
     longitude?: boolean
     main_image?: boolean
+    deleted_at?: boolean
     created_at?: boolean
     updated_at?: boolean
     tenant?: boolean | tenantsDefaultArgs<ExtArgs>
-    category?: boolean | property_categoriesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["properties"]>
 
   export type propertiesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tenant_id?: boolean
-    category_id?: boolean
     name?: boolean
+    property_category?: boolean
     description?: boolean
     address?: boolean
     city?: boolean
@@ -6070,17 +4750,17 @@ export namespace Prisma {
     latitude?: boolean
     longitude?: boolean
     main_image?: boolean
+    deleted_at?: boolean
     created_at?: boolean
     updated_at?: boolean
     tenant?: boolean | tenantsDefaultArgs<ExtArgs>
-    category?: boolean | property_categoriesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["properties"]>
 
   export type propertiesSelectScalar = {
     id?: boolean
     tenant_id?: boolean
-    category_id?: boolean
     name?: boolean
+    property_category?: boolean
     description?: boolean
     address?: boolean
     city?: boolean
@@ -6089,14 +4769,14 @@ export namespace Prisma {
     latitude?: boolean
     longitude?: boolean
     main_image?: boolean
+    deleted_at?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type propertiesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenant_id" | "category_id" | "name" | "description" | "address" | "city" | "province" | "zip_code" | "latitude" | "longitude" | "main_image" | "created_at" | "updated_at", ExtArgs["result"]["properties"]>
+  export type propertiesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenant_id" | "name" | "property_category" | "description" | "address" | "city" | "province" | "zip_code" | "latitude" | "longitude" | "main_image" | "deleted_at" | "created_at" | "updated_at", ExtArgs["result"]["properties"]>
   export type propertiesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | tenantsDefaultArgs<ExtArgs>
-    category?: boolean | property_categoriesDefaultArgs<ExtArgs>
     property_images?: boolean | properties$property_imagesArgs<ExtArgs>
     rooms?: boolean | properties$roomsArgs<ExtArgs>
     peak_season_rates?: boolean | properties$peak_season_ratesArgs<ExtArgs>
@@ -6106,18 +4786,15 @@ export namespace Prisma {
   }
   export type propertiesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | tenantsDefaultArgs<ExtArgs>
-    category?: boolean | property_categoriesDefaultArgs<ExtArgs>
   }
   export type propertiesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | tenantsDefaultArgs<ExtArgs>
-    category?: boolean | property_categoriesDefaultArgs<ExtArgs>
   }
 
   export type $propertiesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "properties"
     objects: {
       tenant: Prisma.$tenantsPayload<ExtArgs>
-      category: Prisma.$property_categoriesPayload<ExtArgs>
       property_images: Prisma.$property_imagesPayload<ExtArgs>[]
       rooms: Prisma.$roomsPayload<ExtArgs>[]
       peak_season_rates: Prisma.$peak_season_ratesPayload<ExtArgs>[]
@@ -6127,8 +4804,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       tenant_id: string
-      category_id: string
       name: string
+      property_category: $Enums.PropertyCategory
       description: string | null
       address: string
       city: string
@@ -6137,6 +4814,7 @@ export namespace Prisma {
       latitude: Prisma.Decimal
       longitude: Prisma.Decimal
       main_image: string | null
+      deleted_at: Date | null
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["properties"]>
@@ -6534,7 +5212,6 @@ export namespace Prisma {
   export interface Prisma__propertiesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tenant<T extends tenantsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, tenantsDefaultArgs<ExtArgs>>): Prisma__tenantsClient<$Result.GetResult<Prisma.$tenantsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    category<T extends property_categoriesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, property_categoriesDefaultArgs<ExtArgs>>): Prisma__property_categoriesClient<$Result.GetResult<Prisma.$property_categoriesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     property_images<T extends properties$property_imagesArgs<ExtArgs> = {}>(args?: Subset<T, properties$property_imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$property_imagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     rooms<T extends properties$roomsArgs<ExtArgs> = {}>(args?: Subset<T, properties$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$roomsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     peak_season_rates<T extends properties$peak_season_ratesArgs<ExtArgs> = {}>(args?: Subset<T, properties$peak_season_ratesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$peak_season_ratesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -6571,8 +5248,8 @@ export namespace Prisma {
   interface propertiesFieldRefs {
     readonly id: FieldRef<"properties", 'String'>
     readonly tenant_id: FieldRef<"properties", 'String'>
-    readonly category_id: FieldRef<"properties", 'String'>
     readonly name: FieldRef<"properties", 'String'>
+    readonly property_category: FieldRef<"properties", 'PropertyCategory'>
     readonly description: FieldRef<"properties", 'String'>
     readonly address: FieldRef<"properties", 'String'>
     readonly city: FieldRef<"properties", 'String'>
@@ -6581,6 +5258,7 @@ export namespace Prisma {
     readonly latitude: FieldRef<"properties", 'Decimal'>
     readonly longitude: FieldRef<"properties", 'Decimal'>
     readonly main_image: FieldRef<"properties", 'String'>
+    readonly deleted_at: FieldRef<"properties", 'DateTime'>
     readonly created_at: FieldRef<"properties", 'DateTime'>
     readonly updated_at: FieldRef<"properties", 'DateTime'>
   }
@@ -8192,6 +6870,7 @@ export namespace Prisma {
     base_price: Decimal | null
     capacity: number | null
     image: string | null
+    deleted_at: Date | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -8204,6 +6883,7 @@ export namespace Prisma {
     base_price: Decimal | null
     capacity: number | null
     image: string | null
+    deleted_at: Date | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -8216,6 +6896,7 @@ export namespace Prisma {
     base_price: number
     capacity: number
     image: number
+    deleted_at: number
     created_at: number
     updated_at: number
     _all: number
@@ -8240,6 +6921,7 @@ export namespace Prisma {
     base_price?: true
     capacity?: true
     image?: true
+    deleted_at?: true
     created_at?: true
     updated_at?: true
   }
@@ -8252,6 +6934,7 @@ export namespace Prisma {
     base_price?: true
     capacity?: true
     image?: true
+    deleted_at?: true
     created_at?: true
     updated_at?: true
   }
@@ -8264,6 +6947,7 @@ export namespace Prisma {
     base_price?: true
     capacity?: true
     image?: true
+    deleted_at?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -8363,6 +7047,7 @@ export namespace Prisma {
     base_price: Decimal
     capacity: number
     image: string | null
+    deleted_at: Date | null
     created_at: Date
     updated_at: Date
     _count: RoomsCountAggregateOutputType | null
@@ -8394,6 +7079,7 @@ export namespace Prisma {
     base_price?: boolean
     capacity?: boolean
     image?: boolean
+    deleted_at?: boolean
     created_at?: boolean
     updated_at?: boolean
     property?: boolean | propertiesDefaultArgs<ExtArgs>
@@ -8412,6 +7098,7 @@ export namespace Prisma {
     base_price?: boolean
     capacity?: boolean
     image?: boolean
+    deleted_at?: boolean
     created_at?: boolean
     updated_at?: boolean
     property?: boolean | propertiesDefaultArgs<ExtArgs>
@@ -8425,6 +7112,7 @@ export namespace Prisma {
     base_price?: boolean
     capacity?: boolean
     image?: boolean
+    deleted_at?: boolean
     created_at?: boolean
     updated_at?: boolean
     property?: boolean | propertiesDefaultArgs<ExtArgs>
@@ -8438,11 +7126,12 @@ export namespace Prisma {
     base_price?: boolean
     capacity?: boolean
     image?: boolean
+    deleted_at?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type roomsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "property_id" | "name" | "description" | "base_price" | "capacity" | "image" | "created_at" | "updated_at", ExtArgs["result"]["rooms"]>
+  export type roomsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "property_id" | "name" | "description" | "base_price" | "capacity" | "image" | "deleted_at" | "created_at" | "updated_at", ExtArgs["result"]["rooms"]>
   export type roomsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     property?: boolean | propertiesDefaultArgs<ExtArgs>
     room_images?: boolean | rooms$room_imagesArgs<ExtArgs>
@@ -8475,6 +7164,7 @@ export namespace Prisma {
       base_price: Prisma.Decimal
       capacity: number
       image: string | null
+      deleted_at: Date | null
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["rooms"]>
@@ -8912,6 +7602,7 @@ export namespace Prisma {
     readonly base_price: FieldRef<"rooms", 'Decimal'>
     readonly capacity: FieldRef<"rooms", 'Int'>
     readonly image: FieldRef<"rooms", 'String'>
+    readonly deleted_at: FieldRef<"rooms", 'DateTime'>
     readonly created_at: FieldRef<"rooms", 'DateTime'>
     readonly updated_at: FieldRef<"rooms", 'DateTime'>
   }
@@ -12753,10 +11444,12 @@ export namespace Prisma {
 
   export type BookingsAvgAggregateOutputType = {
     total_price: Decimal | null
+    amount: Decimal | null
   }
 
   export type BookingsSumAggregateOutputType = {
     total_price: Decimal | null
+    amount: Decimal | null
   }
 
   export type BookingsMinAggregateOutputType = {
@@ -12764,10 +11457,13 @@ export namespace Prisma {
     user_id: string | null
     property_id: string | null
     status: $Enums.BookingStatus | null
+    proof_image: string | null
     check_in_date: Date | null
     check_out_date: Date | null
     total_price: Decimal | null
     payment_deadline: Date | null
+    paid_at: Date | null
+    amount: Decimal | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -12777,10 +11473,13 @@ export namespace Prisma {
     user_id: string | null
     property_id: string | null
     status: $Enums.BookingStatus | null
+    proof_image: string | null
     check_in_date: Date | null
     check_out_date: Date | null
     total_price: Decimal | null
     payment_deadline: Date | null
+    paid_at: Date | null
+    amount: Decimal | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -12790,10 +11489,13 @@ export namespace Prisma {
     user_id: number
     property_id: number
     status: number
+    proof_image: number
     check_in_date: number
     check_out_date: number
     total_price: number
     payment_deadline: number
+    paid_at: number
+    amount: number
     created_at: number
     updated_at: number
     _all: number
@@ -12802,10 +11504,12 @@ export namespace Prisma {
 
   export type BookingsAvgAggregateInputType = {
     total_price?: true
+    amount?: true
   }
 
   export type BookingsSumAggregateInputType = {
     total_price?: true
+    amount?: true
   }
 
   export type BookingsMinAggregateInputType = {
@@ -12813,10 +11517,13 @@ export namespace Prisma {
     user_id?: true
     property_id?: true
     status?: true
+    proof_image?: true
     check_in_date?: true
     check_out_date?: true
     total_price?: true
     payment_deadline?: true
+    paid_at?: true
+    amount?: true
     created_at?: true
     updated_at?: true
   }
@@ -12826,10 +11533,13 @@ export namespace Prisma {
     user_id?: true
     property_id?: true
     status?: true
+    proof_image?: true
     check_in_date?: true
     check_out_date?: true
     total_price?: true
     payment_deadline?: true
+    paid_at?: true
+    amount?: true
     created_at?: true
     updated_at?: true
   }
@@ -12839,10 +11549,13 @@ export namespace Prisma {
     user_id?: true
     property_id?: true
     status?: true
+    proof_image?: true
     check_in_date?: true
     check_out_date?: true
     total_price?: true
     payment_deadline?: true
+    paid_at?: true
+    amount?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -12939,10 +11652,13 @@ export namespace Prisma {
     user_id: string
     property_id: string
     status: $Enums.BookingStatus
+    proof_image: string | null
     check_in_date: Date
     check_out_date: Date
     total_price: Decimal
     payment_deadline: Date
+    paid_at: Date | null
+    amount: Decimal
     created_at: Date
     updated_at: Date
     _count: BookingsCountAggregateOutputType | null
@@ -12971,16 +11687,18 @@ export namespace Prisma {
     user_id?: boolean
     property_id?: boolean
     status?: boolean
+    proof_image?: boolean
     check_in_date?: boolean
     check_out_date?: boolean
     total_price?: boolean
     payment_deadline?: boolean
+    paid_at?: boolean
+    amount?: boolean
     created_at?: boolean
     updated_at?: boolean
     user?: boolean | usersDefaultArgs<ExtArgs>
     property?: boolean | propertiesDefaultArgs<ExtArgs>
     booking_rooms?: boolean | bookings$booking_roomsArgs<ExtArgs>
-    payments?: boolean | bookings$paymentsArgs<ExtArgs>
     reviews?: boolean | bookings$reviewsArgs<ExtArgs>
     _count?: boolean | BookingsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["bookings"]>
@@ -12990,10 +11708,13 @@ export namespace Prisma {
     user_id?: boolean
     property_id?: boolean
     status?: boolean
+    proof_image?: boolean
     check_in_date?: boolean
     check_out_date?: boolean
     total_price?: boolean
     payment_deadline?: boolean
+    paid_at?: boolean
+    amount?: boolean
     created_at?: boolean
     updated_at?: boolean
     user?: boolean | usersDefaultArgs<ExtArgs>
@@ -13005,10 +11726,13 @@ export namespace Prisma {
     user_id?: boolean
     property_id?: boolean
     status?: boolean
+    proof_image?: boolean
     check_in_date?: boolean
     check_out_date?: boolean
     total_price?: boolean
     payment_deadline?: boolean
+    paid_at?: boolean
+    amount?: boolean
     created_at?: boolean
     updated_at?: boolean
     user?: boolean | usersDefaultArgs<ExtArgs>
@@ -13020,20 +11744,22 @@ export namespace Prisma {
     user_id?: boolean
     property_id?: boolean
     status?: boolean
+    proof_image?: boolean
     check_in_date?: boolean
     check_out_date?: boolean
     total_price?: boolean
     payment_deadline?: boolean
+    paid_at?: boolean
+    amount?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type bookingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "property_id" | "status" | "check_in_date" | "check_out_date" | "total_price" | "payment_deadline" | "created_at" | "updated_at", ExtArgs["result"]["bookings"]>
+  export type bookingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "property_id" | "status" | "proof_image" | "check_in_date" | "check_out_date" | "total_price" | "payment_deadline" | "paid_at" | "amount" | "created_at" | "updated_at", ExtArgs["result"]["bookings"]>
   export type bookingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | usersDefaultArgs<ExtArgs>
     property?: boolean | propertiesDefaultArgs<ExtArgs>
     booking_rooms?: boolean | bookings$booking_roomsArgs<ExtArgs>
-    payments?: boolean | bookings$paymentsArgs<ExtArgs>
     reviews?: boolean | bookings$reviewsArgs<ExtArgs>
     _count?: boolean | BookingsCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -13052,7 +11778,6 @@ export namespace Prisma {
       user: Prisma.$usersPayload<ExtArgs>
       property: Prisma.$propertiesPayload<ExtArgs>
       booking_rooms: Prisma.$booking_roomsPayload<ExtArgs>[]
-      payments: Prisma.$paymentsPayload<ExtArgs>[]
       reviews: Prisma.$reviewsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -13060,10 +11785,13 @@ export namespace Prisma {
       user_id: string
       property_id: string
       status: $Enums.BookingStatus
+      proof_image: string | null
       check_in_date: Date
       check_out_date: Date
       total_price: Prisma.Decimal
       payment_deadline: Date
+      paid_at: Date | null
+      amount: Prisma.Decimal
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["bookings"]>
@@ -13463,7 +12191,6 @@ export namespace Prisma {
     user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     property<T extends propertiesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, propertiesDefaultArgs<ExtArgs>>): Prisma__propertiesClient<$Result.GetResult<Prisma.$propertiesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     booking_rooms<T extends bookings$booking_roomsArgs<ExtArgs> = {}>(args?: Subset<T, bookings$booking_roomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$booking_roomsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    payments<T extends bookings$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, bookings$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviews<T extends bookings$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, bookings$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -13498,10 +12225,13 @@ export namespace Prisma {
     readonly user_id: FieldRef<"bookings", 'String'>
     readonly property_id: FieldRef<"bookings", 'String'>
     readonly status: FieldRef<"bookings", 'BookingStatus'>
+    readonly proof_image: FieldRef<"bookings", 'String'>
     readonly check_in_date: FieldRef<"bookings", 'DateTime'>
     readonly check_out_date: FieldRef<"bookings", 'DateTime'>
     readonly total_price: FieldRef<"bookings", 'Decimal'>
     readonly payment_deadline: FieldRef<"bookings", 'DateTime'>
+    readonly paid_at: FieldRef<"bookings", 'DateTime'>
+    readonly amount: FieldRef<"bookings", 'Decimal'>
     readonly created_at: FieldRef<"bookings", 'DateTime'>
     readonly updated_at: FieldRef<"bookings", 'DateTime'>
   }
@@ -13921,30 +12651,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Booking_roomsScalarFieldEnum | Booking_roomsScalarFieldEnum[]
-  }
-
-  /**
-   * bookings.payments
-   */
-  export type bookings$paymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the payments
-     */
-    select?: paymentsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the payments
-     */
-    omit?: paymentsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: paymentsInclude<ExtArgs> | null
-    where?: paymentsWhereInput
-    orderBy?: paymentsOrderByWithRelationInput | paymentsOrderByWithRelationInput[]
-    cursor?: paymentsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PaymentsScalarFieldEnum | PaymentsScalarFieldEnum[]
   }
 
   /**
@@ -15155,1150 +13861,6 @@ export namespace Prisma {
 
 
   /**
-   * Model payments
-   */
-
-  export type AggregatePayments = {
-    _count: PaymentsCountAggregateOutputType | null
-    _avg: PaymentsAvgAggregateOutputType | null
-    _sum: PaymentsSumAggregateOutputType | null
-    _min: PaymentsMinAggregateOutputType | null
-    _max: PaymentsMaxAggregateOutputType | null
-  }
-
-  export type PaymentsAvgAggregateOutputType = {
-    amount: Decimal | null
-  }
-
-  export type PaymentsSumAggregateOutputType = {
-    amount: Decimal | null
-  }
-
-  export type PaymentsMinAggregateOutputType = {
-    id: string | null
-    booking_id: string | null
-    payment_method: $Enums.PaymentMethod | null
-    proof_image: string | null
-    amount: Decimal | null
-    status: $Enums.PaymentStatus | null
-    paid_at: Date | null
-    created_at: Date | null
-    updated_at: Date | null
-  }
-
-  export type PaymentsMaxAggregateOutputType = {
-    id: string | null
-    booking_id: string | null
-    payment_method: $Enums.PaymentMethod | null
-    proof_image: string | null
-    amount: Decimal | null
-    status: $Enums.PaymentStatus | null
-    paid_at: Date | null
-    created_at: Date | null
-    updated_at: Date | null
-  }
-
-  export type PaymentsCountAggregateOutputType = {
-    id: number
-    booking_id: number
-    payment_method: number
-    proof_image: number
-    amount: number
-    status: number
-    paid_at: number
-    created_at: number
-    updated_at: number
-    _all: number
-  }
-
-
-  export type PaymentsAvgAggregateInputType = {
-    amount?: true
-  }
-
-  export type PaymentsSumAggregateInputType = {
-    amount?: true
-  }
-
-  export type PaymentsMinAggregateInputType = {
-    id?: true
-    booking_id?: true
-    payment_method?: true
-    proof_image?: true
-    amount?: true
-    status?: true
-    paid_at?: true
-    created_at?: true
-    updated_at?: true
-  }
-
-  export type PaymentsMaxAggregateInputType = {
-    id?: true
-    booking_id?: true
-    payment_method?: true
-    proof_image?: true
-    amount?: true
-    status?: true
-    paid_at?: true
-    created_at?: true
-    updated_at?: true
-  }
-
-  export type PaymentsCountAggregateInputType = {
-    id?: true
-    booking_id?: true
-    payment_method?: true
-    proof_image?: true
-    amount?: true
-    status?: true
-    paid_at?: true
-    created_at?: true
-    updated_at?: true
-    _all?: true
-  }
-
-  export type PaymentsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which payments to aggregate.
-     */
-    where?: paymentsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of payments to fetch.
-     */
-    orderBy?: paymentsOrderByWithRelationInput | paymentsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: paymentsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` payments from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` payments.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned payments
-    **/
-    _count?: true | PaymentsCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: PaymentsAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: PaymentsSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: PaymentsMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: PaymentsMaxAggregateInputType
-  }
-
-  export type GetPaymentsAggregateType<T extends PaymentsAggregateArgs> = {
-        [P in keyof T & keyof AggregatePayments]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregatePayments[P]>
-      : GetScalarType<T[P], AggregatePayments[P]>
-  }
-
-
-
-
-  export type paymentsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: paymentsWhereInput
-    orderBy?: paymentsOrderByWithAggregationInput | paymentsOrderByWithAggregationInput[]
-    by: PaymentsScalarFieldEnum[] | PaymentsScalarFieldEnum
-    having?: paymentsScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: PaymentsCountAggregateInputType | true
-    _avg?: PaymentsAvgAggregateInputType
-    _sum?: PaymentsSumAggregateInputType
-    _min?: PaymentsMinAggregateInputType
-    _max?: PaymentsMaxAggregateInputType
-  }
-
-  export type PaymentsGroupByOutputType = {
-    id: string
-    booking_id: string
-    payment_method: $Enums.PaymentMethod
-    proof_image: string | null
-    amount: Decimal
-    status: $Enums.PaymentStatus
-    paid_at: Date | null
-    created_at: Date
-    updated_at: Date
-    _count: PaymentsCountAggregateOutputType | null
-    _avg: PaymentsAvgAggregateOutputType | null
-    _sum: PaymentsSumAggregateOutputType | null
-    _min: PaymentsMinAggregateOutputType | null
-    _max: PaymentsMaxAggregateOutputType | null
-  }
-
-  type GetPaymentsGroupByPayload<T extends paymentsGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<PaymentsGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof PaymentsGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], PaymentsGroupByOutputType[P]>
-            : GetScalarType<T[P], PaymentsGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type paymentsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    booking_id?: boolean
-    payment_method?: boolean
-    proof_image?: boolean
-    amount?: boolean
-    status?: boolean
-    paid_at?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    booking?: boolean | bookingsDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["payments"]>
-
-  export type paymentsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    booking_id?: boolean
-    payment_method?: boolean
-    proof_image?: boolean
-    amount?: boolean
-    status?: boolean
-    paid_at?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    booking?: boolean | bookingsDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["payments"]>
-
-  export type paymentsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    booking_id?: boolean
-    payment_method?: boolean
-    proof_image?: boolean
-    amount?: boolean
-    status?: boolean
-    paid_at?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    booking?: boolean | bookingsDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["payments"]>
-
-  export type paymentsSelectScalar = {
-    id?: boolean
-    booking_id?: boolean
-    payment_method?: boolean
-    proof_image?: boolean
-    amount?: boolean
-    status?: boolean
-    paid_at?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-  }
-
-  export type paymentsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "booking_id" | "payment_method" | "proof_image" | "amount" | "status" | "paid_at" | "created_at" | "updated_at", ExtArgs["result"]["payments"]>
-  export type paymentsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    booking?: boolean | bookingsDefaultArgs<ExtArgs>
-  }
-  export type paymentsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    booking?: boolean | bookingsDefaultArgs<ExtArgs>
-  }
-  export type paymentsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    booking?: boolean | bookingsDefaultArgs<ExtArgs>
-  }
-
-  export type $paymentsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "payments"
-    objects: {
-      booking: Prisma.$bookingsPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      booking_id: string
-      payment_method: $Enums.PaymentMethod
-      proof_image: string | null
-      amount: Prisma.Decimal
-      status: $Enums.PaymentStatus
-      paid_at: Date | null
-      created_at: Date
-      updated_at: Date
-    }, ExtArgs["result"]["payments"]>
-    composites: {}
-  }
-
-  type paymentsGetPayload<S extends boolean | null | undefined | paymentsDefaultArgs> = $Result.GetResult<Prisma.$paymentsPayload, S>
-
-  type paymentsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<paymentsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: PaymentsCountAggregateInputType | true
-    }
-
-  export interface paymentsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['payments'], meta: { name: 'payments' } }
-    /**
-     * Find zero or one Payments that matches the filter.
-     * @param {paymentsFindUniqueArgs} args - Arguments to find a Payments
-     * @example
-     * // Get one Payments
-     * const payments = await prisma.payments.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends paymentsFindUniqueArgs>(args: SelectSubset<T, paymentsFindUniqueArgs<ExtArgs>>): Prisma__paymentsClient<$Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Payments that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {paymentsFindUniqueOrThrowArgs} args - Arguments to find a Payments
-     * @example
-     * // Get one Payments
-     * const payments = await prisma.payments.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends paymentsFindUniqueOrThrowArgs>(args: SelectSubset<T, paymentsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__paymentsClient<$Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Payments that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {paymentsFindFirstArgs} args - Arguments to find a Payments
-     * @example
-     * // Get one Payments
-     * const payments = await prisma.payments.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends paymentsFindFirstArgs>(args?: SelectSubset<T, paymentsFindFirstArgs<ExtArgs>>): Prisma__paymentsClient<$Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Payments that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {paymentsFindFirstOrThrowArgs} args - Arguments to find a Payments
-     * @example
-     * // Get one Payments
-     * const payments = await prisma.payments.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends paymentsFindFirstOrThrowArgs>(args?: SelectSubset<T, paymentsFindFirstOrThrowArgs<ExtArgs>>): Prisma__paymentsClient<$Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Payments that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {paymentsFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Payments
-     * const payments = await prisma.payments.findMany()
-     * 
-     * // Get first 10 Payments
-     * const payments = await prisma.payments.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const paymentsWithIdOnly = await prisma.payments.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends paymentsFindManyArgs>(args?: SelectSubset<T, paymentsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Payments.
-     * @param {paymentsCreateArgs} args - Arguments to create a Payments.
-     * @example
-     * // Create one Payments
-     * const Payments = await prisma.payments.create({
-     *   data: {
-     *     // ... data to create a Payments
-     *   }
-     * })
-     * 
-     */
-    create<T extends paymentsCreateArgs>(args: SelectSubset<T, paymentsCreateArgs<ExtArgs>>): Prisma__paymentsClient<$Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Payments.
-     * @param {paymentsCreateManyArgs} args - Arguments to create many Payments.
-     * @example
-     * // Create many Payments
-     * const payments = await prisma.payments.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends paymentsCreateManyArgs>(args?: SelectSubset<T, paymentsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Payments and returns the data saved in the database.
-     * @param {paymentsCreateManyAndReturnArgs} args - Arguments to create many Payments.
-     * @example
-     * // Create many Payments
-     * const payments = await prisma.payments.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Payments and only return the `id`
-     * const paymentsWithIdOnly = await prisma.payments.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends paymentsCreateManyAndReturnArgs>(args?: SelectSubset<T, paymentsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Payments.
-     * @param {paymentsDeleteArgs} args - Arguments to delete one Payments.
-     * @example
-     * // Delete one Payments
-     * const Payments = await prisma.payments.delete({
-     *   where: {
-     *     // ... filter to delete one Payments
-     *   }
-     * })
-     * 
-     */
-    delete<T extends paymentsDeleteArgs>(args: SelectSubset<T, paymentsDeleteArgs<ExtArgs>>): Prisma__paymentsClient<$Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Payments.
-     * @param {paymentsUpdateArgs} args - Arguments to update one Payments.
-     * @example
-     * // Update one Payments
-     * const payments = await prisma.payments.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends paymentsUpdateArgs>(args: SelectSubset<T, paymentsUpdateArgs<ExtArgs>>): Prisma__paymentsClient<$Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Payments.
-     * @param {paymentsDeleteManyArgs} args - Arguments to filter Payments to delete.
-     * @example
-     * // Delete a few Payments
-     * const { count } = await prisma.payments.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends paymentsDeleteManyArgs>(args?: SelectSubset<T, paymentsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Payments.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {paymentsUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Payments
-     * const payments = await prisma.payments.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends paymentsUpdateManyArgs>(args: SelectSubset<T, paymentsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Payments and returns the data updated in the database.
-     * @param {paymentsUpdateManyAndReturnArgs} args - Arguments to update many Payments.
-     * @example
-     * // Update many Payments
-     * const payments = await prisma.payments.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Payments and only return the `id`
-     * const paymentsWithIdOnly = await prisma.payments.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends paymentsUpdateManyAndReturnArgs>(args: SelectSubset<T, paymentsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Payments.
-     * @param {paymentsUpsertArgs} args - Arguments to update or create a Payments.
-     * @example
-     * // Update or create a Payments
-     * const payments = await prisma.payments.upsert({
-     *   create: {
-     *     // ... data to create a Payments
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Payments we want to update
-     *   }
-     * })
-     */
-    upsert<T extends paymentsUpsertArgs>(args: SelectSubset<T, paymentsUpsertArgs<ExtArgs>>): Prisma__paymentsClient<$Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Payments.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {paymentsCountArgs} args - Arguments to filter Payments to count.
-     * @example
-     * // Count the number of Payments
-     * const count = await prisma.payments.count({
-     *   where: {
-     *     // ... the filter for the Payments we want to count
-     *   }
-     * })
-    **/
-    count<T extends paymentsCountArgs>(
-      args?: Subset<T, paymentsCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], PaymentsCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Payments.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PaymentsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends PaymentsAggregateArgs>(args: Subset<T, PaymentsAggregateArgs>): Prisma.PrismaPromise<GetPaymentsAggregateType<T>>
-
-    /**
-     * Group by Payments.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {paymentsGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends paymentsGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: paymentsGroupByArgs['orderBy'] }
-        : { orderBy?: paymentsGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, paymentsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPaymentsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the payments model
-   */
-  readonly fields: paymentsFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for payments.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__paymentsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    booking<T extends bookingsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, bookingsDefaultArgs<ExtArgs>>): Prisma__bookingsClient<$Result.GetResult<Prisma.$bookingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the payments model
-   */
-  interface paymentsFieldRefs {
-    readonly id: FieldRef<"payments", 'String'>
-    readonly booking_id: FieldRef<"payments", 'String'>
-    readonly payment_method: FieldRef<"payments", 'PaymentMethod'>
-    readonly proof_image: FieldRef<"payments", 'String'>
-    readonly amount: FieldRef<"payments", 'Decimal'>
-    readonly status: FieldRef<"payments", 'PaymentStatus'>
-    readonly paid_at: FieldRef<"payments", 'DateTime'>
-    readonly created_at: FieldRef<"payments", 'DateTime'>
-    readonly updated_at: FieldRef<"payments", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * payments findUnique
-   */
-  export type paymentsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the payments
-     */
-    select?: paymentsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the payments
-     */
-    omit?: paymentsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: paymentsInclude<ExtArgs> | null
-    /**
-     * Filter, which payments to fetch.
-     */
-    where: paymentsWhereUniqueInput
-  }
-
-  /**
-   * payments findUniqueOrThrow
-   */
-  export type paymentsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the payments
-     */
-    select?: paymentsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the payments
-     */
-    omit?: paymentsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: paymentsInclude<ExtArgs> | null
-    /**
-     * Filter, which payments to fetch.
-     */
-    where: paymentsWhereUniqueInput
-  }
-
-  /**
-   * payments findFirst
-   */
-  export type paymentsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the payments
-     */
-    select?: paymentsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the payments
-     */
-    omit?: paymentsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: paymentsInclude<ExtArgs> | null
-    /**
-     * Filter, which payments to fetch.
-     */
-    where?: paymentsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of payments to fetch.
-     */
-    orderBy?: paymentsOrderByWithRelationInput | paymentsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for payments.
-     */
-    cursor?: paymentsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` payments from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` payments.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of payments.
-     */
-    distinct?: PaymentsScalarFieldEnum | PaymentsScalarFieldEnum[]
-  }
-
-  /**
-   * payments findFirstOrThrow
-   */
-  export type paymentsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the payments
-     */
-    select?: paymentsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the payments
-     */
-    omit?: paymentsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: paymentsInclude<ExtArgs> | null
-    /**
-     * Filter, which payments to fetch.
-     */
-    where?: paymentsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of payments to fetch.
-     */
-    orderBy?: paymentsOrderByWithRelationInput | paymentsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for payments.
-     */
-    cursor?: paymentsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` payments from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` payments.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of payments.
-     */
-    distinct?: PaymentsScalarFieldEnum | PaymentsScalarFieldEnum[]
-  }
-
-  /**
-   * payments findMany
-   */
-  export type paymentsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the payments
-     */
-    select?: paymentsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the payments
-     */
-    omit?: paymentsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: paymentsInclude<ExtArgs> | null
-    /**
-     * Filter, which payments to fetch.
-     */
-    where?: paymentsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of payments to fetch.
-     */
-    orderBy?: paymentsOrderByWithRelationInput | paymentsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing payments.
-     */
-    cursor?: paymentsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` payments from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` payments.
-     */
-    skip?: number
-    distinct?: PaymentsScalarFieldEnum | PaymentsScalarFieldEnum[]
-  }
-
-  /**
-   * payments create
-   */
-  export type paymentsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the payments
-     */
-    select?: paymentsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the payments
-     */
-    omit?: paymentsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: paymentsInclude<ExtArgs> | null
-    /**
-     * The data needed to create a payments.
-     */
-    data: XOR<paymentsCreateInput, paymentsUncheckedCreateInput>
-  }
-
-  /**
-   * payments createMany
-   */
-  export type paymentsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many payments.
-     */
-    data: paymentsCreateManyInput | paymentsCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * payments createManyAndReturn
-   */
-  export type paymentsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the payments
-     */
-    select?: paymentsSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the payments
-     */
-    omit?: paymentsOmit<ExtArgs> | null
-    /**
-     * The data used to create many payments.
-     */
-    data: paymentsCreateManyInput | paymentsCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: paymentsIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * payments update
-   */
-  export type paymentsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the payments
-     */
-    select?: paymentsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the payments
-     */
-    omit?: paymentsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: paymentsInclude<ExtArgs> | null
-    /**
-     * The data needed to update a payments.
-     */
-    data: XOR<paymentsUpdateInput, paymentsUncheckedUpdateInput>
-    /**
-     * Choose, which payments to update.
-     */
-    where: paymentsWhereUniqueInput
-  }
-
-  /**
-   * payments updateMany
-   */
-  export type paymentsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update payments.
-     */
-    data: XOR<paymentsUpdateManyMutationInput, paymentsUncheckedUpdateManyInput>
-    /**
-     * Filter which payments to update
-     */
-    where?: paymentsWhereInput
-    /**
-     * Limit how many payments to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * payments updateManyAndReturn
-   */
-  export type paymentsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the payments
-     */
-    select?: paymentsSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the payments
-     */
-    omit?: paymentsOmit<ExtArgs> | null
-    /**
-     * The data used to update payments.
-     */
-    data: XOR<paymentsUpdateManyMutationInput, paymentsUncheckedUpdateManyInput>
-    /**
-     * Filter which payments to update
-     */
-    where?: paymentsWhereInput
-    /**
-     * Limit how many payments to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: paymentsIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * payments upsert
-   */
-  export type paymentsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the payments
-     */
-    select?: paymentsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the payments
-     */
-    omit?: paymentsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: paymentsInclude<ExtArgs> | null
-    /**
-     * The filter to search for the payments to update in case it exists.
-     */
-    where: paymentsWhereUniqueInput
-    /**
-     * In case the payments found by the `where` argument doesn't exist, create a new payments with this data.
-     */
-    create: XOR<paymentsCreateInput, paymentsUncheckedCreateInput>
-    /**
-     * In case the payments was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<paymentsUpdateInput, paymentsUncheckedUpdateInput>
-  }
-
-  /**
-   * payments delete
-   */
-  export type paymentsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the payments
-     */
-    select?: paymentsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the payments
-     */
-    omit?: paymentsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: paymentsInclude<ExtArgs> | null
-    /**
-     * Filter which payments to delete.
-     */
-    where: paymentsWhereUniqueInput
-  }
-
-  /**
-   * payments deleteMany
-   */
-  export type paymentsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which payments to delete
-     */
-    where?: paymentsWhereInput
-    /**
-     * Limit how many payments to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * payments without action
-   */
-  export type paymentsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the payments
-     */
-    select?: paymentsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the payments
-     */
-    omit?: paymentsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: paymentsInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model reviews
    */
 
@@ -17433,10 +14995,8 @@ export namespace Prisma {
     password_hash: 'password_hash',
     profile_picture: 'profile_picture',
     is_verified: 'is_verified',
-    verify_token: 'verify_token',
-    verify_token_expires_at: 'verify_token_expires_at',
-    reset_password_token: 'reset_password_token',
-    reset_password_expires_at: 'reset_password_expires_at',
+    verify_otp: 'verify_otp',
+    reset_password_otp: 'reset_password_otp',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -17458,22 +15018,11 @@ export namespace Prisma {
   export type TenantsScalarFieldEnum = (typeof TenantsScalarFieldEnum)[keyof typeof TenantsScalarFieldEnum]
 
 
-  export const Property_categoriesScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    description: 'description',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type Property_categoriesScalarFieldEnum = (typeof Property_categoriesScalarFieldEnum)[keyof typeof Property_categoriesScalarFieldEnum]
-
-
   export const PropertiesScalarFieldEnum: {
     id: 'id',
     tenant_id: 'tenant_id',
-    category_id: 'category_id',
     name: 'name',
+    property_category: 'property_category',
     description: 'description',
     address: 'address',
     city: 'city',
@@ -17482,6 +15031,7 @@ export namespace Prisma {
     latitude: 'latitude',
     longitude: 'longitude',
     main_image: 'main_image',
+    deleted_at: 'deleted_at',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -17507,6 +15057,7 @@ export namespace Prisma {
     base_price: 'base_price',
     capacity: 'capacity',
     image: 'image',
+    deleted_at: 'deleted_at',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -17557,10 +15108,13 @@ export namespace Prisma {
     user_id: 'user_id',
     property_id: 'property_id',
     status: 'status',
+    proof_image: 'proof_image',
     check_in_date: 'check_in_date',
     check_out_date: 'check_out_date',
     total_price: 'total_price',
     payment_deadline: 'payment_deadline',
+    paid_at: 'paid_at',
+    amount: 'amount',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -17581,21 +15135,6 @@ export namespace Prisma {
   };
 
   export type Booking_roomsScalarFieldEnum = (typeof Booking_roomsScalarFieldEnum)[keyof typeof Booking_roomsScalarFieldEnum]
-
-
-  export const PaymentsScalarFieldEnum: {
-    id: 'id',
-    booking_id: 'booking_id',
-    payment_method: 'payment_method',
-    proof_image: 'proof_image',
-    amount: 'amount',
-    status: 'status',
-    paid_at: 'paid_at',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type PaymentsScalarFieldEnum = (typeof PaymentsScalarFieldEnum)[keyof typeof PaymentsScalarFieldEnum]
 
 
   export const ReviewsScalarFieldEnum: {
@@ -17691,6 +15230,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'PropertyCategory'
+   */
+  export type EnumPropertyCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PropertyCategory'>
+    
+
+
+  /**
+   * Reference to a field of type 'PropertyCategory[]'
+   */
+  export type ListEnumPropertyCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PropertyCategory[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Decimal'
    */
   export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
@@ -17747,34 +15300,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'PaymentMethod'
-   */
-  export type EnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentMethod'>
-    
-
-
-  /**
-   * Reference to a field of type 'PaymentMethod[]'
-   */
-  export type ListEnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentMethod[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'PaymentStatus'
-   */
-  export type EnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus'>
-    
-
-
-  /**
-   * Reference to a field of type 'PaymentStatus[]'
-   */
-  export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -17802,10 +15327,8 @@ export namespace Prisma {
     password_hash?: StringFilter<"users"> | string
     profile_picture?: StringNullableFilter<"users"> | string | null
     is_verified?: BoolFilter<"users"> | boolean
-    verify_token?: StringNullableFilter<"users"> | string | null
-    verify_token_expires_at?: DateTimeNullableFilter<"users"> | Date | string | null
-    reset_password_token?: StringNullableFilter<"users"> | string | null
-    reset_password_expires_at?: DateTimeNullableFilter<"users"> | Date | string | null
+    verify_otp?: StringNullableFilter<"users"> | string | null
+    reset_password_otp?: StringNullableFilter<"users"> | string | null
     created_at?: DateTimeFilter<"users"> | Date | string
     updated_at?: DateTimeFilter<"users"> | Date | string
     tenants?: TenantsListRelationFilter
@@ -17821,10 +15344,8 @@ export namespace Prisma {
     password_hash?: SortOrder
     profile_picture?: SortOrderInput | SortOrder
     is_verified?: SortOrder
-    verify_token?: SortOrderInput | SortOrder
-    verify_token_expires_at?: SortOrderInput | SortOrder
-    reset_password_token?: SortOrderInput | SortOrder
-    reset_password_expires_at?: SortOrderInput | SortOrder
+    verify_otp?: SortOrderInput | SortOrder
+    reset_password_otp?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     tenants?: tenantsOrderByRelationAggregateInput
@@ -17843,10 +15364,8 @@ export namespace Prisma {
     password_hash?: StringFilter<"users"> | string
     profile_picture?: StringNullableFilter<"users"> | string | null
     is_verified?: BoolFilter<"users"> | boolean
-    verify_token?: StringNullableFilter<"users"> | string | null
-    verify_token_expires_at?: DateTimeNullableFilter<"users"> | Date | string | null
-    reset_password_token?: StringNullableFilter<"users"> | string | null
-    reset_password_expires_at?: DateTimeNullableFilter<"users"> | Date | string | null
+    verify_otp?: StringNullableFilter<"users"> | string | null
+    reset_password_otp?: StringNullableFilter<"users"> | string | null
     created_at?: DateTimeFilter<"users"> | Date | string
     updated_at?: DateTimeFilter<"users"> | Date | string
     tenants?: TenantsListRelationFilter
@@ -17862,10 +15381,8 @@ export namespace Prisma {
     password_hash?: SortOrder
     profile_picture?: SortOrderInput | SortOrder
     is_verified?: SortOrder
-    verify_token?: SortOrderInput | SortOrder
-    verify_token_expires_at?: SortOrderInput | SortOrder
-    reset_password_token?: SortOrderInput | SortOrder
-    reset_password_expires_at?: SortOrderInput | SortOrder
+    verify_otp?: SortOrderInput | SortOrder
+    reset_password_otp?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: usersCountOrderByAggregateInput
@@ -17884,10 +15401,8 @@ export namespace Prisma {
     password_hash?: StringWithAggregatesFilter<"users"> | string
     profile_picture?: StringNullableWithAggregatesFilter<"users"> | string | null
     is_verified?: BoolWithAggregatesFilter<"users"> | boolean
-    verify_token?: StringNullableWithAggregatesFilter<"users"> | string | null
-    verify_token_expires_at?: DateTimeNullableWithAggregatesFilter<"users"> | Date | string | null
-    reset_password_token?: StringNullableWithAggregatesFilter<"users"> | string | null
-    reset_password_expires_at?: DateTimeNullableWithAggregatesFilter<"users"> | Date | string | null
+    verify_otp?: StringNullableWithAggregatesFilter<"users"> | string | null
+    reset_password_otp?: StringNullableWithAggregatesFilter<"users"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"users"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"users"> | Date | string
   }
@@ -17965,69 +15480,14 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"tenants"> | Date | string
   }
 
-  export type property_categoriesWhereInput = {
-    AND?: property_categoriesWhereInput | property_categoriesWhereInput[]
-    OR?: property_categoriesWhereInput[]
-    NOT?: property_categoriesWhereInput | property_categoriesWhereInput[]
-    id?: StringFilter<"property_categories"> | string
-    name?: StringFilter<"property_categories"> | string
-    description?: StringNullableFilter<"property_categories"> | string | null
-    created_at?: DateTimeFilter<"property_categories"> | Date | string
-    updated_at?: DateTimeFilter<"property_categories"> | Date | string
-    properties?: PropertiesListRelationFilter
-  }
-
-  export type property_categoriesOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    properties?: propertiesOrderByRelationAggregateInput
-  }
-
-  export type property_categoriesWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: property_categoriesWhereInput | property_categoriesWhereInput[]
-    OR?: property_categoriesWhereInput[]
-    NOT?: property_categoriesWhereInput | property_categoriesWhereInput[]
-    name?: StringFilter<"property_categories"> | string
-    description?: StringNullableFilter<"property_categories"> | string | null
-    created_at?: DateTimeFilter<"property_categories"> | Date | string
-    updated_at?: DateTimeFilter<"property_categories"> | Date | string
-    properties?: PropertiesListRelationFilter
-  }, "id">
-
-  export type property_categoriesOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    _count?: property_categoriesCountOrderByAggregateInput
-    _max?: property_categoriesMaxOrderByAggregateInput
-    _min?: property_categoriesMinOrderByAggregateInput
-  }
-
-  export type property_categoriesScalarWhereWithAggregatesInput = {
-    AND?: property_categoriesScalarWhereWithAggregatesInput | property_categoriesScalarWhereWithAggregatesInput[]
-    OR?: property_categoriesScalarWhereWithAggregatesInput[]
-    NOT?: property_categoriesScalarWhereWithAggregatesInput | property_categoriesScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"property_categories"> | string
-    name?: StringWithAggregatesFilter<"property_categories"> | string
-    description?: StringNullableWithAggregatesFilter<"property_categories"> | string | null
-    created_at?: DateTimeWithAggregatesFilter<"property_categories"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"property_categories"> | Date | string
-  }
-
   export type propertiesWhereInput = {
     AND?: propertiesWhereInput | propertiesWhereInput[]
     OR?: propertiesWhereInput[]
     NOT?: propertiesWhereInput | propertiesWhereInput[]
     id?: StringFilter<"properties"> | string
     tenant_id?: StringFilter<"properties"> | string
-    category_id?: StringFilter<"properties"> | string
     name?: StringFilter<"properties"> | string
+    property_category?: EnumPropertyCategoryFilter<"properties"> | $Enums.PropertyCategory
     description?: StringNullableFilter<"properties"> | string | null
     address?: StringFilter<"properties"> | string
     city?: StringFilter<"properties"> | string
@@ -18036,10 +15496,10 @@ export namespace Prisma {
     latitude?: DecimalFilter<"properties"> | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFilter<"properties"> | Decimal | DecimalJsLike | number | string
     main_image?: StringNullableFilter<"properties"> | string | null
+    deleted_at?: DateTimeNullableFilter<"properties"> | Date | string | null
     created_at?: DateTimeFilter<"properties"> | Date | string
     updated_at?: DateTimeFilter<"properties"> | Date | string
     tenant?: XOR<TenantsScalarRelationFilter, tenantsWhereInput>
-    category?: XOR<Property_categoriesScalarRelationFilter, property_categoriesWhereInput>
     property_images?: Property_imagesListRelationFilter
     rooms?: RoomsListRelationFilter
     peak_season_rates?: Peak_season_ratesListRelationFilter
@@ -18050,8 +15510,8 @@ export namespace Prisma {
   export type propertiesOrderByWithRelationInput = {
     id?: SortOrder
     tenant_id?: SortOrder
-    category_id?: SortOrder
     name?: SortOrder
+    property_category?: SortOrder
     description?: SortOrderInput | SortOrder
     address?: SortOrder
     city?: SortOrder
@@ -18060,10 +15520,10 @@ export namespace Prisma {
     latitude?: SortOrder
     longitude?: SortOrder
     main_image?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     tenant?: tenantsOrderByWithRelationInput
-    category?: property_categoriesOrderByWithRelationInput
     property_images?: property_imagesOrderByRelationAggregateInput
     rooms?: roomsOrderByRelationAggregateInput
     peak_season_rates?: peak_season_ratesOrderByRelationAggregateInput
@@ -18077,8 +15537,8 @@ export namespace Prisma {
     OR?: propertiesWhereInput[]
     NOT?: propertiesWhereInput | propertiesWhereInput[]
     tenant_id?: StringFilter<"properties"> | string
-    category_id?: StringFilter<"properties"> | string
     name?: StringFilter<"properties"> | string
+    property_category?: EnumPropertyCategoryFilter<"properties"> | $Enums.PropertyCategory
     description?: StringNullableFilter<"properties"> | string | null
     address?: StringFilter<"properties"> | string
     city?: StringFilter<"properties"> | string
@@ -18087,10 +15547,10 @@ export namespace Prisma {
     latitude?: DecimalFilter<"properties"> | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFilter<"properties"> | Decimal | DecimalJsLike | number | string
     main_image?: StringNullableFilter<"properties"> | string | null
+    deleted_at?: DateTimeNullableFilter<"properties"> | Date | string | null
     created_at?: DateTimeFilter<"properties"> | Date | string
     updated_at?: DateTimeFilter<"properties"> | Date | string
     tenant?: XOR<TenantsScalarRelationFilter, tenantsWhereInput>
-    category?: XOR<Property_categoriesScalarRelationFilter, property_categoriesWhereInput>
     property_images?: Property_imagesListRelationFilter
     rooms?: RoomsListRelationFilter
     peak_season_rates?: Peak_season_ratesListRelationFilter
@@ -18101,8 +15561,8 @@ export namespace Prisma {
   export type propertiesOrderByWithAggregationInput = {
     id?: SortOrder
     tenant_id?: SortOrder
-    category_id?: SortOrder
     name?: SortOrder
+    property_category?: SortOrder
     description?: SortOrderInput | SortOrder
     address?: SortOrder
     city?: SortOrder
@@ -18111,6 +15571,7 @@ export namespace Prisma {
     latitude?: SortOrder
     longitude?: SortOrder
     main_image?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: propertiesCountOrderByAggregateInput
@@ -18126,8 +15587,8 @@ export namespace Prisma {
     NOT?: propertiesScalarWhereWithAggregatesInput | propertiesScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"properties"> | string
     tenant_id?: StringWithAggregatesFilter<"properties"> | string
-    category_id?: StringWithAggregatesFilter<"properties"> | string
     name?: StringWithAggregatesFilter<"properties"> | string
+    property_category?: EnumPropertyCategoryWithAggregatesFilter<"properties"> | $Enums.PropertyCategory
     description?: StringNullableWithAggregatesFilter<"properties"> | string | null
     address?: StringWithAggregatesFilter<"properties"> | string
     city?: StringWithAggregatesFilter<"properties"> | string
@@ -18136,6 +15597,7 @@ export namespace Prisma {
     latitude?: DecimalWithAggregatesFilter<"properties"> | Decimal | DecimalJsLike | number | string
     longitude?: DecimalWithAggregatesFilter<"properties"> | Decimal | DecimalJsLike | number | string
     main_image?: StringNullableWithAggregatesFilter<"properties"> | string | null
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"properties"> | Date | string | null
     created_at?: DateTimeWithAggregatesFilter<"properties"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"properties"> | Date | string
   }
@@ -18201,6 +15663,7 @@ export namespace Prisma {
     base_price?: DecimalFilter<"rooms"> | Decimal | DecimalJsLike | number | string
     capacity?: IntFilter<"rooms"> | number
     image?: StringNullableFilter<"rooms"> | string | null
+    deleted_at?: DateTimeNullableFilter<"rooms"> | Date | string | null
     created_at?: DateTimeFilter<"rooms"> | Date | string
     updated_at?: DateTimeFilter<"rooms"> | Date | string
     property?: XOR<PropertiesScalarRelationFilter, propertiesWhereInput>
@@ -18218,6 +15681,7 @@ export namespace Prisma {
     base_price?: SortOrder
     capacity?: SortOrder
     image?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     property?: propertiesOrderByWithRelationInput
@@ -18238,6 +15702,7 @@ export namespace Prisma {
     base_price?: DecimalFilter<"rooms"> | Decimal | DecimalJsLike | number | string
     capacity?: IntFilter<"rooms"> | number
     image?: StringNullableFilter<"rooms"> | string | null
+    deleted_at?: DateTimeNullableFilter<"rooms"> | Date | string | null
     created_at?: DateTimeFilter<"rooms"> | Date | string
     updated_at?: DateTimeFilter<"rooms"> | Date | string
     property?: XOR<PropertiesScalarRelationFilter, propertiesWhereInput>
@@ -18255,6 +15720,7 @@ export namespace Prisma {
     base_price?: SortOrder
     capacity?: SortOrder
     image?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: roomsCountOrderByAggregateInput
@@ -18275,6 +15741,7 @@ export namespace Prisma {
     base_price?: DecimalWithAggregatesFilter<"rooms"> | Decimal | DecimalJsLike | number | string
     capacity?: IntWithAggregatesFilter<"rooms"> | number
     image?: StringNullableWithAggregatesFilter<"rooms"> | string | null
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"rooms"> | Date | string | null
     created_at?: DateTimeWithAggregatesFilter<"rooms"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"rooms"> | Date | string
   }
@@ -18485,16 +15952,18 @@ export namespace Prisma {
     user_id?: StringFilter<"bookings"> | string
     property_id?: StringFilter<"bookings"> | string
     status?: EnumBookingStatusFilter<"bookings"> | $Enums.BookingStatus
+    proof_image?: StringNullableFilter<"bookings"> | string | null
     check_in_date?: DateTimeFilter<"bookings"> | Date | string
     check_out_date?: DateTimeFilter<"bookings"> | Date | string
     total_price?: DecimalFilter<"bookings"> | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeFilter<"bookings"> | Date | string
+    paid_at?: DateTimeNullableFilter<"bookings"> | Date | string | null
+    amount?: DecimalFilter<"bookings"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFilter<"bookings"> | Date | string
     updated_at?: DateTimeFilter<"bookings"> | Date | string
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
     property?: XOR<PropertiesScalarRelationFilter, propertiesWhereInput>
     booking_rooms?: Booking_roomsListRelationFilter
-    payments?: PaymentsListRelationFilter
     reviews?: ReviewsListRelationFilter
   }
 
@@ -18503,16 +15972,18 @@ export namespace Prisma {
     user_id?: SortOrder
     property_id?: SortOrder
     status?: SortOrder
+    proof_image?: SortOrderInput | SortOrder
     check_in_date?: SortOrder
     check_out_date?: SortOrder
     total_price?: SortOrder
     payment_deadline?: SortOrder
+    paid_at?: SortOrderInput | SortOrder
+    amount?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     user?: usersOrderByWithRelationInput
     property?: propertiesOrderByWithRelationInput
     booking_rooms?: booking_roomsOrderByRelationAggregateInput
-    payments?: paymentsOrderByRelationAggregateInput
     reviews?: reviewsOrderByRelationAggregateInput
   }
 
@@ -18524,16 +15995,18 @@ export namespace Prisma {
     user_id?: StringFilter<"bookings"> | string
     property_id?: StringFilter<"bookings"> | string
     status?: EnumBookingStatusFilter<"bookings"> | $Enums.BookingStatus
+    proof_image?: StringNullableFilter<"bookings"> | string | null
     check_in_date?: DateTimeFilter<"bookings"> | Date | string
     check_out_date?: DateTimeFilter<"bookings"> | Date | string
     total_price?: DecimalFilter<"bookings"> | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeFilter<"bookings"> | Date | string
+    paid_at?: DateTimeNullableFilter<"bookings"> | Date | string | null
+    amount?: DecimalFilter<"bookings"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFilter<"bookings"> | Date | string
     updated_at?: DateTimeFilter<"bookings"> | Date | string
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
     property?: XOR<PropertiesScalarRelationFilter, propertiesWhereInput>
     booking_rooms?: Booking_roomsListRelationFilter
-    payments?: PaymentsListRelationFilter
     reviews?: ReviewsListRelationFilter
   }, "id">
 
@@ -18542,10 +16015,13 @@ export namespace Prisma {
     user_id?: SortOrder
     property_id?: SortOrder
     status?: SortOrder
+    proof_image?: SortOrderInput | SortOrder
     check_in_date?: SortOrder
     check_out_date?: SortOrder
     total_price?: SortOrder
     payment_deadline?: SortOrder
+    paid_at?: SortOrderInput | SortOrder
+    amount?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: bookingsCountOrderByAggregateInput
@@ -18563,10 +16039,13 @@ export namespace Prisma {
     user_id?: StringWithAggregatesFilter<"bookings"> | string
     property_id?: StringWithAggregatesFilter<"bookings"> | string
     status?: EnumBookingStatusWithAggregatesFilter<"bookings"> | $Enums.BookingStatus
+    proof_image?: StringNullableWithAggregatesFilter<"bookings"> | string | null
     check_in_date?: DateTimeWithAggregatesFilter<"bookings"> | Date | string
     check_out_date?: DateTimeWithAggregatesFilter<"bookings"> | Date | string
     total_price?: DecimalWithAggregatesFilter<"bookings"> | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeWithAggregatesFilter<"bookings"> | Date | string
+    paid_at?: DateTimeNullableWithAggregatesFilter<"bookings"> | Date | string | null
+    amount?: DecimalWithAggregatesFilter<"bookings"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeWithAggregatesFilter<"bookings"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"bookings"> | Date | string
   }
@@ -18649,83 +16128,6 @@ export namespace Prisma {
     subtotal?: DecimalWithAggregatesFilter<"booking_rooms"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeWithAggregatesFilter<"booking_rooms"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"booking_rooms"> | Date | string
-  }
-
-  export type paymentsWhereInput = {
-    AND?: paymentsWhereInput | paymentsWhereInput[]
-    OR?: paymentsWhereInput[]
-    NOT?: paymentsWhereInput | paymentsWhereInput[]
-    id?: StringFilter<"payments"> | string
-    booking_id?: StringFilter<"payments"> | string
-    payment_method?: EnumPaymentMethodFilter<"payments"> | $Enums.PaymentMethod
-    proof_image?: StringNullableFilter<"payments"> | string | null
-    amount?: DecimalFilter<"payments"> | Decimal | DecimalJsLike | number | string
-    status?: EnumPaymentStatusFilter<"payments"> | $Enums.PaymentStatus
-    paid_at?: DateTimeNullableFilter<"payments"> | Date | string | null
-    created_at?: DateTimeFilter<"payments"> | Date | string
-    updated_at?: DateTimeFilter<"payments"> | Date | string
-    booking?: XOR<BookingsScalarRelationFilter, bookingsWhereInput>
-  }
-
-  export type paymentsOrderByWithRelationInput = {
-    id?: SortOrder
-    booking_id?: SortOrder
-    payment_method?: SortOrder
-    proof_image?: SortOrderInput | SortOrder
-    amount?: SortOrder
-    status?: SortOrder
-    paid_at?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    booking?: bookingsOrderByWithRelationInput
-  }
-
-  export type paymentsWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: paymentsWhereInput | paymentsWhereInput[]
-    OR?: paymentsWhereInput[]
-    NOT?: paymentsWhereInput | paymentsWhereInput[]
-    booking_id?: StringFilter<"payments"> | string
-    payment_method?: EnumPaymentMethodFilter<"payments"> | $Enums.PaymentMethod
-    proof_image?: StringNullableFilter<"payments"> | string | null
-    amount?: DecimalFilter<"payments"> | Decimal | DecimalJsLike | number | string
-    status?: EnumPaymentStatusFilter<"payments"> | $Enums.PaymentStatus
-    paid_at?: DateTimeNullableFilter<"payments"> | Date | string | null
-    created_at?: DateTimeFilter<"payments"> | Date | string
-    updated_at?: DateTimeFilter<"payments"> | Date | string
-    booking?: XOR<BookingsScalarRelationFilter, bookingsWhereInput>
-  }, "id">
-
-  export type paymentsOrderByWithAggregationInput = {
-    id?: SortOrder
-    booking_id?: SortOrder
-    payment_method?: SortOrder
-    proof_image?: SortOrderInput | SortOrder
-    amount?: SortOrder
-    status?: SortOrder
-    paid_at?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    _count?: paymentsCountOrderByAggregateInput
-    _avg?: paymentsAvgOrderByAggregateInput
-    _max?: paymentsMaxOrderByAggregateInput
-    _min?: paymentsMinOrderByAggregateInput
-    _sum?: paymentsSumOrderByAggregateInput
-  }
-
-  export type paymentsScalarWhereWithAggregatesInput = {
-    AND?: paymentsScalarWhereWithAggregatesInput | paymentsScalarWhereWithAggregatesInput[]
-    OR?: paymentsScalarWhereWithAggregatesInput[]
-    NOT?: paymentsScalarWhereWithAggregatesInput | paymentsScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"payments"> | string
-    booking_id?: StringWithAggregatesFilter<"payments"> | string
-    payment_method?: EnumPaymentMethodWithAggregatesFilter<"payments"> | $Enums.PaymentMethod
-    proof_image?: StringNullableWithAggregatesFilter<"payments"> | string | null
-    amount?: DecimalWithAggregatesFilter<"payments"> | Decimal | DecimalJsLike | number | string
-    status?: EnumPaymentStatusWithAggregatesFilter<"payments"> | $Enums.PaymentStatus
-    paid_at?: DateTimeNullableWithAggregatesFilter<"payments"> | Date | string | null
-    created_at?: DateTimeWithAggregatesFilter<"payments"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"payments"> | Date | string
   }
 
   export type reviewsWhereInput = {
@@ -18812,10 +16214,8 @@ export namespace Prisma {
     password_hash: string
     profile_picture?: string | null
     is_verified: boolean
-    verify_token?: string | null
-    verify_token_expires_at?: Date | string | null
-    reset_password_token?: string | null
-    reset_password_expires_at?: Date | string | null
+    verify_otp?: string | null
+    reset_password_otp?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     tenants?: tenantsCreateNestedManyWithoutUserInput
@@ -18831,10 +16231,8 @@ export namespace Prisma {
     password_hash: string
     profile_picture?: string | null
     is_verified: boolean
-    verify_token?: string | null
-    verify_token_expires_at?: Date | string | null
-    reset_password_token?: string | null
-    reset_password_expires_at?: Date | string | null
+    verify_otp?: string | null
+    reset_password_otp?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     tenants?: tenantsUncheckedCreateNestedManyWithoutUserInput
@@ -18850,10 +16248,8 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
     is_verified?: BoolFieldUpdateOperationsInput | boolean
-    verify_token?: NullableStringFieldUpdateOperationsInput | string | null
-    verify_token_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    reset_password_token?: NullableStringFieldUpdateOperationsInput | string | null
-    reset_password_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verify_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    reset_password_otp?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     tenants?: tenantsUpdateManyWithoutUserNestedInput
@@ -18869,10 +16265,8 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
     is_verified?: BoolFieldUpdateOperationsInput | boolean
-    verify_token?: NullableStringFieldUpdateOperationsInput | string | null
-    verify_token_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    reset_password_token?: NullableStringFieldUpdateOperationsInput | string | null
-    reset_password_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verify_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    reset_password_otp?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     tenants?: tenantsUncheckedUpdateManyWithoutUserNestedInput
@@ -18888,10 +16282,8 @@ export namespace Prisma {
     password_hash: string
     profile_picture?: string | null
     is_verified: boolean
-    verify_token?: string | null
-    verify_token_expires_at?: Date | string | null
-    reset_password_token?: string | null
-    reset_password_expires_at?: Date | string | null
+    verify_otp?: string | null
+    reset_password_otp?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -18904,10 +16296,8 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
     is_verified?: BoolFieldUpdateOperationsInput | boolean
-    verify_token?: NullableStringFieldUpdateOperationsInput | string | null
-    verify_token_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    reset_password_token?: NullableStringFieldUpdateOperationsInput | string | null
-    reset_password_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verify_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    reset_password_otp?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18920,10 +16310,8 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
     is_verified?: BoolFieldUpdateOperationsInput | boolean
-    verify_token?: NullableStringFieldUpdateOperationsInput | string | null
-    verify_token_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    reset_password_token?: NullableStringFieldUpdateOperationsInput | string | null
-    reset_password_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verify_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    reset_password_otp?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19008,69 +16396,10 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type property_categoriesCreateInput = {
-    id?: string
-    name: string
-    description?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    properties?: propertiesCreateNestedManyWithoutCategoryInput
-  }
-
-  export type property_categoriesUncheckedCreateInput = {
-    id?: string
-    name: string
-    description?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    properties?: propertiesUncheckedCreateNestedManyWithoutCategoryInput
-  }
-
-  export type property_categoriesUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    properties?: propertiesUpdateManyWithoutCategoryNestedInput
-  }
-
-  export type property_categoriesUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    properties?: propertiesUncheckedUpdateManyWithoutCategoryNestedInput
-  }
-
-  export type property_categoriesCreateManyInput = {
-    id?: string
-    name: string
-    description?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type property_categoriesUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type property_categoriesUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type propertiesCreateInput = {
     id?: string
     name: string
+    property_category: $Enums.PropertyCategory
     description?: string | null
     address: string
     city: string
@@ -19079,10 +16408,10 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     tenant: tenantsCreateNestedOneWithoutPropertiesInput
-    category: property_categoriesCreateNestedOneWithoutPropertiesInput
     property_images?: property_imagesCreateNestedManyWithoutPropertyInput
     rooms?: roomsCreateNestedManyWithoutPropertyInput
     peak_season_rates?: peak_season_ratesCreateNestedManyWithoutPropertyInput
@@ -19093,8 +16422,8 @@ export namespace Prisma {
   export type propertiesUncheckedCreateInput = {
     id?: string
     tenant_id: string
-    category_id: string
     name: string
+    property_category: $Enums.PropertyCategory
     description?: string | null
     address: string
     city: string
@@ -19103,6 +16432,7 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     property_images?: property_imagesUncheckedCreateNestedManyWithoutPropertyInput
@@ -19115,6 +16445,7 @@ export namespace Prisma {
   export type propertiesUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
@@ -19123,10 +16454,10 @@ export namespace Prisma {
     latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: tenantsUpdateOneRequiredWithoutPropertiesNestedInput
-    category?: property_categoriesUpdateOneRequiredWithoutPropertiesNestedInput
     property_images?: property_imagesUpdateManyWithoutPropertyNestedInput
     rooms?: roomsUpdateManyWithoutPropertyNestedInput
     peak_season_rates?: peak_season_ratesUpdateManyWithoutPropertyNestedInput
@@ -19137,8 +16468,8 @@ export namespace Prisma {
   export type propertiesUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenant_id?: StringFieldUpdateOperationsInput | string
-    category_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
@@ -19147,6 +16478,7 @@ export namespace Prisma {
     latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     property_images?: property_imagesUncheckedUpdateManyWithoutPropertyNestedInput
@@ -19159,8 +16491,8 @@ export namespace Prisma {
   export type propertiesCreateManyInput = {
     id?: string
     tenant_id: string
-    category_id: string
     name: string
+    property_category: $Enums.PropertyCategory
     description?: string | null
     address: string
     city: string
@@ -19169,6 +16501,7 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -19176,6 +16509,7 @@ export namespace Prisma {
   export type propertiesUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
@@ -19184,6 +16518,7 @@ export namespace Prisma {
     latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19191,8 +16526,8 @@ export namespace Prisma {
   export type propertiesUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenant_id?: StringFieldUpdateOperationsInput | string
-    category_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
@@ -19201,6 +16536,7 @@ export namespace Prisma {
     latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19260,6 +16596,7 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     property: propertiesCreateNestedOneWithoutRoomsInput
@@ -19277,6 +16614,7 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     room_images?: room_imagesUncheckedCreateNestedManyWithoutRoomInput
@@ -19292,6 +16630,7 @@ export namespace Prisma {
     base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     capacity?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     property?: propertiesUpdateOneRequiredWithoutRoomsNestedInput
@@ -19309,6 +16648,7 @@ export namespace Prisma {
     base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     capacity?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     room_images?: room_imagesUncheckedUpdateManyWithoutRoomNestedInput
@@ -19325,6 +16665,7 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -19336,6 +16677,7 @@ export namespace Prisma {
     base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     capacity?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19348,6 +16690,7 @@ export namespace Prisma {
     base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     capacity?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19554,16 +16897,18 @@ export namespace Prisma {
   export type bookingsCreateInput = {
     id?: string
     status: $Enums.BookingStatus
+    proof_image?: string | null
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
     payment_deadline?: Date | string
+    paid_at?: Date | string | null
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
     user: usersCreateNestedOneWithoutBookingsInput
     property: propertiesCreateNestedOneWithoutBookingsInput
     booking_rooms?: booking_roomsCreateNestedManyWithoutBookingInput
-    payments?: paymentsCreateNestedManyWithoutBookingInput
     reviews?: reviewsCreateNestedManyWithoutBookingInput
   }
 
@@ -19572,30 +16917,34 @@ export namespace Prisma {
     user_id: string
     property_id: string
     status: $Enums.BookingStatus
+    proof_image?: string | null
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
     payment_deadline?: Date | string
+    paid_at?: Date | string | null
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
     booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutBookingInput
-    payments?: paymentsUncheckedCreateNestedManyWithoutBookingInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutBookingInput
   }
 
   export type bookingsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
     check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
     check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: usersUpdateOneRequiredWithoutBookingsNestedInput
     property?: propertiesUpdateOneRequiredWithoutBookingsNestedInput
     booking_rooms?: booking_roomsUpdateManyWithoutBookingNestedInput
-    payments?: paymentsUpdateManyWithoutBookingNestedInput
     reviews?: reviewsUpdateManyWithoutBookingNestedInput
   }
 
@@ -19604,14 +16953,16 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     property_id?: StringFieldUpdateOperationsInput | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
     check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
     check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_rooms?: booking_roomsUncheckedUpdateManyWithoutBookingNestedInput
-    payments?: paymentsUncheckedUpdateManyWithoutBookingNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutBookingNestedInput
   }
 
@@ -19620,10 +16971,13 @@ export namespace Prisma {
     user_id: string
     property_id: string
     status: $Enums.BookingStatus
+    proof_image?: string | null
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
     payment_deadline?: Date | string
+    paid_at?: Date | string | null
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -19631,10 +16985,13 @@ export namespace Prisma {
   export type bookingsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
     check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
     check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19644,10 +17001,13 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     property_id?: StringFieldUpdateOperationsInput | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
     check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
     check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19730,89 +17090,6 @@ export namespace Prisma {
     price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     nights?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type paymentsCreateInput = {
-    id?: string
-    payment_method: $Enums.PaymentMethod
-    proof_image?: string | null
-    amount: Decimal | DecimalJsLike | number | string
-    status: $Enums.PaymentStatus
-    paid_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    booking: bookingsCreateNestedOneWithoutPaymentsInput
-  }
-
-  export type paymentsUncheckedCreateInput = {
-    id?: string
-    booking_id: string
-    payment_method: $Enums.PaymentMethod
-    proof_image?: string | null
-    amount: Decimal | DecimalJsLike | number | string
-    status: $Enums.PaymentStatus
-    paid_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type paymentsUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    payment_method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
-    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    booking?: bookingsUpdateOneRequiredWithoutPaymentsNestedInput
-  }
-
-  export type paymentsUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    booking_id?: StringFieldUpdateOperationsInput | string
-    payment_method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
-    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type paymentsCreateManyInput = {
-    id?: string
-    booking_id: string
-    payment_method: $Enums.PaymentMethod
-    proof_image?: string | null
-    amount: Decimal | DecimalJsLike | number | string
-    status: $Enums.PaymentStatus
-    paid_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type paymentsUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    payment_method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
-    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type paymentsUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    booking_id?: StringFieldUpdateOperationsInput | string
-    payment_method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
-    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19933,17 +17210,6 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -19998,10 +17264,8 @@ export namespace Prisma {
     password_hash?: SortOrder
     profile_picture?: SortOrder
     is_verified?: SortOrder
-    verify_token?: SortOrder
-    verify_token_expires_at?: SortOrder
-    reset_password_token?: SortOrder
-    reset_password_expires_at?: SortOrder
+    verify_otp?: SortOrder
+    reset_password_otp?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -20014,10 +17278,8 @@ export namespace Prisma {
     password_hash?: SortOrder
     profile_picture?: SortOrder
     is_verified?: SortOrder
-    verify_token?: SortOrder
-    verify_token_expires_at?: SortOrder
-    reset_password_token?: SortOrder
-    reset_password_expires_at?: SortOrder
+    verify_otp?: SortOrder
+    reset_password_otp?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -20030,10 +17292,8 @@ export namespace Prisma {
     password_hash?: SortOrder
     profile_picture?: SortOrder
     is_verified?: SortOrder
-    verify_token?: SortOrder
-    verify_token_expires_at?: SortOrder
-    reset_password_token?: SortOrder
-    reset_password_expires_at?: SortOrder
+    verify_otp?: SortOrder
+    reset_password_otp?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -20090,20 +17350,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -20168,28 +17414,11 @@ export namespace Prisma {
     updated_at?: SortOrder
   }
 
-  export type property_categoriesCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-  }
-
-  export type property_categoriesMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-  }
-
-  export type property_categoriesMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
+  export type EnumPropertyCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyCategory | EnumPropertyCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PropertyCategory[] | ListEnumPropertyCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PropertyCategory[] | ListEnumPropertyCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPropertyCategoryFilter<$PrismaModel> | $Enums.PropertyCategory
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -20203,14 +17432,20 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type TenantsScalarRelationFilter = {
     is?: tenantsWhereInput
     isNot?: tenantsWhereInput
-  }
-
-  export type Property_categoriesScalarRelationFilter = {
-    is?: property_categoriesWhereInput
-    isNot?: property_categoriesWhereInput
   }
 
   export type Property_imagesListRelationFilter = {
@@ -20246,8 +17481,8 @@ export namespace Prisma {
   export type propertiesCountOrderByAggregateInput = {
     id?: SortOrder
     tenant_id?: SortOrder
-    category_id?: SortOrder
     name?: SortOrder
+    property_category?: SortOrder
     description?: SortOrder
     address?: SortOrder
     city?: SortOrder
@@ -20256,6 +17491,7 @@ export namespace Prisma {
     latitude?: SortOrder
     longitude?: SortOrder
     main_image?: SortOrder
+    deleted_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -20268,8 +17504,8 @@ export namespace Prisma {
   export type propertiesMaxOrderByAggregateInput = {
     id?: SortOrder
     tenant_id?: SortOrder
-    category_id?: SortOrder
     name?: SortOrder
+    property_category?: SortOrder
     description?: SortOrder
     address?: SortOrder
     city?: SortOrder
@@ -20278,6 +17514,7 @@ export namespace Prisma {
     latitude?: SortOrder
     longitude?: SortOrder
     main_image?: SortOrder
+    deleted_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -20285,8 +17522,8 @@ export namespace Prisma {
   export type propertiesMinOrderByAggregateInput = {
     id?: SortOrder
     tenant_id?: SortOrder
-    category_id?: SortOrder
     name?: SortOrder
+    property_category?: SortOrder
     description?: SortOrder
     address?: SortOrder
     city?: SortOrder
@@ -20295,6 +17532,7 @@ export namespace Prisma {
     latitude?: SortOrder
     longitude?: SortOrder
     main_image?: SortOrder
+    deleted_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -20302,6 +17540,16 @@ export namespace Prisma {
   export type propertiesSumOrderByAggregateInput = {
     latitude?: SortOrder
     longitude?: SortOrder
+  }
+
+  export type EnumPropertyCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyCategory | EnumPropertyCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PropertyCategory[] | ListEnumPropertyCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PropertyCategory[] | ListEnumPropertyCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPropertyCategoryWithAggregatesFilter<$PrismaModel> | $Enums.PropertyCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPropertyCategoryFilter<$PrismaModel>
+    _max?: NestedEnumPropertyCategoryFilter<$PrismaModel>
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -20318,6 +17566,20 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type PropertiesScalarRelationFilter = {
@@ -20395,6 +17657,7 @@ export namespace Prisma {
     base_price?: SortOrder
     capacity?: SortOrder
     image?: SortOrder
+    deleted_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -20412,6 +17675,7 @@ export namespace Prisma {
     base_price?: SortOrder
     capacity?: SortOrder
     image?: SortOrder
+    deleted_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -20424,6 +17688,7 @@ export namespace Prisma {
     base_price?: SortOrder
     capacity?: SortOrder
     image?: SortOrder
+    deleted_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -20613,31 +17878,25 @@ export namespace Prisma {
     not?: NestedEnumBookingStatusFilter<$PrismaModel> | $Enums.BookingStatus
   }
 
-  export type PaymentsListRelationFilter = {
-    every?: paymentsWhereInput
-    some?: paymentsWhereInput
-    none?: paymentsWhereInput
-  }
-
-  export type paymentsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type bookingsCountOrderByAggregateInput = {
     id?: SortOrder
     user_id?: SortOrder
     property_id?: SortOrder
     status?: SortOrder
+    proof_image?: SortOrder
     check_in_date?: SortOrder
     check_out_date?: SortOrder
     total_price?: SortOrder
     payment_deadline?: SortOrder
+    paid_at?: SortOrder
+    amount?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
 
   export type bookingsAvgOrderByAggregateInput = {
     total_price?: SortOrder
+    amount?: SortOrder
   }
 
   export type bookingsMaxOrderByAggregateInput = {
@@ -20645,10 +17904,13 @@ export namespace Prisma {
     user_id?: SortOrder
     property_id?: SortOrder
     status?: SortOrder
+    proof_image?: SortOrder
     check_in_date?: SortOrder
     check_out_date?: SortOrder
     total_price?: SortOrder
     payment_deadline?: SortOrder
+    paid_at?: SortOrder
+    amount?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -20658,16 +17920,20 @@ export namespace Prisma {
     user_id?: SortOrder
     property_id?: SortOrder
     status?: SortOrder
+    proof_image?: SortOrder
     check_in_date?: SortOrder
     check_out_date?: SortOrder
     total_price?: SortOrder
     payment_deadline?: SortOrder
+    paid_at?: SortOrder
+    amount?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
 
   export type bookingsSumOrderByAggregateInput = {
     total_price?: SortOrder
+    amount?: SortOrder
   }
 
   export type EnumBookingStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -20733,84 +17999,6 @@ export namespace Prisma {
     price_per_night?: SortOrder
     nights?: SortOrder
     subtotal?: SortOrder
-  }
-
-  export type EnumPaymentMethodFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentMethod | EnumPaymentMethodFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentMethod[] | ListEnumPaymentMethodFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentMethod[] | ListEnumPaymentMethodFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentMethodFilter<$PrismaModel> | $Enums.PaymentMethod
-  }
-
-  export type EnumPaymentStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentStatusFilter<$PrismaModel> | $Enums.PaymentStatus
-  }
-
-  export type paymentsCountOrderByAggregateInput = {
-    id?: SortOrder
-    booking_id?: SortOrder
-    payment_method?: SortOrder
-    proof_image?: SortOrder
-    amount?: SortOrder
-    status?: SortOrder
-    paid_at?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-  }
-
-  export type paymentsAvgOrderByAggregateInput = {
-    amount?: SortOrder
-  }
-
-  export type paymentsMaxOrderByAggregateInput = {
-    id?: SortOrder
-    booking_id?: SortOrder
-    payment_method?: SortOrder
-    proof_image?: SortOrder
-    amount?: SortOrder
-    status?: SortOrder
-    paid_at?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-  }
-
-  export type paymentsMinOrderByAggregateInput = {
-    id?: SortOrder
-    booking_id?: SortOrder
-    payment_method?: SortOrder
-    proof_image?: SortOrder
-    amount?: SortOrder
-    status?: SortOrder
-    paid_at?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-  }
-
-  export type paymentsSumOrderByAggregateInput = {
-    amount?: SortOrder
-  }
-
-  export type EnumPaymentMethodWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentMethod | EnumPaymentMethodFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentMethod[] | ListEnumPaymentMethodFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentMethod[] | ListEnumPaymentMethodFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentMethodWithAggregatesFilter<$PrismaModel> | $Enums.PaymentMethod
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPaymentMethodFilter<$PrismaModel>
-    _max?: NestedEnumPaymentMethodFilter<$PrismaModel>
-  }
-
-  export type EnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel> | $Enums.PaymentStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPaymentStatusFilter<$PrismaModel>
-    _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
   }
 
   export type reviewsCountOrderByAggregateInput = {
@@ -20902,10 +18090,6 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -21052,58 +18236,10 @@ export namespace Prisma {
     deleteMany?: propertiesScalarWhereInput | propertiesScalarWhereInput[]
   }
 
-  export type propertiesCreateNestedManyWithoutCategoryInput = {
-    create?: XOR<propertiesCreateWithoutCategoryInput, propertiesUncheckedCreateWithoutCategoryInput> | propertiesCreateWithoutCategoryInput[] | propertiesUncheckedCreateWithoutCategoryInput[]
-    connectOrCreate?: propertiesCreateOrConnectWithoutCategoryInput | propertiesCreateOrConnectWithoutCategoryInput[]
-    createMany?: propertiesCreateManyCategoryInputEnvelope
-    connect?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
-  }
-
-  export type propertiesUncheckedCreateNestedManyWithoutCategoryInput = {
-    create?: XOR<propertiesCreateWithoutCategoryInput, propertiesUncheckedCreateWithoutCategoryInput> | propertiesCreateWithoutCategoryInput[] | propertiesUncheckedCreateWithoutCategoryInput[]
-    connectOrCreate?: propertiesCreateOrConnectWithoutCategoryInput | propertiesCreateOrConnectWithoutCategoryInput[]
-    createMany?: propertiesCreateManyCategoryInputEnvelope
-    connect?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
-  }
-
-  export type propertiesUpdateManyWithoutCategoryNestedInput = {
-    create?: XOR<propertiesCreateWithoutCategoryInput, propertiesUncheckedCreateWithoutCategoryInput> | propertiesCreateWithoutCategoryInput[] | propertiesUncheckedCreateWithoutCategoryInput[]
-    connectOrCreate?: propertiesCreateOrConnectWithoutCategoryInput | propertiesCreateOrConnectWithoutCategoryInput[]
-    upsert?: propertiesUpsertWithWhereUniqueWithoutCategoryInput | propertiesUpsertWithWhereUniqueWithoutCategoryInput[]
-    createMany?: propertiesCreateManyCategoryInputEnvelope
-    set?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
-    disconnect?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
-    delete?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
-    connect?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
-    update?: propertiesUpdateWithWhereUniqueWithoutCategoryInput | propertiesUpdateWithWhereUniqueWithoutCategoryInput[]
-    updateMany?: propertiesUpdateManyWithWhereWithoutCategoryInput | propertiesUpdateManyWithWhereWithoutCategoryInput[]
-    deleteMany?: propertiesScalarWhereInput | propertiesScalarWhereInput[]
-  }
-
-  export type propertiesUncheckedUpdateManyWithoutCategoryNestedInput = {
-    create?: XOR<propertiesCreateWithoutCategoryInput, propertiesUncheckedCreateWithoutCategoryInput> | propertiesCreateWithoutCategoryInput[] | propertiesUncheckedCreateWithoutCategoryInput[]
-    connectOrCreate?: propertiesCreateOrConnectWithoutCategoryInput | propertiesCreateOrConnectWithoutCategoryInput[]
-    upsert?: propertiesUpsertWithWhereUniqueWithoutCategoryInput | propertiesUpsertWithWhereUniqueWithoutCategoryInput[]
-    createMany?: propertiesCreateManyCategoryInputEnvelope
-    set?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
-    disconnect?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
-    delete?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
-    connect?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
-    update?: propertiesUpdateWithWhereUniqueWithoutCategoryInput | propertiesUpdateWithWhereUniqueWithoutCategoryInput[]
-    updateMany?: propertiesUpdateManyWithWhereWithoutCategoryInput | propertiesUpdateManyWithWhereWithoutCategoryInput[]
-    deleteMany?: propertiesScalarWhereInput | propertiesScalarWhereInput[]
-  }
-
   export type tenantsCreateNestedOneWithoutPropertiesInput = {
     create?: XOR<tenantsCreateWithoutPropertiesInput, tenantsUncheckedCreateWithoutPropertiesInput>
     connectOrCreate?: tenantsCreateOrConnectWithoutPropertiesInput
     connect?: tenantsWhereUniqueInput
-  }
-
-  export type property_categoriesCreateNestedOneWithoutPropertiesInput = {
-    create?: XOR<property_categoriesCreateWithoutPropertiesInput, property_categoriesUncheckedCreateWithoutPropertiesInput>
-    connectOrCreate?: property_categoriesCreateOrConnectWithoutPropertiesInput
-    connect?: property_categoriesWhereUniqueInput
   }
 
   export type property_imagesCreateNestedManyWithoutPropertyInput = {
@@ -21176,6 +18312,10 @@ export namespace Prisma {
     connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
   }
 
+  export type EnumPropertyCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.PropertyCategory
+  }
+
   export type DecimalFieldUpdateOperationsInput = {
     set?: Decimal | DecimalJsLike | number | string
     increment?: Decimal | DecimalJsLike | number | string
@@ -21184,20 +18324,16 @@ export namespace Prisma {
     divide?: Decimal | DecimalJsLike | number | string
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type tenantsUpdateOneRequiredWithoutPropertiesNestedInput = {
     create?: XOR<tenantsCreateWithoutPropertiesInput, tenantsUncheckedCreateWithoutPropertiesInput>
     connectOrCreate?: tenantsCreateOrConnectWithoutPropertiesInput
     upsert?: tenantsUpsertWithoutPropertiesInput
     connect?: tenantsWhereUniqueInput
     update?: XOR<XOR<tenantsUpdateToOneWithWhereWithoutPropertiesInput, tenantsUpdateWithoutPropertiesInput>, tenantsUncheckedUpdateWithoutPropertiesInput>
-  }
-
-  export type property_categoriesUpdateOneRequiredWithoutPropertiesNestedInput = {
-    create?: XOR<property_categoriesCreateWithoutPropertiesInput, property_categoriesUncheckedCreateWithoutPropertiesInput>
-    connectOrCreate?: property_categoriesCreateOrConnectWithoutPropertiesInput
-    upsert?: property_categoriesUpsertWithoutPropertiesInput
-    connect?: property_categoriesWhereUniqueInput
-    update?: XOR<XOR<property_categoriesUpdateToOneWithWhereWithoutPropertiesInput, property_categoriesUpdateWithoutPropertiesInput>, property_categoriesUncheckedUpdateWithoutPropertiesInput>
   }
 
   export type property_imagesUpdateManyWithoutPropertyNestedInput = {
@@ -21631,13 +18767,6 @@ export namespace Prisma {
     connect?: booking_roomsWhereUniqueInput | booking_roomsWhereUniqueInput[]
   }
 
-  export type paymentsCreateNestedManyWithoutBookingInput = {
-    create?: XOR<paymentsCreateWithoutBookingInput, paymentsUncheckedCreateWithoutBookingInput> | paymentsCreateWithoutBookingInput[] | paymentsUncheckedCreateWithoutBookingInput[]
-    connectOrCreate?: paymentsCreateOrConnectWithoutBookingInput | paymentsCreateOrConnectWithoutBookingInput[]
-    createMany?: paymentsCreateManyBookingInputEnvelope
-    connect?: paymentsWhereUniqueInput | paymentsWhereUniqueInput[]
-  }
-
   export type reviewsCreateNestedManyWithoutBookingInput = {
     create?: XOR<reviewsCreateWithoutBookingInput, reviewsUncheckedCreateWithoutBookingInput> | reviewsCreateWithoutBookingInput[] | reviewsUncheckedCreateWithoutBookingInput[]
     connectOrCreate?: reviewsCreateOrConnectWithoutBookingInput | reviewsCreateOrConnectWithoutBookingInput[]
@@ -21650,13 +18779,6 @@ export namespace Prisma {
     connectOrCreate?: booking_roomsCreateOrConnectWithoutBookingInput | booking_roomsCreateOrConnectWithoutBookingInput[]
     createMany?: booking_roomsCreateManyBookingInputEnvelope
     connect?: booking_roomsWhereUniqueInput | booking_roomsWhereUniqueInput[]
-  }
-
-  export type paymentsUncheckedCreateNestedManyWithoutBookingInput = {
-    create?: XOR<paymentsCreateWithoutBookingInput, paymentsUncheckedCreateWithoutBookingInput> | paymentsCreateWithoutBookingInput[] | paymentsUncheckedCreateWithoutBookingInput[]
-    connectOrCreate?: paymentsCreateOrConnectWithoutBookingInput | paymentsCreateOrConnectWithoutBookingInput[]
-    createMany?: paymentsCreateManyBookingInputEnvelope
-    connect?: paymentsWhereUniqueInput | paymentsWhereUniqueInput[]
   }
 
   export type reviewsUncheckedCreateNestedManyWithoutBookingInput = {
@@ -21700,20 +18822,6 @@ export namespace Prisma {
     deleteMany?: booking_roomsScalarWhereInput | booking_roomsScalarWhereInput[]
   }
 
-  export type paymentsUpdateManyWithoutBookingNestedInput = {
-    create?: XOR<paymentsCreateWithoutBookingInput, paymentsUncheckedCreateWithoutBookingInput> | paymentsCreateWithoutBookingInput[] | paymentsUncheckedCreateWithoutBookingInput[]
-    connectOrCreate?: paymentsCreateOrConnectWithoutBookingInput | paymentsCreateOrConnectWithoutBookingInput[]
-    upsert?: paymentsUpsertWithWhereUniqueWithoutBookingInput | paymentsUpsertWithWhereUniqueWithoutBookingInput[]
-    createMany?: paymentsCreateManyBookingInputEnvelope
-    set?: paymentsWhereUniqueInput | paymentsWhereUniqueInput[]
-    disconnect?: paymentsWhereUniqueInput | paymentsWhereUniqueInput[]
-    delete?: paymentsWhereUniqueInput | paymentsWhereUniqueInput[]
-    connect?: paymentsWhereUniqueInput | paymentsWhereUniqueInput[]
-    update?: paymentsUpdateWithWhereUniqueWithoutBookingInput | paymentsUpdateWithWhereUniqueWithoutBookingInput[]
-    updateMany?: paymentsUpdateManyWithWhereWithoutBookingInput | paymentsUpdateManyWithWhereWithoutBookingInput[]
-    deleteMany?: paymentsScalarWhereInput | paymentsScalarWhereInput[]
-  }
-
   export type reviewsUpdateManyWithoutBookingNestedInput = {
     create?: XOR<reviewsCreateWithoutBookingInput, reviewsUncheckedCreateWithoutBookingInput> | reviewsCreateWithoutBookingInput[] | reviewsUncheckedCreateWithoutBookingInput[]
     connectOrCreate?: reviewsCreateOrConnectWithoutBookingInput | reviewsCreateOrConnectWithoutBookingInput[]
@@ -21740,20 +18848,6 @@ export namespace Prisma {
     update?: booking_roomsUpdateWithWhereUniqueWithoutBookingInput | booking_roomsUpdateWithWhereUniqueWithoutBookingInput[]
     updateMany?: booking_roomsUpdateManyWithWhereWithoutBookingInput | booking_roomsUpdateManyWithWhereWithoutBookingInput[]
     deleteMany?: booking_roomsScalarWhereInput | booking_roomsScalarWhereInput[]
-  }
-
-  export type paymentsUncheckedUpdateManyWithoutBookingNestedInput = {
-    create?: XOR<paymentsCreateWithoutBookingInput, paymentsUncheckedCreateWithoutBookingInput> | paymentsCreateWithoutBookingInput[] | paymentsUncheckedCreateWithoutBookingInput[]
-    connectOrCreate?: paymentsCreateOrConnectWithoutBookingInput | paymentsCreateOrConnectWithoutBookingInput[]
-    upsert?: paymentsUpsertWithWhereUniqueWithoutBookingInput | paymentsUpsertWithWhereUniqueWithoutBookingInput[]
-    createMany?: paymentsCreateManyBookingInputEnvelope
-    set?: paymentsWhereUniqueInput | paymentsWhereUniqueInput[]
-    disconnect?: paymentsWhereUniqueInput | paymentsWhereUniqueInput[]
-    delete?: paymentsWhereUniqueInput | paymentsWhereUniqueInput[]
-    connect?: paymentsWhereUniqueInput | paymentsWhereUniqueInput[]
-    update?: paymentsUpdateWithWhereUniqueWithoutBookingInput | paymentsUpdateWithWhereUniqueWithoutBookingInput[]
-    updateMany?: paymentsUpdateManyWithWhereWithoutBookingInput | paymentsUpdateManyWithWhereWithoutBookingInput[]
-    deleteMany?: paymentsScalarWhereInput | paymentsScalarWhereInput[]
   }
 
   export type reviewsUncheckedUpdateManyWithoutBookingNestedInput = {
@@ -21796,28 +18890,6 @@ export namespace Prisma {
     upsert?: roomsUpsertWithoutBooking_roomsInput
     connect?: roomsWhereUniqueInput
     update?: XOR<XOR<roomsUpdateToOneWithWhereWithoutBooking_roomsInput, roomsUpdateWithoutBooking_roomsInput>, roomsUncheckedUpdateWithoutBooking_roomsInput>
-  }
-
-  export type bookingsCreateNestedOneWithoutPaymentsInput = {
-    create?: XOR<bookingsCreateWithoutPaymentsInput, bookingsUncheckedCreateWithoutPaymentsInput>
-    connectOrCreate?: bookingsCreateOrConnectWithoutPaymentsInput
-    connect?: bookingsWhereUniqueInput
-  }
-
-  export type EnumPaymentMethodFieldUpdateOperationsInput = {
-    set?: $Enums.PaymentMethod
-  }
-
-  export type EnumPaymentStatusFieldUpdateOperationsInput = {
-    set?: $Enums.PaymentStatus
-  }
-
-  export type bookingsUpdateOneRequiredWithoutPaymentsNestedInput = {
-    create?: XOR<bookingsCreateWithoutPaymentsInput, bookingsUncheckedCreateWithoutPaymentsInput>
-    connectOrCreate?: bookingsCreateOrConnectWithoutPaymentsInput
-    upsert?: bookingsUpsertWithoutPaymentsInput
-    connect?: bookingsWhereUniqueInput
-    update?: XOR<XOR<bookingsUpdateToOneWithWhereWithoutPaymentsInput, bookingsUpdateWithoutPaymentsInput>, bookingsUncheckedUpdateWithoutPaymentsInput>
   }
 
   export type bookingsCreateNestedOneWithoutReviewsInput = {
@@ -21900,17 +18972,6 @@ export namespace Prisma {
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -21998,20 +19059,6 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -22026,6 +19073,13 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedEnumPropertyCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyCategory | EnumPropertyCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PropertyCategory[] | ListEnumPropertyCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PropertyCategory[] | ListEnumPropertyCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPropertyCategoryFilter<$PrismaModel> | $Enums.PropertyCategory
+  }
+
   export type NestedDecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -22035,6 +19089,27 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedEnumPropertyCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyCategory | EnumPropertyCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PropertyCategory[] | ListEnumPropertyCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PropertyCategory[] | ListEnumPropertyCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPropertyCategoryWithAggregatesFilter<$PrismaModel> | $Enums.PropertyCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPropertyCategoryFilter<$PrismaModel>
+    _max?: NestedEnumPropertyCategoryFilter<$PrismaModel>
   }
 
   export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -22051,6 +19126,20 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -22141,40 +19230,6 @@ export namespace Prisma {
     _max?: NestedEnumBookingStatusFilter<$PrismaModel>
   }
 
-  export type NestedEnumPaymentMethodFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentMethod | EnumPaymentMethodFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentMethod[] | ListEnumPaymentMethodFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentMethod[] | ListEnumPaymentMethodFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentMethodFilter<$PrismaModel> | $Enums.PaymentMethod
-  }
-
-  export type NestedEnumPaymentStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentStatusFilter<$PrismaModel> | $Enums.PaymentStatus
-  }
-
-  export type NestedEnumPaymentMethodWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentMethod | EnumPaymentMethodFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentMethod[] | ListEnumPaymentMethodFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentMethod[] | ListEnumPaymentMethodFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentMethodWithAggregatesFilter<$PrismaModel> | $Enums.PaymentMethod
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPaymentMethodFilter<$PrismaModel>
-    _max?: NestedEnumPaymentMethodFilter<$PrismaModel>
-  }
-
-  export type NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel> | $Enums.PaymentStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPaymentStatusFilter<$PrismaModel>
-    _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
-  }
-
   export type tenantsCreateWithoutUserInput = {
     id?: string
     company_name: string
@@ -22210,15 +19265,17 @@ export namespace Prisma {
   export type bookingsCreateWithoutUserInput = {
     id?: string
     status: $Enums.BookingStatus
+    proof_image?: string | null
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
     payment_deadline?: Date | string
+    paid_at?: Date | string | null
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
     property: propertiesCreateNestedOneWithoutBookingsInput
     booking_rooms?: booking_roomsCreateNestedManyWithoutBookingInput
-    payments?: paymentsCreateNestedManyWithoutBookingInput
     reviews?: reviewsCreateNestedManyWithoutBookingInput
   }
 
@@ -22226,14 +19283,16 @@ export namespace Prisma {
     id?: string
     property_id: string
     status: $Enums.BookingStatus
+    proof_image?: string | null
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
     payment_deadline?: Date | string
+    paid_at?: Date | string | null
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
     booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutBookingInput
-    payments?: paymentsUncheckedCreateNestedManyWithoutBookingInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutBookingInput
   }
 
@@ -22331,10 +19390,13 @@ export namespace Prisma {
     user_id?: StringFilter<"bookings"> | string
     property_id?: StringFilter<"bookings"> | string
     status?: EnumBookingStatusFilter<"bookings"> | $Enums.BookingStatus
+    proof_image?: StringNullableFilter<"bookings"> | string | null
     check_in_date?: DateTimeFilter<"bookings"> | Date | string
     check_out_date?: DateTimeFilter<"bookings"> | Date | string
     total_price?: DecimalFilter<"bookings"> | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeFilter<"bookings"> | Date | string
+    paid_at?: DateTimeNullableFilter<"bookings"> | Date | string | null
+    amount?: DecimalFilter<"bookings"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFilter<"bookings"> | Date | string
     updated_at?: DateTimeFilter<"bookings"> | Date | string
   }
@@ -22377,10 +19439,8 @@ export namespace Prisma {
     password_hash: string
     profile_picture?: string | null
     is_verified: boolean
-    verify_token?: string | null
-    verify_token_expires_at?: Date | string | null
-    reset_password_token?: string | null
-    reset_password_expires_at?: Date | string | null
+    verify_otp?: string | null
+    reset_password_otp?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     bookings?: bookingsCreateNestedManyWithoutUserInput
@@ -22395,10 +19455,8 @@ export namespace Prisma {
     password_hash: string
     profile_picture?: string | null
     is_verified: boolean
-    verify_token?: string | null
-    verify_token_expires_at?: Date | string | null
-    reset_password_token?: string | null
-    reset_password_expires_at?: Date | string | null
+    verify_otp?: string | null
+    reset_password_otp?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     bookings?: bookingsUncheckedCreateNestedManyWithoutUserInput
@@ -22413,6 +19471,7 @@ export namespace Prisma {
   export type propertiesCreateWithoutTenantInput = {
     id?: string
     name: string
+    property_category: $Enums.PropertyCategory
     description?: string | null
     address: string
     city: string
@@ -22421,9 +19480,9 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
-    category: property_categoriesCreateNestedOneWithoutPropertiesInput
     property_images?: property_imagesCreateNestedManyWithoutPropertyInput
     rooms?: roomsCreateNestedManyWithoutPropertyInput
     peak_season_rates?: peak_season_ratesCreateNestedManyWithoutPropertyInput
@@ -22433,8 +19492,8 @@ export namespace Prisma {
 
   export type propertiesUncheckedCreateWithoutTenantInput = {
     id?: string
-    category_id: string
     name: string
+    property_category: $Enums.PropertyCategory
     description?: string | null
     address: string
     city: string
@@ -22443,6 +19502,7 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     property_images?: property_imagesUncheckedCreateNestedManyWithoutPropertyInput
@@ -22481,10 +19541,8 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
     is_verified?: BoolFieldUpdateOperationsInput | boolean
-    verify_token?: NullableStringFieldUpdateOperationsInput | string | null
-    verify_token_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    reset_password_token?: NullableStringFieldUpdateOperationsInput | string | null
-    reset_password_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verify_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    reset_password_otp?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     bookings?: bookingsUpdateManyWithoutUserNestedInput
@@ -22499,10 +19557,8 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
     is_verified?: BoolFieldUpdateOperationsInput | boolean
-    verify_token?: NullableStringFieldUpdateOperationsInput | string | null
-    verify_token_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    reset_password_token?: NullableStringFieldUpdateOperationsInput | string | null
-    reset_password_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verify_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    reset_password_otp?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     bookings?: bookingsUncheckedUpdateManyWithoutUserNestedInput
@@ -22531,8 +19587,8 @@ export namespace Prisma {
     NOT?: propertiesScalarWhereInput | propertiesScalarWhereInput[]
     id?: StringFilter<"properties"> | string
     tenant_id?: StringFilter<"properties"> | string
-    category_id?: StringFilter<"properties"> | string
     name?: StringFilter<"properties"> | string
+    property_category?: EnumPropertyCategoryFilter<"properties"> | $Enums.PropertyCategory
     description?: StringNullableFilter<"properties"> | string | null
     address?: StringFilter<"properties"> | string
     city?: StringFilter<"properties"> | string
@@ -22541,76 +19597,9 @@ export namespace Prisma {
     latitude?: DecimalFilter<"properties"> | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFilter<"properties"> | Decimal | DecimalJsLike | number | string
     main_image?: StringNullableFilter<"properties"> | string | null
+    deleted_at?: DateTimeNullableFilter<"properties"> | Date | string | null
     created_at?: DateTimeFilter<"properties"> | Date | string
     updated_at?: DateTimeFilter<"properties"> | Date | string
-  }
-
-  export type propertiesCreateWithoutCategoryInput = {
-    id?: string
-    name: string
-    description?: string | null
-    address: string
-    city: string
-    province: string
-    zip_code: string
-    latitude: Decimal | DecimalJsLike | number | string
-    longitude: Decimal | DecimalJsLike | number | string
-    main_image?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    tenant: tenantsCreateNestedOneWithoutPropertiesInput
-    property_images?: property_imagesCreateNestedManyWithoutPropertyInput
-    rooms?: roomsCreateNestedManyWithoutPropertyInput
-    peak_season_rates?: peak_season_ratesCreateNestedManyWithoutPropertyInput
-    bookings?: bookingsCreateNestedManyWithoutPropertyInput
-    reviews?: reviewsCreateNestedManyWithoutPropertyInput
-  }
-
-  export type propertiesUncheckedCreateWithoutCategoryInput = {
-    id?: string
-    tenant_id: string
-    name: string
-    description?: string | null
-    address: string
-    city: string
-    province: string
-    zip_code: string
-    latitude: Decimal | DecimalJsLike | number | string
-    longitude: Decimal | DecimalJsLike | number | string
-    main_image?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    property_images?: property_imagesUncheckedCreateNestedManyWithoutPropertyInput
-    rooms?: roomsUncheckedCreateNestedManyWithoutPropertyInput
-    peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutPropertyInput
-    bookings?: bookingsUncheckedCreateNestedManyWithoutPropertyInput
-    reviews?: reviewsUncheckedCreateNestedManyWithoutPropertyInput
-  }
-
-  export type propertiesCreateOrConnectWithoutCategoryInput = {
-    where: propertiesWhereUniqueInput
-    create: XOR<propertiesCreateWithoutCategoryInput, propertiesUncheckedCreateWithoutCategoryInput>
-  }
-
-  export type propertiesCreateManyCategoryInputEnvelope = {
-    data: propertiesCreateManyCategoryInput | propertiesCreateManyCategoryInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type propertiesUpsertWithWhereUniqueWithoutCategoryInput = {
-    where: propertiesWhereUniqueInput
-    update: XOR<propertiesUpdateWithoutCategoryInput, propertiesUncheckedUpdateWithoutCategoryInput>
-    create: XOR<propertiesCreateWithoutCategoryInput, propertiesUncheckedCreateWithoutCategoryInput>
-  }
-
-  export type propertiesUpdateWithWhereUniqueWithoutCategoryInput = {
-    where: propertiesWhereUniqueInput
-    data: XOR<propertiesUpdateWithoutCategoryInput, propertiesUncheckedUpdateWithoutCategoryInput>
-  }
-
-  export type propertiesUpdateManyWithWhereWithoutCategoryInput = {
-    where: propertiesScalarWhereInput
-    data: XOR<propertiesUpdateManyMutationInput, propertiesUncheckedUpdateManyWithoutCategoryInput>
   }
 
   export type tenantsCreateWithoutPropertiesInput = {
@@ -22638,27 +19627,6 @@ export namespace Prisma {
   export type tenantsCreateOrConnectWithoutPropertiesInput = {
     where: tenantsWhereUniqueInput
     create: XOR<tenantsCreateWithoutPropertiesInput, tenantsUncheckedCreateWithoutPropertiesInput>
-  }
-
-  export type property_categoriesCreateWithoutPropertiesInput = {
-    id?: string
-    name: string
-    description?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type property_categoriesUncheckedCreateWithoutPropertiesInput = {
-    id?: string
-    name: string
-    description?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type property_categoriesCreateOrConnectWithoutPropertiesInput = {
-    where: property_categoriesWhereUniqueInput
-    create: XOR<property_categoriesCreateWithoutPropertiesInput, property_categoriesUncheckedCreateWithoutPropertiesInput>
   }
 
   export type property_imagesCreateWithoutPropertyInput = {
@@ -22690,6 +19658,7 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     room_images?: room_imagesCreateNestedManyWithoutRoomInput
@@ -22705,6 +19674,7 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     room_images?: room_imagesUncheckedCreateNestedManyWithoutRoomInput
@@ -22758,15 +19728,17 @@ export namespace Prisma {
   export type bookingsCreateWithoutPropertyInput = {
     id?: string
     status: $Enums.BookingStatus
+    proof_image?: string | null
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
     payment_deadline?: Date | string
+    paid_at?: Date | string | null
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
     user: usersCreateNestedOneWithoutBookingsInput
     booking_rooms?: booking_roomsCreateNestedManyWithoutBookingInput
-    payments?: paymentsCreateNestedManyWithoutBookingInput
     reviews?: reviewsCreateNestedManyWithoutBookingInput
   }
 
@@ -22774,14 +19746,16 @@ export namespace Prisma {
     id?: string
     user_id: string
     status: $Enums.BookingStatus
+    proof_image?: string | null
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
     payment_deadline?: Date | string
+    paid_at?: Date | string | null
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
     booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutBookingInput
-    payments?: paymentsUncheckedCreateNestedManyWithoutBookingInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutBookingInput
   }
 
@@ -22858,33 +19832,6 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type property_categoriesUpsertWithoutPropertiesInput = {
-    update: XOR<property_categoriesUpdateWithoutPropertiesInput, property_categoriesUncheckedUpdateWithoutPropertiesInput>
-    create: XOR<property_categoriesCreateWithoutPropertiesInput, property_categoriesUncheckedCreateWithoutPropertiesInput>
-    where?: property_categoriesWhereInput
-  }
-
-  export type property_categoriesUpdateToOneWithWhereWithoutPropertiesInput = {
-    where?: property_categoriesWhereInput
-    data: XOR<property_categoriesUpdateWithoutPropertiesInput, property_categoriesUncheckedUpdateWithoutPropertiesInput>
-  }
-
-  export type property_categoriesUpdateWithoutPropertiesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type property_categoriesUncheckedUpdateWithoutPropertiesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type property_imagesUpsertWithWhereUniqueWithoutPropertyInput = {
     where: property_imagesWhereUniqueInput
     update: XOR<property_imagesUpdateWithoutPropertyInput, property_imagesUncheckedUpdateWithoutPropertyInput>
@@ -22938,6 +19885,7 @@ export namespace Prisma {
     base_price?: DecimalFilter<"rooms"> | Decimal | DecimalJsLike | number | string
     capacity?: IntFilter<"rooms"> | number
     image?: StringNullableFilter<"rooms"> | string | null
+    deleted_at?: DateTimeNullableFilter<"rooms"> | Date | string | null
     created_at?: DateTimeFilter<"rooms"> | Date | string
     updated_at?: DateTimeFilter<"rooms"> | Date | string
   }
@@ -23008,6 +19956,7 @@ export namespace Prisma {
   export type propertiesCreateWithoutProperty_imagesInput = {
     id?: string
     name: string
+    property_category: $Enums.PropertyCategory
     description?: string | null
     address: string
     city: string
@@ -23016,10 +19965,10 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     tenant: tenantsCreateNestedOneWithoutPropertiesInput
-    category: property_categoriesCreateNestedOneWithoutPropertiesInput
     rooms?: roomsCreateNestedManyWithoutPropertyInput
     peak_season_rates?: peak_season_ratesCreateNestedManyWithoutPropertyInput
     bookings?: bookingsCreateNestedManyWithoutPropertyInput
@@ -23029,8 +19978,8 @@ export namespace Prisma {
   export type propertiesUncheckedCreateWithoutProperty_imagesInput = {
     id?: string
     tenant_id: string
-    category_id: string
     name: string
+    property_category: $Enums.PropertyCategory
     description?: string | null
     address: string
     city: string
@@ -23039,6 +19988,7 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     rooms?: roomsUncheckedCreateNestedManyWithoutPropertyInput
@@ -23066,6 +20016,7 @@ export namespace Prisma {
   export type propertiesUpdateWithoutProperty_imagesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
@@ -23074,10 +20025,10 @@ export namespace Prisma {
     latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: tenantsUpdateOneRequiredWithoutPropertiesNestedInput
-    category?: property_categoriesUpdateOneRequiredWithoutPropertiesNestedInput
     rooms?: roomsUpdateManyWithoutPropertyNestedInput
     peak_season_rates?: peak_season_ratesUpdateManyWithoutPropertyNestedInput
     bookings?: bookingsUpdateManyWithoutPropertyNestedInput
@@ -23087,8 +20038,8 @@ export namespace Prisma {
   export type propertiesUncheckedUpdateWithoutProperty_imagesInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenant_id?: StringFieldUpdateOperationsInput | string
-    category_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
@@ -23097,6 +20048,7 @@ export namespace Prisma {
     latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rooms?: roomsUncheckedUpdateManyWithoutPropertyNestedInput
@@ -23108,6 +20060,7 @@ export namespace Prisma {
   export type propertiesCreateWithoutRoomsInput = {
     id?: string
     name: string
+    property_category: $Enums.PropertyCategory
     description?: string | null
     address: string
     city: string
@@ -23116,10 +20069,10 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     tenant: tenantsCreateNestedOneWithoutPropertiesInput
-    category: property_categoriesCreateNestedOneWithoutPropertiesInput
     property_images?: property_imagesCreateNestedManyWithoutPropertyInput
     peak_season_rates?: peak_season_ratesCreateNestedManyWithoutPropertyInput
     bookings?: bookingsCreateNestedManyWithoutPropertyInput
@@ -23129,8 +20082,8 @@ export namespace Prisma {
   export type propertiesUncheckedCreateWithoutRoomsInput = {
     id?: string
     tenant_id: string
-    category_id: string
     name: string
+    property_category: $Enums.PropertyCategory
     description?: string | null
     address: string
     city: string
@@ -23139,6 +20092,7 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     property_images?: property_imagesUncheckedCreateNestedManyWithoutPropertyInput
@@ -23280,6 +20234,7 @@ export namespace Prisma {
   export type propertiesUpdateWithoutRoomsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
@@ -23288,10 +20243,10 @@ export namespace Prisma {
     latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: tenantsUpdateOneRequiredWithoutPropertiesNestedInput
-    category?: property_categoriesUpdateOneRequiredWithoutPropertiesNestedInput
     property_images?: property_imagesUpdateManyWithoutPropertyNestedInput
     peak_season_rates?: peak_season_ratesUpdateManyWithoutPropertyNestedInput
     bookings?: bookingsUpdateManyWithoutPropertyNestedInput
@@ -23301,8 +20256,8 @@ export namespace Prisma {
   export type propertiesUncheckedUpdateWithoutRoomsInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenant_id?: StringFieldUpdateOperationsInput | string
-    category_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
@@ -23311,6 +20266,7 @@ export namespace Prisma {
     latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     property_images?: property_imagesUncheckedUpdateManyWithoutPropertyNestedInput
@@ -23428,6 +20384,7 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     property: propertiesCreateNestedOneWithoutRoomsInput
@@ -23444,6 +20401,7 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     room_availability?: room_availabilityUncheckedCreateNestedManyWithoutRoomInput
@@ -23474,6 +20432,7 @@ export namespace Prisma {
     base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     capacity?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     property?: propertiesUpdateOneRequiredWithoutRoomsNestedInput
@@ -23490,6 +20449,7 @@ export namespace Prisma {
     base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     capacity?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     room_availability?: room_availabilityUncheckedUpdateManyWithoutRoomNestedInput
@@ -23504,6 +20464,7 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     property: propertiesCreateNestedOneWithoutRoomsInput
@@ -23520,6 +20481,7 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     room_images?: room_imagesUncheckedCreateNestedManyWithoutRoomInput
@@ -23550,6 +20512,7 @@ export namespace Prisma {
     base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     capacity?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     property?: propertiesUpdateOneRequiredWithoutRoomsNestedInput
@@ -23566,6 +20529,7 @@ export namespace Prisma {
     base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     capacity?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     room_images?: room_imagesUncheckedUpdateManyWithoutRoomNestedInput
@@ -23576,6 +20540,7 @@ export namespace Prisma {
   export type propertiesCreateWithoutPeak_season_ratesInput = {
     id?: string
     name: string
+    property_category: $Enums.PropertyCategory
     description?: string | null
     address: string
     city: string
@@ -23584,10 +20549,10 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     tenant: tenantsCreateNestedOneWithoutPropertiesInput
-    category: property_categoriesCreateNestedOneWithoutPropertiesInput
     property_images?: property_imagesCreateNestedManyWithoutPropertyInput
     rooms?: roomsCreateNestedManyWithoutPropertyInput
     bookings?: bookingsCreateNestedManyWithoutPropertyInput
@@ -23597,8 +20562,8 @@ export namespace Prisma {
   export type propertiesUncheckedCreateWithoutPeak_season_ratesInput = {
     id?: string
     tenant_id: string
-    category_id: string
     name: string
+    property_category: $Enums.PropertyCategory
     description?: string | null
     address: string
     city: string
@@ -23607,6 +20572,7 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     property_images?: property_imagesUncheckedCreateNestedManyWithoutPropertyInput
@@ -23627,6 +20593,7 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     property: propertiesCreateNestedOneWithoutRoomsInput
@@ -23643,6 +20610,7 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     room_images?: room_imagesUncheckedCreateNestedManyWithoutRoomInput
@@ -23669,6 +20637,7 @@ export namespace Prisma {
   export type propertiesUpdateWithoutPeak_season_ratesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
@@ -23677,10 +20646,10 @@ export namespace Prisma {
     latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: tenantsUpdateOneRequiredWithoutPropertiesNestedInput
-    category?: property_categoriesUpdateOneRequiredWithoutPropertiesNestedInput
     property_images?: property_imagesUpdateManyWithoutPropertyNestedInput
     rooms?: roomsUpdateManyWithoutPropertyNestedInput
     bookings?: bookingsUpdateManyWithoutPropertyNestedInput
@@ -23690,8 +20659,8 @@ export namespace Prisma {
   export type propertiesUncheckedUpdateWithoutPeak_season_ratesInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenant_id?: StringFieldUpdateOperationsInput | string
-    category_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
@@ -23700,6 +20669,7 @@ export namespace Prisma {
     latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     property_images?: property_imagesUncheckedUpdateManyWithoutPropertyNestedInput
@@ -23726,6 +20696,7 @@ export namespace Prisma {
     base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     capacity?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     property?: propertiesUpdateOneRequiredWithoutRoomsNestedInput
@@ -23742,6 +20713,7 @@ export namespace Prisma {
     base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     capacity?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     room_images?: room_imagesUncheckedUpdateManyWithoutRoomNestedInput
@@ -23757,10 +20729,8 @@ export namespace Prisma {
     password_hash: string
     profile_picture?: string | null
     is_verified: boolean
-    verify_token?: string | null
-    verify_token_expires_at?: Date | string | null
-    reset_password_token?: string | null
-    reset_password_expires_at?: Date | string | null
+    verify_otp?: string | null
+    reset_password_otp?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     tenants?: tenantsCreateNestedManyWithoutUserInput
@@ -23775,10 +20745,8 @@ export namespace Prisma {
     password_hash: string
     profile_picture?: string | null
     is_verified: boolean
-    verify_token?: string | null
-    verify_token_expires_at?: Date | string | null
-    reset_password_token?: string | null
-    reset_password_expires_at?: Date | string | null
+    verify_otp?: string | null
+    reset_password_otp?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     tenants?: tenantsUncheckedCreateNestedManyWithoutUserInput
@@ -23793,6 +20761,7 @@ export namespace Prisma {
   export type propertiesCreateWithoutBookingsInput = {
     id?: string
     name: string
+    property_category: $Enums.PropertyCategory
     description?: string | null
     address: string
     city: string
@@ -23801,10 +20770,10 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     tenant: tenantsCreateNestedOneWithoutPropertiesInput
-    category: property_categoriesCreateNestedOneWithoutPropertiesInput
     property_images?: property_imagesCreateNestedManyWithoutPropertyInput
     rooms?: roomsCreateNestedManyWithoutPropertyInput
     peak_season_rates?: peak_season_ratesCreateNestedManyWithoutPropertyInput
@@ -23814,8 +20783,8 @@ export namespace Prisma {
   export type propertiesUncheckedCreateWithoutBookingsInput = {
     id?: string
     tenant_id: string
-    category_id: string
     name: string
+    property_category: $Enums.PropertyCategory
     description?: string | null
     address: string
     city: string
@@ -23824,6 +20793,7 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     property_images?: property_imagesUncheckedCreateNestedManyWithoutPropertyInput
@@ -23866,38 +20836,6 @@ export namespace Prisma {
 
   export type booking_roomsCreateManyBookingInputEnvelope = {
     data: booking_roomsCreateManyBookingInput | booking_roomsCreateManyBookingInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type paymentsCreateWithoutBookingInput = {
-    id?: string
-    payment_method: $Enums.PaymentMethod
-    proof_image?: string | null
-    amount: Decimal | DecimalJsLike | number | string
-    status: $Enums.PaymentStatus
-    paid_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type paymentsUncheckedCreateWithoutBookingInput = {
-    id?: string
-    payment_method: $Enums.PaymentMethod
-    proof_image?: string | null
-    amount: Decimal | DecimalJsLike | number | string
-    status: $Enums.PaymentStatus
-    paid_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type paymentsCreateOrConnectWithoutBookingInput = {
-    where: paymentsWhereUniqueInput
-    create: XOR<paymentsCreateWithoutBookingInput, paymentsUncheckedCreateWithoutBookingInput>
-  }
-
-  export type paymentsCreateManyBookingInputEnvelope = {
-    data: paymentsCreateManyBookingInput | paymentsCreateManyBookingInput[]
     skipDuplicates?: boolean
   }
 
@@ -23950,10 +20888,8 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
     is_verified?: BoolFieldUpdateOperationsInput | boolean
-    verify_token?: NullableStringFieldUpdateOperationsInput | string | null
-    verify_token_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    reset_password_token?: NullableStringFieldUpdateOperationsInput | string | null
-    reset_password_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verify_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    reset_password_otp?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     tenants?: tenantsUpdateManyWithoutUserNestedInput
@@ -23968,10 +20904,8 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
     is_verified?: BoolFieldUpdateOperationsInput | boolean
-    verify_token?: NullableStringFieldUpdateOperationsInput | string | null
-    verify_token_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    reset_password_token?: NullableStringFieldUpdateOperationsInput | string | null
-    reset_password_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verify_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    reset_password_otp?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     tenants?: tenantsUncheckedUpdateManyWithoutUserNestedInput
@@ -23992,6 +20926,7 @@ export namespace Prisma {
   export type propertiesUpdateWithoutBookingsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
@@ -24000,10 +20935,10 @@ export namespace Prisma {
     latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: tenantsUpdateOneRequiredWithoutPropertiesNestedInput
-    category?: property_categoriesUpdateOneRequiredWithoutPropertiesNestedInput
     property_images?: property_imagesUpdateManyWithoutPropertyNestedInput
     rooms?: roomsUpdateManyWithoutPropertyNestedInput
     peak_season_rates?: peak_season_ratesUpdateManyWithoutPropertyNestedInput
@@ -24013,8 +20948,8 @@ export namespace Prisma {
   export type propertiesUncheckedUpdateWithoutBookingsInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenant_id?: StringFieldUpdateOperationsInput | string
-    category_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
@@ -24023,6 +20958,7 @@ export namespace Prisma {
     latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     property_images?: property_imagesUncheckedUpdateManyWithoutPropertyNestedInput
@@ -24047,37 +20983,6 @@ export namespace Prisma {
     data: XOR<booking_roomsUpdateManyMutationInput, booking_roomsUncheckedUpdateManyWithoutBookingInput>
   }
 
-  export type paymentsUpsertWithWhereUniqueWithoutBookingInput = {
-    where: paymentsWhereUniqueInput
-    update: XOR<paymentsUpdateWithoutBookingInput, paymentsUncheckedUpdateWithoutBookingInput>
-    create: XOR<paymentsCreateWithoutBookingInput, paymentsUncheckedCreateWithoutBookingInput>
-  }
-
-  export type paymentsUpdateWithWhereUniqueWithoutBookingInput = {
-    where: paymentsWhereUniqueInput
-    data: XOR<paymentsUpdateWithoutBookingInput, paymentsUncheckedUpdateWithoutBookingInput>
-  }
-
-  export type paymentsUpdateManyWithWhereWithoutBookingInput = {
-    where: paymentsScalarWhereInput
-    data: XOR<paymentsUpdateManyMutationInput, paymentsUncheckedUpdateManyWithoutBookingInput>
-  }
-
-  export type paymentsScalarWhereInput = {
-    AND?: paymentsScalarWhereInput | paymentsScalarWhereInput[]
-    OR?: paymentsScalarWhereInput[]
-    NOT?: paymentsScalarWhereInput | paymentsScalarWhereInput[]
-    id?: StringFilter<"payments"> | string
-    booking_id?: StringFilter<"payments"> | string
-    payment_method?: EnumPaymentMethodFilter<"payments"> | $Enums.PaymentMethod
-    proof_image?: StringNullableFilter<"payments"> | string | null
-    amount?: DecimalFilter<"payments"> | Decimal | DecimalJsLike | number | string
-    status?: EnumPaymentStatusFilter<"payments"> | $Enums.PaymentStatus
-    paid_at?: DateTimeNullableFilter<"payments"> | Date | string | null
-    created_at?: DateTimeFilter<"payments"> | Date | string
-    updated_at?: DateTimeFilter<"payments"> | Date | string
-  }
-
   export type reviewsUpsertWithWhereUniqueWithoutBookingInput = {
     where: reviewsWhereUniqueInput
     update: XOR<reviewsUpdateWithoutBookingInput, reviewsUncheckedUpdateWithoutBookingInput>
@@ -24097,15 +21002,17 @@ export namespace Prisma {
   export type bookingsCreateWithoutBooking_roomsInput = {
     id?: string
     status: $Enums.BookingStatus
+    proof_image?: string | null
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
     payment_deadline?: Date | string
+    paid_at?: Date | string | null
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
     user: usersCreateNestedOneWithoutBookingsInput
     property: propertiesCreateNestedOneWithoutBookingsInput
-    payments?: paymentsCreateNestedManyWithoutBookingInput
     reviews?: reviewsCreateNestedManyWithoutBookingInput
   }
 
@@ -24114,13 +21021,15 @@ export namespace Prisma {
     user_id: string
     property_id: string
     status: $Enums.BookingStatus
+    proof_image?: string | null
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
     payment_deadline?: Date | string
+    paid_at?: Date | string | null
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
-    payments?: paymentsUncheckedCreateNestedManyWithoutBookingInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutBookingInput
   }
 
@@ -24136,6 +21045,7 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     property: propertiesCreateNestedOneWithoutRoomsInput
@@ -24152,6 +21062,7 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     room_images?: room_imagesUncheckedCreateNestedManyWithoutRoomInput
@@ -24178,15 +21089,17 @@ export namespace Prisma {
   export type bookingsUpdateWithoutBooking_roomsInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
     check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
     check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: usersUpdateOneRequiredWithoutBookingsNestedInput
     property?: propertiesUpdateOneRequiredWithoutBookingsNestedInput
-    payments?: paymentsUpdateManyWithoutBookingNestedInput
     reviews?: reviewsUpdateManyWithoutBookingNestedInput
   }
 
@@ -24195,13 +21108,15 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     property_id?: StringFieldUpdateOperationsInput | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
     check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
     check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    payments?: paymentsUncheckedUpdateManyWithoutBookingNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutBookingNestedInput
   }
 
@@ -24223,6 +21138,7 @@ export namespace Prisma {
     base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     capacity?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     property?: propertiesUpdateOneRequiredWithoutRoomsNestedInput
@@ -24239,6 +21155,7 @@ export namespace Prisma {
     base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     capacity?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     room_images?: room_imagesUncheckedUpdateManyWithoutRoomNestedInput
@@ -24246,95 +21163,21 @@ export namespace Prisma {
     peak_season_rates?: peak_season_ratesUncheckedUpdateManyWithoutRoomNestedInput
   }
 
-  export type bookingsCreateWithoutPaymentsInput = {
-    id?: string
-    status: $Enums.BookingStatus
-    check_in_date: Date | string
-    check_out_date: Date | string
-    total_price: Decimal | DecimalJsLike | number | string
-    payment_deadline?: Date | string
-    created_at?: Date | string
-    updated_at?: Date | string
-    user: usersCreateNestedOneWithoutBookingsInput
-    property: propertiesCreateNestedOneWithoutBookingsInput
-    booking_rooms?: booking_roomsCreateNestedManyWithoutBookingInput
-    reviews?: reviewsCreateNestedManyWithoutBookingInput
-  }
-
-  export type bookingsUncheckedCreateWithoutPaymentsInput = {
-    id?: string
-    user_id: string
-    property_id: string
-    status: $Enums.BookingStatus
-    check_in_date: Date | string
-    check_out_date: Date | string
-    total_price: Decimal | DecimalJsLike | number | string
-    payment_deadline?: Date | string
-    created_at?: Date | string
-    updated_at?: Date | string
-    booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutBookingInput
-    reviews?: reviewsUncheckedCreateNestedManyWithoutBookingInput
-  }
-
-  export type bookingsCreateOrConnectWithoutPaymentsInput = {
-    where: bookingsWhereUniqueInput
-    create: XOR<bookingsCreateWithoutPaymentsInput, bookingsUncheckedCreateWithoutPaymentsInput>
-  }
-
-  export type bookingsUpsertWithoutPaymentsInput = {
-    update: XOR<bookingsUpdateWithoutPaymentsInput, bookingsUncheckedUpdateWithoutPaymentsInput>
-    create: XOR<bookingsCreateWithoutPaymentsInput, bookingsUncheckedCreateWithoutPaymentsInput>
-    where?: bookingsWhereInput
-  }
-
-  export type bookingsUpdateToOneWithWhereWithoutPaymentsInput = {
-    where?: bookingsWhereInput
-    data: XOR<bookingsUpdateWithoutPaymentsInput, bookingsUncheckedUpdateWithoutPaymentsInput>
-  }
-
-  export type bookingsUpdateWithoutPaymentsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: usersUpdateOneRequiredWithoutBookingsNestedInput
-    property?: propertiesUpdateOneRequiredWithoutBookingsNestedInput
-    booking_rooms?: booking_roomsUpdateManyWithoutBookingNestedInput
-    reviews?: reviewsUpdateManyWithoutBookingNestedInput
-  }
-
-  export type bookingsUncheckedUpdateWithoutPaymentsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
-    property_id?: StringFieldUpdateOperationsInput | string
-    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    booking_rooms?: booking_roomsUncheckedUpdateManyWithoutBookingNestedInput
-    reviews?: reviewsUncheckedUpdateManyWithoutBookingNestedInput
-  }
-
   export type bookingsCreateWithoutReviewsInput = {
     id?: string
     status: $Enums.BookingStatus
+    proof_image?: string | null
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
     payment_deadline?: Date | string
+    paid_at?: Date | string | null
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
     user: usersCreateNestedOneWithoutBookingsInput
     property: propertiesCreateNestedOneWithoutBookingsInput
     booking_rooms?: booking_roomsCreateNestedManyWithoutBookingInput
-    payments?: paymentsCreateNestedManyWithoutBookingInput
   }
 
   export type bookingsUncheckedCreateWithoutReviewsInput = {
@@ -24342,14 +21185,16 @@ export namespace Prisma {
     user_id: string
     property_id: string
     status: $Enums.BookingStatus
+    proof_image?: string | null
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
     payment_deadline?: Date | string
+    paid_at?: Date | string | null
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
     booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutBookingInput
-    payments?: paymentsUncheckedCreateNestedManyWithoutBookingInput
   }
 
   export type bookingsCreateOrConnectWithoutReviewsInput = {
@@ -24365,10 +21210,8 @@ export namespace Prisma {
     password_hash: string
     profile_picture?: string | null
     is_verified: boolean
-    verify_token?: string | null
-    verify_token_expires_at?: Date | string | null
-    reset_password_token?: string | null
-    reset_password_expires_at?: Date | string | null
+    verify_otp?: string | null
+    reset_password_otp?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     tenants?: tenantsCreateNestedManyWithoutUserInput
@@ -24383,10 +21226,8 @@ export namespace Prisma {
     password_hash: string
     profile_picture?: string | null
     is_verified: boolean
-    verify_token?: string | null
-    verify_token_expires_at?: Date | string | null
-    reset_password_token?: string | null
-    reset_password_expires_at?: Date | string | null
+    verify_otp?: string | null
+    reset_password_otp?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     tenants?: tenantsUncheckedCreateNestedManyWithoutUserInput
@@ -24401,6 +21242,7 @@ export namespace Prisma {
   export type propertiesCreateWithoutReviewsInput = {
     id?: string
     name: string
+    property_category: $Enums.PropertyCategory
     description?: string | null
     address: string
     city: string
@@ -24409,10 +21251,10 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     tenant: tenantsCreateNestedOneWithoutPropertiesInput
-    category: property_categoriesCreateNestedOneWithoutPropertiesInput
     property_images?: property_imagesCreateNestedManyWithoutPropertyInput
     rooms?: roomsCreateNestedManyWithoutPropertyInput
     peak_season_rates?: peak_season_ratesCreateNestedManyWithoutPropertyInput
@@ -24422,8 +21264,8 @@ export namespace Prisma {
   export type propertiesUncheckedCreateWithoutReviewsInput = {
     id?: string
     tenant_id: string
-    category_id: string
     name: string
+    property_category: $Enums.PropertyCategory
     description?: string | null
     address: string
     city: string
@@ -24432,6 +21274,7 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
     property_images?: property_imagesUncheckedCreateNestedManyWithoutPropertyInput
@@ -24459,16 +21302,18 @@ export namespace Prisma {
   export type bookingsUpdateWithoutReviewsInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
     check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
     check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: usersUpdateOneRequiredWithoutBookingsNestedInput
     property?: propertiesUpdateOneRequiredWithoutBookingsNestedInput
     booking_rooms?: booking_roomsUpdateManyWithoutBookingNestedInput
-    payments?: paymentsUpdateManyWithoutBookingNestedInput
   }
 
   export type bookingsUncheckedUpdateWithoutReviewsInput = {
@@ -24476,14 +21321,16 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     property_id?: StringFieldUpdateOperationsInput | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
     check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
     check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_rooms?: booking_roomsUncheckedUpdateManyWithoutBookingNestedInput
-    payments?: paymentsUncheckedUpdateManyWithoutBookingNestedInput
   }
 
   export type usersUpsertWithoutReviewsInput = {
@@ -24505,10 +21352,8 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
     is_verified?: BoolFieldUpdateOperationsInput | boolean
-    verify_token?: NullableStringFieldUpdateOperationsInput | string | null
-    verify_token_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    reset_password_token?: NullableStringFieldUpdateOperationsInput | string | null
-    reset_password_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verify_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    reset_password_otp?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     tenants?: tenantsUpdateManyWithoutUserNestedInput
@@ -24523,10 +21368,8 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
     is_verified?: BoolFieldUpdateOperationsInput | boolean
-    verify_token?: NullableStringFieldUpdateOperationsInput | string | null
-    verify_token_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    reset_password_token?: NullableStringFieldUpdateOperationsInput | string | null
-    reset_password_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verify_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    reset_password_otp?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     tenants?: tenantsUncheckedUpdateManyWithoutUserNestedInput
@@ -24547,6 +21390,7 @@ export namespace Prisma {
   export type propertiesUpdateWithoutReviewsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
@@ -24555,10 +21399,10 @@ export namespace Prisma {
     latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: tenantsUpdateOneRequiredWithoutPropertiesNestedInput
-    category?: property_categoriesUpdateOneRequiredWithoutPropertiesNestedInput
     property_images?: property_imagesUpdateManyWithoutPropertyNestedInput
     rooms?: roomsUpdateManyWithoutPropertyNestedInput
     peak_season_rates?: peak_season_ratesUpdateManyWithoutPropertyNestedInput
@@ -24568,8 +21412,8 @@ export namespace Prisma {
   export type propertiesUncheckedUpdateWithoutReviewsInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenant_id?: StringFieldUpdateOperationsInput | string
-    category_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
@@ -24578,6 +21422,7 @@ export namespace Prisma {
     latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     property_images?: property_imagesUncheckedUpdateManyWithoutPropertyNestedInput
@@ -24600,10 +21445,13 @@ export namespace Prisma {
     id?: string
     property_id: string
     status: $Enums.BookingStatus
+    proof_image?: string | null
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
     payment_deadline?: Date | string
+    paid_at?: Date | string | null
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -24653,15 +21501,17 @@ export namespace Prisma {
   export type bookingsUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
     check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
     check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     property?: propertiesUpdateOneRequiredWithoutBookingsNestedInput
     booking_rooms?: booking_roomsUpdateManyWithoutBookingNestedInput
-    payments?: paymentsUpdateManyWithoutBookingNestedInput
     reviews?: reviewsUpdateManyWithoutBookingNestedInput
   }
 
@@ -24669,14 +21519,16 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     property_id?: StringFieldUpdateOperationsInput | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
     check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
     check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_rooms?: booking_roomsUncheckedUpdateManyWithoutBookingNestedInput
-    payments?: paymentsUncheckedUpdateManyWithoutBookingNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutBookingNestedInput
   }
 
@@ -24684,10 +21536,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     property_id?: StringFieldUpdateOperationsInput | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
     check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
     check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -24724,8 +21579,8 @@ export namespace Prisma {
 
   export type propertiesCreateManyTenantInput = {
     id?: string
-    category_id: string
     name: string
+    property_category: $Enums.PropertyCategory
     description?: string | null
     address: string
     city: string
@@ -24734,6 +21589,7 @@ export namespace Prisma {
     latitude: Decimal | DecimalJsLike | number | string
     longitude: Decimal | DecimalJsLike | number | string
     main_image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -24741,6 +21597,7 @@ export namespace Prisma {
   export type propertiesUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
@@ -24749,9 +21606,9 @@ export namespace Prisma {
     latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: property_categoriesUpdateOneRequiredWithoutPropertiesNestedInput
     property_images?: property_imagesUpdateManyWithoutPropertyNestedInput
     rooms?: roomsUpdateManyWithoutPropertyNestedInput
     peak_season_rates?: peak_season_ratesUpdateManyWithoutPropertyNestedInput
@@ -24761,8 +21618,8 @@ export namespace Prisma {
 
   export type propertiesUncheckedUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
-    category_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
@@ -24771,6 +21628,7 @@ export namespace Prisma {
     latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     property_images?: property_imagesUncheckedUpdateManyWithoutPropertyNestedInput
@@ -24782,8 +21640,8 @@ export namespace Prisma {
 
   export type propertiesUncheckedUpdateManyWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
-    category_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
@@ -24792,80 +21650,7 @@ export namespace Prisma {
     latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     main_image?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type propertiesCreateManyCategoryInput = {
-    id?: string
-    tenant_id: string
-    name: string
-    description?: string | null
-    address: string
-    city: string
-    province: string
-    zip_code: string
-    latitude: Decimal | DecimalJsLike | number | string
-    longitude: Decimal | DecimalJsLike | number | string
-    main_image?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type propertiesUpdateWithoutCategoryInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: StringFieldUpdateOperationsInput | string
-    city?: StringFieldUpdateOperationsInput | string
-    province?: StringFieldUpdateOperationsInput | string
-    zip_code?: StringFieldUpdateOperationsInput | string
-    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    main_image?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenant?: tenantsUpdateOneRequiredWithoutPropertiesNestedInput
-    property_images?: property_imagesUpdateManyWithoutPropertyNestedInput
-    rooms?: roomsUpdateManyWithoutPropertyNestedInput
-    peak_season_rates?: peak_season_ratesUpdateManyWithoutPropertyNestedInput
-    bookings?: bookingsUpdateManyWithoutPropertyNestedInput
-    reviews?: reviewsUpdateManyWithoutPropertyNestedInput
-  }
-
-  export type propertiesUncheckedUpdateWithoutCategoryInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tenant_id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: StringFieldUpdateOperationsInput | string
-    city?: StringFieldUpdateOperationsInput | string
-    province?: StringFieldUpdateOperationsInput | string
-    zip_code?: StringFieldUpdateOperationsInput | string
-    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    main_image?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    property_images?: property_imagesUncheckedUpdateManyWithoutPropertyNestedInput
-    rooms?: roomsUncheckedUpdateManyWithoutPropertyNestedInput
-    peak_season_rates?: peak_season_ratesUncheckedUpdateManyWithoutPropertyNestedInput
-    bookings?: bookingsUncheckedUpdateManyWithoutPropertyNestedInput
-    reviews?: reviewsUncheckedUpdateManyWithoutPropertyNestedInput
-  }
-
-  export type propertiesUncheckedUpdateManyWithoutCategoryInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tenant_id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: StringFieldUpdateOperationsInput | string
-    city?: StringFieldUpdateOperationsInput | string
-    province?: StringFieldUpdateOperationsInput | string
-    zip_code?: StringFieldUpdateOperationsInput | string
-    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -24883,6 +21668,7 @@ export namespace Prisma {
     base_price: Decimal | DecimalJsLike | number | string
     capacity: number
     image?: string | null
+    deleted_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -24902,10 +21688,13 @@ export namespace Prisma {
     id?: string
     user_id: string
     status: $Enums.BookingStatus
+    proof_image?: string | null
     check_in_date: Date | string
     check_out_date: Date | string
     total_price: Decimal | DecimalJsLike | number | string
     payment_deadline?: Date | string
+    paid_at?: Date | string | null
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -24945,6 +21734,7 @@ export namespace Prisma {
     base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     capacity?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     room_images?: room_imagesUpdateManyWithoutRoomNestedInput
@@ -24960,6 +21750,7 @@ export namespace Prisma {
     base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     capacity?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     room_images?: room_imagesUncheckedUpdateManyWithoutRoomNestedInput
@@ -24975,6 +21766,7 @@ export namespace Prisma {
     base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     capacity?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25015,15 +21807,17 @@ export namespace Prisma {
   export type bookingsUpdateWithoutPropertyInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
     check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
     check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: usersUpdateOneRequiredWithoutBookingsNestedInput
     booking_rooms?: booking_roomsUpdateManyWithoutBookingNestedInput
-    payments?: paymentsUpdateManyWithoutBookingNestedInput
     reviews?: reviewsUpdateManyWithoutBookingNestedInput
   }
 
@@ -25031,14 +21825,16 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
     check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
     check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     booking_rooms?: booking_roomsUncheckedUpdateManyWithoutBookingNestedInput
-    payments?: paymentsUncheckedUpdateManyWithoutBookingNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutBookingNestedInput
   }
 
@@ -25046,10 +21842,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
     status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
     check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
     check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25243,17 +22042,6 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
-  export type paymentsCreateManyBookingInput = {
-    id?: string
-    payment_method: $Enums.PaymentMethod
-    proof_image?: string | null
-    amount: Decimal | DecimalJsLike | number | string
-    status: $Enums.PaymentStatus
-    paid_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
   export type reviewsCreateManyBookingInput = {
     id?: string
     user_id: string
@@ -25293,39 +22081,6 @@ export namespace Prisma {
     price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     nights?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type paymentsUpdateWithoutBookingInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    payment_method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
-    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type paymentsUncheckedUpdateWithoutBookingInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    payment_method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
-    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type paymentsUncheckedUpdateManyWithoutBookingInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    payment_method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
-    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

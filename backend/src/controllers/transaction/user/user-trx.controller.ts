@@ -13,7 +13,7 @@ class UserTransactions {
 
       if (!user) {
         res
-          .status(403)
+          .status(401)
           .json({ message: "Only users are allowed to access this feature." });
         return;
       }
@@ -24,7 +24,6 @@ class UserTransactions {
         check_in_date,
         check_out_date,
         room_id,
-        is_available,
         guests_count,
         nights,
         total_price,
@@ -38,21 +37,23 @@ class UserTransactions {
       }
 
       // Checking Room Availability
-      const roomAvailability = await prisma.room_availability.findUnique({
+      const conflict_dates = await prisma.room_availability.findMany({
         where: {
-          room_id_date: {
-            room_id,
-            date: new Date(check_in_date)
-          }
+          room_id,
+          date: {
+            gte: new Date(check_in_date),
+            lt: new Date(check_out_date),
+          },
+          is_available: false,
         },
       });
 
-      if (!roomAvailability) {
+      if (conflict_dates.length > 0) {
         res.status(409).json({ message: "Room is not available" });
         return;
       }
 
-      const transaction = await prisma.$transaction(async (tx) => {
+      await prisma.$transaction(async (tx) => {
         // Create Booking Property
         const newBookings = await tx.bookings.create({
           data: {
@@ -76,15 +77,86 @@ class UserTransactions {
             subtotal: subtotal,
           },
         });
+
+        // Update availability
+
+        await tx.room_availability.updateMany({
+          where: {
+            room_id: room_id,
+            date: {
+              gte: new Date(check_in_date),
+              lt: new Date(check_out_date),
+            },
+          },
+          data: {
+            is_available: false,
+          },
+        });
       });
 
       // Send Response
-      res.status(200).json({
+      res.status(201).json({
+        success: true,
         message: "Booking successfully created.",
       });
     } catch (err) {
-        res.status(500).json({message: "An error has occurred."})
-        console.log(err)
+      res.status(500).json({ message: "An error has occurred." });
+      next(err);
+    }
+  };
+
+  public getReservations = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      // Validate Role
+      const user = res.locals.user;
+
+      if (!user) {
+        res.status(401).json({
+          message: "Only users are allowed to access this feature.",
+        });
+        return;
+      }
+
+      const bookings = await prisma.bookings.findMany({
+        where: {
+          user_id: user.id,
+        },
+        select: {
+          id: true,
+          check_in_date: true,
+          check_out_date: true,
+          booking_rooms: {
+            select: {
+              id: true,
+              room_id: true,
+              guests_count: true,
+              nights: true,
+              price_per_night: true,
+              subtotal: true,
+            },
+          },
+        },
+      });
+
+      if (!bookings || bookings.length === 0) {
+        res.status(404).json({
+          message: "No reservations found.",
+        });
+        return;
+      }
+
+      res.status(200).json({
+        success: true,
+        message: "Reservations successfully fetched.",
+        data: bookings,
+      });
+    } catch (err) {
+      res.status(500).json({ message: "An error has occurred." });
+      next(err);
     }
   };
 }

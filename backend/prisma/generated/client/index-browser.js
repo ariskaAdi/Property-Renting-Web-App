@@ -128,10 +128,8 @@ exports.Prisma.UsersScalarFieldEnum = {
   password_hash: 'password_hash',
   profile_picture: 'profile_picture',
   is_verified: 'is_verified',
-  verify_token: 'verify_token',
-  verify_token_expires_at: 'verify_token_expires_at',
-  reset_password_token: 'reset_password_token',
-  reset_password_expires_at: 'reset_password_expires_at',
+  verify_otp: 'verify_otp',
+  reset_password_otp: 'reset_password_otp',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -147,19 +145,11 @@ exports.Prisma.TenantsScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Property_categoriesScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
 exports.Prisma.PropertiesScalarFieldEnum = {
   id: 'id',
   tenant_id: 'tenant_id',
-  category_id: 'category_id',
   name: 'name',
+  property_category: 'property_category',
   description: 'description',
   address: 'address',
   city: 'city',
@@ -168,6 +158,7 @@ exports.Prisma.PropertiesScalarFieldEnum = {
   latitude: 'latitude',
   longitude: 'longitude',
   main_image: 'main_image',
+  deleted_at: 'deleted_at',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -187,6 +178,7 @@ exports.Prisma.RoomsScalarFieldEnum = {
   base_price: 'base_price',
   capacity: 'capacity',
   image: 'image',
+  deleted_at: 'deleted_at',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -225,10 +217,13 @@ exports.Prisma.BookingsScalarFieldEnum = {
   user_id: 'user_id',
   property_id: 'property_id',
   status: 'status',
+  proof_image: 'proof_image',
   check_in_date: 'check_in_date',
   check_out_date: 'check_out_date',
   total_price: 'total_price',
   payment_deadline: 'payment_deadline',
+  paid_at: 'paid_at',
+  amount: 'amount',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -241,18 +236,6 @@ exports.Prisma.Booking_roomsScalarFieldEnum = {
   price_per_night: 'price_per_night',
   nights: 'nights',
   subtotal: 'subtotal',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.PaymentsScalarFieldEnum = {
-  id: 'id',
-  booking_id: 'booking_id',
-  payment_method: 'payment_method',
-  proof_image: 'proof_image',
-  amount: 'amount',
-  status: 'status',
-  paid_at: 'paid_at',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -287,6 +270,15 @@ exports.Role = exports.$Enums.Role = {
   tenant: 'tenant'
 };
 
+exports.PropertyCategory = exports.$Enums.PropertyCategory = {
+  apartment: 'apartment',
+  house: 'house',
+  villa: 'villa',
+  hotel: 'hotel',
+  hostel: 'hostel',
+  guesthouse: 'guesthouse'
+};
+
 exports.PriceChangeType = exports.$Enums.PriceChangeType = {
   percentage: 'percentage',
   nominal: 'nominal'
@@ -300,21 +292,9 @@ exports.BookingStatus = exports.$Enums.BookingStatus = {
   expired: 'expired'
 };
 
-exports.PaymentMethod = exports.$Enums.PaymentMethod = {
-  manual_transfer: 'manual_transfer',
-  payment_gateway: 'payment_gateway'
-};
-
-exports.PaymentStatus = exports.$Enums.PaymentStatus = {
-  pending: 'pending',
-  confirmed: 'confirmed',
-  rejected: 'rejected'
-};
-
 exports.Prisma.ModelName = {
   users: 'users',
   tenants: 'tenants',
-  property_categories: 'property_categories',
   properties: 'properties',
   property_images: 'property_images',
   rooms: 'rooms',
@@ -323,7 +303,6 @@ exports.Prisma.ModelName = {
   peak_season_rates: 'peak_season_rates',
   bookings: 'bookings',
   booking_rooms: 'booking_rooms',
-  payments: 'payments',
   reviews: 'reviews'
 };
 

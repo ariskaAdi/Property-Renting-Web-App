@@ -282,6 +282,131 @@ class UserTransactions {
     }
   };
 
+  public getReservationsHistory = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      // Validate Role
+      const user = res.locals.user;
+
+      if (!user) {
+        res.status(401).json({
+          message: "Only users are allowed to access this feature.",
+        });
+        return;
+      }
+
+      const bookings = await prisma.bookings.findMany({
+        where: {
+          user_id: user.id,
+          check_out_date: {
+            lt: new Date(),
+          },
+        },
+        select: {
+          id: true,
+          check_in_date: true,
+          check_out_date: true,
+          booking_rooms: {
+            select: {
+              id: true,
+              room_id: true,
+              guests_count: true,
+              nights: true,
+              price_per_night: true,
+              subtotal: true,
+            },
+          },
+        },
+        orderBy: {
+            check_out_date: "desc"
+        }
+      });
+
+      if (!bookings || bookings.length === 0) {
+        res.status(404).json({
+          message: "No reservations found.",
+        });
+        return;
+      }
+
+      res.status(200).json({
+        success: true,
+        message: "Reservations successfully fetched.",
+        data: bookings,
+      });
+    } catch (err) {
+      res.status(500).json({ message: "An error has occurred." });
+      next(err);
+    }
+  };
+
+  public getReservationsByStatus = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      // Validate Role
+      const user = res.locals.user;
+
+      if (!user) {
+        res.status(401).json({
+          message: "Only users are allowed to access this feature.",
+        });
+        return;
+      }
+
+      const bookings = await prisma.bookings.findMany({
+        where: {
+          user_id: user.id,
+          check_out_date: {
+            lt: new Date(),
+          },
+          status: {
+            in: ["confirmed", "canceled"]
+          }
+        },
+        select: {
+          id: true,
+          check_in_date: true,
+          check_out_date: true,
+          booking_rooms: {
+            select: {
+              id: true,
+              room_id: true,
+              guests_count: true,
+              nights: true,
+              price_per_night: true,
+              subtotal: true,
+            },
+          },
+        },
+        orderBy: {
+            check_out_date: "desc"
+        }
+      });
+
+      if (!bookings || bookings.length === 0) {
+        res.status(404).json({
+          message: "No reservations found.",
+        });
+        return;
+      }
+
+      res.status(200).json({
+        success: true,
+        message: "Reservations successfully fetched.",
+        data: bookings,
+      });
+    } catch (err) {
+      res.status(500).json({ message: "An error has occurred." });
+      next(err);
+    }
+  };
+
   public paymentProofUpload = async (
     req: Request,
     res: Response,

@@ -1,4 +1,4 @@
-import { v2 as cloudinary } from "cloudinary";
+import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -6,13 +6,13 @@ cloudinary.config({
   api_secret: process.env.API_SECRET,
 });
 
-export async function handleUpload(file: string) {
-  const res = await cloudinary.uploader
-    .upload(file, {
+export async function handleUpload(file: string): Promise<UploadApiResponse | null> {
+  try {
+    return await cloudinary.uploader.upload(file, {
       resource_type: "auto",
-    })
-    .catch((error) => {
-      console.log(error);
     });
-  return res;
+  } catch(error) {
+    console.error(error);
+    return null
+  }
 }

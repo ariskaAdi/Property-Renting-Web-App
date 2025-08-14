@@ -16,6 +16,7 @@ export type CreateNewOtp = {
   email: string;
   verify_otp?: string | null;
   verify_otp_expires_at?: Date | null;
+  reset_password_otp?: string | null;
 };
 
 export type VerifyEmail = {

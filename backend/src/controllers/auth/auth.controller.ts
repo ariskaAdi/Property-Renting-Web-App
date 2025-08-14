@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import {
+  loginService,
   newOtpService,
   registerService,
   verifyEmailService,
@@ -24,7 +25,17 @@ class AuthController {
     res: Response,
     next: NextFunction
   ): Promise<void> {
-    // code
+    try {
+      const { token } = await loginService(req.body, res);
+      res.status(200).send({
+        message: "User logged in",
+        success: true,
+        token,
+        user: res.locals.user,
+      });
+    } catch (error) {
+      next(error);
+    }
   }
 
   public async verifyEmail(

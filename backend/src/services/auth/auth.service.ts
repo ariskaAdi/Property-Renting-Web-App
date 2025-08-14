@@ -1,3 +1,4 @@
+import { compare } from "bcrypt";
 import { Role } from "../../../prisma/generated/client";
 import { transport } from "../../config/nodemailer";
 import AppError from "../../errors/AppError";
@@ -6,10 +7,12 @@ import {
   createUser,
   findUserByEmail,
   updateStatusEmail,
-} from "../../repositories/user/user.repository";
+} from "../../repositories/auth/auth.repository";
 import { VERIFICATION_EMAIL_TEMPLATE } from "../../utils/emailTemplates";
 import { generatedOtp } from "../../utils/generateOtp";
 import { hashPassword } from "../../utils/hash";
+import { generateTokenAndSetCookie } from "../../utils/jwt";
+import { Response } from "express";
 
 export const registerService = async (data: any) => {
   const { full_name, email, password_hash, role } = data;
@@ -50,6 +53,31 @@ export const registerService = async (data: any) => {
 
   const { password_hash: _, ...userWithoutPassword } = newUser;
   return userWithoutPassword;
+};
+
+export const loginService = async (data: any, res: Response) => {
+  const { email, password_hash } = data;
+
+  // validasi email
+  const existingUser = await findUserByEmail(email);
+  if (!existingUser) {
+    throw new AppError("User not found", 400);
+  }
+
+  // validasi password
+  const comparePassword = await compare(
+    password_hash,
+    existingUser.password_hash
+  );
+  if (!comparePassword) {
+    throw new AppError("Invalid password", 401);
+  }
+  // generate token
+  const token = generateTokenAndSetCookie(res, existingUser);
+
+  const { password_hash: _, ...userWithoutPassword } = existingUser;
+
+  return { ...userWithoutPassword, token };
 };
 
 export const verifyEmailService = async (data: any) => {

@@ -17,7 +17,7 @@ import { Response } from "express";
 export const registerService = async (data: any) => {
   const { full_name, email, password_hash, role } = data;
   const existingUser = await findUserByEmail(email);
-
+  console.log(existingUser);
   //   validasi email
   if (existingUser) {
     throw new AppError("User already exist", 400);

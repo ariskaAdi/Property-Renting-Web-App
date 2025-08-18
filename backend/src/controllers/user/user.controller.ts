@@ -28,6 +28,7 @@ class UserController {
         throw new AppError("User not found", 404);
       }
       res.status(200).send({
+        message: "User found",
         success: true,
         user: {
           id: user.id,

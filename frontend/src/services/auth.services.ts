@@ -8,10 +8,13 @@ export const loginUser = async (
   password: string
 ): Promise<LoginResponse> => {
   const response = await axios.post<LoginResponse>(
-    `${BASE_URL}/api/auth/login`,
+    `${BASE_URL}/auth/login`,
     {
       email,
-      password,
+      password_hash: password,
+    },
+    {
+      withCredentials: true,
     }
   );
   console.log(response.data);

@@ -12,23 +12,44 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { useLoginUser } from "@/hooks/useAuth";
+import { loginAuth } from "@/redux/slices/authSlice";
 
-export default function RegisterPage() {
+export default function LoginPage() {
   const [form, setForm] = useState({
-    username: "",
     email: "",
     password: "",
-    role: "user",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const { mutate: login, isPending, isError } = useLoginUser();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(form);
-    // fetch("/api/auth/register", { method: "POST", body: JSON.stringify(form) })
+    login(
+      {
+        email: form.email,
+        password: form.password,
+      },
+      {
+        onSuccess: (data) => {
+          console.log(data);
+
+          if (data.user) {
+            dispatch(loginAuth({ user: data.user }));
+          }
+          router.push("/");
+        },
+        onError: (error) => {
+          console.log(error);
+          alert("gagal login");
+        },
+      }
+    );
   };
 
   return (
@@ -54,7 +75,7 @@ export default function RegisterPage() {
                   type="email"
                   name="email"
                   value={form.email}
-                  onChange={handleChange}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
                   required
                   placeholder="Enter your email"
                 />
@@ -70,17 +91,20 @@ export default function RegisterPage() {
                   type="password"
                   name="password"
                   value={form.password}
-                  onChange={handleChange}
+                  onChange={(e) =>
+                    setForm({ ...form, password: e.target.value })
+                  }
                   required
                   placeholder="Enter your password"
                 />
               </div>
 
               {/* Submit */}
-              <Button type="submit" className="w-full">
-                Login
+              <Button type="submit" className="w-full" disabled={isPending}>
+                {isPending ? "Loading..." : "Login"}
               </Button>
             </form>
+            {isError && <p className="text-red-500">Gagal Login</p>}
           </CardContent>
 
           <CardFooter className="text-center text-sm text-gray-600">

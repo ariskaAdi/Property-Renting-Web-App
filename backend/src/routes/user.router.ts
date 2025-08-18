@@ -13,7 +13,7 @@ class UserRouter {
   }
 
   private initializeRoutes() {
-    this.route.get("/", verifyToken, this.userController.getUserId);
+    this.route.get("/me", verifyToken, this.userController.getUserId);
     this.route.post(
       "/otp-password",
       verifyToken,

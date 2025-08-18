@@ -1,18 +1,11 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
-
-const dummySlice = createSlice({
-  name: "dummy",
-  initialState: { value: "Hello" },
-  reducers: {
-    setValue: (state, action) => {
-      state.value = action.payload;
-    },
-  },
-});
+import { configureStore } from "@reduxjs/toolkit";
+import authReducer from "./slices/authSlice";
+import userReducer from "./slices/userSlice";
 
 export const store = configureStore({
   reducer: {
-    dummy: dummySlice.reducer,
+    auth: authReducer,
+    user: userReducer,
   },
 });
 

@@ -72,12 +72,18 @@ export const loginService = async (data: any, res: Response) => {
   if (!comparePassword) {
     throw new AppError("Invalid password", 401);
   }
-  // generate token
-  const token = generateTokenAndSetCookie(res, existingUser);
+  generateTokenAndSetCookie(res, existingUser);
 
   const { password_hash: _, ...userWithoutPassword } = existingUser;
 
-  return { ...userWithoutPassword, token };
+  return {
+    id: userWithoutPassword.id,
+    email: userWithoutPassword.email,
+    role: userWithoutPassword.role,
+    full_name: userWithoutPassword.full_name,
+    is_verified: userWithoutPassword.is_verified,
+    profile_picture: userWithoutPassword.profile_picture,
+  };
 };
 
 export const verifyEmailService = async (data: any) => {

@@ -5,6 +5,7 @@ dotenv.config();
 import AuthRouter from "./routes/auth.router";
 import logger from "./utils/logger";
 import UserRouter from "./routes/user.router";
+import cookieParser from "cookie-parser";
 
 const PORT: string | number = process.env.PORT || 4000;
 
@@ -20,6 +21,13 @@ class App {
 
   private configure(): void {
     this.app.use(express.json());
+    this.app.use(cookieParser());
+    this.app.use(
+      cors({
+        origin: "http://localhost:3000",
+        credentials: true,
+      })
+    );
   }
 
   private route(): void {

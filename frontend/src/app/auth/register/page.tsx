@@ -12,29 +12,41 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { FaGithub, FaFacebook } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
+import { useRegisterUser } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
   const [form, setForm] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
     role: "user",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const router = useRouter();
+
+  const { mutate: register, isPending, isError } = useRegisterUser();
 
   const handleRoleChange = (role: string) => {
     setForm({ ...form, role });
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(form);
-    // fetch("/api/auth/register", { method: "POST", body: JSON.stringify(form) })
+    register(form, {
+      onSuccess: (data) => {
+        console.log(data);
+        router.push(`/auth/verify-email/${form.email}`);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    });
   };
 
   return (
@@ -52,13 +64,13 @@ export default function RegisterPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Username */}
               <div>
-                <Label htmlFor="username" className="mb-2">
+                <Label htmlFor="name" className="mb-2">
                   Username
                 </Label>
                 <Input
-                  id="username"
-                  name="username"
-                  value={form.username}
+                  id="name"
+                  name="name"
+                  value={form.name}
                   onChange={handleChange}
                   required
                   placeholder="Enter your username"
@@ -121,36 +133,11 @@ export default function RegisterPage() {
               </div>
 
               {/* Submit */}
-              <Button type="submit" className="w-full">
-                Register
+              <Button type="submit" className="w-full" disabled={isPending}>
+                {isPending ? "Loading..." : "Register"}
+                {isError && "Error"}
               </Button>
             </form>
-
-            {/* Divider */}
-            <div className="flex items-center gap-2 my-4">
-              <div className="flex-1 h-px bg-gray-300"></div>
-              <span className="text-sm text-gray-500">OR</span>
-              <div className="flex-1 h-px bg-gray-300"></div>
-            </div>
-
-            {/* Social buttons */}
-            <div className="flex flex-col gap-2">
-              <Button
-                variant="outline"
-                className="flex items-center gap-2 w-full">
-                <FcGoogle className="text-red-500" /> Continue with Google
-              </Button>
-              <Button
-                variant="outline"
-                className="flex items-center gap-2 w-full">
-                <FaGithub /> Continue with GitHub
-              </Button>
-              <Button
-                variant="outline"
-                className="flex items-center gap-2 w-full">
-                <FaFacebook className="text-blue-600" /> Continue with Facebook
-              </Button>
-            </div>
           </CardContent>
 
           <CardFooter className="text-center text-sm text-gray-600">

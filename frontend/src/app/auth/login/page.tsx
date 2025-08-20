@@ -13,9 +13,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
 import { useLoginUser } from "@/hooks/useAuth";
-import { loginAuth } from "@/redux/slices/authSlice";
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook, FaGithub } from "react-icons/fa";
 
 export default function LoginPage() {
   const [form, setForm] = useState({
@@ -24,7 +24,6 @@ export default function LoginPage() {
   });
 
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const { mutate: login, isPending, isError } = useLoginUser();
 
@@ -39,9 +38,6 @@ export default function LoginPage() {
         onSuccess: (data) => {
           console.log(data);
 
-          if (data.user) {
-            dispatch(loginAuth({ user: data.user }));
-          }
           router.push("/");
         },
         onError: (error) => {
@@ -105,6 +101,32 @@ export default function LoginPage() {
               </Button>
             </form>
             {isError && <p className="text-red-500">Gagal Login</p>}
+
+            {/* Divider */}
+            <div className="flex items-center gap-2 my-4">
+              <div className="flex-1 h-px bg-gray-300"></div>
+              <span className="text-sm text-gray-500">OR</span>
+              <div className="flex-1 h-px bg-gray-300"></div>
+            </div>
+
+            {/* Social buttons */}
+            <div className="flex flex-col gap-2">
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 w-full">
+                <FcGoogle className="text-red-500" /> Continue with Google
+              </Button>
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 w-full">
+                <FaGithub /> Continue with GitHub
+              </Button>
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 w-full">
+                <FaFacebook className="text-blue-600" /> Continue with Facebook
+              </Button>
+            </div>
           </CardContent>
 
           <CardFooter className="text-center text-sm text-gray-600">

@@ -7,7 +7,7 @@ export type User = {
   profile_picture: string | null;
 };
 
-export type LoginResponse = {
+export type AuthResponse = {
   message: string;
   success: boolean;
   user: User;

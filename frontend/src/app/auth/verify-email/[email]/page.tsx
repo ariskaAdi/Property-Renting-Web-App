@@ -11,13 +11,17 @@ import {
   CardTitle,
   CardFooter,
 } from "@/components/ui/card";
+import { useParams, useRouter } from "next/navigation";
+import { useVerifyEmail } from "@/hooks/useAuth";
 
-interface VerifyEmailProps {
-  userEmail: string;
-}
-
-export default function VerifyEmail({ userEmail }: VerifyEmailProps) {
+export default function VerifyEmail() {
+  const { email } = useParams<{ email: string }>();
+  const decodedEmail = decodeURIComponent(email);
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+
+  const router = useRouter();
+
+  const { mutate: VerifyEmail, isPending, isError } = useVerifyEmail();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -39,7 +43,19 @@ export default function VerifyEmail({ userEmail }: VerifyEmailProps) {
     e.preventDefault();
     const otpValue = otp.join("");
     console.log("OTP entered:", otpValue);
-    // fetch("/api/auth/verify-email", { method: "POST", body: JSON.stringify({ otp: otpValue }) })
+
+    VerifyEmail(
+      { email: decodedEmail, otp: otpValue },
+      {
+        onSuccess: (data) => {
+          console.log(data);
+          router.push("/auth/login");
+        },
+        onError: (error) => {
+          console.log(error);
+        },
+      }
+    );
   };
 
   return (
@@ -63,7 +79,7 @@ export default function VerifyEmail({ userEmail }: VerifyEmailProps) {
                 <Input
                   id="email"
                   type="email"
-                  value={userEmail}
+                  value={decodedEmail}
                   disabled
                   className="bg-gray-200 cursor-not-allowed"
                 />
@@ -89,8 +105,12 @@ export default function VerifyEmail({ userEmail }: VerifyEmailProps) {
               </div>
 
               {/* Submit */}
-              <Button type="submit" className="w-full mt-4">
-                Verify
+              <Button
+                type="submit"
+                className="w-full mt-4"
+                disabled={isPending}>
+                {isPending ? "Loading..." : "Verify"}
+                {isError && "Error"}
               </Button>
             </form>
           </CardContent>

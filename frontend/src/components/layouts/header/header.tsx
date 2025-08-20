@@ -6,33 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import { useEffect } from "react";
 import { useFetchMe } from "@/hooks/useUser";
-import { clearUser, setUser } from "@/redux/slices/userSlice";
 
 export function Header() {
-  const dispatch = useDispatch();
-  const userRedux = useSelector((state: RootState) => state.user.user);
-  const isLoggedIn = !!userRedux;
-
-  const { data, error } = useFetchMe();
-
-  // Sync fetched user ke Redux
-  useEffect(() => {
-    if (data) {
-      dispatch(setUser(data));
-    } else if (error) {
-      dispatch(clearUser());
-    }
-  }, [data, error, dispatch]);
-
-  // const handleLogout = () => {
-  //   localStorage.removeItem("token");
-  //   localStorage.removeItem("user");
-  //   dispatch(logoutAuth());
-  // };
+  const { data: user, error, isLoading } = useFetchMe();
+  const isLoggedIn = !!user;
 
   return (
     <header className="bg-white border-b border-gray-200 px-4 py-3">
@@ -64,22 +42,22 @@ export function Header() {
             <Bell className="w-4 h-4" />
           </Button>
 
-          {isLoggedIn ? (
+          {isLoading ? (
+            <span className="text-sm text-gray-500">Loading...</span>
+          ) : isLoggedIn ? (
             <>
-              {userRedux?.is_verified ? (
+              {user?.is_verified ? (
                 <div className="flex items-center space-x-2">
                   <Avatar className="w-8 h-8">
-                    {userRedux?.profile_picture ? (
-                      <AvatarImage src={userRedux.profile_picture} />
+                    {user?.profile_picture ? (
+                      <AvatarImage src={user.profile_picture} />
                     ) : (
                       <AvatarFallback>
-                        {userRedux?.full_name?.charAt(0).toUpperCase() || "U"}
+                        {user?.full_name?.charAt(0).toUpperCase() || "U"}
                       </AvatarFallback>
                     )}
                   </Avatar>
-                  <span className="text-sm font-medium">
-                    {userRedux?.full_name}
-                  </span>
+                  <span className="text-sm font-medium">{user?.full_name}</span>
                   <Button variant="outline" className="text-xs ml-2">
                     Logout
                   </Button>
@@ -89,7 +67,7 @@ export function Header() {
                   <span className="text-sm font-medium text-red-500">
                     Email belum diverifikasi
                   </span>
-                  <Link href={`/auth/verify-email/${userRedux?.id}`}>
+                  <Link href={`/auth/verify-email/${user?.email}`}>
                     <Button className="bg-yellow-500 hover:bg-yellow-600 text-white text-xs">
                       Verify Email
                     </Button>
@@ -118,12 +96,11 @@ export function Header() {
           <Avatar className="w-8 h-8">
             <AvatarImage
               src={
-                userRedux?.profile_picture ||
-                "/placeholder.svg?height=32&width=32"
+                user?.profile_picture || "/placeholder.svg?height=32&width=32"
               }
             />
             <AvatarFallback>
-              {userRedux?.full_name?.charAt(0).toUpperCase() || "U"}
+              {user?.full_name?.charAt(0).toUpperCase() || "U"}
             </AvatarFallback>
           </Avatar>
 
@@ -148,16 +125,16 @@ export function Header() {
                   <Avatar className="w-8 h-8">
                     <AvatarImage
                       src={
-                        userRedux?.profile_picture ||
+                        user?.profile_picture ||
                         "/placeholder.svg?height=32&width=32"
                       }
                     />
                     <AvatarFallback>
-                      {userRedux?.full_name?.charAt(0).toUpperCase() || "U"}
+                      {user?.full_name?.charAt(0).toUpperCase() || "U"}
                     </AvatarFallback>
                   </Avatar>
                   <span className="text-sm font-medium">
-                    {userRedux?.full_name || "User"}
+                    {user?.full_name || "User"}
                   </span>
                 </div>
               </div>

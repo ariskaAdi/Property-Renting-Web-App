@@ -1,5 +1,8 @@
 import { Router } from "express";
 import PropertyController from "../controllers/property/property.controller";
+import { verifyToken } from "../middleware/VerifyToken";
+import { onlyTenant } from "../middleware/by-role/tenantMiddleware";
+import { myUploadMiddleware } from "../middleware/uploader";
 
 class PropertyRouter {
   private route: Router;
@@ -12,7 +15,13 @@ class PropertyRouter {
   }
 
   private initializeRoutes() {
-    this.route.post("/create", this.propertyController.createProperty);
+    this.route.post(
+      "/create",
+      verifyToken,
+      onlyTenant,
+      myUploadMiddleware,
+      this.propertyController.createProperty
+    );
     this.route.get("/all", this.propertyController.getAllProperties);
     this.route.get("/get/:id", this.propertyController.getPropertyById);
     this.route.patch("/update/:id", this.propertyController.updateProperty);

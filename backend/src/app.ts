@@ -7,6 +7,7 @@ import logger from "./utils/logger";
 import UserRouter from "./routes/user.router";
 import cookieParser from "cookie-parser";
 import TenantRouter from "./routes/tenant.router";
+import PropertyRouter from "./routes/property.router";
 
 const PORT: string | number = process.env.PORT || 4000;
 
@@ -35,12 +36,14 @@ class App {
     const authRouter = new AuthRouter();
     const userRouter = new UserRouter();
     const tenantRouter = new TenantRouter();
+    const propertyRouter = new PropertyRouter();
     this.app.get("/", (req: Request, res: Response) => {
       res.status(200).json("<h1> Welcome to Property Renting Web App</h1>");
     });
     this.app.use("/auth", authRouter.getRouter());
     this.app.use("/user", userRouter.getRouter());
     this.app.use("/tenant", tenantRouter.getRouter());
+    this.app.use("/property", propertyRouter.getRouter());
   }
 
   // errror handling

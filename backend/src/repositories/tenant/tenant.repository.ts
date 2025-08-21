@@ -1,9 +1,14 @@
 import { prisma } from "../../config/prisma";
 
-export const findTenantByUserId = async (user_id: string) => {
-  return prisma.tenants.findUnique({
+export const findTenantByUserId = async (
+  user_id: string
+): Promise<string | null> => {
+  const tenant = await prisma.tenants.findUnique({
     where: { user_id },
+    select: { id: true },
   });
+
+  return tenant?.id || null;
 };
 
 export const createNewTenant = async (

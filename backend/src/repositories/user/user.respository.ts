@@ -3,6 +3,7 @@ import { prisma } from "../../config/prisma";
 export const findUserById = async (userId: string) => {
   return prisma.users.findUnique({
     where: { id: userId },
+    include: { tenants: true },
   });
 };
 

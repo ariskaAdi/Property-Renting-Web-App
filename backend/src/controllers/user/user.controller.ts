@@ -37,6 +37,7 @@ class UserController {
           full_name: user.full_name,
           is_verified: user.is_verified,
           profile_picture: user.profile_picture,
+          tenants: user.tenants,
         },
       });
     } catch (error) {

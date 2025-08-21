@@ -1,5 +1,6 @@
 import { Router } from "express";
 import TenantController from "../controllers/tenant/tenant.controller";
+import { onlyTenant } from "../middleware/by-role/tenantMiddleware";
 
 class TenantRouter {
   private route: Router;
@@ -12,7 +13,11 @@ class TenantRouter {
   }
 
   private initializeRoutes() {
-    this.route.post("/register", this.tenantController.registerTenant);
+    this.route.post(
+      "/register",
+      onlyTenant,
+      this.tenantController.registerTenant
+    );
   }
   public getRouter(): Router {
     return this.route;

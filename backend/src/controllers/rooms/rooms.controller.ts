@@ -1,37 +1,53 @@
 import { NextFunction, Request, Response } from "express";
+import {
+  createRoomService,
+  getRoomByIdService,
+  getRoomsService,
+} from "../../services/rooms/rooms.services";
 
 class RoomsController {
-  public async getRooms(
+  public async getRoomsController(
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> {
     try {
-      // code
+      const response = await getRoomsService();
+      res.status(200).send({ message: "Rooms found", success: true, response });
     } catch (error) {
       next(error);
     }
   }
 
-  public async getRoomById(
+  public async getRoomByIdController(
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> {
     try {
-      // code
+      const response = await getRoomByIdService(req.params.id);
+      res.status(200).send({ message: "Room found", success: true, response });
     } catch (error) {
       next(error);
     }
   }
 
-  public async createRoom(
+  public async createRoomController(
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> {
     try {
-      // code
+      const { property_id } = req.params;
+
+      const response = await createRoomService(
+        req.body,
+        property_id,
+        req.file as Express.Multer.File
+      );
+      res
+        .status(200)
+        .send({ message: "Room created", success: true, response });
     } catch (error) {
       next(error);
     }

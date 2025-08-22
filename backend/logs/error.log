@@ -1,322 +1,34 @@
-2025-08-13 22:41:12 [ERROR]: PATCH /auth/new-otp 
-Invalid `prisma.users.findUnique()` invocation in
-D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\user\user.repository.ts:9:23
+2025-08-22 21:18:17 [ERROR]: POST /property/create Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-22 21:32:33 [ERROR]: POST /room/create/c7cd6c22-b8aa-405c-a612-52cb199085cb 
+Invalid `prisma.rooms.findMany()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\rooms\rooms.repository.ts:9:29
 
-  6 } from "../../types/user/users.types";
+  6 };
   7 
-  8 export const findUserByEmail = async (email: string) => {
-→ 9   return prisma.users.findUnique(
+  8 export const findRoomRepository = async (property_id: string) => {
+→ 9   return await prisma.rooms.findMany(
 Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
 
 Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"clientVersion":"6.13.0","name":"PrismaClientInitializationError"}
-2025-08-14 14:27:37 [ERROR]: PATCH /auth/new-otp 
-Invalid `prisma.users.findUnique()` invocation in
-D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\user\user.repository.ts:9:23
+2025-08-22 21:35:29 [ERROR]: POST /room/create/c7cd6c22-b8aa-405c-a612-52cb199085cb 
+Invalid `prisma.rooms.findMany()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\rooms\rooms.repository.ts:9:29
 
-  6 } from "../../types/user/users.types";
+  6 };
   7 
-  8 export const findUserByEmail = async (email: string) => {
-→ 9   return prisma.users.findUnique(
+  8 export const findRoomRepository = async (property_id: string) => {
+→ 9   return await prisma.rooms.findMany(
 Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
 
 Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"clientVersion":"6.13.0","name":"PrismaClientInitializationError"}
-2025-08-14 14:35:35 [ERROR]: POST /auth/register User already exist {"statusCode":400,"success":false,"message":"User already exist"}
-2025-08-14 14:35:48 [ERROR]: PATCH /auth/verify-email Invalid verification code {"statusCode":400,"success":false,"message":"Invalid verification code"}
-2025-08-14 18:23:33 [ERROR]: GET /user Invalid token {"statusCode":401,"success":false,"message":"Invalid token"}
-2025-08-14 19:05:40 [ERROR]: PATCH /user/reset-password 
-Invalid `prisma.users.update()` invocation in
-D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\user\user.respository.ts:13:23
+2025-08-22 22:15:54 [ERROR]: POST /room/create/c7cd6c22-b8aa-405c-a612-52cb199085cb 
+Invalid `prisma.rooms.findMany()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\rooms\rooms.repository.ts:9:29
 
-  10   userId: string,
-  11   newPassword: string
-  12 ) => {
-→ 13   return prisma.users.update(
-An operation failed because it depends on one or more records that were required but not found. No record was found for an update. {"code":"P2025","meta":{"modelName":"users","cause":"No record was found for an update."},"clientVersion":"6.13.0","name":"PrismaClientKnownRequestError"}
-2025-08-14 19:06:25 [ERROR]: PATCH /user/reset-password 
-Invalid `prisma.users.update()` invocation in
-D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\user\user.respository.ts:13:23
-
-  10   userId: string,
-  11   newPassword: string
-  12 ) => {
-→ 13   return prisma.users.update(
-An operation failed because it depends on one or more records that were required but not found. No record was found for an update. {"code":"P2025","meta":{"modelName":"users","cause":"No record was found for an update."},"clientVersion":"6.13.0","name":"PrismaClientKnownRequestError"}
-2025-08-14 19:14:16 [ERROR]: PATCH /user/reset-password Invalid password {"statusCode":401,"success":false,"message":"Invalid password"}
-2025-08-14 20:46:58 [ERROR]: POST /user/otp-password 
-Invalid `prisma.users.update()` invocation in
-D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\auth\auth.repository.ts:21:23
-
-  18 };
-  19 
-  20 export const createNewOtp = async (data: CreateNewOtp) => {
-→ 21   return prisma.users.update({
-         where: {
-           email: undefined,
-       ?   id?: String,
-       ?   AND?: usersWhereInput | usersWhereInput[],
-       ?   OR?: usersWhereInput[],
-       ?   NOT?: usersWhereInput | usersWhereInput[],
-       ?   role?: EnumRoleFilter | Role,
-       ?   full_name?: StringFilter | String,
-       ?   password_hash?: StringFilter | String,
-       ?   profile_picture?: StringNullableFilter | String | Null,
-       ?   is_verified?: BoolFilter | Boolean,
-       ?   created_at?: DateTimeFilter | DateTime,
-       ?   updated_at?: DateTimeFilter | DateTime,
-       ?   reset_password_otp?: StringNullableFilter | String | Null,
-       ?   verify_otp?: StringNullableFilter | String | Null,
-       ?   verify_otp_expires_at?: DateTimeNullableFilter | DateTime | Null,
-       ?   bookings?: BookingsListRelationFilter,
-       ?   reviews?: ReviewsListRelationFilter,
-       ?   tenants?: TenantsListRelationFilter
-         },
-         data: {
-           email: undefined,
-           reset_password_otp: "119662"
-         }
-       })
-
-Argument `where` of type usersWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?. {"name":"PrismaClientValidationError","clientVersion":"6.13.0"}
-2025-08-14 21:01:42 [ERROR]: POST /user/otp-password 
-Invalid `prisma.users.update()` invocation in
-D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\auth\auth.repository.ts:21:23
-
-  18 };
-  19 
-  20 export const createNewOtp = async (data: CreateNewOtp) => {
-→ 21   return prisma.users.update(
-Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
-
-Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"clientVersion":"6.13.0","name":"PrismaClientInitializationError"}
-2025-08-14 21:02:31 [ERROR]: POST /user/otp-password 
-Invalid `prisma.users.update()` invocation in
-D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\auth\auth.repository.ts:21:23
-
-  18 };
-  19 
-  20 export const createNewOtp = async (data: CreateNewOtp) => {
-→ 21   return prisma.users.update({
-         where: {
-           email: undefined,
-       ?   id?: String,
-       ?   AND?: usersWhereInput | usersWhereInput[],
-       ?   OR?: usersWhereInput[],
-       ?   NOT?: usersWhereInput | usersWhereInput[],
-       ?   role?: EnumRoleFilter | Role,
-       ?   full_name?: StringFilter | String,
-       ?   password_hash?: StringFilter | String,
-       ?   profile_picture?: StringNullableFilter | String | Null,
-       ?   is_verified?: BoolFilter | Boolean,
-       ?   created_at?: DateTimeFilter | DateTime,
-       ?   updated_at?: DateTimeFilter | DateTime,
-       ?   reset_password_otp?: StringNullableFilter | String | Null,
-       ?   verify_otp?: StringNullableFilter | String | Null,
-       ?   verify_otp_expires_at?: DateTimeNullableFilter | DateTime | Null,
-       ?   bookings?: BookingsListRelationFilter,
-       ?   reviews?: ReviewsListRelationFilter,
-       ?   tenants?: TenantsListRelationFilter
-         },
-         data: {
-           email: undefined,
-           reset_password_otp: "436462"
-         }
-       })
-
-Argument `where` of type usersWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?. {"name":"PrismaClientValidationError","clientVersion":"6.13.0"}
-2025-08-14 21:20:43 [ERROR]: PATCH /user/reset-password Invalid OTP {"statusCode":401,"success":false,"message":"Invalid OTP"}
-2025-08-14 21:31:22 [ERROR]: PATCH /user/reset-password Invalid OTP {"statusCode":401,"success":false,"message":"Invalid OTP"}
-2025-08-18 19:03:11 [ERROR]: POST /auth/login 
-Invalid `prisma.users.findUnique()` invocation in
-D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\auth\auth.repository.ts:9:23
-
-  6 } from "../../types/user/users.types";
+  6 };
   7 
-  8 export const findUserByEmail = async (email: string) => {
-→ 9   return prisma.users.findUnique(
+  8 export const findRoomRepository = async (property_id: string) => {
+→ 9   return await prisma.rooms.findMany(
 Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
 
 Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"clientVersion":"6.13.0","name":"PrismaClientInitializationError"}
-2025-08-18 19:04:18 [ERROR]: POST /auth/login User not found {"statusCode":400,"success":false,"message":"User not found"}
-2025-08-18 19:44:51 [ERROR]: POST /auth/login data and hash arguments required {}
-2025-08-18 19:56:51 [ERROR]: POST /auth/login data and hash arguments required {}
-2025-08-18 20:27:35 [ERROR]: POST /auth/login 
-Invalid `prisma.users.findUnique()` invocation in
-D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\auth\auth.repository.ts:9:23
-
-  6 } from "../../types/user/users.types";
-  7 
-  8 export const findUserByEmail = async (email: string) => {
-→ 9   return prisma.users.findUnique(
-Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
-
-Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"clientVersion":"6.13.0","name":"PrismaClientInitializationError"}
-2025-08-18 20:28:22 [ERROR]: POST /auth/login 
-Invalid `prisma.users.findUnique()` invocation in
-D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\auth\auth.repository.ts:9:23
-
-  6 } from "../../types/user/users.types";
-  7 
-  8 export const findUserByEmail = async (email: string) => {
-→ 9   return prisma.users.findUnique(
-Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
-
-Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"clientVersion":"6.13.0","name":"PrismaClientInitializationError"}
-2025-08-18 20:28:50 [ERROR]: POST /auth/login Unexpected non-whitespace character after JSON at position 90 (line 9 column 1) {"expose":true,"statusCode":400,"status":400,"body":"\r\n    {\r\n  \r\n \"email\": \"ariskaadiprasetyo@gmail.com\",\r\n  \"password_hash\": \"123\"\r\n  \r\n}\r\n\r\nx","type":"entity.parse.failed"}
-2025-08-18 21:01:43 [ERROR]: POST /auth/login 
-Invalid `prisma.users.findUnique()` invocation in
-D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\auth\auth.repository.ts:9:23
-
-  6 } from "../../types/user/users.types";
-  7 
-  8 export const findUserByEmail = async (email: string) => {
-→ 9   return prisma.users.findUnique(
-Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
-
-Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"code":"P1001","meta":{"modelName":"users","database_location":"aws-0-us-west-1.pooler.supabase.com:6543"},"clientVersion":"6.13.0","name":"PrismaClientKnownRequestError"}
-2025-08-18 21:02:32 [ERROR]: POST /auth/login 
-Invalid `prisma.users.findUnique()` invocation in
-D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\auth\auth.repository.ts:9:23
-
-  6 } from "../../types/user/users.types";
-  7 
-  8 export const findUserByEmail = async (email: string) => {
-→ 9   return prisma.users.findUnique(
-Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
-
-Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"code":"P1001","meta":{"modelName":"users","database_location":"aws-0-us-west-1.pooler.supabase.com:6543"},"clientVersion":"6.13.0","name":"PrismaClientKnownRequestError"}
-2025-08-18 21:27:08 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:27:40 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:31:03 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:31:20 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:33:14 [ERROR]: GET /user/me 
-Invalid `prisma.users.findUnique()` invocation in
-D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\user\user.respository.ts:4:23
-
-  1 import { prisma } from "../../config/prisma";
-  2 
-  3 export const findUserById = async (userId: string) => {
-→ 4   return prisma.users.findUnique(
-Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
-
-Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"clientVersion":"6.13.0","name":"PrismaClientInitializationError"}
-2025-08-18 21:38:37 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:41:59 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:42:33 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:43:57 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:46:27 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:48:14 [ERROR]: GET /user/me 
-Invalid `prisma.users.findUnique()` invocation in
-D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\user\user.respository.ts:4:23
-
-  1 import { prisma } from "../../config/prisma";
-  2 
-  3 export const findUserById = async (userId: string) => {
-→ 4   return prisma.users.findUnique(
-Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
-
-Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"clientVersion":"6.13.0","name":"PrismaClientInitializationError"}
-2025-08-18 21:48:30 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:49:06 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:49:08 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:53:19 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:53:38 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:54:24 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:54:24 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:54:35 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:55:28 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:55:29 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:55:42 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:58:41 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:59:54 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 21:59:54 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 22:00:00 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 22:00:13 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 22:00:14 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 22:09:33 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 22:09:45 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 22:11:18 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 22:11:19 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 22:11:28 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 22:11:54 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 22:16:52 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 22:16:54 [ERROR]: GET /user/me Invalid token {"statusCode":401,"success":false,"message":"Invalid token"}
-2025-08-18 22:16:57 [ERROR]: GET /user/me Invalid token {"statusCode":401,"success":false,"message":"Invalid token"}
-2025-08-18 22:17:18 [ERROR]: GET /user/me Invalid token {"statusCode":401,"success":false,"message":"Invalid token"}
-2025-08-18 22:17:22 [ERROR]: GET /user/me Invalid token {"statusCode":401,"success":false,"message":"Invalid token"}
-2025-08-18 22:17:45 [ERROR]: POST /auth/login 
-Invalid `prisma.users.findUnique()` invocation in
-D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\auth\auth.repository.ts:9:23
-
-  6 } from "../../types/user/users.types";
-  7 
-  8 export const findUserByEmail = async (email: string) => {
-→ 9   return prisma.users.findUnique(
-Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
-
-Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"code":"P1001","meta":{"modelName":"users","database_location":"aws-0-us-west-1.pooler.supabase.com:6543"},"clientVersion":"6.13.0","name":"PrismaClientKnownRequestError"}
-2025-08-18 22:19:31 [ERROR]: GET /user/me Invalid token {"statusCode":401,"success":false,"message":"Invalid token"}
-2025-08-18 22:19:54 [ERROR]: GET /user/me Invalid token {"statusCode":401,"success":false,"message":"Invalid token"}
-2025-08-18 22:23:31 [ERROR]: GET /user/me Invalid token {"statusCode":401,"success":false,"message":"Invalid token"}
-2025-08-18 22:23:45 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-18 22:23:56 [ERROR]: GET /user/me Invalid token {"statusCode":401,"success":false,"message":"Invalid token"}
-2025-08-18 22:24:09 [ERROR]: GET /user/me Invalid token {"statusCode":401,"success":false,"message":"Invalid token"}
-2025-08-18 22:29:46 [ERROR]: GET /user/me Invalid token {"statusCode":401,"success":false,"message":"Invalid token"}
-2025-08-19 19:41:18 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-19 19:51:52 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-19 19:52:43 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-19 19:54:55 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-19 19:55:41 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-19 19:55:48 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-19 19:58:36 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-19 20:05:54 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-20 19:07:09 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-20 19:40:00 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-20 19:40:49 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-20 21:15:12 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-20 22:58:20 [ERROR]: GET /user/me User not found {"statusCode":404,"success":false,"message":"User not found"}
-2025-08-21 20:28:51 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
-2025-08-21 21:32:42 [ERROR]: POST /property/create Invalid property category {"statusCode":400,"success":false,"message":"Invalid property category"}
-2025-08-21 21:34:57 [ERROR]: POST /property/create 
-Invalid `prisma.tenants.findUnique()` invocation in
-D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\tenant\tenant.repository.ts:6:39
-
-  3 export const findTenantByUserId = async (
-  4   user_id: string
-  5 ): Promise<string | null> => {
-→ 6   const tenant = await prisma.tenants.findUnique(
-Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
-
-Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"clientVersion":"6.13.0","name":"PrismaClientInitializationError"}
-2025-08-21 21:36:08 [ERROR]: POST /property/create Invalid property category {"statusCode":400,"success":false,"message":"Invalid property category"}
-2025-08-21 21:39:35 [ERROR]: POST /property/create Cannot read properties of undefined (reading 'toLowerCase') {}
-2025-08-21 21:43:39 [ERROR]: POST /property/create Unexpected field {"name":"MulterError","message":"Unexpected field","code":"LIMIT_UNEXPECTED_FILE","field":"main_image","storageErrors":[]}
-2025-08-21 21:45:44 [ERROR]: POST /property/create Wrong file extension! {"storageErrors":[]}
-2025-08-21 21:47:16 [ERROR]: POST /property/create 
-Invalid `prisma.properties.create()` invocation in
-D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\property\property.repository.ts:33:28
-
-  30 };
-  31 
-  32 export const createPropertyRepository = async (data: PropertyTypes) => {
-→ 33   return prisma.properties.create({
-         data: {
-           tenant_id: undefined,
-           name: "Homestay Bromo Asri",
-           description: "Penginapan nyaman dekat Gunung Bromo",
-           address: "Jl. Raya Tumpang No. 12",
-           city: "Malang",
-           province: "Jawa Timur",
-           zip_code: "65153",
-           latitude: "-7.9778",
-           longitude: "112.6341",
-           main_image: "",
-           property_category: "villa",
-       +   tenant: {
-       +     create: tenantsCreateWithoutPropertiesInput | tenantsUncheckedCreateWithoutPropertiesInput,
-       +     connectOrCreate: tenantsCreateOrConnectWithoutPropertiesInput,
-       +     connect: tenantsWhereUniqueInput
-       +   }
-         }
-       })
-
-Argument `tenant` is missing. {"name":"PrismaClientValidationError","clientVersion":"6.13.0"}

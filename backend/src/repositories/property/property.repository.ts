@@ -14,6 +14,9 @@ export const getAllPropertiesRepository = async (filters: {
         : undefined,
     },
     orderBy: { created_at: "desc" },
+    include: {
+      rooms: true,
+    },
   });
 };
 

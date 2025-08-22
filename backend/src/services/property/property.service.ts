@@ -39,12 +39,13 @@ export const createPropertyServices = async (data: PropertyTypes) => {
     latitude,
     longitude,
     main_image,
+
     property_category,
   } = data;
   let uploadImage = null;
-  if (main_image) {
-    uploadImage = await handleUpload(main_image);
-  }
+  // if (file) {
+  //   uploadImage = await handleUpload(file);
+  // }
 
   const normalizedCategory = property_category.toLowerCase();
 
@@ -66,7 +67,7 @@ export const createPropertyServices = async (data: PropertyTypes) => {
     zip_code,
     latitude,
     longitude,
-    main_image: uploadImage?.secure_url || "",
+    // main_image: uploadImage?.secure_url || "",
     property_category: property_category as PropertyCategory,
   });
 

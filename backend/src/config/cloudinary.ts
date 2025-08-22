@@ -1,4 +1,5 @@
-import { v2 as cloudinary } from "cloudinary";
+import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
+import * as streamifier from "streamifier";
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -6,13 +7,19 @@ cloudinary.config({
   api_secret: process.env.API_SECRET,
 });
 
-export async function handleUpload(file: string) {
-  const res = await cloudinary.uploader
-    .upload(file, {
-      resource_type: "auto",
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  return res;
-}
+export const handleUpload = (
+  file: Express.Multer.File
+): Promise<UploadApiResponse> => {
+  return new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      (err, result: UploadApiResponse) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+    streamifier.createReadStream(file.buffer).pipe(uploadStream);
+  });
+};

@@ -2,7 +2,7 @@ import { Router } from "express";
 import PropertyController from "../controllers/property/property.controller";
 import { verifyToken } from "../middleware/VerifyToken";
 import { onlyTenant } from "../middleware/by-role/tenantMiddleware";
-import { myUploadMiddleware } from "../middleware/uploader";
+import { uploaderMemory } from "../middleware/uploader";
 
 class PropertyRouter {
   private route: Router;
@@ -19,7 +19,7 @@ class PropertyRouter {
       "/create",
       verifyToken,
       onlyTenant,
-      myUploadMiddleware,
+      uploaderMemory().single("main_image"),
       this.propertyController.createProperty
     );
     this.route.get("/all", this.propertyController.getAllProperties);

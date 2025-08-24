@@ -7,15 +7,24 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Link from "next/link";
 import { useFetchMe } from "@/hooks/useUser";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useRouter } from "next/navigation";
 
 export function Header() {
   const { data: user, error, isLoading } = useFetchMe();
   const isLoggedIn = !!user;
+  const router = useRouter();
 
   return (
     <header className="bg-white border-b border-gray-200 px-4 py-3">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Logo */}
         <Link href="/">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-black rounded flex items-center justify-center">
@@ -48,24 +57,49 @@ export function Header() {
             <>
               {user?.is_verified ? (
                 <div className="flex items-center space-x-2">
-                  <Avatar className="w-8 h-8">
-                    {user?.profile_picture ? (
-                      <AvatarImage src={user.profile_picture} />
-                    ) : (
-                      <AvatarFallback>
-                        {user?.full_name?.charAt(0).toUpperCase() || "U"}
-                      </AvatarFallback>
-                    )}
-                  </Avatar>
-                  <span className="text-sm font-medium">{user?.full_name}</span>
-                  <Button variant="outline" className="text-xs ml-2">
-                    Logout
-                  </Button>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        className="flex items-center space-x-2 px-2 hover:bg-transparent">
+                        <Avatar className="w-8 h-8">
+                          {user?.profile_picture ? (
+                            <AvatarImage src={user.profile_picture} />
+                          ) : (
+                            <AvatarFallback>
+                              {user?.full_name?.charAt(0).toUpperCase() || "U"}
+                            </AvatarFallback>
+                          )}
+                        </Avatar>
+                        <span className="text-sm font-medium">
+                          {user?.full_name}
+                        </span>
+                      </Button>
+                    </DropdownMenuTrigger>
+
+                    <DropdownMenuContent align="end" className="w-48">
+                      <DropdownMenuLabel className="font-normal">
+                        <div className="flex flex-col space-y-1">
+                          <p className="text-sm font-medium leading-none">
+                            {user.full_name}
+                          </p>
+                          <p className="text-xs leading-none text-muted-foreground">
+                            {user.email}
+                          </p>
+                        </div>
+                      </DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem
+                        onClick={() => router.push("/dashboard")}>
+                        Dashboard
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
               ) : (
                 <div className="flex items-center space-x-2">
                   <span className="text-sm font-medium text-red-500">
-                    Email belum diverifikasi
+                    Email not verified
                   </span>
                   <Link href={`/auth/verify-email/${user?.email}`}>
                     <Button className="bg-yellow-500 hover:bg-yellow-600 text-white text-xs">

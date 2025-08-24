@@ -27,3 +27,9 @@ export const findRoomByIdRepository = async (id: string) => {
     where: { id },
   });
 };
+
+export const deleteRoomByIdRepository = async (id: string) => {
+  return await prisma.rooms.delete({
+    where: { id },
+  });
+};

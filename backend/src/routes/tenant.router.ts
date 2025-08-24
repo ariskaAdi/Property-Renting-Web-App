@@ -1,6 +1,8 @@
 import { Router } from "express";
 import TenantController from "../controllers/tenant/tenant.controller";
 import { onlyTenant } from "../middleware/by-role/tenantMiddleware";
+import { verifyToken } from "../middleware/VerifyToken";
+import { uploaderMemory } from "../middleware/uploader";
 
 class TenantRouter {
   private route: Router;
@@ -17,6 +19,12 @@ class TenantRouter {
       "/register",
       onlyTenant,
       this.tenantController.registerTenant
+    );
+    this.route.patch(
+      "/update",
+      verifyToken,
+      uploaderMemory().single("logo"),
+      this.tenantController.updateTenant
     );
   }
   public getRouter(): Router {

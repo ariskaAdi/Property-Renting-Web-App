@@ -5,6 +5,7 @@ import {
   registerService,
   verifyEmailService,
 } from "../../services/auth/auth.service";
+import AppError from "../../errors/AppError";
 
 class AuthController {
   public async register(
@@ -58,6 +59,19 @@ class AuthController {
     try {
       await newOtpService(req.body);
       res.send({ message: "OTP sent to your email", success: true });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async logout(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = res.locals.decrypt.userId;
+      if (!userId) {
+        throw new AppError("Unauthorized access", 401);
+      }
+      res.clearCookie("token");
+      res.send({ message: "User logged out", success: true });
     } catch (error) {
       next(error);
     }

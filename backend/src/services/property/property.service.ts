@@ -27,9 +27,12 @@ export const getPropertyByIdService = async (id: string) => {
   return response;
 };
 
-export const createPropertyServices = async (data: PropertyTypes) => {
+export const createPropertyServices = async (
+  data: PropertyTypes,
+  file: Express.Multer.File,
+  tenant_id: string
+) => {
   const {
-    tenant_id,
     name,
     description,
     address,
@@ -38,15 +41,13 @@ export const createPropertyServices = async (data: PropertyTypes) => {
     zip_code,
     latitude,
     longitude,
-    main_image,
-
     property_category,
   } = data;
-  let uploadImage = null;
-  // if (file) {
-  //   uploadImage = await handleUpload(file);
-  // }
 
+  let uploadImage = null;
+  if (file) {
+    uploadImage = await handleUpload(file);
+  }
   const normalizedCategory = property_category.toLowerCase();
 
   const isValidCategory = Object.values(PropertyCategory).includes(
@@ -67,7 +68,7 @@ export const createPropertyServices = async (data: PropertyTypes) => {
     zip_code,
     latitude,
     longitude,
-    // main_image: uploadImage?.secure_url || "",
+    main_image: uploadImage?.secure_url || "",
     property_category: property_category as PropertyCategory,
   });
 

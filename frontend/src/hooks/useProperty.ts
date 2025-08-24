@@ -1,9 +1,11 @@
 import { fetchAllProperties } from "@/services/property.services";
 import { useQuery } from "@tanstack/react-query";
 
-export const useProperty = () => {
+export const useProperties = (category?: string) => {
   return useQuery({
-    queryKey: ["properties"],
-    queryFn: fetchAllProperties,
+    queryKey: ["properties", category],
+    queryFn: () =>
+      fetchAllProperties(category ? { property_category: category } : {}),
+    select: (data) => data.properties,
   });
 };

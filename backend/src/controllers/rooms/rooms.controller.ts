@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import {
   createRoomService,
+  deleteRoomByIdService,
   getRoomByIdService,
   getRoomsService,
 } from "../../services/rooms/rooms.services";
@@ -71,7 +72,11 @@ class RoomsController {
     next: NextFunction
   ): Promise<void> {
     try {
-      // code
+      const { id } = req.params;
+      const response = await deleteRoomByIdService(id);
+      res
+        .status(200)
+        .send({ message: "Room deleted", success: true, response });
     } catch (error) {
       next(error);
     }

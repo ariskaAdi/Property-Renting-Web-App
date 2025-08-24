@@ -1,6 +1,7 @@
 import { Router } from "express";
 import UserController from "../controllers/user/user.controller";
 import { verifyToken } from "../middleware/VerifyToken";
+import { uploaderMemory } from "../middleware/uploader";
 
 class UserRouter {
   private route: Router;
@@ -23,6 +24,12 @@ class UserRouter {
       "/reset-password",
       verifyToken,
       this.userController.resetPassword
+    );
+    this.route.patch(
+      "/update-profile",
+      verifyToken,
+      uploaderMemory().single("profile_picture"),
+      this.userController.updateProfile
     );
   }
 

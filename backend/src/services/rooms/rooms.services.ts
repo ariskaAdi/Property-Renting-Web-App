@@ -2,6 +2,7 @@ import { handleUpload } from "../../config/cloudinary";
 import AppError from "../../errors/AppError";
 import {
   createRoomRepository,
+  deleteRoomByIdRepository,
   findAllRoomsRepository,
   findRoomByIdRepository,
   findRoomRepository,
@@ -13,7 +14,7 @@ export const createRoomService = async (
   property_id: string,
   file: Express.Multer.File
 ) => {
-  const { name, description, base_price, capacity, image, total_rooms } = data;
+  const { name, description, base_price, capacity, total_rooms } = data;
   const existingRoom = await findRoomRepository(property_id);
   if (!existingRoom) {
     throw new AppError("Room not found", 404);
@@ -52,5 +53,14 @@ export const getRoomByIdService = async (id: string) => {
     throw new AppError("Room not found", 404);
   }
   const response = await findAllRoomsRepository();
+  return response;
+};
+
+export const deleteRoomByIdService = async (id: string) => {
+  const existingRoom = await findRoomByIdRepository(id);
+  if (!existingRoom) {
+    throw new AppError("Room not found", 404);
+  }
+  const response = await deleteRoomByIdRepository(id);
   return response;
 };

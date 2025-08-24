@@ -1,4 +1,5 @@
 import { prisma } from "../../config/prisma";
+import { UpdateUser } from "../../types/user/users.types";
 
 export const findUserById = async (userId: string) => {
   return prisma.users.findUnique({
@@ -23,4 +24,16 @@ export const getEmailById = async (userId: string) => {
     select: { email: true },
   });
   return user?.email;
+};
+
+export const updateProfileRepository = async (
+  data: UpdateUser,
+  userId: string
+) => {
+  const user = await prisma.users.update({
+    where: {
+      id: userId,
+    },
+    data,
+  });
 };

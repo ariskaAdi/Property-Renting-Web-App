@@ -1,14 +1,13 @@
 import { prisma } from "../../config/prisma";
+import { updateTenant } from "../../types/tenant/tenant.types";
 
 export const findTenantByUserId = async (
   user_id: string
-): Promise<string | null> => {
-  const tenant = await prisma.tenants.findUnique({
+): Promise<{ id: string; logo: string | null } | null> => {
+  return prisma.tenants.findUnique({
     where: { user_id },
-    select: { id: true },
+    select: { id: true, logo: true },
   });
-
-  return tenant?.id || null;
 };
 
 export const createNewTenant = async (
@@ -26,5 +25,15 @@ export const createNewTenant = async (
       phone_number,
       logo,
     },
+  });
+};
+
+export const updateTenantRepository = async (
+  tenant_id: string,
+  data: updateTenant
+) => {
+  return prisma.tenants.update({
+    where: { id: tenant_id },
+    data,
   });
 };

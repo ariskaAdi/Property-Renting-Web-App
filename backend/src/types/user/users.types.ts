@@ -12,6 +12,11 @@ export type CreateUser = {
   verify_otp_expires_at?: Date | null;
 };
 
+export type UpdateUser = {
+  full_name: string;
+  profile_picture?: string | null;
+};
+
 export type CreateNewOtp = {
   email: string;
   verify_otp?: string | null;

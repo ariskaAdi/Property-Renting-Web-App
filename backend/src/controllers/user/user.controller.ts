@@ -4,6 +4,7 @@ import {
   getUserById,
   otpPasswordServices,
   resetPasswordUser,
+  updateProfileServices,
 } from "../../services/user/user.service";
 import { compare } from "bcrypt";
 
@@ -45,12 +46,27 @@ class UserController {
     }
   }
 
-  public async updateImageProfile(
+  public async updateProfile(
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> {
-    // code
+    try {
+      const decrypt = res.locals.decrypt;
+      if (!decrypt || !decrypt.userId) {
+        throw new AppError("Unauthorized access", 401);
+      }
+      const userId = decrypt.userId;
+      const response = await updateProfileServices(
+        userId,
+        req.body,
+        req.file as Express.Multer.File
+      );
+
+      res.send({ message: "Profile updated", success: true, response });
+    } catch (error) {
+      next(error);
+    }
   }
 
   public async resetPassword(

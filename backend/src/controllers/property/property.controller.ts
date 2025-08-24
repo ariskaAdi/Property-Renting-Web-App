@@ -59,17 +59,17 @@ class PropertyController {
   ): Promise<void> {
     try {
       const userId = res.locals.decrypt.userId;
-      const tenant_id = await findTenantByUserId(userId);
+      const tenant = await findTenantByUserId(userId);
 
-      if (!tenant_id) {
-        throw new AppError("Tenant not found", 404);
+      if (!tenant) {
+        throw new AppError("tenant not found", 404);
       }
 
-      const property = await createPropertyServices({
-        ...req.body,
-        file: req.file,
-        tenant_id,
-      });
+      const property = await createPropertyServices(
+        req.body,
+        req.file as Express.Multer.File,
+        tenant.id
+      );
       res
         .status(201)
         .send({ message: "Property created", success: true, property });

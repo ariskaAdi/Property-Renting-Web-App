@@ -1,5 +1,6 @@
 import {
   loginUser,
+  logoutUser,
   newOtP,
   registerUser,
   verifyEmail,
@@ -39,5 +40,15 @@ export const useVerifyEmail = () => {
   return useMutation({
     mutationFn: ({ email, otp }: { email: string; otp: string }) =>
       verifyEmail(email, otp),
+  });
+};
+
+export const useLogoutUser = () => {
+  return useMutation({
+    mutationFn: async () => {
+      const res = await logoutUser();
+      localStorage.removeItem("token");
+      return res;
+    },
   });
 };

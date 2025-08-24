@@ -21,6 +21,8 @@ class RoomRouter {
       uploaderMemory().single("image"),
       this.roomRouter.createRoomController
     );
+    this.route.patch("/update/:id", this.roomRouter.updateRoom);
+    this.route.delete("/delete/:id", this.roomRouter.deleteRoom);
   }
 
   public getRouter(): Router {

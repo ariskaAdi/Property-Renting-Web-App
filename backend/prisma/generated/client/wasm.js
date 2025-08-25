@@ -120,68 +120,143 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.Account_tableScalarFieldEnum = {
+exports.Prisma.UsersScalarFieldEnum = {
   id: 'id',
-  fullname: 'fullname',
-  username: 'username',
-  email: 'email',
   role: 'role',
-  password: 'password',
+  full_name: 'full_name',
+  email: 'email',
+  password_hash: 'password_hash',
+  profile_picture: 'profile_picture',
+  is_verified: 'is_verified',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  reset_password_otp: 'reset_password_otp',
+  verify_otp: 'verify_otp',
+  verify_otp_expires_at: 'verify_otp_expires_at'
+};
+
+exports.Prisma.TenantsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  company_name: 'company_name',
+  address: 'address',
+  phone_number: 'phone_number',
+  logo: 'logo',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.PropertiesScalarFieldEnum = {
+  id: 'id',
+  tenant_id: 'tenant_id',
+  name: 'name',
+  description: 'description',
+  address: 'address',
+  city: 'city',
+  province: 'province',
+  zip_code: 'zip_code',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  main_image: 'main_image',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  property_category: 'property_category'
+};
+
+exports.Prisma.Property_imagesScalarFieldEnum = {
+  id: 'id',
+  property_id: 'property_id',
+  image_url: 'image_url',
   created_at: 'created_at'
 };
 
-exports.Prisma.Transaction_tableScalarFieldEnum = {
+exports.Prisma.RoomsScalarFieldEnum = {
   id: 'id',
-  account_id: 'account_id',
-  properties_id: 'properties_id',
-  booking_date_start: 'booking_date_start',
-  booking_date_end: 'booking_date_end',
-  payment_proof_url: 'payment_proof_url',
-  created_at: 'created_at',
-  transaction_status: 'transaction_status'
-};
-
-exports.Prisma.Properties_tableScalarFieldEnum = {
-  id: 'id',
-  account_id: 'account_id',
-  room_id: 'room_id',
+  property_id: 'property_id',
   name: 'name',
-  category: 'category',
-  address: 'address',
   description: 'description',
-  city: 'city',
-  images: 'images',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Room_tableScalarFieldEnum = {
-  id: 'id',
-  properties_id: 'properties_id',
-  name: 'name',
+  base_price: 'base_price',
   capacity: 'capacity',
-  price: 'price',
-  description: 'description',
-  images: 'images',
+  image: 'image',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  total_rooms: 'total_rooms'
+};
+
+exports.Prisma.Room_imagesScalarFieldEnum = {
+  id: 'id',
+  room_id: 'room_id',
+  image_url: 'image_url',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Room_availabilityScalarFieldEnum = {
+  id: 'id',
+  room_id: 'room_id',
+  date: 'date',
+  is_available: 'is_available',
+  price_override: 'price_override',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
-exports.Prisma.User_reviewScalarFieldEnum = {
+exports.Prisma.Peak_season_ratesScalarFieldEnum = {
   id: 'id',
-  account_id: 'account_id',
-  properties_id: 'properties_id',
-  transaction_id: 'transaction_id',
-  review: 'review'
+  property_id: 'property_id',
+  room_id: 'room_id',
+  start_date: 'start_date',
+  end_date: 'end_date',
+  price_change_type: 'price_change_type',
+  price_change_value: 'price_change_value',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
-exports.Prisma.Booked_user_listScalarFieldEnum = {
+exports.Prisma.BookingsScalarFieldEnum = {
   id: 'id',
-  transaction_id: 'transaction_id',
-  account_id: 'account_id',
-  properties_id: 'properties_id',
+  user_id: 'user_id',
+  property_id: 'property_id',
+  status: 'status',
+  check_in_date: 'check_in_date',
+  check_out_date: 'check_out_date',
   total_price: 'total_price',
-  booking_date_end: 'booking_date_end'
+  payment_deadline: 'payment_deadline',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  amount: 'amount',
+  paid_at: 'paid_at',
+  proof_image: 'proof_image'
+};
+
+exports.Prisma.Booking_roomsScalarFieldEnum = {
+  id: 'id',
+  booking_id: 'booking_id',
+  room_id: 'room_id',
+  guests_count: 'guests_count',
+  price_per_night: 'price_per_night',
+  check_in_date: 'check_in_date',
+  check_out_date: 'check_out_date',
+  nights: 'nights',
+  quantity: 'quantity',
+  subtotal: 'subtotal',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  check_in_date: 'check_in_date',
+  check_out_date: 'check_out_date',
+  quantity: 'quantity'
+};
+
+exports.Prisma.ReviewsScalarFieldEnum = {
+  id: 'id',
+  booking_id: 'booking_id',
+  user_id: 'user_id',
+  property_id: 'property_id',
+  comment: 'comment',
+  tenant_reply: 'tenant_reply',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.SortOrder = {
@@ -193,24 +268,50 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
-exports.account_role = exports.$Enums.account_role = {
-  USER: 'USER',
-  TENANT: 'TENANT'
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.Role = exports.$Enums.Role = {
+  user: 'user',
+  tenant: 'tenant'
 };
 
-exports.trx_status = exports.$Enums.trx_status = {
-  PENDING: 'PENDING',
-  APPROVED: 'APPROVED',
-  REJECTED: 'REJECTED'
+exports.PropertyCategory = exports.$Enums.PropertyCategory = {
+  apartment: 'apartment',
+  house: 'house',
+  villa: 'villa',
+  hotel: 'hotel',
+  hostel: 'hostel',
+  guesthouse: 'guesthouse'
+};
+
+exports.PriceChangeType = exports.$Enums.PriceChangeType = {
+  percentage: 'percentage',
+  nominal: 'nominal'
+};
+
+exports.BookingStatus = exports.$Enums.BookingStatus = {
+  waiting_payment: 'waiting_payment',
+  waiting_confirmation: 'waiting_confirmation',
+  confirmed: 'confirmed',
+  canceled: 'canceled',
+  expired: 'expired'
 };
 
 exports.Prisma.ModelName = {
-  account_table: 'account_table',
-  transaction_table: 'transaction_table',
-  properties_table: 'properties_table',
-  room_table: 'room_table',
-  user_review: 'user_review',
-  booked_user_list: 'booked_user_list'
+  users: 'users',
+  tenants: 'tenants',
+  properties: 'properties',
+  property_images: 'property_images',
+  rooms: 'rooms',
+  room_images: 'room_images',
+  room_availability: 'room_availability',
+  peak_season_rates: 'peak_season_rates',
+  bookings: 'bookings',
+  booking_rooms: 'booking_rooms',
+  reviews: 'reviews'
 };
 
 /**

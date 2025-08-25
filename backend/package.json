@@ -30,15 +30,18 @@
     "nodemailer": "^7.0.5",
     "pg-boss": "^10.3.2",
     "prisma": "^6.13.0",
+    "streamifier": "^0.1.1",
     "winston": "^3.17.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
+    "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.2.0",
     "@types/nodemailer": "^6.4.17",
+    "@types/streamifier": "^0.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   }

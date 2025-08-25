@@ -5,6 +5,7 @@ dotenv.config();
 import AuthRouter from "./routes/auth.router";
 import logger from "./utils/logger";
 import UserRouter from "./routes/user.router";
+import TenantTxRouter from "./routes/tenant-tx.router";
 
 const PORT: string | number = process.env.PORT || 4000;
 
@@ -25,11 +26,13 @@ class App {
   private route(): void {
     const authRouter = new AuthRouter();
     const userRouter = new UserRouter();
+    const tenantTxRouter = new TenantTxRouter();
     this.app.get("/", (req: Request, res: Response) => {
       res.status(200).json("<h1> Welcome to Property Renting Web App</h1>");
     });
     this.app.use("/auth", authRouter.getRouter());
     this.app.use("/user", userRouter.getRouter());
+    this.app.use("/payment", tenantTxRouter.getRouter())
   }
 
   // errror handling

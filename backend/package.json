@@ -4,6 +4,7 @@
   "description": "echo \"# Project\" > README.md",
   "main": "src/index.ts",
   "scripts": {
+    "start": "src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.ts"
   },
@@ -21,10 +22,13 @@
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
+    "handlebars": "^4.7.8",
     "jsonwebtoken": "^9.0.2",
     "luxon": "^3.7.1",
     "multer": "^2.0.2",
+    "node-cron": "^4.2.1",
     "nodemailer": "^7.0.5",
+    "pg-boss": "^10.3.2",
     "prisma": "^6.13.0",
     "winston": "^3.17.0"
   },

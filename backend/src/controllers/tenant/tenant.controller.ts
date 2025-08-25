@@ -12,7 +12,12 @@ class TenantController {
     next: NextFunction
   ): Promise<void> {
     try {
-      await registerTenantService(req.body);
+      const { email } = req.body;
+      await registerTenantService(
+        req.body,
+        email,
+        req.file as Express.Multer.File
+      );
       res.status(201).send({ message: "Tenant registered", success: true });
     } catch (error) {
       next(error);

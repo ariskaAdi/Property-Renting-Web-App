@@ -17,7 +17,7 @@ class TenantRouter {
   private initializeRoutes() {
     this.route.post(
       "/register",
-      onlyTenant,
+      uploaderMemory().single("logo"),
       this.tenantController.registerTenant
     );
     this.route.patch(

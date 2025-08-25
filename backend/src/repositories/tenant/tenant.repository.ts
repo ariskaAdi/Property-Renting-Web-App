@@ -10,20 +10,26 @@ export const findTenantByUserId = async (
   });
 };
 
-export const createNewTenant = async (
-  user_id: string,
-  company_name: string,
-  address: string,
-  phone_number: string,
-  logo: string
-) => {
+export const findTenantByEmail = async (email: string) => {
+  return prisma.users.findUnique({
+    where: { email },
+  });
+};
+
+export const createNewTenant = async (data: {
+  userId: string;
+  company_name: string;
+  address: string;
+  phone_number: string;
+  logo?: string | null;
+}) => {
   return prisma.tenants.create({
     data: {
-      user_id,
-      company_name,
-      address,
-      phone_number,
-      logo,
+      user_id: data.userId,
+      company_name: data.company_name,
+      address: data.address,
+      phone_number: data.phone_number,
+      logo: data.logo ?? null,
     },
   });
 };

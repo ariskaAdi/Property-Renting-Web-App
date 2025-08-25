@@ -4,9 +4,7 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-foreground">
-          Welcome Back, Ali Hasan!
-        </h1>
+        <h1 className="text-2xl font-bold text-foreground">Welcome Back,</h1>
         <div className="flex items-center gap-4">
           <div className="relative"></div>
           <div className="flex items-center gap-2">

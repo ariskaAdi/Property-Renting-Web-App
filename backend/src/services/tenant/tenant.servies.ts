@@ -2,26 +2,38 @@ import { handleUpload } from "../../config/cloudinary";
 import AppError from "../../errors/AppError";
 import {
   createNewTenant,
+  findTenantByEmail,
   findTenantByUserId,
   updateTenantRepository,
 } from "../../repositories/tenant/tenant.repository";
 import { updateTenant } from "../../types/tenant/tenant.types";
 
-export const registerTenantService = async (data: any) => {
-  const { user_id, company_name, address, phone_number, logo } = data;
-  const existingTenant = await findTenantByUserId(user_id);
+export const registerTenantService = async (
+  data: any,
+  email: string,
+  file?: Express.Multer.File
+) => {
+  const { company_name, address, phone_number } = data;
 
+  const user = await findTenantByEmail(email);
+
+  const existingTenant = await findTenantByUserId(user!.id);
   if (existingTenant) {
     throw new AppError("Tenant already exist", 400);
   }
 
-  const newTenant = await createNewTenant(
-    user_id,
+  let uploadImage = null;
+  if (file) {
+    uploadImage = await handleUpload(file);
+  }
+
+  const newTenant = await createNewTenant({
+    userId: user!.id,
     company_name,
     address,
     phone_number,
-    logo
-  );
+    logo: uploadImage?.secure_url || null,
+  });
 
   return newTenant;
 };

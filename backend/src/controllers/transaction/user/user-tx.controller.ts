@@ -2,6 +2,9 @@ import { Request, Response, NextFunction } from "express"
 import { prisma } from "../../../config/prisma";
 import { handleUpload } from "../../../config/cloudinary";
 import { DateTime } from "luxon"
+import AppError from "../../../errors/AppError";
+import { getUserById } from "../../../services/user/user.service";
+import { UpdateRoomAvailability } from "../../../repositories/transaction/transaction.repository";
 
 class UserTransactions {
   public reservation = async (
@@ -11,13 +14,19 @@ class UserTransactions {
   ) => {
     try {
       // Validate role
-      const user = res.locals.user;
+      const decrypt = res.locals.decrypt
+
+      if (!decrypt || !decrypt.userId) {
+        throw new AppError("Unauthorized access", 401)
+      }
+
+      const userId = decrypt.userId
+      console.log("userId from token:", userId)
+
+      const user = await getUserById(userId)
 
       if (!user) {
-        res
-          .status(401)
-          .json({ message: "Only users are allowed to access this feature." });
-        return;
+        throw new AppError("User not found", 404)
       }
 
       // Validating fields
@@ -31,11 +40,11 @@ class UserTransactions {
         total_price,
         price_per_night,
         subtotal,
+        quantity
       } = req.body;
 
       if (!property_id || !check_in_date || !check_out_date) {
-        res.status(400).json({ message: "Please enter the required fields." });
-        return;
+        throw new AppError("Please enter the required fields", 400)
       }
 
       // Checking Room Availability
@@ -51,8 +60,7 @@ class UserTransactions {
       });
 
       if (conflict_dates.length > 0) {
-        res.status(409).json({ message: "Room is not available" });
-        return;
+        throw new AppError("Room is not available", 409)
       }
 
       await prisma.$transaction(async (tx) => {
@@ -81,6 +89,9 @@ class UserTransactions {
             room_id: room_id,
             guests_count: guests_count,
             price_per_night: price_per_night,
+            check_in_date: check_in_date,
+            check_out_date: check_out_date,
+            quantity: quantity,
             nights: nights,
             subtotal: subtotal,
           },
@@ -112,9 +123,8 @@ class UserTransactions {
         success: true,
         message: "Booking successfully created.",
       });
-    } catch (err) {
-      res.status(500).json({ message: "An error has occurred." });
-      next(err);
+    } catch (error) {
+      next(error);
     }
   };
 
@@ -125,13 +135,18 @@ class UserTransactions {
   ) => {
     try {
       // Validate Role
-      const user = res.locals.user;
+      const decrypt = res.locals.decrypt
+
+      if (!decrypt || !decrypt.userId) {
+        throw new AppError("Unauthorized access", 401)
+      }
+
+      const userId = decrypt.userId
+      console.log("userId from token:", userId)
+      const user = await getUserById(userId)
 
       if (!user) {
-        res.status(401).json({
-          message: "Only users are allowed to access this feature.",
-        });
-        return;
+        throw new AppError("User not found", 404);
       }
 
       const bookings = await prisma.bookings.findMany({
@@ -156,10 +171,7 @@ class UserTransactions {
       });
 
       if (!bookings || bookings.length === 0) {
-        res.status(404).json({
-          message: "No reservations found.",
-        });
-        return;
+        throw new AppError("No reservations found", 404)
       }
 
       res.status(200).json({
@@ -168,7 +180,6 @@ class UserTransactions {
         data: bookings,
       });
     } catch (err) {
-      res.status(500).json({ message: "An error has occurred." });
       next(err);
     }
   };
@@ -182,13 +193,18 @@ class UserTransactions {
       const { check_in_date, check_out_date } = req.body;
 
       // Validate Role
-      const user = res.locals.user;
+      const decrypt = res.locals.decrypt
+
+      if (!decrypt || !decrypt.userId) {
+        throw new AppError("Unauthorized access", 401)
+      }
+
+      const userId = decrypt.userId;
+      console.log("userId from token:", userId)
+      const user = await getUserById(userId)
 
       if (!user) {
-        res.status(401).json({
-          message: "Only users are allowed to access this feature.",
-        });
-        return;
+        throw new AppError("User not found", 404);
       }
 
       const bookings = await prisma.bookings.findMany({
@@ -215,10 +231,7 @@ class UserTransactions {
       });
 
       if (!bookings || bookings.length === 0) {
-        res.status(404).json({
-          message: "No reservations found.",
-        });
-        return;
+        throw new AppError("No reservations found", 404)
       }
 
       res.status(200).json({
@@ -227,7 +240,6 @@ class UserTransactions {
         data: bookings,
       });
     } catch (err) {
-      res.status(500).json({ message: "An error has occurred." });
       next(err);
     }
   };
@@ -241,13 +253,19 @@ class UserTransactions {
       const { booking_id } = req.params;
 
       // Validate Role
-      const user = res.locals.user;
+      const decrypt = res.locals.decrypt
+
+      if (!decrypt || !decrypt.userId) {
+        throw new AppError("Unauthorized access", 401)
+      }
+
+      const userId = decrypt.userId
+      console.log("userId from token:", userId)
+
+      const user = await getUserById(userId)
 
       if (!user) {
-        res.status(401).json({
-          message: "Only users are allowed to access this feature.",
-        });
-        return;
+        throw new AppError("User not found", 404)
       }
 
       const bookings = await prisma.bookings.findMany({
@@ -273,10 +291,7 @@ class UserTransactions {
       });
 
       if (!bookings || bookings.length === 0) {
-        res.status(404).json({
-          message: "No reservations found.",
-        });
-        return;
+        throw new AppError("No reservations found", 404)
       }
 
       res.status(200).json({
@@ -285,7 +300,6 @@ class UserTransactions {
         data: bookings,
       });
     } catch (err) {
-      res.status(500).json({ message: "An error has occurred." });
       next(err);
     }
   };
@@ -297,13 +311,18 @@ class UserTransactions {
   ) => {
     try {
       // Validate Role
-      const user = res.locals.user;
+      const decrypt = res.locals.decrypt
+
+      if (!decrypt || !decrypt.userId) {
+        throw new AppError("Unauthorized access", 401)
+      }
+
+      const userId = decrypt.userId
+      console.log("userId from token:", userId)
+      const user = await getUserById(userId)
 
       if (!user) {
-        res.status(401).json({
-          message: "Only users are allowed to access this feature.",
-        });
-        return;
+        throw new AppError("User not found", 404);
       }
 
       const bookings = await prisma.bookings.findMany({
@@ -334,10 +353,7 @@ class UserTransactions {
       });
 
       if (!bookings || bookings.length === 0) {
-        res.status(404).json({
-          message: "No reservations found.",
-        });
-        return;
+        throw new AppError("No reservations found", 404)
       }
 
       res.status(200).json({
@@ -346,7 +362,6 @@ class UserTransactions {
         data: bookings,
       });
     } catch (err) {
-      res.status(500).json({ message: "An error has occurred." });
       next(err);
     }
   };
@@ -358,13 +373,18 @@ class UserTransactions {
   ) => {
     try {
       // Validate Role
-      const user = res.locals.user;
+       const decrypt = res.locals.decrypt
+
+      if (!decrypt || !decrypt.userId) {
+        throw new AppError("Unauthorized access", 401)
+      }
+
+      const userId = decrypt.userId;
+      console.log("userId from token:", userId)
+      const user = await getUserById(userId)
 
       if (!user) {
-        res.status(401).json({
-          message: "Only users are allowed to access this feature.",
-        });
-        return;
+        throw new AppError("User not found", 404);
       }
 
       const bookings = await prisma.bookings.findMany({
@@ -398,10 +418,7 @@ class UserTransactions {
       });
 
       if (!bookings || bookings.length === 0) {
-        res.status(404).json({
-          message: "No reservations found.",
-        });
-        return;
+        throw new AppError("No reservations found", 404)
       }
 
       res.status(200).json({
@@ -410,7 +427,6 @@ class UserTransactions {
         data: bookings,
       });
     } catch (err) {
-      res.status(500).json({ message: "An error has occurred." });
       next(err);
     }
   };
@@ -422,19 +438,24 @@ class UserTransactions {
   ) => {
     try {
       // Validate Role
-      const user = res.locals.user;
+      const decrypt = res.locals.decrypt
+
+      if (!decrypt || !decrypt.userId) {
+        throw new AppError("Unauthorized access", 401)
+      }
+
+      const userId = decrypt.userId
+      console.log("userId from token:", userId)
+
+      const user = await getUserById(userId)
 
       if (!user) {
-        res.status(401).json({
-          message: "Only users are allowed to access this feature.",
-        });
-        return;
+        throw new AppError("User not found", 404)
       }
 
       // Upload
       if (!req.file) {
-        res.status(400).send("No file uploaded.");
-        return;
+        throw new AppError("No file uploaded.", 400)
       }
       const b64 = Buffer.from(req.file.buffer).toString("base64");
       let dataURI = "data:" + req.file.mimetype + ";base64," + b64; // Must be converted to base64 data URI since Cloudinary cannot handle raw Node.js buffer
@@ -458,8 +479,10 @@ class UserTransactions {
         data: cldRes,
       });
     } catch (err) {
-      res.status(500).json({ message: "An error has occurred." });
       next(err);
     }
   };
 }
+
+
+export default UserTransactions

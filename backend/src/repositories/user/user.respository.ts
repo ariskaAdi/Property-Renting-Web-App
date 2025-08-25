@@ -1,5 +1,7 @@
 import { prisma } from "../../config/prisma";
 import { UpdateUser } from "../../types/user/users.types";
+import { Prisma } from "@prisma/client";
+import AppError from "../../errors/AppError";
 
 export const findUserById = async (userId: string) => {
   return prisma.users.findUnique({
@@ -36,4 +38,24 @@ export const updateProfileRepository = async (
     },
     data,
   });
+};
+export const getEmailAndFullnameById = async (userId: string) => {
+  const user = await prisma.users.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      email: true,
+      full_name: true,
+    },
+  });
+
+  if (!user) {
+    throw new AppError("User not found", 404);
+  }
+
+  return {
+    email: user?.email,
+    fullname: user?.full_name,
+  };
 };

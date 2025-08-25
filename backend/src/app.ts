@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser";
 import TenantRouter from "./routes/tenant.router";
 import PropertyRouter from "./routes/property.router";
 import RoomRouter from "./routes/room.router";
+import TenantTxRouter from "./routes/tenant-tx.router";
 
 const PORT: string | number = process.env.PORT || 4000;
 
@@ -39,6 +40,7 @@ class App {
     const tenantRouter = new TenantRouter();
     const propertyRouter = new PropertyRouter();
     const roomRouter = new RoomRouter();
+    const tenantTxRouter = new TenantTxRouter();
     this.app.get("/", (req: Request, res: Response) => {
       res.status(200).json("<h1> Welcome to Property Renting Web App</h1>");
     });
@@ -47,6 +49,7 @@ class App {
     this.app.use("/tenant", tenantRouter.getRouter());
     this.app.use("/property", propertyRouter.getRouter());
     this.app.use("/room", roomRouter.getRouter());
+    this.app.use("/payment", tenantTxRouter.getRouter());
   }
 
   // errror handling

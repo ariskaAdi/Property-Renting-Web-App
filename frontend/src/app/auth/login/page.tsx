@@ -12,23 +12,40 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
+import { useLoginUser } from "@/hooks/useAuth";
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook, FaGithub } from "react-icons/fa";
 
-export default function RegisterPage() {
+export default function LoginPage() {
   const [form, setForm] = useState({
-    username: "",
     email: "",
     password: "",
-    role: "user",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const router = useRouter();
+
+  const { mutate: login, isPending, isError } = useLoginUser();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(form);
-    // fetch("/api/auth/register", { method: "POST", body: JSON.stringify(form) })
+    login(
+      {
+        email: form.email,
+        password: form.password,
+      },
+      {
+        onSuccess: (data) => {
+          console.log(data);
+
+          router.push("/");
+        },
+        onError: (error) => {
+          console.log(error);
+          alert("gagal login");
+        },
+      }
+    );
   };
 
   return (
@@ -54,7 +71,7 @@ export default function RegisterPage() {
                   type="email"
                   name="email"
                   value={form.email}
-                  onChange={handleChange}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
                   required
                   placeholder="Enter your email"
                 />
@@ -70,17 +87,46 @@ export default function RegisterPage() {
                   type="password"
                   name="password"
                   value={form.password}
-                  onChange={handleChange}
+                  onChange={(e) =>
+                    setForm({ ...form, password: e.target.value })
+                  }
                   required
                   placeholder="Enter your password"
                 />
               </div>
 
               {/* Submit */}
-              <Button type="submit" className="w-full">
-                Login
+              <Button type="submit" className="w-full" disabled={isPending}>
+                {isPending ? "Loading..." : "Login"}
               </Button>
             </form>
+            {isError && <p className="text-red-500">Gagal Login</p>}
+
+            {/* Divider */}
+            <div className="flex items-center gap-2 my-4">
+              <div className="flex-1 h-px bg-gray-300"></div>
+              <span className="text-sm text-gray-500">OR</span>
+              <div className="flex-1 h-px bg-gray-300"></div>
+            </div>
+
+            {/* Social buttons */}
+            <div className="flex flex-col gap-2">
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 w-full">
+                <FcGoogle className="text-red-500" /> Continue with Google
+              </Button>
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 w-full">
+                <FaGithub /> Continue with GitHub
+              </Button>
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 w-full">
+                <FaFacebook className="text-blue-600" /> Continue with Facebook
+              </Button>
+            </div>
           </CardContent>
 
           <CardFooter className="text-center text-sm text-gray-600">

@@ -4,6 +4,7 @@ import {
   getUserById,
   otpPasswordServices,
   resetPasswordUser,
+  updateProfileServices,
 } from "../../services/user/user.service";
 import { compare } from "bcrypt";
 
@@ -28,6 +29,7 @@ class UserController {
         throw new AppError("User not found", 404);
       }
       res.status(200).send({
+        message: "User found",
         success: true,
         user: {
           id: user.id,
@@ -36,6 +38,7 @@ class UserController {
           full_name: user.full_name,
           is_verified: user.is_verified,
           profile_picture: user.profile_picture,
+          tenants: user.tenants,
         },
       });
     } catch (error) {
@@ -43,12 +46,27 @@ class UserController {
     }
   }
 
-  public async updateImageProfile(
+  public async updateProfile(
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> {
-    // code
+    try {
+      const decrypt = res.locals.decrypt;
+      if (!decrypt || !decrypt.userId) {
+        throw new AppError("Unauthorized access", 401);
+      }
+      const userId = decrypt.userId;
+      const response = await updateProfileServices(
+        userId,
+        req.body,
+        req.file as Express.Multer.File
+      );
+
+      res.send({ message: "Profile updated", success: true, response });
+    } catch (error) {
+      next(error);
+    }
   }
 
   public async resetPassword(

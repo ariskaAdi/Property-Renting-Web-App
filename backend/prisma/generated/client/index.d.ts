@@ -6868,11 +6868,13 @@ export namespace Prisma {
   export type RoomsAvgAggregateOutputType = {
     base_price: Decimal | null
     capacity: number | null
+    total_rooms: number | null
   }
 
   export type RoomsSumAggregateOutputType = {
     base_price: Decimal | null
     capacity: number | null
+    total_rooms: number | null
   }
 
   export type RoomsMinAggregateOutputType = {
@@ -6886,6 +6888,7 @@ export namespace Prisma {
     created_at: Date | null
     updated_at: Date | null
     deleted_at: Date | null
+    total_rooms: number | null
   }
 
   export type RoomsMaxAggregateOutputType = {
@@ -6899,6 +6902,7 @@ export namespace Prisma {
     created_at: Date | null
     updated_at: Date | null
     deleted_at: Date | null
+    total_rooms: number | null
   }
 
   export type RoomsCountAggregateOutputType = {
@@ -6912,6 +6916,7 @@ export namespace Prisma {
     created_at: number
     updated_at: number
     deleted_at: number
+    total_rooms: number
     _all: number
   }
 
@@ -6919,11 +6924,13 @@ export namespace Prisma {
   export type RoomsAvgAggregateInputType = {
     base_price?: true
     capacity?: true
+    total_rooms?: true
   }
 
   export type RoomsSumAggregateInputType = {
     base_price?: true
     capacity?: true
+    total_rooms?: true
   }
 
   export type RoomsMinAggregateInputType = {
@@ -6937,6 +6944,7 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     deleted_at?: true
+    total_rooms?: true
   }
 
   export type RoomsMaxAggregateInputType = {
@@ -6950,6 +6958,7 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     deleted_at?: true
+    total_rooms?: true
   }
 
   export type RoomsCountAggregateInputType = {
@@ -6963,6 +6972,7 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     deleted_at?: true
+    total_rooms?: true
     _all?: true
   }
 
@@ -7063,6 +7073,7 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     deleted_at: Date | null
+    total_rooms: number
     _count: RoomsCountAggregateOutputType | null
     _avg: RoomsAvgAggregateOutputType | null
     _sum: RoomsSumAggregateOutputType | null
@@ -7095,6 +7106,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
+    total_rooms?: boolean
     booking_rooms?: boolean | rooms$booking_roomsArgs<ExtArgs>
     peak_season_rates?: boolean | rooms$peak_season_ratesArgs<ExtArgs>
     room_availability?: boolean | rooms$room_availabilityArgs<ExtArgs>
@@ -7114,6 +7126,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
+    total_rooms?: boolean
     property?: boolean | propertiesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rooms"]>
 
@@ -7128,6 +7141,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
+    total_rooms?: boolean
     property?: boolean | propertiesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rooms"]>
 
@@ -7142,9 +7156,10 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
+    total_rooms?: boolean
   }
 
-  export type roomsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "property_id" | "name" | "description" | "base_price" | "capacity" | "image" | "created_at" | "updated_at" | "deleted_at", ExtArgs["result"]["rooms"]>
+  export type roomsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "property_id" | "name" | "description" | "base_price" | "capacity" | "image" | "created_at" | "updated_at" | "deleted_at" | "total_rooms", ExtArgs["result"]["rooms"]>
   export type roomsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     booking_rooms?: boolean | rooms$booking_roomsArgs<ExtArgs>
     peak_season_rates?: boolean | rooms$peak_season_ratesArgs<ExtArgs>
@@ -7180,6 +7195,7 @@ export namespace Prisma {
       created_at: Date
       updated_at: Date
       deleted_at: Date | null
+      total_rooms: number
     }, ExtArgs["result"]["rooms"]>
     composites: {}
   }
@@ -7618,6 +7634,7 @@ export namespace Prisma {
     readonly created_at: FieldRef<"rooms", 'DateTime'>
     readonly updated_at: FieldRef<"rooms", 'DateTime'>
     readonly deleted_at: FieldRef<"rooms", 'DateTime'>
+    readonly total_rooms: FieldRef<"rooms", 'Int'>
   }
     
 
@@ -12725,14 +12742,18 @@ export namespace Prisma {
     guests_count: number | null
     price_per_night: Decimal | null
     nights: number | null
+    quantity: number | null
     subtotal: Decimal | null
+    quantity: number | null
   }
 
   export type Booking_roomsSumAggregateOutputType = {
     guests_count: number | null
     price_per_night: Decimal | null
     nights: number | null
+    quantity: number | null
     subtotal: Decimal | null
+    quantity: number | null
   }
 
   export type Booking_roomsMinAggregateOutputType = {
@@ -12741,10 +12762,16 @@ export namespace Prisma {
     room_id: string | null
     guests_count: number | null
     price_per_night: Decimal | null
+    check_in_date: Date | null
+    check_out_date: Date | null
     nights: number | null
+    quantity: number | null
     subtotal: Decimal | null
     created_at: Date | null
     updated_at: Date | null
+    check_in_date: Date | null
+    check_out_date: Date | null
+    quantity: number | null
   }
 
   export type Booking_roomsMaxAggregateOutputType = {
@@ -12753,10 +12780,16 @@ export namespace Prisma {
     room_id: string | null
     guests_count: number | null
     price_per_night: Decimal | null
+    check_in_date: Date | null
+    check_out_date: Date | null
     nights: number | null
+    quantity: number | null
     subtotal: Decimal | null
     created_at: Date | null
     updated_at: Date | null
+    check_in_date: Date | null
+    check_out_date: Date | null
+    quantity: number | null
   }
 
   export type Booking_roomsCountAggregateOutputType = {
@@ -12765,10 +12798,16 @@ export namespace Prisma {
     room_id: number
     guests_count: number
     price_per_night: number
+    check_in_date: number
+    check_out_date: number
     nights: number
+    quantity: number
     subtotal: number
     created_at: number
     updated_at: number
+    check_in_date: number
+    check_out_date: number
+    quantity: number
     _all: number
   }
 
@@ -12777,14 +12816,18 @@ export namespace Prisma {
     guests_count?: true
     price_per_night?: true
     nights?: true
+    quantity?: true
     subtotal?: true
+    quantity?: true
   }
 
   export type Booking_roomsSumAggregateInputType = {
     guests_count?: true
     price_per_night?: true
     nights?: true
+    quantity?: true
     subtotal?: true
+    quantity?: true
   }
 
   export type Booking_roomsMinAggregateInputType = {
@@ -12793,10 +12836,16 @@ export namespace Prisma {
     room_id?: true
     guests_count?: true
     price_per_night?: true
+    check_in_date?: true
+    check_out_date?: true
     nights?: true
+    quantity?: true
     subtotal?: true
     created_at?: true
     updated_at?: true
+    check_in_date?: true
+    check_out_date?: true
+    quantity?: true
   }
 
   export type Booking_roomsMaxAggregateInputType = {
@@ -12805,10 +12854,16 @@ export namespace Prisma {
     room_id?: true
     guests_count?: true
     price_per_night?: true
+    check_in_date?: true
+    check_out_date?: true
     nights?: true
+    quantity?: true
     subtotal?: true
     created_at?: true
     updated_at?: true
+    check_in_date?: true
+    check_out_date?: true
+    quantity?: true
   }
 
   export type Booking_roomsCountAggregateInputType = {
@@ -12817,10 +12872,16 @@ export namespace Prisma {
     room_id?: true
     guests_count?: true
     price_per_night?: true
+    check_in_date?: true
+    check_out_date?: true
     nights?: true
+    quantity?: true
     subtotal?: true
     created_at?: true
     updated_at?: true
+    check_in_date?: true
+    check_out_date?: true
+    quantity?: true
     _all?: true
   }
 
@@ -12916,10 +12977,16 @@ export namespace Prisma {
     room_id: string
     guests_count: number
     price_per_night: Decimal
+    check_in_date: Date
+    check_out_date: Date
     nights: number
+    quantity: number
     subtotal: Decimal
     created_at: Date
     updated_at: Date
+    check_in_date: Date
+    check_out_date: Date
+    quantity: number
     _count: Booking_roomsCountAggregateOutputType | null
     _avg: Booking_roomsAvgAggregateOutputType | null
     _sum: Booking_roomsSumAggregateOutputType | null
@@ -12947,10 +13014,16 @@ export namespace Prisma {
     room_id?: boolean
     guests_count?: boolean
     price_per_night?: boolean
+    check_in_date?: boolean
+    check_out_date?: boolean
     nights?: boolean
+    quantity?: boolean
     subtotal?: boolean
     created_at?: boolean
     updated_at?: boolean
+    check_in_date?: boolean
+    check_out_date?: boolean
+    quantity?: boolean
     booking?: boolean | bookingsDefaultArgs<ExtArgs>
     room?: boolean | roomsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["booking_rooms"]>
@@ -12961,10 +13034,16 @@ export namespace Prisma {
     room_id?: boolean
     guests_count?: boolean
     price_per_night?: boolean
+    check_in_date?: boolean
+    check_out_date?: boolean
     nights?: boolean
+    quantity?: boolean
     subtotal?: boolean
     created_at?: boolean
     updated_at?: boolean
+    check_in_date?: boolean
+    check_out_date?: boolean
+    quantity?: boolean
     booking?: boolean | bookingsDefaultArgs<ExtArgs>
     room?: boolean | roomsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["booking_rooms"]>
@@ -12975,10 +13054,16 @@ export namespace Prisma {
     room_id?: boolean
     guests_count?: boolean
     price_per_night?: boolean
+    check_in_date?: boolean
+    check_out_date?: boolean
     nights?: boolean
+    quantity?: boolean
     subtotal?: boolean
     created_at?: boolean
     updated_at?: boolean
+    check_in_date?: boolean
+    check_out_date?: boolean
+    quantity?: boolean
     booking?: boolean | bookingsDefaultArgs<ExtArgs>
     room?: boolean | roomsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["booking_rooms"]>
@@ -12989,13 +13074,19 @@ export namespace Prisma {
     room_id?: boolean
     guests_count?: boolean
     price_per_night?: boolean
+    check_in_date?: boolean
+    check_out_date?: boolean
     nights?: boolean
+    quantity?: boolean
     subtotal?: boolean
     created_at?: boolean
     updated_at?: boolean
+    check_in_date?: boolean
+    check_out_date?: boolean
+    quantity?: boolean
   }
 
-  export type booking_roomsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "booking_id" | "room_id" | "guests_count" | "price_per_night" | "nights" | "subtotal" | "created_at" | "updated_at", ExtArgs["result"]["booking_rooms"]>
+  export type booking_roomsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "booking_id" | "room_id" | "guests_count" | "price_per_night" | "nights" | "subtotal" | "created_at" | "updated_at" | "check_in_date" | "check_out_date" | "quantity", ExtArgs["result"]["booking_rooms"]>
   export type booking_roomsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     booking?: boolean | bookingsDefaultArgs<ExtArgs>
     room?: boolean | roomsDefaultArgs<ExtArgs>
@@ -13021,10 +13112,16 @@ export namespace Prisma {
       room_id: string
       guests_count: number
       price_per_night: Prisma.Decimal
+      check_in_date: Date
+      check_out_date: Date
       nights: number
+      quantity: number
       subtotal: Prisma.Decimal
       created_at: Date
       updated_at: Date
+      check_in_date: Date
+      check_out_date: Date
+      quantity: number
     }, ExtArgs["result"]["booking_rooms"]>
     composites: {}
   }
@@ -13455,10 +13552,16 @@ export namespace Prisma {
     readonly room_id: FieldRef<"booking_rooms", 'String'>
     readonly guests_count: FieldRef<"booking_rooms", 'Int'>
     readonly price_per_night: FieldRef<"booking_rooms", 'Decimal'>
+    readonly check_in_date: FieldRef<"booking_rooms", 'DateTime'>
+    readonly check_out_date: FieldRef<"booking_rooms", 'DateTime'>
     readonly nights: FieldRef<"booking_rooms", 'Int'>
+    readonly quantity: FieldRef<"booking_rooms", 'Int'>
     readonly subtotal: FieldRef<"booking_rooms", 'Decimal'>
     readonly created_at: FieldRef<"booking_rooms", 'DateTime'>
     readonly updated_at: FieldRef<"booking_rooms", 'DateTime'>
+    readonly check_in_date: FieldRef<"booking_rooms", 'DateTime'>
+    readonly check_out_date: FieldRef<"booking_rooms", 'DateTime'>
+    readonly quantity: FieldRef<"booking_rooms", 'Int'>
   }
     
 
@@ -15073,7 +15176,8 @@ export namespace Prisma {
     image: 'image',
     created_at: 'created_at',
     updated_at: 'updated_at',
-    deleted_at: 'deleted_at'
+    deleted_at: 'deleted_at',
+    total_rooms: 'total_rooms'
   };
 
   export type RoomsScalarFieldEnum = (typeof RoomsScalarFieldEnum)[keyof typeof RoomsScalarFieldEnum]
@@ -15142,10 +15246,16 @@ export namespace Prisma {
     room_id: 'room_id',
     guests_count: 'guests_count',
     price_per_night: 'price_per_night',
+    check_in_date: 'check_in_date',
+    check_out_date: 'check_out_date',
     nights: 'nights',
+    quantity: 'quantity',
     subtotal: 'subtotal',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    check_in_date: 'check_in_date',
+    check_out_date: 'check_out_date',
+    quantity: 'quantity'
   };
 
   export type Booking_roomsScalarFieldEnum = (typeof Booking_roomsScalarFieldEnum)[keyof typeof Booking_roomsScalarFieldEnum]
@@ -15457,10 +15567,10 @@ export namespace Prisma {
 
   export type tenantsWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    user_id?: string
     AND?: tenantsWhereInput | tenantsWhereInput[]
     OR?: tenantsWhereInput[]
     NOT?: tenantsWhereInput | tenantsWhereInput[]
-    user_id?: StringFilter<"tenants"> | string
     company_name?: StringFilter<"tenants"> | string
     address?: StringFilter<"tenants"> | string
     phone_number?: StringFilter<"tenants"> | string
@@ -15469,7 +15579,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"tenants"> | Date | string
     properties?: PropertiesListRelationFilter
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
-  }, "id">
+  }, "id" | "user_id">
 
   export type tenantsOrderByWithAggregationInput = {
     id?: SortOrder
@@ -15685,6 +15795,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"rooms"> | Date | string
     updated_at?: DateTimeFilter<"rooms"> | Date | string
     deleted_at?: DateTimeNullableFilter<"rooms"> | Date | string | null
+    total_rooms?: IntFilter<"rooms"> | number
     booking_rooms?: Booking_roomsListRelationFilter
     peak_season_rates?: Peak_season_ratesListRelationFilter
     room_availability?: Room_availabilityListRelationFilter
@@ -15703,6 +15814,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    total_rooms?: SortOrder
     booking_rooms?: booking_roomsOrderByRelationAggregateInput
     peak_season_rates?: peak_season_ratesOrderByRelationAggregateInput
     room_availability?: room_availabilityOrderByRelationAggregateInput
@@ -15724,6 +15836,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"rooms"> | Date | string
     updated_at?: DateTimeFilter<"rooms"> | Date | string
     deleted_at?: DateTimeNullableFilter<"rooms"> | Date | string | null
+    total_rooms?: IntFilter<"rooms"> | number
     booking_rooms?: Booking_roomsListRelationFilter
     peak_season_rates?: Peak_season_ratesListRelationFilter
     room_availability?: Room_availabilityListRelationFilter
@@ -15742,6 +15855,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    total_rooms?: SortOrder
     _count?: roomsCountOrderByAggregateInput
     _avg?: roomsAvgOrderByAggregateInput
     _max?: roomsMaxOrderByAggregateInput
@@ -15763,6 +15877,7 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"rooms"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"rooms"> | Date | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"rooms"> | Date | string | null
+    total_rooms?: IntWithAggregatesFilter<"rooms"> | number
   }
 
   export type room_imagesWhereInput = {
@@ -16078,10 +16193,16 @@ export namespace Prisma {
     room_id?: StringFilter<"booking_rooms"> | string
     guests_count?: IntFilter<"booking_rooms"> | number
     price_per_night?: DecimalFilter<"booking_rooms"> | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFilter<"booking_rooms"> | Date | string
+    check_out_date?: DateTimeFilter<"booking_rooms"> | Date | string
     nights?: IntFilter<"booking_rooms"> | number
+    quantity?: IntFilter<"booking_rooms"> | number
     subtotal?: DecimalFilter<"booking_rooms"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFilter<"booking_rooms"> | Date | string
     updated_at?: DateTimeFilter<"booking_rooms"> | Date | string
+    check_in_date?: DateTimeFilter<"booking_rooms"> | Date | string
+    check_out_date?: DateTimeFilter<"booking_rooms"> | Date | string
+    quantity?: IntFilter<"booking_rooms"> | number
     booking?: XOR<BookingsScalarRelationFilter, bookingsWhereInput>
     room?: XOR<RoomsScalarRelationFilter, roomsWhereInput>
   }
@@ -16092,10 +16213,16 @@ export namespace Prisma {
     room_id?: SortOrder
     guests_count?: SortOrder
     price_per_night?: SortOrder
+    check_in_date?: SortOrder
+    check_out_date?: SortOrder
     nights?: SortOrder
+    quantity?: SortOrder
     subtotal?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    check_in_date?: SortOrder
+    check_out_date?: SortOrder
+    quantity?: SortOrder
     booking?: bookingsOrderByWithRelationInput
     room?: roomsOrderByWithRelationInput
   }
@@ -16109,10 +16236,16 @@ export namespace Prisma {
     room_id?: StringFilter<"booking_rooms"> | string
     guests_count?: IntFilter<"booking_rooms"> | number
     price_per_night?: DecimalFilter<"booking_rooms"> | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFilter<"booking_rooms"> | Date | string
+    check_out_date?: DateTimeFilter<"booking_rooms"> | Date | string
     nights?: IntFilter<"booking_rooms"> | number
+    quantity?: IntFilter<"booking_rooms"> | number
     subtotal?: DecimalFilter<"booking_rooms"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFilter<"booking_rooms"> | Date | string
     updated_at?: DateTimeFilter<"booking_rooms"> | Date | string
+    check_in_date?: DateTimeFilter<"booking_rooms"> | Date | string
+    check_out_date?: DateTimeFilter<"booking_rooms"> | Date | string
+    quantity?: IntFilter<"booking_rooms"> | number
     booking?: XOR<BookingsScalarRelationFilter, bookingsWhereInput>
     room?: XOR<RoomsScalarRelationFilter, roomsWhereInput>
   }, "id">
@@ -16123,10 +16256,16 @@ export namespace Prisma {
     room_id?: SortOrder
     guests_count?: SortOrder
     price_per_night?: SortOrder
+    check_in_date?: SortOrder
+    check_out_date?: SortOrder
     nights?: SortOrder
+    quantity?: SortOrder
     subtotal?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    check_in_date?: SortOrder
+    check_out_date?: SortOrder
+    quantity?: SortOrder
     _count?: booking_roomsCountOrderByAggregateInput
     _avg?: booking_roomsAvgOrderByAggregateInput
     _max?: booking_roomsMaxOrderByAggregateInput
@@ -16143,10 +16282,16 @@ export namespace Prisma {
     room_id?: StringWithAggregatesFilter<"booking_rooms"> | string
     guests_count?: IntWithAggregatesFilter<"booking_rooms"> | number
     price_per_night?: DecimalWithAggregatesFilter<"booking_rooms"> | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeWithAggregatesFilter<"booking_rooms"> | Date | string
+    check_out_date?: DateTimeWithAggregatesFilter<"booking_rooms"> | Date | string
     nights?: IntWithAggregatesFilter<"booking_rooms"> | number
+    quantity?: IntWithAggregatesFilter<"booking_rooms"> | number
     subtotal?: DecimalWithAggregatesFilter<"booking_rooms"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeWithAggregatesFilter<"booking_rooms"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"booking_rooms"> | Date | string
+    check_in_date?: DateTimeWithAggregatesFilter<"booking_rooms"> | Date | string
+    check_out_date?: DateTimeWithAggregatesFilter<"booking_rooms"> | Date | string
+    quantity?: IntWithAggregatesFilter<"booking_rooms"> | number
   }
 
   export type reviewsWhereInput = {
@@ -16625,6 +16770,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    total_rooms: number
     booking_rooms?: booking_roomsCreateNestedManyWithoutRoomInput
     peak_season_rates?: peak_season_ratesCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityCreateNestedManyWithoutRoomInput
@@ -16643,6 +16789,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    total_rooms: number
     booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutRoomInput
     peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityUncheckedCreateNestedManyWithoutRoomInput
@@ -16659,6 +16806,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
     booking_rooms?: booking_roomsUpdateManyWithoutRoomNestedInput
     peak_season_rates?: peak_season_ratesUpdateManyWithoutRoomNestedInput
     room_availability?: room_availabilityUpdateManyWithoutRoomNestedInput
@@ -16677,6 +16825,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
     booking_rooms?: booking_roomsUncheckedUpdateManyWithoutRoomNestedInput
     peak_season_rates?: peak_season_ratesUncheckedUpdateManyWithoutRoomNestedInput
     room_availability?: room_availabilityUncheckedUpdateManyWithoutRoomNestedInput
@@ -16694,6 +16843,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    total_rooms: number
   }
 
   export type roomsUpdateManyMutationInput = {
@@ -16706,6 +16856,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
   }
 
   export type roomsUncheckedUpdateManyInput = {
@@ -16719,6 +16870,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
   }
 
   export type room_imagesCreateInput = {
@@ -17042,10 +17194,16 @@ export namespace Prisma {
     id?: string
     guests_count: number
     price_per_night: Decimal | DecimalJsLike | number | string
+    check_in_date: Date | string
+    check_out_date: Date | string
     nights: number
+    quantity: number
     subtotal: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
+    check_in_date: Date | string
+    check_out_date: Date | string
+    quantity: number
     booking: bookingsCreateNestedOneWithoutBooking_roomsInput
     room: roomsCreateNestedOneWithoutBooking_roomsInput
   }
@@ -17056,20 +17214,32 @@ export namespace Prisma {
     room_id: string
     guests_count: number
     price_per_night: Decimal | DecimalJsLike | number | string
+    check_in_date: Date | string
+    check_out_date: Date | string
     nights: number
+    quantity: number
     subtotal: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
+    check_in_date: Date | string
+    check_out_date: Date | string
+    quantity: number
   }
 
   export type booking_roomsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     guests_count?: IntFieldUpdateOperationsInput | number
     price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     nights?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
     booking?: bookingsUpdateOneRequiredWithoutBooking_roomsNestedInput
     room?: roomsUpdateOneRequiredWithoutBooking_roomsNestedInput
   }
@@ -17080,10 +17250,16 @@ export namespace Prisma {
     room_id?: StringFieldUpdateOperationsInput | string
     guests_count?: IntFieldUpdateOperationsInput | number
     price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     nights?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type booking_roomsCreateManyInput = {
@@ -17092,20 +17268,32 @@ export namespace Prisma {
     room_id: string
     guests_count: number
     price_per_night: Decimal | DecimalJsLike | number | string
+    check_in_date: Date | string
+    check_out_date: Date | string
     nights: number
+    quantity: number
     subtotal: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
+    check_in_date: Date | string
+    check_out_date: Date | string
+    quantity: number
   }
 
   export type booking_roomsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     guests_count?: IntFieldUpdateOperationsInput | number
     price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     nights?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type booking_roomsUncheckedUpdateManyInput = {
@@ -17114,10 +17302,16 @@ export namespace Prisma {
     room_id?: StringFieldUpdateOperationsInput | string
     guests_count?: IntFieldUpdateOperationsInput | number
     price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     nights?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type reviewsCreateInput = {
@@ -17689,11 +17883,13 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrder
+    total_rooms?: SortOrder
   }
 
   export type roomsAvgOrderByAggregateInput = {
     base_price?: SortOrder
     capacity?: SortOrder
+    total_rooms?: SortOrder
   }
 
   export type roomsMaxOrderByAggregateInput = {
@@ -17707,6 +17903,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrder
+    total_rooms?: SortOrder
   }
 
   export type roomsMinOrderByAggregateInput = {
@@ -17720,11 +17917,13 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrder
+    total_rooms?: SortOrder
   }
 
   export type roomsSumOrderByAggregateInput = {
     base_price?: SortOrder
     capacity?: SortOrder
+    total_rooms?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -17986,17 +18185,25 @@ export namespace Prisma {
     room_id?: SortOrder
     guests_count?: SortOrder
     price_per_night?: SortOrder
+    check_in_date?: SortOrder
+    check_out_date?: SortOrder
     nights?: SortOrder
+    quantity?: SortOrder
     subtotal?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    check_in_date?: SortOrder
+    check_out_date?: SortOrder
+    quantity?: SortOrder
   }
 
   export type booking_roomsAvgOrderByAggregateInput = {
     guests_count?: SortOrder
     price_per_night?: SortOrder
     nights?: SortOrder
+    quantity?: SortOrder
     subtotal?: SortOrder
+    quantity?: SortOrder
   }
 
   export type booking_roomsMaxOrderByAggregateInput = {
@@ -18005,10 +18212,16 @@ export namespace Prisma {
     room_id?: SortOrder
     guests_count?: SortOrder
     price_per_night?: SortOrder
+    check_in_date?: SortOrder
+    check_out_date?: SortOrder
     nights?: SortOrder
+    quantity?: SortOrder
     subtotal?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    check_in_date?: SortOrder
+    check_out_date?: SortOrder
+    quantity?: SortOrder
   }
 
   export type booking_roomsMinOrderByAggregateInput = {
@@ -18017,17 +18230,25 @@ export namespace Prisma {
     room_id?: SortOrder
     guests_count?: SortOrder
     price_per_night?: SortOrder
+    check_in_date?: SortOrder
+    check_out_date?: SortOrder
     nights?: SortOrder
+    quantity?: SortOrder
     subtotal?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    check_in_date?: SortOrder
+    check_out_date?: SortOrder
+    quantity?: SortOrder
   }
 
   export type booking_roomsSumOrderByAggregateInput = {
     guests_count?: SortOrder
     price_per_night?: SortOrder
     nights?: SortOrder
+    quantity?: SortOrder
     subtotal?: SortOrder
+    quantity?: SortOrder
   }
 
   export type reviewsCountOrderByAggregateInput = {
@@ -19800,6 +20021,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    total_rooms: number
     booking_rooms?: booking_roomsCreateNestedManyWithoutRoomInput
     peak_season_rates?: peak_season_ratesCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityCreateNestedManyWithoutRoomInput
@@ -19816,6 +20038,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    total_rooms: number
     booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutRoomInput
     peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityUncheckedCreateNestedManyWithoutRoomInput
@@ -19984,6 +20207,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"rooms"> | Date | string
     updated_at?: DateTimeFilter<"rooms"> | Date | string
     deleted_at?: DateTimeNullableFilter<"rooms"> | Date | string | null
+    total_rooms?: IntFilter<"rooms"> | number
   }
 
   export type propertiesCreateWithoutProperty_imagesInput = {
@@ -20094,10 +20318,16 @@ export namespace Prisma {
     id?: string
     guests_count: number
     price_per_night: Decimal | DecimalJsLike | number | string
+    check_in_date: Date | string
+    check_out_date: Date | string
     nights: number
+    quantity: number
     subtotal: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
+    check_in_date: Date | string
+    check_out_date: Date | string
+    quantity: number
     booking: bookingsCreateNestedOneWithoutBooking_roomsInput
   }
 
@@ -20106,10 +20336,16 @@ export namespace Prisma {
     booking_id: string
     guests_count: number
     price_per_night: Decimal | DecimalJsLike | number | string
+    check_in_date: Date | string
+    check_out_date: Date | string
     nights: number
+    quantity: number
     subtotal: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
+    check_in_date: Date | string
+    check_out_date: Date | string
+    quantity: number
   }
 
   export type booking_roomsCreateOrConnectWithoutRoomInput = {
@@ -20278,10 +20514,16 @@ export namespace Prisma {
     room_id?: StringFilter<"booking_rooms"> | string
     guests_count?: IntFilter<"booking_rooms"> | number
     price_per_night?: DecimalFilter<"booking_rooms"> | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFilter<"booking_rooms"> | Date | string
+    check_out_date?: DateTimeFilter<"booking_rooms"> | Date | string
     nights?: IntFilter<"booking_rooms"> | number
+    quantity?: IntFilter<"booking_rooms"> | number
     subtotal?: DecimalFilter<"booking_rooms"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFilter<"booking_rooms"> | Date | string
     updated_at?: DateTimeFilter<"booking_rooms"> | Date | string
+    check_in_date?: DateTimeFilter<"booking_rooms"> | Date | string
+    check_out_date?: DateTimeFilter<"booking_rooms"> | Date | string
+    quantity?: IntFilter<"booking_rooms"> | number
   }
 
   export type peak_season_ratesUpsertWithWhereUniqueWithoutRoomInput = {
@@ -20420,6 +20662,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    total_rooms: number
     booking_rooms?: booking_roomsCreateNestedManyWithoutRoomInput
     peak_season_rates?: peak_season_ratesCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityCreateNestedManyWithoutRoomInput
@@ -20437,6 +20680,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    total_rooms: number
     booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutRoomInput
     peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityUncheckedCreateNestedManyWithoutRoomInput
@@ -20468,6 +20712,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
     booking_rooms?: booking_roomsUpdateManyWithoutRoomNestedInput
     peak_season_rates?: peak_season_ratesUpdateManyWithoutRoomNestedInput
     room_availability?: room_availabilityUpdateManyWithoutRoomNestedInput
@@ -20485,6 +20730,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
     booking_rooms?: booking_roomsUncheckedUpdateManyWithoutRoomNestedInput
     peak_season_rates?: peak_season_ratesUncheckedUpdateManyWithoutRoomNestedInput
     room_availability?: room_availabilityUncheckedUpdateManyWithoutRoomNestedInput
@@ -20500,6 +20746,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    total_rooms: number
     booking_rooms?: booking_roomsCreateNestedManyWithoutRoomInput
     peak_season_rates?: peak_season_ratesCreateNestedManyWithoutRoomInput
     room_images?: room_imagesCreateNestedManyWithoutRoomInput
@@ -20517,6 +20764,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    total_rooms: number
     booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutRoomInput
     peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutRoomInput
     room_images?: room_imagesUncheckedCreateNestedManyWithoutRoomInput
@@ -20548,6 +20796,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
     booking_rooms?: booking_roomsUpdateManyWithoutRoomNestedInput
     peak_season_rates?: peak_season_ratesUpdateManyWithoutRoomNestedInput
     room_images?: room_imagesUpdateManyWithoutRoomNestedInput
@@ -20565,6 +20814,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
     booking_rooms?: booking_roomsUncheckedUpdateManyWithoutRoomNestedInput
     peak_season_rates?: peak_season_ratesUncheckedUpdateManyWithoutRoomNestedInput
     room_images?: room_imagesUncheckedUpdateManyWithoutRoomNestedInput
@@ -20629,6 +20879,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    total_rooms: number
     booking_rooms?: booking_roomsCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityCreateNestedManyWithoutRoomInput
     room_images?: room_imagesCreateNestedManyWithoutRoomInput
@@ -20646,6 +20897,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    total_rooms: number
     booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityUncheckedCreateNestedManyWithoutRoomInput
     room_images?: room_imagesUncheckedCreateNestedManyWithoutRoomInput
@@ -20732,6 +20984,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
     booking_rooms?: booking_roomsUpdateManyWithoutRoomNestedInput
     room_availability?: room_availabilityUpdateManyWithoutRoomNestedInput
     room_images?: room_imagesUpdateManyWithoutRoomNestedInput
@@ -20749,6 +21002,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
     booking_rooms?: booking_roomsUncheckedUpdateManyWithoutRoomNestedInput
     room_availability?: room_availabilityUncheckedUpdateManyWithoutRoomNestedInput
     room_images?: room_imagesUncheckedUpdateManyWithoutRoomNestedInput
@@ -20758,10 +21012,16 @@ export namespace Prisma {
     id?: string
     guests_count: number
     price_per_night: Decimal | DecimalJsLike | number | string
+    check_in_date: Date | string
+    check_out_date: Date | string
     nights: number
+    quantity: number
     subtotal: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
+    check_in_date: Date | string
+    check_out_date: Date | string
+    quantity: number
     room: roomsCreateNestedOneWithoutBooking_roomsInput
   }
 
@@ -20770,10 +21030,16 @@ export namespace Prisma {
     room_id: string
     guests_count: number
     price_per_night: Decimal | DecimalJsLike | number | string
+    check_in_date: Date | string
+    check_out_date: Date | string
     nights: number
+    quantity: number
     subtotal: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
+    check_in_date: Date | string
+    check_out_date: Date | string
+    quantity: number
   }
 
   export type booking_roomsCreateOrConnectWithoutBookingInput = {
@@ -21085,6 +21351,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    total_rooms: number
     peak_season_rates?: peak_season_ratesCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityCreateNestedManyWithoutRoomInput
     room_images?: room_imagesCreateNestedManyWithoutRoomInput
@@ -21102,6 +21369,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    total_rooms: number
     peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutRoomInput
     room_availability?: room_availabilityUncheckedCreateNestedManyWithoutRoomInput
     room_images?: room_imagesUncheckedCreateNestedManyWithoutRoomInput
@@ -21178,6 +21446,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
     peak_season_rates?: peak_season_ratesUpdateManyWithoutRoomNestedInput
     room_availability?: room_availabilityUpdateManyWithoutRoomNestedInput
     room_images?: room_imagesUpdateManyWithoutRoomNestedInput
@@ -21195,6 +21464,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
     peak_season_rates?: peak_season_ratesUncheckedUpdateManyWithoutRoomNestedInput
     room_availability?: room_availabilityUncheckedUpdateManyWithoutRoomNestedInput
     room_images?: room_imagesUncheckedUpdateManyWithoutRoomNestedInput
@@ -21748,6 +22018,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    total_rooms: number
   }
 
   export type bookingsUpdateWithoutPropertyInput = {
@@ -21890,6 +22161,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
     booking_rooms?: booking_roomsUpdateManyWithoutRoomNestedInput
     peak_season_rates?: peak_season_ratesUpdateManyWithoutRoomNestedInput
     room_availability?: room_availabilityUpdateManyWithoutRoomNestedInput
@@ -21906,6 +22178,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
     booking_rooms?: booking_roomsUncheckedUpdateManyWithoutRoomNestedInput
     peak_season_rates?: peak_season_ratesUncheckedUpdateManyWithoutRoomNestedInput
     room_availability?: room_availabilityUncheckedUpdateManyWithoutRoomNestedInput
@@ -21922,6 +22195,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
   }
 
   export type booking_roomsCreateManyRoomInput = {
@@ -21929,10 +22203,16 @@ export namespace Prisma {
     booking_id: string
     guests_count: number
     price_per_night: Decimal | DecimalJsLike | number | string
+    check_in_date: Date | string
+    check_out_date: Date | string
     nights: number
+    quantity: number
     subtotal: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
+    check_in_date: Date | string
+    check_out_date: Date | string
+    quantity: number
   }
 
   export type peak_season_ratesCreateManyRoomInput = {
@@ -21965,10 +22245,16 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     guests_count?: IntFieldUpdateOperationsInput | number
     price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     nights?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
     booking?: bookingsUpdateOneRequiredWithoutBooking_roomsNestedInput
   }
 
@@ -21977,10 +22263,16 @@ export namespace Prisma {
     booking_id?: StringFieldUpdateOperationsInput | string
     guests_count?: IntFieldUpdateOperationsInput | number
     price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     nights?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type booking_roomsUncheckedUpdateManyWithoutRoomInput = {
@@ -21988,10 +22280,16 @@ export namespace Prisma {
     booking_id?: StringFieldUpdateOperationsInput | string
     guests_count?: IntFieldUpdateOperationsInput | number
     price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     nights?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type peak_season_ratesUpdateWithoutRoomInput = {
@@ -22077,10 +22375,16 @@ export namespace Prisma {
     room_id: string
     guests_count: number
     price_per_night: Decimal | DecimalJsLike | number | string
+    check_in_date: Date | string
+    check_out_date: Date | string
     nights: number
+    quantity: number
     subtotal: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     updated_at?: Date | string
+    check_in_date: Date | string
+    check_out_date: Date | string
+    quantity: number
   }
 
   export type reviewsCreateManyBookingInput = {
@@ -22097,10 +22401,16 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     guests_count?: IntFieldUpdateOperationsInput | number
     price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     nights?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
     room?: roomsUpdateOneRequiredWithoutBooking_roomsNestedInput
   }
 
@@ -22109,10 +22419,16 @@ export namespace Prisma {
     room_id?: StringFieldUpdateOperationsInput | string
     guests_count?: IntFieldUpdateOperationsInput | number
     price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     nights?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type booking_roomsUncheckedUpdateManyWithoutBookingInput = {
@@ -22120,10 +22436,16 @@ export namespace Prisma {
     room_id?: StringFieldUpdateOperationsInput | string
     guests_count?: IntFieldUpdateOperationsInput | number
     price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
     nights?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type reviewsUpdateWithoutBookingInput = {

@@ -1,3 +1,4 @@
+import { handleUpload } from "../../config/cloudinary";
 import { transport } from "../../config/nodemailer";
 import AppError from "../../errors/AppError";
 import { createNewOtp } from "../../repositories/auth/auth.repository";
@@ -5,7 +6,9 @@ import {
   changePasswordUser,
   findUserById,
   getEmailById,
+  updateProfileRepository,
 } from "../../repositories/user/user.respository";
+import { UpdateUser } from "../../types/user/users.types";
 import { PASSWORD_RESET_REQUEST_TEMPLATE } from "../../utils/emailTemplates";
 import { generatedOtp } from "../../utils/generateOtp";
 import { hashPassword } from "../../utils/hash";
@@ -55,4 +58,32 @@ export const otpPasswordServices = async (userId: string) => {
   });
 
   return otpPassword;
+};
+
+export const updateProfileServices = async (
+  userId: string,
+  data: UpdateUser,
+  file?: Express.Multer.File
+) => {
+  const { full_name } = data;
+
+  const existingUser = await findUserById(userId);
+  if (!existingUser) {
+    throw new AppError("User not found", 404);
+  }
+
+  let uploadImage = null;
+  if (file) {
+    uploadImage = await handleUpload(file);
+  }
+
+  const updatedUser = await updateProfileRepository(
+    {
+      full_name,
+      profile_picture: uploadImage?.secure_url || existingUser.profile_picture,
+    },
+    userId
+  );
+
+  return updatedUser;
 };

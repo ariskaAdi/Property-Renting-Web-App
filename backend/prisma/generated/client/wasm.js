@@ -181,7 +181,8 @@ exports.Prisma.RoomsScalarFieldEnum = {
   image: 'image',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  deleted_at: 'deleted_at',
+  total_rooms: 'total_rooms'
 };
 
 exports.Prisma.Room_imagesScalarFieldEnum = {
@@ -235,10 +236,16 @@ exports.Prisma.Booking_roomsScalarFieldEnum = {
   room_id: 'room_id',
   guests_count: 'guests_count',
   price_per_night: 'price_per_night',
+  check_in_date: 'check_in_date',
+  check_out_date: 'check_out_date',
   nights: 'nights',
+  quantity: 'quantity',
   subtotal: 'subtotal',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  check_in_date: 'check_in_date',
+  check_out_date: 'check_out_date',
+  quantity: 'quantity'
 };
 
 exports.Prisma.ReviewsScalarFieldEnum = {

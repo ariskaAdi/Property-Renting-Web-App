@@ -7,18 +7,13 @@ import { Label } from "@/components/ui/label";
 import { useFetchMe } from "@/hooks/useUser";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
-async function updateTenant(data: {
-  company_name: string;
-  address: string;
-  phone_number: string;
-  logo: string;
-}) {
+async function updateTenant(data: FormData) {
   const res = await fetch("http://localhost:4000/tenant/update", {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
     credentials: "include",
-    body: JSON.stringify(data),
+    body: data, // kirim FormData
   });
 
   if (!res.ok) throw new Error("Failed to update tenant");
@@ -26,25 +21,25 @@ async function updateTenant(data: {
 }
 
 const TenantDashboard = () => {
-  const { data, isLoading } = useFetchMe();
+  const { data: user, isLoading } = useFetchMe();
   const queryClient = useQueryClient();
-  const user = data;
 
-  // local state tenant
+  const tenant = user?.tenants?.[0];
+
   const [companyName, setCompanyName] = useState("");
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [logo, setLogo] = useState("");
+  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string>("");
 
-  //   useEffect(() => {
-  //     if (data?.tenants?.length! > 0) {
-  //       const tenant = user.tenants[0];
-  //       setCompanyName(tenant.company_name || "");
-  //       setAddress(tenant.address || "");
-  //       setPhoneNumber(tenant.phone_number || "");
-  //       setLogo(tenant.logo || "");
-  //     }
-  //   }, [user]);
+  useEffect(() => {
+    if (tenant) {
+      setCompanyName(tenant.company_name || "");
+      setAddress(tenant.address || "");
+      setPhoneNumber(tenant.phone_number || "");
+      setPreview(tenant.logo || ""); // tampilkan logo lama
+    }
+  }, [tenant]);
 
   const mutation = useMutation({
     mutationFn: updateTenant,
@@ -53,19 +48,28 @@ const TenantDashboard = () => {
     },
   });
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setLogoFile(file);
+      setPreview(URL.createObjectURL(file)); // buat preview lokal
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    mutation.mutate({
-      company_name: companyName,
-      address,
-      phone_number: phoneNumber,
-      logo,
-    });
+
+    const formData = new FormData();
+    formData.append("company_name", companyName);
+    formData.append("address", address);
+    formData.append("phone_number", phoneNumber);
+    if (logoFile) formData.append("logo", logoFile);
+
+    mutation.mutate(formData);
   };
 
   if (isLoading) return <p className="p-4">Loading...</p>;
-  if (!user?.tenants?.length)
-    return <p className="p-4">No tenant data found</p>;
+  if (!tenant) return <p className="p-4">No tenant data found</p>;
 
   return (
     <div className="flex-1 p-4 lg:p-8">
@@ -103,23 +107,40 @@ const TenantDashboard = () => {
             </div>
 
             <div>
-              <Label>Company Logo URL</Label>
-              <Input value={logo} onChange={(e) => setLogo(e.target.value)} />
+              <Label htmlFor="logo">Company Logo</Label>
+              <Input
+                id="logo"
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+
+              {preview && (
+                <div className="mt-4">
+                  <Image
+                    src={preview}
+                    alt="Company Logo"
+                    width={120}
+                    height={120}
+                    className="rounded-lg border shadow-sm object-cover"
+                  />
+                </div>
+              )}
             </div>
 
             <div className="flex gap-4 pt-4">
               <Button
                 type="button"
                 variant="outline"
-                // onClick={() => {
-                //   if (user?.tenants?.length > 0) {
-                //     const tenant = user.tenants[0];
-                //     setCompanyName(tenant.company_name || "");
-                //     setAddress(tenant.address || "");
-                //     setPhoneNumber(tenant.phone_number || "");
-                //     setLogo(tenant.logo || "");
-                //   }
-                // }}
+                onClick={() => {
+                  if (tenant) {
+                    setCompanyName(tenant.company_name || "");
+                    setAddress(tenant.address || "");
+                    setPhoneNumber(tenant.phone_number || "");
+                    setPreview(tenant.logo || "");
+                    setLogoFile(null);
+                  }
+                }}
                 className="flex-1">
                 Discard Changes
               </Button>

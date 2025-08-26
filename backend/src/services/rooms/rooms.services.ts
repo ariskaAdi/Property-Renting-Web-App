@@ -6,22 +6,28 @@ import {
   findAllRoomsRepository,
   findRoomByIdRepository,
   findRoomRepository,
+  getRoomByPropertyAndNameRepository,
 } from "../../repositories/rooms/rooms.repository";
 import { RoomsType } from "../../types/rooms/rooms.types";
 
 export const createRoomService = async (
   data: RoomsType,
   property_id: string,
-  file: Express.Multer.File
+  files: Express.Multer.File[]
 ) => {
   const { name, description, base_price, capacity, total_rooms } = data;
   const existingRoom = await findRoomRepository(property_id);
   if (!existingRoom) {
     throw new AppError("Room not found", 404);
   }
-  let uploadImage = null;
-  if (file) {
-    uploadImage = await handleUpload(file);
+  let uploadedImages: string[] = [];
+  if (files && files.length > 0) {
+    uploadedImages = await Promise.all(
+      files.map(async (file) => {
+        const result = await handleUpload(file);
+        return result.secure_url;
+      })
+    );
   }
 
   const parsedCapacity = Number(capacity);
@@ -36,8 +42,9 @@ export const createRoomService = async (
     description,
     base_price,
     capacity: parsedCapacity,
-    image: uploadImage?.secure_url || "",
+    image: uploadedImages[0] || "",
     total_rooms: parsedTotalRoom,
+    room_images: uploadedImages.map((url) => ({ image_url: url })),
   });
   return newRoom;
 };
@@ -47,13 +54,15 @@ export const getRoomsService = async () => {
   return response;
 };
 
-export const getRoomByIdService = async (id: string) => {
-  const existingRoom = await findRoomByIdRepository(id);
-  if (!existingRoom) {
+export const getRoomByPropertyAndNameService = async (
+  propertyname: string,
+  roomname: string
+) => {
+  const room = await getRoomByPropertyAndNameRepository(propertyname, roomname);
+  if (room.length === 0) {
     throw new AppError("Room not found", 404);
   }
-  const response = await findAllRoomsRepository();
-  return response;
+  return room;
 };
 
 export const deleteRoomByIdService = async (id: string) => {

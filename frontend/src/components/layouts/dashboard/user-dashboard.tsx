@@ -7,13 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CheckCircle } from "lucide-react";
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useFetchMe } from "@/hooks/useUser";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { User } from "@/types/auth/auth";
 
 // === API update user ===
-async function updateUser(data: User) {
+async function updateUser(data: Partial<User>) {
   const res = await fetch("http://localhost:4000/user/update", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -26,18 +26,21 @@ async function updateUser(data: User) {
 }
 
 const UserDashboard = () => {
-  const { data, isLoading } = useFetchMe();
+  const { data: user, isLoading } = useFetchMe();
   const queryClient = useQueryClient();
-  const user = data;
 
   // local state form
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [preview, setPreview] = useState("/placeholder.svg");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   useEffect(() => {
     if (user) {
       setFullName(user.full_name || "");
       setEmail(user.email || "");
+      setPreview(user.profile_picture || "/placeholder.svg");
     }
   }, [user]);
 
@@ -50,7 +53,35 @@ const UserDashboard = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // mutation.mutate({ full_name: fullName, email});
+
+    // siapkan payload
+    const payload: Partial<User> = {
+      full_name: fullName,
+      email,
+    };
+
+    // kalau ada file, biasanya harus diupload via FormData
+    // di sini masih dummy, jadi hanya preview
+    if (selectedFile) {
+      // contoh: bisa append ke FormData dan kirim ke backend
+      // const formData = new FormData();
+      // formData.append("profile_picture", selectedFile);
+      // fetch("http://localhost:4000/user/upload", { method: "POST", body: formData });
+    }
+
+    mutation.mutate(payload);
+  };
+
+  const handleButtonClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      setPreview(URL.createObjectURL(file));
+    }
   };
 
   if (isLoading) return <p className="p-4">Loading...</p>;
@@ -70,13 +101,26 @@ const UserDashboard = () => {
           <div className="flex flex-col items-center gap-4 lg:w-1/3">
             <div className="relative w-40 h-40 rounded-full overflow-hidden border">
               <Image
-                src={user.profile_picture || "/placeholder.svg"}
+                src={preview || "/avatar.png"}
                 alt="Profile Picture"
                 fill
                 className="object-cover"
               />
             </div>
-            <Button variant="outline" size="sm">
+
+            <input
+              type="file"
+              ref={fileInputRef}
+              accept="image/*"
+              hidden
+              onChange={handleFileChange}
+            />
+
+            <Button
+              variant="outline"
+              size="sm"
+              type="button"
+              onClick={handleButtonClick}>
               Change Photo
             </Button>
           </div>
@@ -134,6 +178,8 @@ const UserDashboard = () => {
                 onClick={() => {
                   setFullName(user.full_name || "");
                   setEmail(user.email || "");
+                  setPreview(user.profile_picture || "/placeholder.svg");
+                  setSelectedFile(null);
                 }}
                 className="flex-1 bg-transparent order-2 sm:order-1">
                 Discard Changes

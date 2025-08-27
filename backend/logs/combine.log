@@ -1001,3 +1001,65 @@ Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
 
 Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"code":"P1001","meta":{"modelName":"rooms","database_location":"aws-0-us-west-1.pooler.supabase.com:6543"},"clientVersion":"6.13.0","name":"PrismaClientKnownRequestError"}
 2025-08-26 22:41:01 [ERROR]: POST /room/create/a8da1ec9-239f-45a5-a58d-be76da2fc308 Unexpected field {"name":"MulterError","message":"Unexpected field","code":"LIMIT_UNEXPECTED_FILE","field":"images","storageErrors":[]}
+2025-08-27 18:50:27 [ERROR]: GET /user/me User not found {"statusCode":404,"success":false,"message":"User not found"}
+2025-08-27 18:51:09 [ERROR]: GET /user/me User not found {"statusCode":404,"success":false,"message":"User not found"}
+2025-08-27 18:51:13 [ERROR]: GET /user/me User not found {"statusCode":404,"success":false,"message":"User not found"}
+2025-08-27 19:54:18 [ERROR]: POST /property/create Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:25:44 [ERROR]: GET /property/tenant Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:26:34 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:27:19 [ERROR]: GET /property/tenant Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:30:28 [ERROR]: GET /property/tenant Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:32:37 [ERROR]: GET /property/tenant Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:34:32 [ERROR]: GET /property/tenant Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:35:06 [ERROR]: GET /property/all 
+Invalid `prisma.properties.findMany()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\property\property.repository.ts:10:28
+
+   7 }) => {
+   8   const { property_category } = filters;
+   9 
+→ 10   return prisma.properties.findMany(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"clientVersion":"6.13.0","name":"PrismaClientInitializationError"}
+2025-08-27 20:36:58 [ERROR]: GET /property/tenant Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:37:20 [ERROR]: GET /property/tenant Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:38:31 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:42:08 [ERROR]: GET /property/tenant Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:44:03 [ERROR]: GET /property/tenant Unauthorized access {"statusCode":401,"success":false,"message":"Unauthorized access"}
+2025-08-27 20:44:12 [ERROR]: GET /property/tenant Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:44:29 [ERROR]: GET /property/tenant Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:44:40 [ERROR]: GET /property/tenant Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:45:37 [ERROR]: GET /property/ Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:49:29 [ERROR]: GET /property/tenant Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:49:42 [ERROR]: GET /property/tenant Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:52:10 [ERROR]: GET /property/tenant Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:53:52 [ERROR]: GET /property/tenant Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 20:54:58 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-08-27 21:39:01 [ERROR]: DELETE /room/delete/b80ceab2-a895-437f-8f59-4ea7f91c7fef 
+Invalid `prisma.rooms.delete()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\rooms\rooms.repository.ts:80:35
+
+  77 };
+  78 
+  79 export const deleteRoomByIdRepository = async (id: string) => {
+→ 80   return await prisma.rooms.delete(
+Foreign key constraint violated on the constraint: `room_images_room_id_fkey` {"code":"P2003","meta":{"modelName":"rooms","constraint":"room_images_room_id_fkey"},"clientVersion":"6.13.0","name":"PrismaClientKnownRequestError"}
+2025-08-27 21:40:19 [ERROR]: DELETE /room/delete/b80ceab2-a895-437f-8f59-4ea7f91c7fef 
+Invalid `prisma.rooms.delete()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\rooms\rooms.repository.ts:80:35
+
+  77 };
+  78 
+  79 export const deleteRoomByIdRepository = async (id: string) => {
+→ 80   return await prisma.rooms.delete(
+Foreign key constraint violated on the constraint: `room_images_room_id_fkey` {"code":"P2003","meta":{"modelName":"rooms","constraint":"room_images_room_id_fkey"},"clientVersion":"6.13.0","name":"PrismaClientKnownRequestError"}
+2025-08-27 21:40:55 [ERROR]: DELETE /room/delete/b80ceab2-a895-437f-8f59-4ea7f91c7fef 
+Invalid `prisma.rooms.delete()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\rooms\rooms.repository.ts:80:35
+
+  77 };
+  78 
+  79 export const deleteRoomByIdRepository = async (id: string) => {
+→ 80   return await prisma.rooms.delete(
+Foreign key constraint violated on the constraint: `room_images_room_id_fkey` {"code":"P2003","meta":{"modelName":"rooms","constraint":"room_images_room_id_fkey"},"clientVersion":"6.13.0","name":"PrismaClientKnownRequestError"}

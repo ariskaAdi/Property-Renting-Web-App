@@ -17,7 +17,7 @@ class RoomRouter {
     this.route.get("/all", this.roomRouter.getRoomsController);
     this.route.get("/search", this.roomRouter.getRoomByPropertyAndName);
     this.route.post(
-      "/create/:property_id",
+      "/create",
       uploaderMemory().array("images", 5),
       this.roomRouter.createRoomController
     );

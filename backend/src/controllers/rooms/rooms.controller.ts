@@ -48,11 +48,8 @@ class RoomsController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { property_id } = req.params;
-
       const response = await createRoomService(
         req.body,
-        property_id,
         req.files as Express.Multer.File[]
       );
       res

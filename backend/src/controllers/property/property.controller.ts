@@ -9,6 +9,7 @@ import {
 import { findTenantByUserId } from "../../repositories/tenant/tenant.repository";
 import AppError from "../../errors/AppError";
 import { PropertyCategory } from "../../../prisma/generated/client";
+import { getTenantWithPropertiesByUserId } from "../../repositories/property/property.repository";
 
 class PropertyController {
   public async getAllProperties(
@@ -47,6 +48,40 @@ class PropertyController {
       res
         .status(200)
         .send({ message: "Property found", success: true, property });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async getPropertiesByTenantId(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const decrypt = res.locals.decrypt;
+      if (!decrypt || !decrypt.userId) {
+        throw new AppError("Unauthorized access", 401);
+      }
+
+      const tenantWithProperties = await getTenantWithPropertiesByUserId(
+        decrypt.userId
+      );
+
+      if (!tenantWithProperties) {
+        throw new AppError("Tenant not found", 404);
+      }
+
+      res.status(200).json({
+        success: true,
+        message: "Properties found",
+        tenant: {
+          id: tenantWithProperties.id,
+          logo: tenantWithProperties.logo,
+          company_name: tenantWithProperties.company_name,
+        },
+        properties: tenantWithProperties.properties,
+      });
     } catch (error) {
       next(error);
     }

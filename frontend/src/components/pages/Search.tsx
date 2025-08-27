@@ -212,7 +212,7 @@ export default function PropertyDiscovery() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <div className="bg-white shadow-sm border-b p-4">
+        <div className="bg-white shadow-sm border-b p-4 md:hidden">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-4">
               <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
@@ -228,26 +228,6 @@ export default function PropertyDiscovery() {
                   <FilterSidebar />
                 </SheetContent>
               </Sheet>
-
-              <h1 className="text-xl font-semibold hidden sm:block">
-                Property Discovery
-              </h1>
-            </div>
-
-            <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600 hidden sm:block">
-                16 Results
-              </span>
-              <Select defaultValue="popular">
-                <SelectTrigger className="w-32 sm:w-40">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="popular">Popular first</SelectItem>
-                  <SelectItem value="rating">Highest rated</SelectItem>
-                  <SelectItem value="distance">Closest</SelectItem>
-                </SelectContent>
-              </Select>
             </div>
           </div>
         </div>

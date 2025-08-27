@@ -12,10 +12,11 @@ import { RoomsType } from "../../types/rooms/rooms.types";
 
 export const createRoomService = async (
   data: RoomsType,
-  property_id: string,
+
   files: Express.Multer.File[]
 ) => {
-  const { name, description, base_price, capacity, total_rooms } = data;
+  const { property_id, name, description, base_price, capacity, total_rooms } =
+    data;
   const existingRoom = await findRoomRepository(property_id);
   if (!existingRoom) {
     throw new AppError("Room not found", 404);

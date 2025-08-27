@@ -36,6 +36,29 @@ export const getPropertyByIdRepository = async (propertyId: string) => {
   });
 };
 
+export const getTenantWithPropertiesByUserId = async (userId: string) => {
+  return prisma.tenants.findUnique({
+    where: { user_id: userId },
+    select: {
+      id: true,
+      logo: true,
+      company_name: true,
+      properties: {
+        where: { deleted_at: null },
+        orderBy: { created_at: "desc" },
+        include: {
+          rooms: {
+            include: {
+              room_images: true,
+              room_availability: true,
+            },
+          },
+        },
+      },
+    },
+  });
+};
+
 export const findPropertyByIdRepository = async (id: string) => {
   return prisma.properties.findUnique({
     where: { id },

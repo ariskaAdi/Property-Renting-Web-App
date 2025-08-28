@@ -40,6 +40,10 @@ const CreatePropertyForm = () => {
     longitude: 106.8456,
     zoom: 12,
   });
+  const [userLocation, setUserLocation] = useState<{
+    latitude: number;
+    longitude: number;
+  } | null>(null);
 
   // File upload preview
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,6 +105,10 @@ const CreatePropertyForm = () => {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           }));
+          setUserLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
         },
         () => {}
       );
@@ -205,6 +213,23 @@ const CreatePropertyForm = () => {
                     </div>
                   </Marker>
                 )}
+                {userLocation && (
+                  <Marker
+                    latitude={userLocation.latitude}
+                    longitude={userLocation.longitude}
+                    anchor="bottom">
+                    <div className="flex flex-col items-center space-y-1">
+                      <span className="px-2 py-1 text-xs bg-blue-500 text-white shadow-md rounded-md border font-bold ">
+                        Your location here
+                      </span>
+
+                      <div className="flex items-center justify-center">
+                        <div className="animate-ping absolute inline-flex h-4 w-4 rounded-full bg-blue-400 opacity-50"></div>
+                        <div className="relative inline-flex h-4 w-4 rounded-full bg-blue-500 border-2 border-white"></div>
+                      </div>
+                    </div>
+                  </Marker>
+                )}
               </Map>
             </div>
 
@@ -216,6 +241,7 @@ const CreatePropertyForm = () => {
                   name="latitude"
                   value={form.latitude}
                   onChange={handleChange}
+                  readOnly
                 />
               </div>
               <div>
@@ -224,6 +250,7 @@ const CreatePropertyForm = () => {
                   name="longitude"
                   value={form.longitude}
                   onChange={handleChange}
+                  readOnly
                 />
               </div>
             </div>

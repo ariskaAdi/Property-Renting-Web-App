@@ -24,6 +24,7 @@ class PropertyRouter {
     );
     this.route.get("/all", this.propertyController.getAllProperties);
     this.route.get("/get/:id", this.propertyController.getPropertyById);
+    this.route.get("/nearby", this.propertyController.getPropertyByLocation);
     this.route.get(
       "/tenant",
       verifyToken,

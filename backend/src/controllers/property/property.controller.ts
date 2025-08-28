@@ -4,6 +4,7 @@ import {
   deletePropertyServices,
   getAllPropertiesService,
   getPropertyByIdService,
+  getPropertyByLocationServices,
   updatePropertyServices,
 } from "../../services/property/property.service";
 import { findTenantByUserId } from "../../repositories/tenant/tenant.repository";
@@ -81,6 +82,36 @@ class PropertyController {
           company_name: tenantWithProperties.company_name,
         },
         properties: tenantWithProperties.properties,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async getPropertyByLocation(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const { latitude, longitude, radius } = req.query;
+
+      if (!latitude || !longitude || !radius) {
+        throw new AppError("latitude, longitude, and radius are required", 400);
+      }
+      // default 20 km jika radius tidak diisi
+      const rad = radius ? Number(radius) : 5;
+
+      const lat = Number(latitude);
+      const lng = Number(longitude);
+
+      const properties = await getPropertyByLocationServices(lat, lng, rad);
+      res.status(200).send({
+        message: "Properties found",
+        success: true,
+        radius: rad,
+        user_location: { latitude: lat, longitude: lng },
+        properties,
       });
     } catch (error) {
       next(error);

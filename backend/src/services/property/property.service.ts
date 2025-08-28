@@ -3,6 +3,7 @@ import { handleUpload } from "../../config/cloudinary";
 import AppError from "../../errors/AppError";
 import {
   createPropertyRepository,
+  findNearbyPropertiesRepository,
   findPropertyByIdRepository,
   getAllPropertiesRepository,
   getPropertyByIdRepository,
@@ -73,6 +74,14 @@ export const createPropertyServices = async (
   });
 
   return newProperty;
+};
+
+export const getPropertyByLocationServices = async (
+  lat: number,
+  lng: number,
+  radius: number
+) => {
+  return await findNearbyPropertiesRepository(lat, lng, radius);
 };
 
 export const updatePropertyServices = async (data: any, id: string) => {

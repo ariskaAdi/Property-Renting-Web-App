@@ -24,3 +24,13 @@ export interface ApiProperty {
   property_category: string;
   rooms: Room[];
 }
+
+export interface CreateRoomType {
+  property_id: string;
+  name: string;
+  description: string;
+  base_price: string;
+  capacity: number;
+  total_rooms: number;
+  image: File[];
+}

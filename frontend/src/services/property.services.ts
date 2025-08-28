@@ -42,3 +42,15 @@ export const fetchPropertyByTenant = async (): Promise<PropertyResponse> => {
   console.log(response.data);
   return response.data;
 };
+
+// property.services.ts
+export const fetchPropertyByLocation = async (
+  latitude: number,
+  longitude: number,
+  radius: number
+) => {
+  const response = await axios.get(
+    `${BASE_URL}/property/nearby?latitude=${latitude}&longitude=${longitude}&radius=${radius}`
+  );
+  return response.data;
+};

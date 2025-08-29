@@ -29,8 +29,9 @@ export interface CreateRoomType {
   property_id: string;
   name: string;
   description: string;
-  base_price: string;
+  base_price: number;
   capacity: number;
   total_rooms: number;
   image: File[];
+  weekend_peak?: { type: "percentage" | "nominal"; value: number };
 }

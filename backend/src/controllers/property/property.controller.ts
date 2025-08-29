@@ -94,18 +94,36 @@ class PropertyController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { latitude, longitude, radius } = req.query;
+      const {
+        latitude,
+        longitude,
+        radius,
+        checkIn,
+        checkOut,
+        category,
+        minPrice,
+        maxPrice,
+      } = req.query;
 
       if (!latitude || !longitude || !radius) {
         throw new AppError("latitude, longitude, and radius are required", 400);
       }
-      // default 20 km jika radius tidak diisi
-      const rad = radius ? Number(radius) : 5;
 
+      const rad = radius ? Number(radius) : 5;
       const lat = Number(latitude);
       const lng = Number(longitude);
 
-      const properties = await getPropertyByLocationServices(lat, lng, rad);
+      const properties = await getPropertyByLocationServices(
+        lat,
+        lng,
+        rad,
+        checkIn as string,
+        checkOut as string,
+        category as PropertyCategory,
+        minPrice ? Number(minPrice) : undefined,
+        maxPrice ? Number(maxPrice) : undefined
+      );
+
       res.status(200).send({
         message: "Properties found",
         success: true,

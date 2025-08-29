@@ -1,26 +1,30 @@
 import { handleUpload } from "../../config/cloudinary";
 import AppError from "../../errors/AppError";
 import {
+  createRoomAvailability,
   createRoomRepository,
   deleteRoomByIdRepository,
   findAllRoomsRepository,
   findRoomByIdRepository,
   findRoomRepository,
+  getRoomAvailabilityWithPriceRepository,
   getRoomByPropertyAndNameRepository,
 } from "../../repositories/rooms/rooms.repository";
 import { RoomsType } from "../../types/rooms/rooms.types";
 
 export const createRoomService = async (
   data: RoomsType,
-
-  files: Express.Multer.File[]
+  files: Express.Multer.File[],
+  weekend_peak?: { type: "percentage" | "nominal"; value: number }
 ) => {
   const { property_id, name, description, base_price, capacity, total_rooms } =
     data;
+  // pengecekan room
   const existingRoom = await findRoomRepository(property_id);
   if (!existingRoom) {
     throw new AppError("Room not found", 404);
   }
+  // handle image
   let uploadedImages: string[] = [];
   if (files && files.length > 0) {
     uploadedImages = await Promise.all(
@@ -47,7 +51,18 @@ export const createRoomService = async (
     total_rooms: parsedTotalRoom,
     room_images: uploadedImages.map((url) => ({ image_url: url })),
   });
-  return newRoom;
+
+  await createRoomAvailability(newRoom.id);
+  // jika tenant ingin merubah harga per weekend
+
+  const availabilityWithPrice = await getRoomAvailabilityWithPriceRepository(
+    newRoom.id,
+    weekend_peak
+  );
+  return {
+    ...newRoom,
+    room_availability: availabilityWithPrice,
+  };
 };
 
 export const getRoomsService = async () => {

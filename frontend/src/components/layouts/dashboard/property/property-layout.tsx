@@ -42,7 +42,7 @@ const PropertyLayout = () => {
                 category={property.property_category}
                 icon={Home}
                 roomsCount={property.rooms?.length || 0}
-                mainImage={property.rooms?.[0]?.image}
+                mainImage={property.main_image}
               />
             </Link>
           ))}

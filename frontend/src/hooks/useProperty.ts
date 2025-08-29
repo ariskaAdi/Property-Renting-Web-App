@@ -32,11 +32,37 @@ export const usePropertyByTenant = () => {
 export const usePropertiesByLocation = (
   lat: number,
   lng: number,
-  radius: number
+  radius: number,
+  checkIn?: string,
+  checkOut?: string,
+  category?: string,
+  minPrice?: number,
+  maxPrice?: number
 ) => {
   return useQuery({
-    queryKey: ["properties-by-location", lat, lng, radius],
-    queryFn: () => fetchPropertyByLocation(lat, lng, radius),
+    queryKey: [
+      "properties-by-location",
+      lat,
+      lng,
+      radius,
+      checkIn,
+      checkOut,
+      category,
+      minPrice,
+      maxPrice,
+    ],
+    queryFn: () =>
+      fetchPropertyByLocation(
+        lat,
+        lng,
+        radius,
+        checkIn,
+        checkOut,
+        category,
+        minPrice,
+        maxPrice
+      ),
     enabled: !!lat && !!lng && !!radius,
+    staleTime: 1000 * 60 * 5,
   });
 };

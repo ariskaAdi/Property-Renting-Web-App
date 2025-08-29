@@ -47,10 +47,28 @@ export const fetchPropertyByTenant = async (): Promise<PropertyResponse> => {
 export const fetchPropertyByLocation = async (
   latitude: number,
   longitude: number,
-  radius: number
+  radius: number,
+  checkIn?: string,
+  checkOut?: string,
+  category?: string,
+  minPrice?: number,
+  maxPrice?: number
 ) => {
+  const params = new URLSearchParams({
+    latitude: latitude.toString(),
+    longitude: longitude.toString(),
+    radius: radius.toString(),
+  });
+
+  if (checkIn) params.append("checkIn", checkIn);
+  if (checkOut) params.append("checkOut", checkOut);
+  if (category) params.append("category", category);
+  if (minPrice !== undefined) params.append("minPrice", minPrice.toString());
+  if (maxPrice !== undefined) params.append("maxPrice", maxPrice.toString());
+
   const response = await axios.get(
-    `${BASE_URL}/property/nearby?latitude=${latitude}&longitude=${longitude}&radius=${radius}`
+    `${BASE_URL}/property/nearby?${params.toString()}`
   );
+  console.log(response.data);
   return response.data;
 };

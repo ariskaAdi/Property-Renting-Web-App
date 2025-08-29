@@ -48,9 +48,17 @@ class RoomsController {
     next: NextFunction
   ): Promise<void> {
     try {
+      const weekend_peak = req.body.weekend_peak
+        ? {
+            type: req.body.weekend_peak.type as "percentage" | "nominal",
+            value: Number(req.body.weekend_peak.value),
+          }
+        : undefined;
+
       const response = await createRoomService(
         req.body,
-        req.files as Express.Multer.File[]
+        req.files as Express.Multer.File[],
+        weekend_peak
       );
       res
         .status(200)

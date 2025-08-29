@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Heart, Star, Calendar, Square, Tv, Wind, Table } from "lucide-react";
+import { Heart, Star, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -112,32 +112,41 @@ export default function PropertyDetailPage() {
                 </CardContent>
               </Card>
 
-              {/* Amenities */}
               <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-medium mb-4">Amenities</h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="flex items-center gap-3">
-                      <Wind className="w-5 h-5 text-gray-400" />
-                      <span className="text-sm">AC</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Tv className="w-5 h-5 text-gray-400" />
-                      <span className="text-sm">Apple TV</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Square className="w-5 h-5 text-gray-400" />
-                      <span className="text-sm">Whiteboards (2)</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Table className="w-5 h-5 text-gray-400" />
-                      <span className="text-sm">Multipurpose table</span>
-                    </div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 justify-center items-center">
+                  <div>
+                    <Image
+                      src={data.property.main_image || "/placeholder.svg"}
+                      alt={data.property.name || "Property Image"}
+                      width={600}
+                      height={400}
+                      className="w-full h-[400px] object-cover rounded-lg"
+                    />
                   </div>
-                  <Button variant="link" className="text-blue-600 p-0 mt-4">
-                    Show more
-                  </Button>
-                </CardContent>
+                  <CardContent className="space-y-2">
+                    <h3 className="text-lg font-medium mb-2">
+                      Property Information
+                    </h3>
+                    <div className="text-sm text-gray-700 space-y-1">
+                      <div>
+                        <strong>Name:</strong> {data.property.name}
+                      </div>
+                      <div>
+                        <strong>Address:</strong> {data.property.address}
+                      </div>
+                      <div>
+                        <strong>City:</strong> {data.property.city}
+                      </div>
+                      <div>
+                        <strong>Province:</strong> {data.property.province}
+                      </div>
+                      <div>
+                        <strong>Property Type:</strong>{" "}
+                        {data.property.property_category}
+                      </div>
+                    </div>
+                  </CardContent>
+                </div>
               </Card>
             </div>
           </div>

@@ -29,7 +29,7 @@ export function PropertyGrid({ category }: PropertyGridProps) {
               },
             }}
             className="block">
-            <PropertyCard property={property} />
+            <PropertyCard property={property} room={room} />
           </Link>
         ))
       )}

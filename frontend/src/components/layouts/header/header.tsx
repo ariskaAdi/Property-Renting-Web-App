@@ -2,7 +2,6 @@
 
 import { Search, Bell, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Link from "next/link";
@@ -16,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
+import InputDate from "@/components/fragment/inputDate/inputDate";
 
 export function Header() {
   const { data: user, error, isLoading } = useFetchMe();
@@ -25,28 +25,21 @@ export function Header() {
   return (
     <header className="bg-white border-b border-gray-200 px-4 py-3">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <Link href="/">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-black rounded flex items-center justify-center">
-              <span className="text-white text-sm font-bold">h</span>
-            </div>
-            <span className="text-xl font-semibold">hide</span>
+        {/* Kiri - Logo */}
+        <Link href="/" className="flex items-center space-x-2 flex-shrink-0">
+          <div className="w-8 h-8 bg-black rounded flex items-center justify-center">
+            <span className="text-white text-sm font-bold">h</span>
           </div>
+          <span className="text-xl font-semibold">hide</span>
         </Link>
 
-        {/* Desktop Search Bar */}
-        <div className="hidden md:flex flex-1 max-w-md mx-8">
-          <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <Input
-              placeholder="Search anything..."
-              className="pl-10 bg-gray-50 border-gray-200 w-full"
-            />
-          </div>
+        {/* Tengah - Search Bar */}
+        <div className="flex-1 flex justify-center px-4">
+          <InputDate />
         </div>
 
-        {/* Desktop Actions */}
-        <div className="hidden lg:flex items-center space-x-4">
+        {/* Kanan - Actions */}
+        <div className="hidden lg:flex items-center space-x-4 flex-shrink-0">
           <Button variant="ghost" size="icon">
             <Bell className="w-4 h-4" />
           </Button>
@@ -119,7 +112,7 @@ export function Header() {
         </div>
 
         {/* Mobile Actions */}
-        <div className="flex lg:hidden items-center space-x-2">
+        <div className="flex lg:hidden items-center space-x-2 flex-shrink-0">
           <Button variant="ghost" size="icon">
             <Search className="w-4 h-4" />
           </Button>
@@ -174,17 +167,6 @@ export function Header() {
               </div>
             </SheetContent>
           </Sheet>
-        </div>
-      </div>
-
-      {/* Mobile Search */}
-      <div className="md:hidden mt-3">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-          <Input
-            placeholder="Search anything..."
-            className="pl-10 bg-gray-50 border-gray-200 w-full"
-          />
         </div>
       </div>
     </header>

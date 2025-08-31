@@ -2,6 +2,7 @@ import { MapPin, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { ApiProperty, Room } from "@/types/room/room";
+import { formatCurrency } from "@/lib/utils";
 
 interface PropertyCardProps {
   property: ApiProperty;
@@ -40,7 +41,7 @@ export function PropertyCard({ property, room }: PropertyCardProps) {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <span className="font-bold text-base sm:text-lg">
-                Rp{Number(room.base_price).toLocaleString("id-ID")}
+                {formatCurrency(room.base_price)}
               </span>
               <span className="text-xs sm:text-sm text-gray-600">/malam</span>
             </div>

@@ -85,62 +85,69 @@ const MapPages = ({
   const properties: Property[] = data?.properties ?? [];
 
   return (
-    <div className="flex flex-col lg:flex-row h-screen w-full">
-      <div className="flex-1 relative">
-        <Map
-          {...viewState}
-          onMove={(evt) => setViewState(evt.viewState)}
-          mapStyle="mapbox://styles/ariska-adi/cmetwjjft000501s98r0t28p6"
-          mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-          style={{ width: "100%", height: "100%" }}>
-          {/* Marker user */}
-          {userLocation && (
-            <Marker
-              latitude={userLocation.latitude}
-              longitude={userLocation.longitude}
-              anchor="center">
-              <div className="relative w-4 h-4">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75 animate-ping"></span>
-                <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500"></span>
-              </div>
-            </Marker>
-          )}
+    <div className="flex flex-col lg:flex-row w-full max-w-full overflow-x-hidden">
+      {/* Map Section */}
+      <div className="w-full lg:flex-1 relative p-2">
+        <div className="h-[220px] lg:h-[500px] rounded-xl overflow-hidden shadow">
+          <Map
+            {...viewState}
+            onMove={(evt) => setViewState(evt.viewState)}
+            mapStyle="mapbox://styles/ariska-adi/cmetwjjft000501s98r0t28p6"
+            mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
+            style={{ width: "100%", height: "100%" }}>
+            {/* Marker user */}
+            {userLocation && (
+              <Marker
+                latitude={userLocation.latitude}
+                longitude={userLocation.longitude}
+                anchor="center">
+                <div className="relative w-4 h-4">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75 animate-ping"></span>
+                  <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500"></span>
+                </div>
+              </Marker>
+            )}
 
-          {/* Marker property */}
-          {properties.map((p) => (
-            <Marker
-              key={p.id}
-              latitude={parseFloat(p.latitude)}
-              longitude={parseFloat(p.longitude)}
-              anchor="bottom"
-              onClick={() => setSelectedProperty(p)}>
-              <FaHome className="w-8 h-8 text-blue-600 bg-white rounded-full p-1 shadow-md" />
-            </Marker>
-          ))}
+            {/* Marker property */}
+            {properties.map((p) => (
+              <Marker
+                key={p.id}
+                latitude={parseFloat(p.latitude)}
+                longitude={parseFloat(p.longitude)}
+                anchor="bottom"
+                onClick={() => setSelectedProperty(p)}>
+                <FaHome className="w-7 h-7 text-blue-600 bg-white rounded-full p-1 shadow-md hover:scale-110 transition-transform cursor-pointer" />
+              </Marker>
+            ))}
 
-          {/* Popup ketika klik marker */}
-          {selectedProperty && (
-            <Popup
-              latitude={parseFloat(selectedProperty.latitude)}
-              longitude={parseFloat(selectedProperty.longitude)}
-              anchor="top"
-              closeOnClick={false}
-              onClose={() => setSelectedProperty(null)}>
-              <div className="text-sm">
-                <h4 className="font-bold">{selectedProperty.name}</h4>
-                <p>{selectedProperty.address}</p>
-                <p className="text-xs text-gray-500">
-                  {selectedProperty.distance.toFixed(2)} km away
-                </p>
-              </div>
-            </Popup>
-          )}
-        </Map>
+            {selectedProperty && (
+              <Popup
+                latitude={parseFloat(selectedProperty.latitude)}
+                longitude={parseFloat(selectedProperty.longitude)}
+                anchor="top"
+                closeOnClick={false}
+                onClose={() => setSelectedProperty(null)}
+                className="z-50">
+                <div className="text-sm space-y-1">
+                  <h4 className="font-semibold">{selectedProperty.name}</h4>
+                  <p className="text-gray-600">{selectedProperty.address}</p>
+                  <p className="text-xs text-gray-500">
+                    {selectedProperty.distance.toFixed(2)} km away
+                  </p>
+                </div>
+              </Popup>
+            )}
+          </Map>
+        </div>
       </div>
 
       {/* Sidebar */}
-      <div className="w-full lg:w-96 bg-white border-t lg:border-t-0 lg:border-l h-64 lg:h-full overflow-y-auto">
-        <div className="p-4 space-y-4">{children({ userLocation })}</div>
+      <div
+        className="w-full lg:w-[420px] bg-white border-t lg:border-t-0 lg:border-l 
+               flex flex-col lg:h-[500px] max-w-full">
+        <div className="flex-1 overflow-y-auto p-4">
+          {children({ userLocation })}
+        </div>
       </div>
     </div>
   );

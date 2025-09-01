@@ -9,7 +9,14 @@ export function PropertyPage() {
 
   return (
     <div>
+<<<<<<< HEAD
+      <PropertyTypeNav
+        onSelectCategory={setCategory}
+        activeCategory={category}
+      />
+=======
       <PropertyTypeNav onSelectCategory={setCategory} />
+>>>>>>> main
       <PropertyGrid category={category} />
     </div>
   );

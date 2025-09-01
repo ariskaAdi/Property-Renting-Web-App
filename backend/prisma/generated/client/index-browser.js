@@ -297,6 +297,7 @@ exports.BookingStatus = exports.$Enums.BookingStatus = {
   waiting_confirmation: 'waiting_confirmation',
   confirmed: 'confirmed',
   canceled: 'canceled',
+  canceled_by_tenant: 'canceled_by_tenant',
   expired: 'expired'
 };
 

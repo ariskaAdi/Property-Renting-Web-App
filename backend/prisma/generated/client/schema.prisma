@@ -24,7 +24,7 @@ model users {
   verify_otp_expires_at DateTime?
   bookings              bookings[]
   reviews               reviews[]
-  tenants               tenants[]
+  tenants               tenants?
 }
 
 model tenants {
@@ -195,6 +195,7 @@ enum BookingStatus {
   waiting_confirmation
   confirmed
   canceled
+  canceled_by_tenant
   expired
 }
 

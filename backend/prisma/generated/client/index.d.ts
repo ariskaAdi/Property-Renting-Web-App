@@ -7669,11 +7669,22 @@ export namespace Prisma {
     booking_date_end?: boolean
   }
 
+<<<<<<< HEAD
   export type booked_user_listOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "transaction_id" | "account_id" | "properties_id" | "total_price" | "booking_date_end", ExtArgs["result"]["booked_user_list"]>
   export type booked_user_listInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     account_table?: boolean | account_tableDefaultArgs<ExtArgs>
     properties_table?: boolean | properties_tableDefaultArgs<ExtArgs>
     transaction_table?: boolean | transaction_tableDefaultArgs<ExtArgs>
+=======
+<<<<<<< HEAD
+  export type booking_roomsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "booking_id" | "room_id" | "guests_count" | "price_per_night" | "check_in_date" | "check_out_date" | "nights" | "quantity" | "subtotal" | "created_at" | "updated_at", ExtArgs["result"]["booking_rooms"]>
+=======
+  export type booking_roomsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "booking_id" | "room_id" | "guests_count" | "price_per_night" | "nights" | "subtotal" | "created_at" | "updated_at" | "check_in_date" | "check_out_date" | "quantity", ExtArgs["result"]["booking_rooms"]>
+>>>>>>> main
+  export type booking_roomsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    booking?: boolean | bookingsDefaultArgs<ExtArgs>
+    room?: boolean | roomsDefaultArgs<ExtArgs>
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
   }
   export type booked_user_listIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     account_table?: boolean | account_tableDefaultArgs<ExtArgs>
@@ -8750,6 +8761,7 @@ export namespace Prisma {
    */
 
 
+<<<<<<< HEAD
   export type account_tableWhereInput = {
     AND?: account_tableWhereInput | account_tableWhereInput[]
     OR?: account_tableWhereInput[]
@@ -8765,6 +8777,27 @@ export namespace Prisma {
     properties_table?: Properties_tableListRelationFilter
     user_review?: User_reviewListRelationFilter
     booked_user_list?: Booked_user_listListRelationFilter
+=======
+  export type usersWhereInput = {
+    AND?: usersWhereInput | usersWhereInput[]
+    OR?: usersWhereInput[]
+    NOT?: usersWhereInput | usersWhereInput[]
+    id?: StringFilter<"users"> | string
+    role?: EnumRoleFilter<"users"> | $Enums.Role
+    full_name?: StringFilter<"users"> | string
+    email?: StringFilter<"users"> | string
+    password_hash?: StringFilter<"users"> | string
+    profile_picture?: StringNullableFilter<"users"> | string | null
+    is_verified?: BoolFilter<"users"> | boolean
+    created_at?: DateTimeFilter<"users"> | Date | string
+    updated_at?: DateTimeFilter<"users"> | Date | string
+    reset_password_otp?: StringNullableFilter<"users"> | string | null
+    verify_otp?: StringNullableFilter<"users"> | string | null
+    verify_otp_expires_at?: DateTimeNullableFilter<"users"> | Date | string | null
+    bookings?: BookingsListRelationFilter
+    reviews?: ReviewsListRelationFilter
+    tenants?: XOR<TenantsNullableScalarRelationFilter, tenantsWhereInput> | null
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
   }
 
   export type account_tableOrderByWithRelationInput = {
@@ -8775,16 +8808,27 @@ export namespace Prisma {
     role?: SortOrder
     password?: SortOrder
     created_at?: SortOrder
+<<<<<<< HEAD
     transaction_table?: transaction_tableOrderByRelationAggregateInput
     properties_table?: properties_tableOrderByRelationAggregateInput
     user_review?: user_reviewOrderByRelationAggregateInput
     booked_user_list?: booked_user_listOrderByRelationAggregateInput
+=======
+    updated_at?: SortOrder
+    reset_password_otp?: SortOrderInput | SortOrder
+    verify_otp?: SortOrderInput | SortOrder
+    verify_otp_expires_at?: SortOrderInput | SortOrder
+    bookings?: bookingsOrderByRelationAggregateInput
+    reviews?: reviewsOrderByRelationAggregateInput
+    tenants?: tenantsOrderByWithRelationInput
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
   }
 
   export type account_tableWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     username?: string
     email?: string
+<<<<<<< HEAD
     AND?: account_tableWhereInput | account_tableWhereInput[]
     OR?: account_tableWhereInput[]
     NOT?: account_tableWhereInput | account_tableWhereInput[]
@@ -8797,6 +8841,25 @@ export namespace Prisma {
     user_review?: User_reviewListRelationFilter
     booked_user_list?: Booked_user_listListRelationFilter
   }, "id" | "username" | "email">
+=======
+    AND?: usersWhereInput | usersWhereInput[]
+    OR?: usersWhereInput[]
+    NOT?: usersWhereInput | usersWhereInput[]
+    role?: EnumRoleFilter<"users"> | $Enums.Role
+    full_name?: StringFilter<"users"> | string
+    password_hash?: StringFilter<"users"> | string
+    profile_picture?: StringNullableFilter<"users"> | string | null
+    is_verified?: BoolFilter<"users"> | boolean
+    created_at?: DateTimeFilter<"users"> | Date | string
+    updated_at?: DateTimeFilter<"users"> | Date | string
+    reset_password_otp?: StringNullableFilter<"users"> | string | null
+    verify_otp?: StringNullableFilter<"users"> | string | null
+    verify_otp_expires_at?: DateTimeNullableFilter<"users"> | Date | string | null
+    bookings?: BookingsListRelationFilter
+    reviews?: ReviewsListRelationFilter
+    tenants?: XOR<TenantsNullableScalarRelationFilter, tenantsWhereInput> | null
+  }, "id" | "email">
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
 
   export type account_tableOrderByWithAggregationInput = {
     id?: SortOrder
@@ -9215,10 +9278,20 @@ export namespace Prisma {
     role: $Enums.account_role
     password: string
     created_at?: Date | string
+<<<<<<< HEAD
     transaction_table?: transaction_tableCreateNestedManyWithoutAccount_tableInput
     properties_table?: properties_tableCreateNestedManyWithoutAccount_tableInput
     user_review?: user_reviewCreateNestedManyWithoutAccount_tableInput
     booked_user_list?: booked_user_listCreateNestedManyWithoutAccount_tableInput
+=======
+    updated_at?: Date | string
+    reset_password_otp?: string | null
+    verify_otp?: string | null
+    verify_otp_expires_at?: Date | string | null
+    bookings?: bookingsCreateNestedManyWithoutUserInput
+    reviews?: reviewsCreateNestedManyWithoutUserInput
+    tenants?: tenantsCreateNestedOneWithoutUserInput
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
   }
 
   export type account_tableUncheckedCreateInput = {
@@ -9229,10 +9302,20 @@ export namespace Prisma {
     role: $Enums.account_role
     password: string
     created_at?: Date | string
+<<<<<<< HEAD
     transaction_table?: transaction_tableUncheckedCreateNestedManyWithoutAccount_tableInput
     properties_table?: properties_tableUncheckedCreateNestedManyWithoutAccount_tableInput
     user_review?: user_reviewUncheckedCreateNestedManyWithoutAccount_tableInput
     booked_user_list?: booked_user_listUncheckedCreateNestedManyWithoutAccount_tableInput
+=======
+    updated_at?: Date | string
+    reset_password_otp?: string | null
+    verify_otp?: string | null
+    verify_otp_expires_at?: Date | string | null
+    bookings?: bookingsUncheckedCreateNestedManyWithoutUserInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutUserInput
+    tenants?: tenantsUncheckedCreateNestedOneWithoutUserInput
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
   }
 
   export type account_tableUpdateInput = {
@@ -9242,10 +9325,20 @@ export namespace Prisma {
     role?: Enumaccount_roleFieldUpdateOperationsInput | $Enums.account_role
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     transaction_table?: transaction_tableUpdateManyWithoutAccount_tableNestedInput
     properties_table?: properties_tableUpdateManyWithoutAccount_tableNestedInput
     user_review?: user_reviewUpdateManyWithoutAccount_tableNestedInput
     booked_user_list?: booked_user_listUpdateManyWithoutAccount_tableNestedInput
+=======
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reset_password_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    verify_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    verify_otp_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bookings?: bookingsUpdateManyWithoutUserNestedInput
+    reviews?: reviewsUpdateManyWithoutUserNestedInput
+    tenants?: tenantsUpdateOneWithoutUserNestedInput
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
   }
 
   export type account_tableUncheckedUpdateInput = {
@@ -9256,10 +9349,20 @@ export namespace Prisma {
     role?: Enumaccount_roleFieldUpdateOperationsInput | $Enums.account_role
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     transaction_table?: transaction_tableUncheckedUpdateManyWithoutAccount_tableNestedInput
     properties_table?: properties_tableUncheckedUpdateManyWithoutAccount_tableNestedInput
     user_review?: user_reviewUncheckedUpdateManyWithoutAccount_tableNestedInput
     booked_user_list?: booked_user_listUncheckedUpdateManyWithoutAccount_tableNestedInput
+=======
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reset_password_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    verify_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    verify_otp_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bookings?: bookingsUncheckedUpdateManyWithoutUserNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutUserNestedInput
+    tenants?: tenantsUncheckedUpdateOneWithoutUserNestedInput
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
   }
 
   export type account_tableCreateManyInput = {
@@ -9727,10 +9830,16 @@ export namespace Prisma {
     none?: user_reviewWhereInput
   }
 
+<<<<<<< HEAD
   export type Booked_user_listListRelationFilter = {
     every?: booked_user_listWhereInput
     some?: booked_user_listWhereInput
     none?: booked_user_listWhereInput
+=======
+  export type TenantsNullableScalarRelationFilter = {
+    is?: tenantsWhereInput | null
+    isNot?: tenantsWhereInput | null
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
   }
 
   export type transaction_tableOrderByRelationAggregateInput = {
@@ -9741,12 +9850,28 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+<<<<<<< HEAD
   export type user_reviewOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type booked_user_listOrderByRelationAggregateInput = {
     _count?: SortOrder
+=======
+  export type usersCountOrderByAggregateInput = {
+    id?: SortOrder
+    role?: SortOrder
+    full_name?: SortOrder
+    email?: SortOrder
+    password_hash?: SortOrder
+    profile_picture?: SortOrder
+    is_verified?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    reset_password_otp?: SortOrder
+    verify_otp?: SortOrder
+    verify_otp_expires_at?: SortOrder
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
   }
 
   export type account_tableCountOrderByAggregateInput = {
@@ -10156,11 +10281,85 @@ export namespace Prisma {
     connect?: user_reviewWhereUniqueInput | user_reviewWhereUniqueInput[]
   }
 
+<<<<<<< HEAD
   export type booked_user_listUncheckedCreateNestedManyWithoutAccount_tableInput = {
     create?: XOR<booked_user_listCreateWithoutAccount_tableInput, booked_user_listUncheckedCreateWithoutAccount_tableInput> | booked_user_listCreateWithoutAccount_tableInput[] | booked_user_listUncheckedCreateWithoutAccount_tableInput[]
     connectOrCreate?: booked_user_listCreateOrConnectWithoutAccount_tableInput | booked_user_listCreateOrConnectWithoutAccount_tableInput[]
     createMany?: booked_user_listCreateManyAccount_tableInputEnvelope
     connect?: booked_user_listWhereUniqueInput | booked_user_listWhereUniqueInput[]
+=======
+  export type reviewsCountOrderByAggregateInput = {
+    id?: SortOrder
+    booking_id?: SortOrder
+    user_id?: SortOrder
+    property_id?: SortOrder
+    comment?: SortOrder
+    tenant_reply?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type reviewsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    booking_id?: SortOrder
+    user_id?: SortOrder
+    property_id?: SortOrder
+    comment?: SortOrder
+    tenant_reply?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type reviewsMinOrderByAggregateInput = {
+    id?: SortOrder
+    booking_id?: SortOrder
+    user_id?: SortOrder
+    property_id?: SortOrder
+    comment?: SortOrder
+    tenant_reply?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type bookingsCreateNestedManyWithoutUserInput = {
+    create?: XOR<bookingsCreateWithoutUserInput, bookingsUncheckedCreateWithoutUserInput> | bookingsCreateWithoutUserInput[] | bookingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: bookingsCreateOrConnectWithoutUserInput | bookingsCreateOrConnectWithoutUserInput[]
+    createMany?: bookingsCreateManyUserInputEnvelope
+    connect?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
+  }
+
+  export type reviewsCreateNestedManyWithoutUserInput = {
+    create?: XOR<reviewsCreateWithoutUserInput, reviewsUncheckedCreateWithoutUserInput> | reviewsCreateWithoutUserInput[] | reviewsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: reviewsCreateOrConnectWithoutUserInput | reviewsCreateOrConnectWithoutUserInput[]
+    createMany?: reviewsCreateManyUserInputEnvelope
+    connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+  }
+
+  export type tenantsCreateNestedOneWithoutUserInput = {
+    create?: XOR<tenantsCreateWithoutUserInput, tenantsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: tenantsCreateOrConnectWithoutUserInput
+    connect?: tenantsWhereUniqueInput
+  }
+
+  export type bookingsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<bookingsCreateWithoutUserInput, bookingsUncheckedCreateWithoutUserInput> | bookingsCreateWithoutUserInput[] | bookingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: bookingsCreateOrConnectWithoutUserInput | bookingsCreateOrConnectWithoutUserInput[]
+    createMany?: bookingsCreateManyUserInputEnvelope
+    connect?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
+  }
+
+  export type reviewsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<reviewsCreateWithoutUserInput, reviewsUncheckedCreateWithoutUserInput> | reviewsCreateWithoutUserInput[] | reviewsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: reviewsCreateOrConnectWithoutUserInput | reviewsCreateOrConnectWithoutUserInput[]
+    createMany?: reviewsCreateManyUserInputEnvelope
+    connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+  }
+
+  export type tenantsUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<tenantsCreateWithoutUserInput, tenantsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: tenantsCreateOrConnectWithoutUserInput
+    connect?: tenantsWhereUniqueInput
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -10217,6 +10416,7 @@ export namespace Prisma {
     deleteMany?: user_reviewScalarWhereInput | user_reviewScalarWhereInput[]
   }
 
+<<<<<<< HEAD
   export type booked_user_listUpdateManyWithoutAccount_tableNestedInput = {
     create?: XOR<booked_user_listCreateWithoutAccount_tableInput, booked_user_listUncheckedCreateWithoutAccount_tableInput> | booked_user_listCreateWithoutAccount_tableInput[] | booked_user_listUncheckedCreateWithoutAccount_tableInput[]
     connectOrCreate?: booked_user_listCreateOrConnectWithoutAccount_tableInput | booked_user_listCreateOrConnectWithoutAccount_tableInput[]
@@ -10229,6 +10429,422 @@ export namespace Prisma {
     update?: booked_user_listUpdateWithWhereUniqueWithoutAccount_tableInput | booked_user_listUpdateWithWhereUniqueWithoutAccount_tableInput[]
     updateMany?: booked_user_listUpdateManyWithWhereWithoutAccount_tableInput | booked_user_listUpdateManyWithWhereWithoutAccount_tableInput[]
     deleteMany?: booked_user_listScalarWhereInput | booked_user_listScalarWhereInput[]
+=======
+  export type tenantsUpdateOneWithoutUserNestedInput = {
+    create?: XOR<tenantsCreateWithoutUserInput, tenantsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: tenantsCreateOrConnectWithoutUserInput
+    upsert?: tenantsUpsertWithoutUserInput
+    disconnect?: tenantsWhereInput | boolean
+    delete?: tenantsWhereInput | boolean
+    connect?: tenantsWhereUniqueInput
+    update?: XOR<XOR<tenantsUpdateToOneWithWhereWithoutUserInput, tenantsUpdateWithoutUserInput>, tenantsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type bookingsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<bookingsCreateWithoutUserInput, bookingsUncheckedCreateWithoutUserInput> | bookingsCreateWithoutUserInput[] | bookingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: bookingsCreateOrConnectWithoutUserInput | bookingsCreateOrConnectWithoutUserInput[]
+    upsert?: bookingsUpsertWithWhereUniqueWithoutUserInput | bookingsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: bookingsCreateManyUserInputEnvelope
+    set?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
+    disconnect?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
+    delete?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
+    connect?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
+    update?: bookingsUpdateWithWhereUniqueWithoutUserInput | bookingsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: bookingsUpdateManyWithWhereWithoutUserInput | bookingsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: bookingsScalarWhereInput | bookingsScalarWhereInput[]
+  }
+
+  export type reviewsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<reviewsCreateWithoutUserInput, reviewsUncheckedCreateWithoutUserInput> | reviewsCreateWithoutUserInput[] | reviewsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: reviewsCreateOrConnectWithoutUserInput | reviewsCreateOrConnectWithoutUserInput[]
+    upsert?: reviewsUpsertWithWhereUniqueWithoutUserInput | reviewsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: reviewsCreateManyUserInputEnvelope
+    set?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    disconnect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    delete?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    update?: reviewsUpdateWithWhereUniqueWithoutUserInput | reviewsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: reviewsUpdateManyWithWhereWithoutUserInput | reviewsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: reviewsScalarWhereInput | reviewsScalarWhereInput[]
+  }
+
+  export type tenantsUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<tenantsCreateWithoutUserInput, tenantsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: tenantsCreateOrConnectWithoutUserInput
+    upsert?: tenantsUpsertWithoutUserInput
+    disconnect?: tenantsWhereInput | boolean
+    delete?: tenantsWhereInput | boolean
+    connect?: tenantsWhereUniqueInput
+    update?: XOR<XOR<tenantsUpdateToOneWithWhereWithoutUserInput, tenantsUpdateWithoutUserInput>, tenantsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type propertiesCreateNestedManyWithoutTenantInput = {
+    create?: XOR<propertiesCreateWithoutTenantInput, propertiesUncheckedCreateWithoutTenantInput> | propertiesCreateWithoutTenantInput[] | propertiesUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: propertiesCreateOrConnectWithoutTenantInput | propertiesCreateOrConnectWithoutTenantInput[]
+    createMany?: propertiesCreateManyTenantInputEnvelope
+    connect?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
+  }
+
+  export type usersCreateNestedOneWithoutTenantsInput = {
+    create?: XOR<usersCreateWithoutTenantsInput, usersUncheckedCreateWithoutTenantsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutTenantsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type propertiesUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<propertiesCreateWithoutTenantInput, propertiesUncheckedCreateWithoutTenantInput> | propertiesCreateWithoutTenantInput[] | propertiesUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: propertiesCreateOrConnectWithoutTenantInput | propertiesCreateOrConnectWithoutTenantInput[]
+    createMany?: propertiesCreateManyTenantInputEnvelope
+    connect?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
+  }
+
+  export type propertiesUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<propertiesCreateWithoutTenantInput, propertiesUncheckedCreateWithoutTenantInput> | propertiesCreateWithoutTenantInput[] | propertiesUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: propertiesCreateOrConnectWithoutTenantInput | propertiesCreateOrConnectWithoutTenantInput[]
+    upsert?: propertiesUpsertWithWhereUniqueWithoutTenantInput | propertiesUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: propertiesCreateManyTenantInputEnvelope
+    set?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
+    disconnect?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
+    delete?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
+    connect?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
+    update?: propertiesUpdateWithWhereUniqueWithoutTenantInput | propertiesUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: propertiesUpdateManyWithWhereWithoutTenantInput | propertiesUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: propertiesScalarWhereInput | propertiesScalarWhereInput[]
+  }
+
+  export type usersUpdateOneRequiredWithoutTenantsNestedInput = {
+    create?: XOR<usersCreateWithoutTenantsInput, usersUncheckedCreateWithoutTenantsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutTenantsInput
+    upsert?: usersUpsertWithoutTenantsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutTenantsInput, usersUpdateWithoutTenantsInput>, usersUncheckedUpdateWithoutTenantsInput>
+  }
+
+  export type propertiesUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<propertiesCreateWithoutTenantInput, propertiesUncheckedCreateWithoutTenantInput> | propertiesCreateWithoutTenantInput[] | propertiesUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: propertiesCreateOrConnectWithoutTenantInput | propertiesCreateOrConnectWithoutTenantInput[]
+    upsert?: propertiesUpsertWithWhereUniqueWithoutTenantInput | propertiesUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: propertiesCreateManyTenantInputEnvelope
+    set?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
+    disconnect?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
+    delete?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
+    connect?: propertiesWhereUniqueInput | propertiesWhereUniqueInput[]
+    update?: propertiesUpdateWithWhereUniqueWithoutTenantInput | propertiesUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: propertiesUpdateManyWithWhereWithoutTenantInput | propertiesUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: propertiesScalarWhereInput | propertiesScalarWhereInput[]
+  }
+
+  export type bookingsCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<bookingsCreateWithoutPropertyInput, bookingsUncheckedCreateWithoutPropertyInput> | bookingsCreateWithoutPropertyInput[] | bookingsUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: bookingsCreateOrConnectWithoutPropertyInput | bookingsCreateOrConnectWithoutPropertyInput[]
+    createMany?: bookingsCreateManyPropertyInputEnvelope
+    connect?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
+  }
+
+  export type peak_season_ratesCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<peak_season_ratesCreateWithoutPropertyInput, peak_season_ratesUncheckedCreateWithoutPropertyInput> | peak_season_ratesCreateWithoutPropertyInput[] | peak_season_ratesUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: peak_season_ratesCreateOrConnectWithoutPropertyInput | peak_season_ratesCreateOrConnectWithoutPropertyInput[]
+    createMany?: peak_season_ratesCreateManyPropertyInputEnvelope
+    connect?: peak_season_ratesWhereUniqueInput | peak_season_ratesWhereUniqueInput[]
+  }
+
+  export type tenantsCreateNestedOneWithoutPropertiesInput = {
+    create?: XOR<tenantsCreateWithoutPropertiesInput, tenantsUncheckedCreateWithoutPropertiesInput>
+    connectOrCreate?: tenantsCreateOrConnectWithoutPropertiesInput
+    connect?: tenantsWhereUniqueInput
+  }
+
+  export type property_imagesCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<property_imagesCreateWithoutPropertyInput, property_imagesUncheckedCreateWithoutPropertyInput> | property_imagesCreateWithoutPropertyInput[] | property_imagesUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: property_imagesCreateOrConnectWithoutPropertyInput | property_imagesCreateOrConnectWithoutPropertyInput[]
+    createMany?: property_imagesCreateManyPropertyInputEnvelope
+    connect?: property_imagesWhereUniqueInput | property_imagesWhereUniqueInput[]
+  }
+
+  export type reviewsCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<reviewsCreateWithoutPropertyInput, reviewsUncheckedCreateWithoutPropertyInput> | reviewsCreateWithoutPropertyInput[] | reviewsUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: reviewsCreateOrConnectWithoutPropertyInput | reviewsCreateOrConnectWithoutPropertyInput[]
+    createMany?: reviewsCreateManyPropertyInputEnvelope
+    connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+  }
+
+  export type roomsCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<roomsCreateWithoutPropertyInput, roomsUncheckedCreateWithoutPropertyInput> | roomsCreateWithoutPropertyInput[] | roomsUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: roomsCreateOrConnectWithoutPropertyInput | roomsCreateOrConnectWithoutPropertyInput[]
+    createMany?: roomsCreateManyPropertyInputEnvelope
+    connect?: roomsWhereUniqueInput | roomsWhereUniqueInput[]
+  }
+
+  export type bookingsUncheckedCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<bookingsCreateWithoutPropertyInput, bookingsUncheckedCreateWithoutPropertyInput> | bookingsCreateWithoutPropertyInput[] | bookingsUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: bookingsCreateOrConnectWithoutPropertyInput | bookingsCreateOrConnectWithoutPropertyInput[]
+    createMany?: bookingsCreateManyPropertyInputEnvelope
+    connect?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
+  }
+
+  export type peak_season_ratesUncheckedCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<peak_season_ratesCreateWithoutPropertyInput, peak_season_ratesUncheckedCreateWithoutPropertyInput> | peak_season_ratesCreateWithoutPropertyInput[] | peak_season_ratesUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: peak_season_ratesCreateOrConnectWithoutPropertyInput | peak_season_ratesCreateOrConnectWithoutPropertyInput[]
+    createMany?: peak_season_ratesCreateManyPropertyInputEnvelope
+    connect?: peak_season_ratesWhereUniqueInput | peak_season_ratesWhereUniqueInput[]
+  }
+
+  export type property_imagesUncheckedCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<property_imagesCreateWithoutPropertyInput, property_imagesUncheckedCreateWithoutPropertyInput> | property_imagesCreateWithoutPropertyInput[] | property_imagesUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: property_imagesCreateOrConnectWithoutPropertyInput | property_imagesCreateOrConnectWithoutPropertyInput[]
+    createMany?: property_imagesCreateManyPropertyInputEnvelope
+    connect?: property_imagesWhereUniqueInput | property_imagesWhereUniqueInput[]
+  }
+
+  export type reviewsUncheckedCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<reviewsCreateWithoutPropertyInput, reviewsUncheckedCreateWithoutPropertyInput> | reviewsCreateWithoutPropertyInput[] | reviewsUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: reviewsCreateOrConnectWithoutPropertyInput | reviewsCreateOrConnectWithoutPropertyInput[]
+    createMany?: reviewsCreateManyPropertyInputEnvelope
+    connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+  }
+
+  export type roomsUncheckedCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<roomsCreateWithoutPropertyInput, roomsUncheckedCreateWithoutPropertyInput> | roomsCreateWithoutPropertyInput[] | roomsUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: roomsCreateOrConnectWithoutPropertyInput | roomsCreateOrConnectWithoutPropertyInput[]
+    createMany?: roomsCreateManyPropertyInputEnvelope
+    connect?: roomsWhereUniqueInput | roomsWhereUniqueInput[]
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type EnumPropertyCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.PropertyCategory
+  }
+
+  export type bookingsUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<bookingsCreateWithoutPropertyInput, bookingsUncheckedCreateWithoutPropertyInput> | bookingsCreateWithoutPropertyInput[] | bookingsUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: bookingsCreateOrConnectWithoutPropertyInput | bookingsCreateOrConnectWithoutPropertyInput[]
+    upsert?: bookingsUpsertWithWhereUniqueWithoutPropertyInput | bookingsUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: bookingsCreateManyPropertyInputEnvelope
+    set?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
+    disconnect?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
+    delete?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
+    connect?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
+    update?: bookingsUpdateWithWhereUniqueWithoutPropertyInput | bookingsUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: bookingsUpdateManyWithWhereWithoutPropertyInput | bookingsUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: bookingsScalarWhereInput | bookingsScalarWhereInput[]
+  }
+
+  export type peak_season_ratesUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<peak_season_ratesCreateWithoutPropertyInput, peak_season_ratesUncheckedCreateWithoutPropertyInput> | peak_season_ratesCreateWithoutPropertyInput[] | peak_season_ratesUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: peak_season_ratesCreateOrConnectWithoutPropertyInput | peak_season_ratesCreateOrConnectWithoutPropertyInput[]
+    upsert?: peak_season_ratesUpsertWithWhereUniqueWithoutPropertyInput | peak_season_ratesUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: peak_season_ratesCreateManyPropertyInputEnvelope
+    set?: peak_season_ratesWhereUniqueInput | peak_season_ratesWhereUniqueInput[]
+    disconnect?: peak_season_ratesWhereUniqueInput | peak_season_ratesWhereUniqueInput[]
+    delete?: peak_season_ratesWhereUniqueInput | peak_season_ratesWhereUniqueInput[]
+    connect?: peak_season_ratesWhereUniqueInput | peak_season_ratesWhereUniqueInput[]
+    update?: peak_season_ratesUpdateWithWhereUniqueWithoutPropertyInput | peak_season_ratesUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: peak_season_ratesUpdateManyWithWhereWithoutPropertyInput | peak_season_ratesUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: peak_season_ratesScalarWhereInput | peak_season_ratesScalarWhereInput[]
+  }
+
+  export type tenantsUpdateOneRequiredWithoutPropertiesNestedInput = {
+    create?: XOR<tenantsCreateWithoutPropertiesInput, tenantsUncheckedCreateWithoutPropertiesInput>
+    connectOrCreate?: tenantsCreateOrConnectWithoutPropertiesInput
+    upsert?: tenantsUpsertWithoutPropertiesInput
+    connect?: tenantsWhereUniqueInput
+    update?: XOR<XOR<tenantsUpdateToOneWithWhereWithoutPropertiesInput, tenantsUpdateWithoutPropertiesInput>, tenantsUncheckedUpdateWithoutPropertiesInput>
+  }
+
+  export type property_imagesUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<property_imagesCreateWithoutPropertyInput, property_imagesUncheckedCreateWithoutPropertyInput> | property_imagesCreateWithoutPropertyInput[] | property_imagesUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: property_imagesCreateOrConnectWithoutPropertyInput | property_imagesCreateOrConnectWithoutPropertyInput[]
+    upsert?: property_imagesUpsertWithWhereUniqueWithoutPropertyInput | property_imagesUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: property_imagesCreateManyPropertyInputEnvelope
+    set?: property_imagesWhereUniqueInput | property_imagesWhereUniqueInput[]
+    disconnect?: property_imagesWhereUniqueInput | property_imagesWhereUniqueInput[]
+    delete?: property_imagesWhereUniqueInput | property_imagesWhereUniqueInput[]
+    connect?: property_imagesWhereUniqueInput | property_imagesWhereUniqueInput[]
+    update?: property_imagesUpdateWithWhereUniqueWithoutPropertyInput | property_imagesUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: property_imagesUpdateManyWithWhereWithoutPropertyInput | property_imagesUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: property_imagesScalarWhereInput | property_imagesScalarWhereInput[]
+  }
+
+  export type reviewsUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<reviewsCreateWithoutPropertyInput, reviewsUncheckedCreateWithoutPropertyInput> | reviewsCreateWithoutPropertyInput[] | reviewsUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: reviewsCreateOrConnectWithoutPropertyInput | reviewsCreateOrConnectWithoutPropertyInput[]
+    upsert?: reviewsUpsertWithWhereUniqueWithoutPropertyInput | reviewsUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: reviewsCreateManyPropertyInputEnvelope
+    set?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    disconnect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    delete?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    update?: reviewsUpdateWithWhereUniqueWithoutPropertyInput | reviewsUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: reviewsUpdateManyWithWhereWithoutPropertyInput | reviewsUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: reviewsScalarWhereInput | reviewsScalarWhereInput[]
+  }
+
+  export type roomsUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<roomsCreateWithoutPropertyInput, roomsUncheckedCreateWithoutPropertyInput> | roomsCreateWithoutPropertyInput[] | roomsUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: roomsCreateOrConnectWithoutPropertyInput | roomsCreateOrConnectWithoutPropertyInput[]
+    upsert?: roomsUpsertWithWhereUniqueWithoutPropertyInput | roomsUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: roomsCreateManyPropertyInputEnvelope
+    set?: roomsWhereUniqueInput | roomsWhereUniqueInput[]
+    disconnect?: roomsWhereUniqueInput | roomsWhereUniqueInput[]
+    delete?: roomsWhereUniqueInput | roomsWhereUniqueInput[]
+    connect?: roomsWhereUniqueInput | roomsWhereUniqueInput[]
+    update?: roomsUpdateWithWhereUniqueWithoutPropertyInput | roomsUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: roomsUpdateManyWithWhereWithoutPropertyInput | roomsUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: roomsScalarWhereInput | roomsScalarWhereInput[]
+  }
+
+  export type bookingsUncheckedUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<bookingsCreateWithoutPropertyInput, bookingsUncheckedCreateWithoutPropertyInput> | bookingsCreateWithoutPropertyInput[] | bookingsUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: bookingsCreateOrConnectWithoutPropertyInput | bookingsCreateOrConnectWithoutPropertyInput[]
+    upsert?: bookingsUpsertWithWhereUniqueWithoutPropertyInput | bookingsUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: bookingsCreateManyPropertyInputEnvelope
+    set?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
+    disconnect?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
+    delete?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
+    connect?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
+    update?: bookingsUpdateWithWhereUniqueWithoutPropertyInput | bookingsUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: bookingsUpdateManyWithWhereWithoutPropertyInput | bookingsUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: bookingsScalarWhereInput | bookingsScalarWhereInput[]
+  }
+
+  export type peak_season_ratesUncheckedUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<peak_season_ratesCreateWithoutPropertyInput, peak_season_ratesUncheckedCreateWithoutPropertyInput> | peak_season_ratesCreateWithoutPropertyInput[] | peak_season_ratesUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: peak_season_ratesCreateOrConnectWithoutPropertyInput | peak_season_ratesCreateOrConnectWithoutPropertyInput[]
+    upsert?: peak_season_ratesUpsertWithWhereUniqueWithoutPropertyInput | peak_season_ratesUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: peak_season_ratesCreateManyPropertyInputEnvelope
+    set?: peak_season_ratesWhereUniqueInput | peak_season_ratesWhereUniqueInput[]
+    disconnect?: peak_season_ratesWhereUniqueInput | peak_season_ratesWhereUniqueInput[]
+    delete?: peak_season_ratesWhereUniqueInput | peak_season_ratesWhereUniqueInput[]
+    connect?: peak_season_ratesWhereUniqueInput | peak_season_ratesWhereUniqueInput[]
+    update?: peak_season_ratesUpdateWithWhereUniqueWithoutPropertyInput | peak_season_ratesUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: peak_season_ratesUpdateManyWithWhereWithoutPropertyInput | peak_season_ratesUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: peak_season_ratesScalarWhereInput | peak_season_ratesScalarWhereInput[]
+  }
+
+  export type property_imagesUncheckedUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<property_imagesCreateWithoutPropertyInput, property_imagesUncheckedCreateWithoutPropertyInput> | property_imagesCreateWithoutPropertyInput[] | property_imagesUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: property_imagesCreateOrConnectWithoutPropertyInput | property_imagesCreateOrConnectWithoutPropertyInput[]
+    upsert?: property_imagesUpsertWithWhereUniqueWithoutPropertyInput | property_imagesUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: property_imagesCreateManyPropertyInputEnvelope
+    set?: property_imagesWhereUniqueInput | property_imagesWhereUniqueInput[]
+    disconnect?: property_imagesWhereUniqueInput | property_imagesWhereUniqueInput[]
+    delete?: property_imagesWhereUniqueInput | property_imagesWhereUniqueInput[]
+    connect?: property_imagesWhereUniqueInput | property_imagesWhereUniqueInput[]
+    update?: property_imagesUpdateWithWhereUniqueWithoutPropertyInput | property_imagesUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: property_imagesUpdateManyWithWhereWithoutPropertyInput | property_imagesUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: property_imagesScalarWhereInput | property_imagesScalarWhereInput[]
+  }
+
+  export type reviewsUncheckedUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<reviewsCreateWithoutPropertyInput, reviewsUncheckedCreateWithoutPropertyInput> | reviewsCreateWithoutPropertyInput[] | reviewsUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: reviewsCreateOrConnectWithoutPropertyInput | reviewsCreateOrConnectWithoutPropertyInput[]
+    upsert?: reviewsUpsertWithWhereUniqueWithoutPropertyInput | reviewsUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: reviewsCreateManyPropertyInputEnvelope
+    set?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    disconnect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    delete?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    update?: reviewsUpdateWithWhereUniqueWithoutPropertyInput | reviewsUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: reviewsUpdateManyWithWhereWithoutPropertyInput | reviewsUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: reviewsScalarWhereInput | reviewsScalarWhereInput[]
+  }
+
+  export type roomsUncheckedUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<roomsCreateWithoutPropertyInput, roomsUncheckedCreateWithoutPropertyInput> | roomsCreateWithoutPropertyInput[] | roomsUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: roomsCreateOrConnectWithoutPropertyInput | roomsCreateOrConnectWithoutPropertyInput[]
+    upsert?: roomsUpsertWithWhereUniqueWithoutPropertyInput | roomsUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: roomsCreateManyPropertyInputEnvelope
+    set?: roomsWhereUniqueInput | roomsWhereUniqueInput[]
+    disconnect?: roomsWhereUniqueInput | roomsWhereUniqueInput[]
+    delete?: roomsWhereUniqueInput | roomsWhereUniqueInput[]
+    connect?: roomsWhereUniqueInput | roomsWhereUniqueInput[]
+    update?: roomsUpdateWithWhereUniqueWithoutPropertyInput | roomsUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: roomsUpdateManyWithWhereWithoutPropertyInput | roomsUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: roomsScalarWhereInput | roomsScalarWhereInput[]
+  }
+
+  export type propertiesCreateNestedOneWithoutProperty_imagesInput = {
+    create?: XOR<propertiesCreateWithoutProperty_imagesInput, propertiesUncheckedCreateWithoutProperty_imagesInput>
+    connectOrCreate?: propertiesCreateOrConnectWithoutProperty_imagesInput
+    connect?: propertiesWhereUniqueInput
+  }
+
+  export type propertiesUpdateOneRequiredWithoutProperty_imagesNestedInput = {
+    create?: XOR<propertiesCreateWithoutProperty_imagesInput, propertiesUncheckedCreateWithoutProperty_imagesInput>
+    connectOrCreate?: propertiesCreateOrConnectWithoutProperty_imagesInput
+    upsert?: propertiesUpsertWithoutProperty_imagesInput
+    connect?: propertiesWhereUniqueInput
+    update?: XOR<XOR<propertiesUpdateToOneWithWhereWithoutProperty_imagesInput, propertiesUpdateWithoutProperty_imagesInput>, propertiesUncheckedUpdateWithoutProperty_imagesInput>
+  }
+
+  export type booking_roomsCreateNestedManyWithoutRoomInput = {
+    create?: XOR<booking_roomsCreateWithoutRoomInput, booking_roomsUncheckedCreateWithoutRoomInput> | booking_roomsCreateWithoutRoomInput[] | booking_roomsUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: booking_roomsCreateOrConnectWithoutRoomInput | booking_roomsCreateOrConnectWithoutRoomInput[]
+    createMany?: booking_roomsCreateManyRoomInputEnvelope
+    connect?: booking_roomsWhereUniqueInput | booking_roomsWhereUniqueInput[]
+  }
+
+  export type peak_season_ratesCreateNestedManyWithoutRoomInput = {
+    create?: XOR<peak_season_ratesCreateWithoutRoomInput, peak_season_ratesUncheckedCreateWithoutRoomInput> | peak_season_ratesCreateWithoutRoomInput[] | peak_season_ratesUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: peak_season_ratesCreateOrConnectWithoutRoomInput | peak_season_ratesCreateOrConnectWithoutRoomInput[]
+    createMany?: peak_season_ratesCreateManyRoomInputEnvelope
+    connect?: peak_season_ratesWhereUniqueInput | peak_season_ratesWhereUniqueInput[]
+  }
+
+  export type room_availabilityCreateNestedManyWithoutRoomInput = {
+    create?: XOR<room_availabilityCreateWithoutRoomInput, room_availabilityUncheckedCreateWithoutRoomInput> | room_availabilityCreateWithoutRoomInput[] | room_availabilityUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: room_availabilityCreateOrConnectWithoutRoomInput | room_availabilityCreateOrConnectWithoutRoomInput[]
+    createMany?: room_availabilityCreateManyRoomInputEnvelope
+    connect?: room_availabilityWhereUniqueInput | room_availabilityWhereUniqueInput[]
+  }
+
+  export type room_imagesCreateNestedManyWithoutRoomInput = {
+    create?: XOR<room_imagesCreateWithoutRoomInput, room_imagesUncheckedCreateWithoutRoomInput> | room_imagesCreateWithoutRoomInput[] | room_imagesUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: room_imagesCreateOrConnectWithoutRoomInput | room_imagesCreateOrConnectWithoutRoomInput[]
+    createMany?: room_imagesCreateManyRoomInputEnvelope
+    connect?: room_imagesWhereUniqueInput | room_imagesWhereUniqueInput[]
+  }
+
+  export type propertiesCreateNestedOneWithoutRoomsInput = {
+    create?: XOR<propertiesCreateWithoutRoomsInput, propertiesUncheckedCreateWithoutRoomsInput>
+    connectOrCreate?: propertiesCreateOrConnectWithoutRoomsInput
+    connect?: propertiesWhereUniqueInput
+  }
+
+  export type booking_roomsUncheckedCreateNestedManyWithoutRoomInput = {
+    create?: XOR<booking_roomsCreateWithoutRoomInput, booking_roomsUncheckedCreateWithoutRoomInput> | booking_roomsCreateWithoutRoomInput[] | booking_roomsUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: booking_roomsCreateOrConnectWithoutRoomInput | booking_roomsCreateOrConnectWithoutRoomInput[]
+    createMany?: booking_roomsCreateManyRoomInputEnvelope
+    connect?: booking_roomsWhereUniqueInput | booking_roomsWhereUniqueInput[]
+  }
+
+  export type peak_season_ratesUncheckedCreateNestedManyWithoutRoomInput = {
+    create?: XOR<peak_season_ratesCreateWithoutRoomInput, peak_season_ratesUncheckedCreateWithoutRoomInput> | peak_season_ratesCreateWithoutRoomInput[] | peak_season_ratesUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: peak_season_ratesCreateOrConnectWithoutRoomInput | peak_season_ratesCreateOrConnectWithoutRoomInput[]
+    createMany?: peak_season_ratesCreateManyRoomInputEnvelope
+    connect?: peak_season_ratesWhereUniqueInput | peak_season_ratesWhereUniqueInput[]
+  }
+
+  export type room_availabilityUncheckedCreateNestedManyWithoutRoomInput = {
+    create?: XOR<room_availabilityCreateWithoutRoomInput, room_availabilityUncheckedCreateWithoutRoomInput> | room_availabilityCreateWithoutRoomInput[] | room_availabilityUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: room_availabilityCreateOrConnectWithoutRoomInput | room_availabilityCreateOrConnectWithoutRoomInput[]
+    createMany?: room_availabilityCreateManyRoomInputEnvelope
+    connect?: room_availabilityWhereUniqueInput | room_availabilityWhereUniqueInput[]
+  }
+
+  export type room_imagesUncheckedCreateNestedManyWithoutRoomInput = {
+    create?: XOR<room_imagesCreateWithoutRoomInput, room_imagesUncheckedCreateWithoutRoomInput> | room_imagesCreateWithoutRoomInput[] | room_imagesUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: room_imagesCreateOrConnectWithoutRoomInput | room_imagesCreateOrConnectWithoutRoomInput[]
+    createMany?: room_imagesCreateManyRoomInputEnvelope
+    connect?: room_imagesWhereUniqueInput | room_imagesWhereUniqueInput[]
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -10796,8 +11412,168 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+<<<<<<< HEAD
   export type properties_tableCreateWithoutAccount_tableInput = {
     room_id: number
+=======
+  export type reviewsCreateWithoutUserInput = {
+    id?: string
+    comment?: string | null
+    tenant_reply?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    booking: bookingsCreateNestedOneWithoutReviewsInput
+    property: propertiesCreateNestedOneWithoutReviewsInput
+  }
+
+  export type reviewsUncheckedCreateWithoutUserInput = {
+    id?: string
+    booking_id: string
+    property_id: string
+    comment?: string | null
+    tenant_reply?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type reviewsCreateOrConnectWithoutUserInput = {
+    where: reviewsWhereUniqueInput
+    create: XOR<reviewsCreateWithoutUserInput, reviewsUncheckedCreateWithoutUserInput>
+  }
+
+  export type reviewsCreateManyUserInputEnvelope = {
+    data: reviewsCreateManyUserInput | reviewsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type tenantsCreateWithoutUserInput = {
+    id?: string
+    company_name: string
+    address: string
+    phone_number: string
+    logo?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    properties?: propertiesCreateNestedManyWithoutTenantInput
+  }
+
+  export type tenantsUncheckedCreateWithoutUserInput = {
+    id?: string
+    company_name: string
+    address: string
+    phone_number: string
+    logo?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    properties?: propertiesUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type tenantsCreateOrConnectWithoutUserInput = {
+    where: tenantsWhereUniqueInput
+    create: XOR<tenantsCreateWithoutUserInput, tenantsUncheckedCreateWithoutUserInput>
+  }
+
+  export type bookingsUpsertWithWhereUniqueWithoutUserInput = {
+    where: bookingsWhereUniqueInput
+    update: XOR<bookingsUpdateWithoutUserInput, bookingsUncheckedUpdateWithoutUserInput>
+    create: XOR<bookingsCreateWithoutUserInput, bookingsUncheckedCreateWithoutUserInput>
+  }
+
+  export type bookingsUpdateWithWhereUniqueWithoutUserInput = {
+    where: bookingsWhereUniqueInput
+    data: XOR<bookingsUpdateWithoutUserInput, bookingsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type bookingsUpdateManyWithWhereWithoutUserInput = {
+    where: bookingsScalarWhereInput
+    data: XOR<bookingsUpdateManyMutationInput, bookingsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type bookingsScalarWhereInput = {
+    AND?: bookingsScalarWhereInput | bookingsScalarWhereInput[]
+    OR?: bookingsScalarWhereInput[]
+    NOT?: bookingsScalarWhereInput | bookingsScalarWhereInput[]
+    id?: StringFilter<"bookings"> | string
+    user_id?: StringFilter<"bookings"> | string
+    property_id?: StringFilter<"bookings"> | string
+    status?: EnumBookingStatusFilter<"bookings"> | $Enums.BookingStatus
+    check_in_date?: DateTimeFilter<"bookings"> | Date | string
+    check_out_date?: DateTimeFilter<"bookings"> | Date | string
+    total_price?: DecimalFilter<"bookings"> | Decimal | DecimalJsLike | number | string
+    payment_deadline?: DateTimeFilter<"bookings"> | Date | string
+    created_at?: DateTimeFilter<"bookings"> | Date | string
+    updated_at?: DateTimeFilter<"bookings"> | Date | string
+    amount?: DecimalFilter<"bookings"> | Decimal | DecimalJsLike | number | string
+    paid_at?: DateTimeNullableFilter<"bookings"> | Date | string | null
+    proof_image?: StringNullableFilter<"bookings"> | string | null
+  }
+
+  export type reviewsUpsertWithWhereUniqueWithoutUserInput = {
+    where: reviewsWhereUniqueInput
+    update: XOR<reviewsUpdateWithoutUserInput, reviewsUncheckedUpdateWithoutUserInput>
+    create: XOR<reviewsCreateWithoutUserInput, reviewsUncheckedCreateWithoutUserInput>
+  }
+
+  export type reviewsUpdateWithWhereUniqueWithoutUserInput = {
+    where: reviewsWhereUniqueInput
+    data: XOR<reviewsUpdateWithoutUserInput, reviewsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type reviewsUpdateManyWithWhereWithoutUserInput = {
+    where: reviewsScalarWhereInput
+    data: XOR<reviewsUpdateManyMutationInput, reviewsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type reviewsScalarWhereInput = {
+    AND?: reviewsScalarWhereInput | reviewsScalarWhereInput[]
+    OR?: reviewsScalarWhereInput[]
+    NOT?: reviewsScalarWhereInput | reviewsScalarWhereInput[]
+    id?: StringFilter<"reviews"> | string
+    booking_id?: StringFilter<"reviews"> | string
+    user_id?: StringFilter<"reviews"> | string
+    property_id?: StringFilter<"reviews"> | string
+    comment?: StringNullableFilter<"reviews"> | string | null
+    tenant_reply?: StringNullableFilter<"reviews"> | string | null
+    created_at?: DateTimeFilter<"reviews"> | Date | string
+    updated_at?: DateTimeFilter<"reviews"> | Date | string
+  }
+
+  export type tenantsUpsertWithoutUserInput = {
+    update: XOR<tenantsUpdateWithoutUserInput, tenantsUncheckedUpdateWithoutUserInput>
+    create: XOR<tenantsCreateWithoutUserInput, tenantsUncheckedCreateWithoutUserInput>
+    where?: tenantsWhereInput
+  }
+
+  export type tenantsUpdateToOneWithWhereWithoutUserInput = {
+    where?: tenantsWhereInput
+    data: XOR<tenantsUpdateWithoutUserInput, tenantsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type tenantsUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    properties?: propertiesUpdateManyWithoutTenantNestedInput
+  }
+
+  export type tenantsUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    properties?: propertiesUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type propertiesCreateWithoutTenantInput = {
+    id?: string
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
     name: string
     category: string
     address: string
@@ -11267,9 +12043,18 @@ export namespace Prisma {
     role: $Enums.account_role
     password: string
     created_at?: Date | string
+<<<<<<< HEAD
     transaction_table?: transaction_tableCreateNestedManyWithoutAccount_tableInput
     user_review?: user_reviewCreateNestedManyWithoutAccount_tableInput
     booked_user_list?: booked_user_listCreateNestedManyWithoutAccount_tableInput
+=======
+    updated_at?: Date | string
+    reset_password_otp?: string | null
+    verify_otp?: string | null
+    verify_otp_expires_at?: Date | string | null
+    reviews?: reviewsCreateNestedManyWithoutUserInput
+    tenants?: tenantsCreateNestedOneWithoutUserInput
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
   }
 
   export type account_tableUncheckedCreateWithoutProperties_tableInput = {
@@ -11280,9 +12065,18 @@ export namespace Prisma {
     role: $Enums.account_role
     password: string
     created_at?: Date | string
+<<<<<<< HEAD
     transaction_table?: transaction_tableUncheckedCreateNestedManyWithoutAccount_tableInput
     user_review?: user_reviewUncheckedCreateNestedManyWithoutAccount_tableInput
     booked_user_list?: booked_user_listUncheckedCreateNestedManyWithoutAccount_tableInput
+=======
+    updated_at?: Date | string
+    reset_password_otp?: string | null
+    verify_otp?: string | null
+    verify_otp_expires_at?: Date | string | null
+    reviews?: reviewsUncheckedCreateNestedManyWithoutUserInput
+    tenants?: tenantsUncheckedCreateNestedOneWithoutUserInput
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
   }
 
   export type account_tableCreateOrConnectWithoutProperties_tableInput = {
@@ -11372,9 +12166,18 @@ export namespace Prisma {
     role?: Enumaccount_roleFieldUpdateOperationsInput | $Enums.account_role
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     transaction_table?: transaction_tableUpdateManyWithoutAccount_tableNestedInput
     user_review?: user_reviewUpdateManyWithoutAccount_tableNestedInput
     booked_user_list?: booked_user_listUpdateManyWithoutAccount_tableNestedInput
+=======
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reset_password_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    verify_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    verify_otp_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviews?: reviewsUpdateManyWithoutUserNestedInput
+    tenants?: tenantsUpdateOneWithoutUserNestedInput
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
   }
 
   export type account_tableUncheckedUpdateWithoutProperties_tableInput = {
@@ -11385,9 +12188,18 @@ export namespace Prisma {
     role?: Enumaccount_roleFieldUpdateOperationsInput | $Enums.account_role
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     transaction_table?: transaction_tableUncheckedUpdateManyWithoutAccount_tableNestedInput
     user_review?: user_reviewUncheckedUpdateManyWithoutAccount_tableNestedInput
     booked_user_list?: booked_user_listUncheckedUpdateManyWithoutAccount_tableNestedInput
+=======
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reset_password_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    verify_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    verify_otp_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviews?: reviewsUncheckedUpdateManyWithoutUserNestedInput
+    tenants?: tenantsUncheckedUpdateOneWithoutUserNestedInput
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
   }
 
   export type user_reviewUpsertWithWhereUniqueWithoutProperties_tableInput = {
@@ -11429,9 +12241,18 @@ export namespace Prisma {
     role: $Enums.account_role
     password: string
     created_at?: Date | string
+<<<<<<< HEAD
     transaction_table?: transaction_tableCreateNestedManyWithoutAccount_tableInput
     properties_table?: properties_tableCreateNestedManyWithoutAccount_tableInput
     booked_user_list?: booked_user_listCreateNestedManyWithoutAccount_tableInput
+=======
+    updated_at?: Date | string
+    reset_password_otp?: string | null
+    verify_otp?: string | null
+    verify_otp_expires_at?: Date | string | null
+    bookings?: bookingsCreateNestedManyWithoutUserInput
+    tenants?: tenantsCreateNestedOneWithoutUserInput
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
   }
 
   export type account_tableUncheckedCreateWithoutUser_reviewInput = {
@@ -11442,9 +12263,18 @@ export namespace Prisma {
     role: $Enums.account_role
     password: string
     created_at?: Date | string
+<<<<<<< HEAD
     transaction_table?: transaction_tableUncheckedCreateNestedManyWithoutAccount_tableInput
     properties_table?: properties_tableUncheckedCreateNestedManyWithoutAccount_tableInput
     booked_user_list?: booked_user_listUncheckedCreateNestedManyWithoutAccount_tableInput
+=======
+    updated_at?: Date | string
+    reset_password_otp?: string | null
+    verify_otp?: string | null
+    verify_otp_expires_at?: Date | string | null
+    bookings?: bookingsUncheckedCreateNestedManyWithoutUserInput
+    tenants?: tenantsUncheckedCreateNestedOneWithoutUserInput
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
   }
 
   export type account_tableCreateOrConnectWithoutUser_reviewInput = {
@@ -11452,8 +12282,262 @@ export namespace Prisma {
     create: XOR<account_tableCreateWithoutUser_reviewInput, account_tableUncheckedCreateWithoutUser_reviewInput>
   }
 
+<<<<<<< HEAD
   export type properties_tableCreateWithoutUser_reviewInput = {
     room_id: number
+=======
+  export type bookingsUpsertWithoutReviewsInput = {
+    update: XOR<bookingsUpdateWithoutReviewsInput, bookingsUncheckedUpdateWithoutReviewsInput>
+    create: XOR<bookingsCreateWithoutReviewsInput, bookingsUncheckedCreateWithoutReviewsInput>
+    where?: bookingsWhereInput
+  }
+
+  export type bookingsUpdateToOneWithWhereWithoutReviewsInput = {
+    where?: bookingsWhereInput
+    data: XOR<bookingsUpdateWithoutReviewsInput, bookingsUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type bookingsUpdateWithoutReviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
+    booking_rooms?: booking_roomsUpdateManyWithoutBookingNestedInput
+    property?: propertiesUpdateOneRequiredWithoutBookingsNestedInput
+    user?: usersUpdateOneRequiredWithoutBookingsNestedInput
+  }
+
+  export type bookingsUncheckedUpdateWithoutReviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    property_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
+    booking_rooms?: booking_roomsUncheckedUpdateManyWithoutBookingNestedInput
+  }
+
+  export type propertiesUpsertWithoutReviewsInput = {
+    update: XOR<propertiesUpdateWithoutReviewsInput, propertiesUncheckedUpdateWithoutReviewsInput>
+    create: XOR<propertiesCreateWithoutReviewsInput, propertiesUncheckedCreateWithoutReviewsInput>
+    where?: propertiesWhereInput
+  }
+
+  export type propertiesUpdateToOneWithWhereWithoutReviewsInput = {
+    where?: propertiesWhereInput
+    data: XOR<propertiesUpdateWithoutReviewsInput, propertiesUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type propertiesUpdateWithoutReviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    zip_code?: StringFieldUpdateOperationsInput | string
+    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    bookings?: bookingsUpdateManyWithoutPropertyNestedInput
+    peak_season_rates?: peak_season_ratesUpdateManyWithoutPropertyNestedInput
+    tenant?: tenantsUpdateOneRequiredWithoutPropertiesNestedInput
+    property_images?: property_imagesUpdateManyWithoutPropertyNestedInput
+    rooms?: roomsUpdateManyWithoutPropertyNestedInput
+  }
+
+  export type propertiesUncheckedUpdateWithoutReviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenant_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    zip_code?: StringFieldUpdateOperationsInput | string
+    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    bookings?: bookingsUncheckedUpdateManyWithoutPropertyNestedInput
+    peak_season_rates?: peak_season_ratesUncheckedUpdateManyWithoutPropertyNestedInput
+    property_images?: property_imagesUncheckedUpdateManyWithoutPropertyNestedInput
+    rooms?: roomsUncheckedUpdateManyWithoutPropertyNestedInput
+  }
+
+  export type usersUpsertWithoutReviewsInput = {
+    update: XOR<usersUpdateWithoutReviewsInput, usersUncheckedUpdateWithoutReviewsInput>
+    create: XOR<usersCreateWithoutReviewsInput, usersUncheckedCreateWithoutReviewsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutReviewsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutReviewsInput, usersUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type usersUpdateWithoutReviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    full_name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reset_password_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    verify_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    verify_otp_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bookings?: bookingsUpdateManyWithoutUserNestedInput
+    tenants?: tenantsUpdateOneWithoutUserNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutReviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    full_name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password_hash?: StringFieldUpdateOperationsInput | string
+    profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reset_password_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    verify_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    verify_otp_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bookings?: bookingsUncheckedUpdateManyWithoutUserNestedInput
+    tenants?: tenantsUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type bookingsCreateManyUserInput = {
+    id?: string
+    property_id: string
+    status: $Enums.BookingStatus
+    check_in_date: Date | string
+    check_out_date: Date | string
+    total_price: Decimal | DecimalJsLike | number | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
+    amount: Decimal | DecimalJsLike | number | string
+    paid_at?: Date | string | null
+    proof_image?: string | null
+  }
+
+  export type reviewsCreateManyUserInput = {
+    id?: string
+    booking_id: string
+    property_id: string
+    comment?: string | null
+    tenant_reply?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type bookingsUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
+    booking_rooms?: booking_roomsUpdateManyWithoutBookingNestedInput
+    property?: propertiesUpdateOneRequiredWithoutBookingsNestedInput
+    reviews?: reviewsUpdateManyWithoutBookingNestedInput
+  }
+
+  export type bookingsUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    property_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
+    booking_rooms?: booking_roomsUncheckedUpdateManyWithoutBookingNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutBookingNestedInput
+  }
+
+  export type bookingsUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    property_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type reviewsUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking?: bookingsUpdateOneRequiredWithoutReviewsNestedInput
+    property?: propertiesUpdateOneRequiredWithoutReviewsNestedInput
+  }
+
+  export type reviewsUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    booking_id?: StringFieldUpdateOperationsInput | string
+    property_id?: StringFieldUpdateOperationsInput | string
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type reviewsUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    booking_id?: StringFieldUpdateOperationsInput | string
+    property_id?: StringFieldUpdateOperationsInput | string
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type propertiesCreateManyTenantInput = {
+    id?: string
+>>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
     name: string
     category: string
     address: string

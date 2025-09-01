@@ -90,7 +90,7 @@ export function Header() {
             </DropdownMenu>
           ) : (
             <Link href="/auth/login">
-              <Button className="bg-blue-500 hover:bg-blue-600 text-white">
+              <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded-3xl cursor-pointer">
                 Login
               </Button>
             </Link>
@@ -162,7 +162,7 @@ export function Header() {
                   </>
                 ) : (
                   <Link href="/auth/login">
-                    <Button className="bg-blue-500 hover:bg-blue-600 text-white w-full">
+                    <Button className="bg-blue-500 hover:bg-blue-600 text-white w-full ">
                       Login
                     </Button>
                   </Link>

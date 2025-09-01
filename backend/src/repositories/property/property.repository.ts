@@ -4,14 +4,24 @@ import { PropertyTypes } from "../../types/property/property.types";
 
 export const getAllPropertiesRepository = async (filters: {
   property_category?: string;
+  min_price?: number;
+  max_price?: number;
 }) => {
-  const { property_category } = filters;
+  const { property_category, min_price, max_price } = filters;
 
   return prisma.properties.findMany({
     where: {
       property_category: property_category
         ? (property_category as PropertyCategory)
         : undefined,
+      rooms: {
+        some: {
+          base_price: {
+            gte: min_price || undefined,
+            lte: max_price || undefined,
+          },
+        },
+      },
     },
     orderBy: { created_at: "desc" },
     include: {

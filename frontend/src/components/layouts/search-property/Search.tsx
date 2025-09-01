@@ -195,6 +195,8 @@ export default function PropertyDiscovery({
                         query: {
                           propertyname: property.name,
                           roomname: room.name,
+                          checkIn: queryCheckIn,
+                          checkOut: queryCheckOut,
                         },
                       }}
                       className="block">

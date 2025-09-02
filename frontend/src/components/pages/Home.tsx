@@ -9,7 +9,7 @@ const HomePage = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const category = searchParams.get("type") || "";
+  const category = searchParams.get("category") || "";
 
   return (
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
@@ -18,9 +18,9 @@ const HomePage = () => {
         onSelectCategory={(value) => {
           const params = new URLSearchParams(searchParams.toString());
           if (value) {
-            params.set("type", value);
+            params.set("category", value);
           } else {
-            params.delete("type");
+            params.delete("category");
           }
           router.push(`?${params.toString()}`);
         }}

@@ -8,7 +8,7 @@ export function PropertyPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const category = searchParams.get("type") || "";
+  const category = searchParams.get("category") || "";
 
   return (
     <div>
@@ -17,9 +17,9 @@ export function PropertyPage() {
         onSelectCategory={(value) => {
           const params = new URLSearchParams(searchParams.toString());
           if (value) {
-            params.set("type", value);
+            params.set("category", value);
           } else {
-            params.delete("type");
+            params.delete("category");
           }
           router.push(`?${params.toString()}`);
         }}

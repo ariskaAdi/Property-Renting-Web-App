@@ -24,7 +24,7 @@ const TenantDashboard = () => {
   const { data: user, isLoading } = useFetchMe();
   const queryClient = useQueryClient();
 
-  const tenant = user?.tenants?.[0];
+  const tenant = user?.tenants;
 
   const [companyName, setCompanyName] = useState("");
   const [address, setAddress] = useState("");

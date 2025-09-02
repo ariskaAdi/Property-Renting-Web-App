@@ -35,9 +35,9 @@ export function PropertyTypeNav({ activeCategory }: PropertyTypeNavProps) {
     const params = new URLSearchParams(searchParams.toString());
 
     if (value) {
-      params.set("type", value); // tambahin ?type=value
+      params.set("category", value);
     } else {
-      params.delete("type"); // kalau pilih "All" hapus query
+      params.delete("category");
     }
 
     router.push(`?${params.toString()}`);

@@ -10,7 +10,7 @@ import Image from "next/image";
 import { CreateRoomType } from "@/types/room/room";
 import { useCreateRoom } from "@/hooks/useRoom";
 
-const CreateRoom = () => {
+const EditRoomForm = () => {
   const { property_id } = useParams<{ property_id: string }>();
   const router = useRouter();
 
@@ -242,4 +242,4 @@ const CreateRoom = () => {
   );
 };
 
-export default CreateRoom;
+export default EditRoomForm;

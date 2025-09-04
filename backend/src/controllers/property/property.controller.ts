@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import {
   createPropertyServices,
-  deletePropertyServices,
+  deletePropertyService,
   getAllPropertiesService,
   getPropertyByIdService,
   getPropertyByLocationServices,
@@ -170,7 +170,20 @@ class PropertyController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const property = await updatePropertyServices(req.params.id, req.body);
+      const userId = res.locals.decrypt.userId;
+      const tenant = await findTenantByUserId(userId);
+
+      if (!tenant) {
+        throw new AppError("tenant not found", 404);
+      }
+
+      const propertyId = req.params.id;
+      const property = await updatePropertyServices(
+        propertyId,
+        req.body,
+        req.file as Express.Multer.File,
+        tenant.id
+      );
       res
         .status(200)
         .send({ message: "Property updated", success: true, property });
@@ -185,10 +198,20 @@ class PropertyController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const property = await deletePropertyServices(req.params.id);
+      const userId = res.locals.decrypt.userId;
+      const tenant = await findTenantByUserId(userId);
+
+      if (!tenant) {
+        throw new AppError("Tenant not found", 404);
+      }
+
+      const propertyId = req.params.id;
+
+      await deletePropertyService(propertyId, tenant.id);
+
       res
         .status(200)
-        .send({ message: "Property deleted", success: true, property });
+        .send({ message: "Property deleted (soft delete)", success: true });
     } catch (error) {
       next(error);
     }

@@ -37,7 +37,7 @@ export function Header() {
           <div className="w-8 h-8 bg-black rounded flex items-center justify-center">
             <span className="text-white text-sm font-bold">h</span>
           </div>
-          <span className="text-xl font-semibold">hide</span>
+          <span className="text-xl font-semibold">homz</span>
         </Link>
 
         {/* Center - Search Bar (hidden on mobile) */}

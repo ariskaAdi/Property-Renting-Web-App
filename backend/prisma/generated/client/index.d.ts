@@ -13926,8 +13926,18 @@ export namespace Prisma {
 
   export type AggregateReviews = {
     _count: ReviewsCountAggregateOutputType | null
+    _avg: ReviewsAvgAggregateOutputType | null
+    _sum: ReviewsSumAggregateOutputType | null
     _min: ReviewsMinAggregateOutputType | null
     _max: ReviewsMaxAggregateOutputType | null
+  }
+
+  export type ReviewsAvgAggregateOutputType = {
+    rating: number | null
+  }
+
+  export type ReviewsSumAggregateOutputType = {
+    rating: number | null
   }
 
   export type ReviewsMinAggregateOutputType = {
@@ -13935,6 +13945,7 @@ export namespace Prisma {
     booking_id: string | null
     user_id: string | null
     property_id: string | null
+    rating: number | null
     comment: string | null
     tenant_reply: string | null
     created_at: Date | null
@@ -13946,6 +13957,7 @@ export namespace Prisma {
     booking_id: string | null
     user_id: string | null
     property_id: string | null
+    rating: number | null
     comment: string | null
     tenant_reply: string | null
     created_at: Date | null
@@ -13957,6 +13969,7 @@ export namespace Prisma {
     booking_id: number
     user_id: number
     property_id: number
+    rating: number
     comment: number
     tenant_reply: number
     created_at: number
@@ -13965,11 +13978,20 @@ export namespace Prisma {
   }
 
 
+  export type ReviewsAvgAggregateInputType = {
+    rating?: true
+  }
+
+  export type ReviewsSumAggregateInputType = {
+    rating?: true
+  }
+
   export type ReviewsMinAggregateInputType = {
     id?: true
     booking_id?: true
     user_id?: true
     property_id?: true
+    rating?: true
     comment?: true
     tenant_reply?: true
     created_at?: true
@@ -13981,6 +14003,7 @@ export namespace Prisma {
     booking_id?: true
     user_id?: true
     property_id?: true
+    rating?: true
     comment?: true
     tenant_reply?: true
     created_at?: true
@@ -13992,6 +14015,7 @@ export namespace Prisma {
     booking_id?: true
     user_id?: true
     property_id?: true
+    rating?: true
     comment?: true
     tenant_reply?: true
     created_at?: true
@@ -14037,6 +14061,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ReviewsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ReviewsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ReviewsMinAggregateInputType
@@ -14067,6 +14103,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ReviewsCountAggregateInputType | true
+    _avg?: ReviewsAvgAggregateInputType
+    _sum?: ReviewsSumAggregateInputType
     _min?: ReviewsMinAggregateInputType
     _max?: ReviewsMaxAggregateInputType
   }
@@ -14076,11 +14114,14 @@ export namespace Prisma {
     booking_id: string
     user_id: string
     property_id: string
+    rating: number
     comment: string | null
     tenant_reply: string | null
     created_at: Date
     updated_at: Date
     _count: ReviewsCountAggregateOutputType | null
+    _avg: ReviewsAvgAggregateOutputType | null
+    _sum: ReviewsSumAggregateOutputType | null
     _min: ReviewsMinAggregateOutputType | null
     _max: ReviewsMaxAggregateOutputType | null
   }
@@ -14104,6 +14145,7 @@ export namespace Prisma {
     booking_id?: boolean
     user_id?: boolean
     property_id?: boolean
+    rating?: boolean
     comment?: boolean
     tenant_reply?: boolean
     created_at?: boolean
@@ -14118,6 +14160,7 @@ export namespace Prisma {
     booking_id?: boolean
     user_id?: boolean
     property_id?: boolean
+    rating?: boolean
     comment?: boolean
     tenant_reply?: boolean
     created_at?: boolean
@@ -14132,6 +14175,7 @@ export namespace Prisma {
     booking_id?: boolean
     user_id?: boolean
     property_id?: boolean
+    rating?: boolean
     comment?: boolean
     tenant_reply?: boolean
     created_at?: boolean
@@ -14146,13 +14190,14 @@ export namespace Prisma {
     booking_id?: boolean
     user_id?: boolean
     property_id?: boolean
+    rating?: boolean
     comment?: boolean
     tenant_reply?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type reviewsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "booking_id" | "user_id" | "property_id" | "comment" | "tenant_reply" | "created_at" | "updated_at", ExtArgs["result"]["reviews"]>
+  export type reviewsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "booking_id" | "user_id" | "property_id" | "rating" | "comment" | "tenant_reply" | "created_at" | "updated_at", ExtArgs["result"]["reviews"]>
   export type reviewsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     booking?: boolean | bookingsDefaultArgs<ExtArgs>
     property?: boolean | propertiesDefaultArgs<ExtArgs>
@@ -14181,6 +14226,7 @@ export namespace Prisma {
       booking_id: string
       user_id: string
       property_id: string
+      rating: number
       comment: string | null
       tenant_reply: string | null
       created_at: Date
@@ -14615,6 +14661,7 @@ export namespace Prisma {
     readonly booking_id: FieldRef<"reviews", 'String'>
     readonly user_id: FieldRef<"reviews", 'String'>
     readonly property_id: FieldRef<"reviews", 'String'>
+    readonly rating: FieldRef<"reviews", 'Int'>
     readonly comment: FieldRef<"reviews", 'String'>
     readonly tenant_reply: FieldRef<"reviews", 'String'>
     readonly created_at: FieldRef<"reviews", 'DateTime'>
@@ -15207,6 +15254,7 @@ export namespace Prisma {
     booking_id: 'booking_id',
     user_id: 'user_id',
     property_id: 'property_id',
+    rating: 'rating',
     comment: 'comment',
     tenant_reply: 'tenant_reply',
     created_at: 'created_at',
@@ -16228,6 +16276,7 @@ export namespace Prisma {
     booking_id?: StringFilter<"reviews"> | string
     user_id?: StringFilter<"reviews"> | string
     property_id?: StringFilter<"reviews"> | string
+    rating?: IntFilter<"reviews"> | number
     comment?: StringNullableFilter<"reviews"> | string | null
     tenant_reply?: StringNullableFilter<"reviews"> | string | null
     created_at?: DateTimeFilter<"reviews"> | Date | string
@@ -16242,6 +16291,7 @@ export namespace Prisma {
     booking_id?: SortOrder
     user_id?: SortOrder
     property_id?: SortOrder
+    rating?: SortOrder
     comment?: SortOrderInput | SortOrder
     tenant_reply?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -16253,12 +16303,13 @@ export namespace Prisma {
 
   export type reviewsWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    booking_id?: string
     AND?: reviewsWhereInput | reviewsWhereInput[]
     OR?: reviewsWhereInput[]
     NOT?: reviewsWhereInput | reviewsWhereInput[]
-    booking_id?: StringFilter<"reviews"> | string
     user_id?: StringFilter<"reviews"> | string
     property_id?: StringFilter<"reviews"> | string
+    rating?: IntFilter<"reviews"> | number
     comment?: StringNullableFilter<"reviews"> | string | null
     tenant_reply?: StringNullableFilter<"reviews"> | string | null
     created_at?: DateTimeFilter<"reviews"> | Date | string
@@ -16266,20 +16317,23 @@ export namespace Prisma {
     booking?: XOR<BookingsScalarRelationFilter, bookingsWhereInput>
     property?: XOR<PropertiesScalarRelationFilter, propertiesWhereInput>
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
-  }, "id">
+  }, "id" | "booking_id">
 
   export type reviewsOrderByWithAggregationInput = {
     id?: SortOrder
     booking_id?: SortOrder
     user_id?: SortOrder
     property_id?: SortOrder
+    rating?: SortOrder
     comment?: SortOrderInput | SortOrder
     tenant_reply?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: reviewsCountOrderByAggregateInput
+    _avg?: reviewsAvgOrderByAggregateInput
     _max?: reviewsMaxOrderByAggregateInput
     _min?: reviewsMinOrderByAggregateInput
+    _sum?: reviewsSumOrderByAggregateInput
   }
 
   export type reviewsScalarWhereWithAggregatesInput = {
@@ -16290,6 +16344,7 @@ export namespace Prisma {
     booking_id?: StringWithAggregatesFilter<"reviews"> | string
     user_id?: StringWithAggregatesFilter<"reviews"> | string
     property_id?: StringWithAggregatesFilter<"reviews"> | string
+    rating?: IntWithAggregatesFilter<"reviews"> | number
     comment?: StringNullableWithAggregatesFilter<"reviews"> | string | null
     tenant_reply?: StringNullableWithAggregatesFilter<"reviews"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"reviews"> | Date | string
@@ -17221,6 +17276,7 @@ export namespace Prisma {
 
   export type reviewsCreateInput = {
     id?: string
+    rating: number
     comment?: string | null
     tenant_reply?: string | null
     created_at?: Date | string
@@ -17235,6 +17291,7 @@ export namespace Prisma {
     booking_id: string
     user_id: string
     property_id: string
+    rating: number
     comment?: string | null
     tenant_reply?: string | null
     created_at?: Date | string
@@ -17243,6 +17300,7 @@ export namespace Prisma {
 
   export type reviewsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17257,6 +17315,7 @@ export namespace Prisma {
     booking_id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
     property_id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17268,6 +17327,7 @@ export namespace Prisma {
     booking_id: string
     user_id: string
     property_id: string
+    rating: number
     comment?: string | null
     tenant_reply?: string | null
     created_at?: Date | string
@@ -17276,6 +17336,7 @@ export namespace Prisma {
 
   export type reviewsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17287,6 +17348,7 @@ export namespace Prisma {
     booking_id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
     property_id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18145,10 +18207,15 @@ export namespace Prisma {
     booking_id?: SortOrder
     user_id?: SortOrder
     property_id?: SortOrder
+    rating?: SortOrder
     comment?: SortOrder
     tenant_reply?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type reviewsAvgOrderByAggregateInput = {
+    rating?: SortOrder
   }
 
   export type reviewsMaxOrderByAggregateInput = {
@@ -18156,6 +18223,7 @@ export namespace Prisma {
     booking_id?: SortOrder
     user_id?: SortOrder
     property_id?: SortOrder
+    rating?: SortOrder
     comment?: SortOrder
     tenant_reply?: SortOrder
     created_at?: SortOrder
@@ -18167,10 +18235,15 @@ export namespace Prisma {
     booking_id?: SortOrder
     user_id?: SortOrder
     property_id?: SortOrder
+    rating?: SortOrder
     comment?: SortOrder
     tenant_reply?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type reviewsSumOrderByAggregateInput = {
+    rating?: SortOrder
   }
 
   export type bookingsCreateNestedManyWithoutUserInput = {
@@ -19405,6 +19478,7 @@ export namespace Prisma {
 
   export type reviewsCreateWithoutUserInput = {
     id?: string
+    rating: number
     comment?: string | null
     tenant_reply?: string | null
     created_at?: Date | string
@@ -19417,6 +19491,7 @@ export namespace Prisma {
     id?: string
     booking_id: string
     property_id: string
+    rating: number
     comment?: string | null
     tenant_reply?: string | null
     created_at?: Date | string
@@ -19519,6 +19594,7 @@ export namespace Prisma {
     booking_id?: StringFilter<"reviews"> | string
     user_id?: StringFilter<"reviews"> | string
     property_id?: StringFilter<"reviews"> | string
+    rating?: IntFilter<"reviews"> | number
     comment?: StringNullableFilter<"reviews"> | string | null
     tenant_reply?: StringNullableFilter<"reviews"> | string | null
     created_at?: DateTimeFilter<"reviews"> | Date | string
@@ -19860,6 +19936,7 @@ export namespace Prisma {
 
   export type reviewsCreateWithoutPropertyInput = {
     id?: string
+    rating: number
     comment?: string | null
     tenant_reply?: string | null
     created_at?: Date | string
@@ -19872,6 +19949,7 @@ export namespace Prisma {
     id?: string
     booking_id: string
     user_id: string
+    rating: number
     comment?: string | null
     tenant_reply?: string | null
     created_at?: Date | string
@@ -21004,6 +21082,7 @@ export namespace Prisma {
 
   export type reviewsCreateWithoutBookingInput = {
     id?: string
+    rating: number
     comment?: string | null
     tenant_reply?: string | null
     created_at?: Date | string
@@ -21016,6 +21095,7 @@ export namespace Prisma {
     id?: string
     user_id: string
     property_id: string
+    rating: number
     comment?: string | null
     tenant_reply?: string | null
     created_at?: Date | string
@@ -21623,6 +21703,7 @@ export namespace Prisma {
     id?: string
     booking_id: string
     property_id: string
+    rating: number
     comment?: string | null
     tenant_reply?: string | null
     created_at?: Date | string
@@ -21680,6 +21761,7 @@ export namespace Prisma {
 
   export type reviewsUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21692,6 +21774,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     booking_id?: StringFieldUpdateOperationsInput | string
     property_id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21702,6 +21785,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     booking_id?: StringFieldUpdateOperationsInput | string
     property_id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21822,6 +21906,7 @@ export namespace Prisma {
     id?: string
     booking_id: string
     user_id: string
+    rating: number
     comment?: string | null
     tenant_reply?: string | null
     created_at?: Date | string
@@ -21943,6 +22028,7 @@ export namespace Prisma {
 
   export type reviewsUpdateWithoutPropertyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21955,6 +22041,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     booking_id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21965,6 +22052,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     booking_id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22196,6 +22284,7 @@ export namespace Prisma {
     id?: string
     user_id: string
     property_id: string
+    rating: number
     comment?: string | null
     tenant_reply?: string | null
     created_at?: Date | string
@@ -22246,6 +22335,7 @@ export namespace Prisma {
 
   export type reviewsUpdateWithoutBookingInput = {
     id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22258,6 +22348,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
     property_id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22268,6 +22359,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
     property_id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string

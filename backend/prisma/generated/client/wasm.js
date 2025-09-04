@@ -250,6 +250,7 @@ exports.Prisma.ReviewsScalarFieldEnum = {
   booking_id: 'booking_id',
   user_id: 'user_id',
   property_id: 'property_id',
+  rating: 'rating',
   comment: 'comment',
   tenant_reply: 'tenant_reply',
   created_at: 'created_at',

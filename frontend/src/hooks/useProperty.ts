@@ -4,9 +4,11 @@ import {
   fetchPropertyById,
   fetchPropertyByLocation,
   fetchPropertyByTenant,
+  getPropertyById,
+  updatePropertyService,
 } from "@/services/property.services";
-import { createProperty } from "@/types/property/property";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { createProperty, updateProperty } from "@/types/property/property";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useProperties = (category?: string) => {
   return useQuery({
@@ -72,5 +74,31 @@ export const usePropertiesByLocation = (
       ),
     enabled: !!lat && !!lng && !!radius,
     staleTime: 1000 * 60 * 5,
+  });
+};
+
+export const usePropertyById = (id: string) => {
+  return useQuery({
+    queryKey: ["property", id],
+    queryFn: () => getPropertyById(id),
+    enabled: !!id,
+    retry: false,
+    staleTime: 1000 * 60 * 5,
+  });
+};
+
+export const useUpdateProperty = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, property }: { id: string; property: updateProperty }) =>
+      updatePropertyService(id, property),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["property-by-tenant"] });
+    },
+    onError: (error) => {
+      console.error(error);
+      alert("Failed to update property");
+    },
   });
 };

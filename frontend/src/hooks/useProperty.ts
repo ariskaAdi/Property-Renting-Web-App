@@ -1,6 +1,7 @@
 import {
   createPropertyServices,
   fetchAllProperties,
+  fetchPropertyById,
   fetchPropertyByLocation,
   fetchPropertyByTenant,
 } from "@/services/property.services";
@@ -28,6 +29,13 @@ export const usePropertyByTenant = () => {
     queryFn: () => fetchPropertyByTenant(),
   });
 };
+
+export const usePropertyById = (propertyId: string | undefined) => {
+  return useQuery({
+    queryKey: ["property-by-id", propertyId],
+    queryFn: () => fetchPropertyById(propertyId)
+  })
+}
 
 export const usePropertiesByLocation = (
   lat: number,

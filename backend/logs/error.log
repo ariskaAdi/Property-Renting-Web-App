@@ -616,3 +616,129 @@ Please make sure your database server is running at `aws-0-us-west-1.pooler.supa
 2025-09-04 18:16:54 [ERROR]: POST /user/otp-password Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
 2025-09-04 18:20:36 [ERROR]: PATCH /user/reset-password Cannot destructure property 'oldPassword' of 'req.body' as it is undefined. {}
 2025-09-04 18:23:49 [ERROR]: PATCH /user/reset-password Invalid password {"statusCode":401,"success":false,"message":"Invalid password"}
+2025-09-04 21:30:48 [ERROR]: GET /property/all 
+Invalid `prisma.properties.findMany()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\property\property.repository.ts:16:28
+
+  13 }) => {
+  14   const { property_category, min_price, max_price } = filters;
+  15 
+→ 16   return prisma.properties.findMany(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"clientVersion":"6.13.0","name":"PrismaClientInitializationError"}
+2025-09-04 21:30:48 [ERROR]: GET /user/me 
+Invalid `prisma.users.findUnique()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\user\user.respository.ts:7:23
+
+  4 import AppError from "../../errors/AppError";
+  5 
+  6 export const findUserById = async (userId: string) => {
+→ 7   return prisma.users.findUnique(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"clientVersion":"6.13.0","name":"PrismaClientInitializationError"}
+2025-09-04 21:30:55 [ERROR]: GET /property/all 
+Invalid `prisma.properties.findMany()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\property\property.repository.ts:16:28
+
+  13 }) => {
+  14   const { property_category, min_price, max_price } = filters;
+  15 
+→ 16   return prisma.properties.findMany(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"clientVersion":"6.13.0","name":"PrismaClientInitializationError"}
+2025-09-04 21:31:02 [ERROR]: GET /property/all 
+Invalid `prisma.properties.findMany()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\property\property.repository.ts:16:28
+
+  13 }) => {
+  14   const { property_category, min_price, max_price } = filters;
+  15 
+→ 16   return prisma.properties.findMany(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. {"clientVersion":"6.13.0","name":"PrismaClientInitializationError"}
+2025-09-04 21:32:54 [ERROR]: GET /user/me User not found {"statusCode":404,"success":false,"message":"User not found"}
+2025-09-05 16:25:00 [ERROR]: PATCH /user/change-email-otp 
+Invalid `prisma.users.update()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\auth\auth.repository.ts:49:23
+
+  46 export const newOtpChangeEmailRepository = async (
+  47   data: newOtpChangeEmailTypes
+  48 ) => {
+→ 49   return prisma.users.update({
+         where: {
+           id: "6074447b-cd22-41f5-abc0-00be30880bfc"
+         },
+         data: {
+           id: "6074447b-cd22-41f5-abc0-00be30880bfc",
+           verify_otp: "545032",
+           verify_otp_expires_at: new Date("2025-09-05T09:40:00.899Z")
+         },
+         select: {
+       ?   id?: true,
+       ?   role?: true,
+       ?   full_name?: true,
+       ?   email?: true,
+       ?   password_hash?: true,
+       ?   profile_picture?: true,
+       ?   is_verified?: true,
+       ?   created_at?: true,
+       ?   updated_at?: true,
+       ?   reset_password_otp?: true,
+       ?   verify_otp?: true,
+       ?   verify_otp_expires_at?: true,
+       ?   bookings?: true,
+       ?   reviews?: true,
+       ?   tenants?: true,
+       ?   _count?: true
+         }
+       })
+
+The `select` statement for type users needs at least one truthy value. {"name":"PrismaClientValidationError","clientVersion":"6.13.0"}
+2025-09-05 16:29:43 [ERROR]: PATCH /user/change-email-otp 
+Invalid `prisma.users.update()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\auth\auth.repository.ts:49:23
+
+  46 export const newOtpChangeEmailRepository = async (
+  47   data: newOtpChangeEmailTypes
+  48 ) => {
+→ 49   return prisma.users.update({
+         where: {
+           id: "6074447b-cd22-41f5-abc0-00be30880bfc"
+         },
+         data: {
+           id: "6074447b-cd22-41f5-abc0-00be30880bfc",
+           email: "yefay63064@cavoyar.com",
+           verify_otp: "617073",
+           verify_otp_expires_at: new Date("2025-09-05T09:44:43.328Z")
+         },
+         select: {
+       ?   id?: true,
+       ?   role?: true,
+       ?   full_name?: true,
+       ?   email?: true,
+       ?   password_hash?: true,
+       ?   profile_picture?: true,
+       ?   is_verified?: true,
+       ?   created_at?: true,
+       ?   updated_at?: true,
+       ?   reset_password_otp?: true,
+       ?   verify_otp?: true,
+       ?   verify_otp_expires_at?: true,
+       ?   bookings?: true,
+       ?   reviews?: true,
+       ?   tenants?: true,
+       ?   _count?: true
+         }
+       })
+
+The `select` statement for type users needs at least one truthy value. {"name":"PrismaClientValidationError","clientVersion":"6.13.0"}
+2025-09-05 16:50:29 [ERROR]: PATCH /auth/verify-email Verification code has expired {"statusCode":400,"success":false,"message":"Verification code has expired"}
+2025-09-05 20:49:25 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-09-05 21:06:57 [ERROR]: PATCH /user/reset-password Invalid password {"statusCode":401,"success":false,"message":"Invalid password"}
+2025-09-05 21:09:04 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-09-05 21:21:32 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-09-05 21:22:50 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}

@@ -14,6 +14,7 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRoomSearch } from "@/hooks/useRoom";
 import { formatCurrency } from "@/lib/utils";
+import { PropertyDetailSkeleton } from "../fragment/loading-error/PropertyDetailSkeleton";
 
 export default function PropertyDetailPage() {
   const [open, setOpen] = useState(false);
@@ -25,7 +26,7 @@ export default function PropertyDetailPage() {
 
   console.log(data);
 
-  if (isLoading) return <div className="p-8">Loading...</div>;
+  if (isLoading) return <PropertyDetailSkeleton />;
   if (isError) return <div className="p-8">Something went wrong</div>;
 
   return (

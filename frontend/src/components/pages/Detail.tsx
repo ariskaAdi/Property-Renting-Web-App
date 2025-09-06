@@ -11,10 +11,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useRoomSearch } from "@/hooks/useRoom";
 import { formatCurrency } from "@/lib/utils";
 import { PropertyDetailSkeleton } from "../fragment/loading-error/PropertyDetailSkeleton";
+import { DateRange } from "react-day-picker";
+import { DatePickerWithRange } from "../ui/DatePickerPopover";
+import { GuestPicker } from "../ui/GuestPicker";
+import { format } from "date-fns";
 
 export default function PropertyDetailPage() {
   const router = useRouter();

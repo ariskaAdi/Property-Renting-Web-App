@@ -32,7 +32,6 @@ export const getPropertyByIdRepository = async (propertyId: string) => {
     where: { id: propertyId, deleted_at: null },
     include: {
       property_images: true,
-      main_image: true,
       reviews: true,
       rooms: {
         select: {

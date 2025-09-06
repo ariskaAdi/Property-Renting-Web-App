@@ -12,7 +12,7 @@ import {
 import { VERIFICATION_EMAIL_TEMPLATE } from "../../utils/emailTemplates";
 import { generatedOtp } from "../../utils/generateOtp";
 import { hashPassword } from "../../utils/hash";
-import { generateTokenAndSetCookie } from "../../utils/jwt";
+import { generateTokenAndSetCookie, UserPayload } from "../../utils/jwt";
 import { Response } from "express";
 import { oauth2Client } from "../../utils/google";
 import { google } from "googleapis";

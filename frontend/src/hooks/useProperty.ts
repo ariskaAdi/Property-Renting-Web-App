@@ -1,6 +1,7 @@
 import {
   createPropertyServices,
   fetchAllProperties,
+  fetchPropertyById,
   fetchPropertyByLocation,
   fetchPropertyByTenant,
   getPropertyById,

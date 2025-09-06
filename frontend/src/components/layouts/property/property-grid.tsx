@@ -24,7 +24,6 @@ export function PropertyGrid({ filters = {} }: PropertyGridProps) {
       </div>
     );
   }
-
   if (error) return <p className="text-red-500">Error loading properties</p>;
 
   return (

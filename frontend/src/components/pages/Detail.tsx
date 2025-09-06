@@ -17,17 +17,54 @@ import { formatCurrency } from "@/lib/utils";
 import { PropertyDetailSkeleton } from "../fragment/loading-error/PropertyDetailSkeleton";
 
 export default function PropertyDetailPage() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [guests, setGuests] = useState({
+    adults: 1,
+    children: 0,
+    rooms: 1,
+  });
   const params = useSearchParams();
   const propertyname = params.get("propertyname") || undefined;
   const roomname = params.get("roomname") || undefined;
+  const [dateRange, setDateRange] = useState<DateRange | undefined>(() => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return {
+      from: today,
+      to: tomorrow,
+    };
+  });
 
   const { data, isLoading, isError } = useRoomSearch(propertyname, roomname);
+
+  const propertyId = data?.property?.id;
+  const roomId = data?.id;
+  const adults = guests.adults;
+  const children = guests.children;
+  const totalGuests = (adults + children).toString();
+  const rooms = guests.rooms.toString();
 
   console.log(data);
 
   if (isLoading) return <PropertyDetailSkeleton />;
   if (isError) return <div className="p-8">Something went wrong</div>;
+
+  const handleReserveNow = () => {
+    if (!dateRange?.from || !dateRange?.to) {
+      alert("Please select a date range.");
+      return;
+    }
+
+    const checkIn = format(dateRange.from, "yyyy-MM-dd");
+    const checkOut = format(dateRange.to, "yyyy-MM-dd");
+
+    router.push(
+      `/dashboard/booking-detail?propertyId=${propertyId}&roomId=${roomId}&checkIn=${checkIn}&checkOut=${checkOut}&guests=${totalGuests}&rooms=${rooms}`
+    );
+    console.log("Reserving dates:", { checkIn, checkOut });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -176,14 +213,13 @@ export default function PropertyDetailPage() {
                 <DialogTitle>Book this space</DialogTitle>
               </DialogHeader>
               <div className="space-y-4">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
-                  Choose a date and time
-                </Button>
-
+                <Calendar className="w-4 h-4" />
+                Choose a date and time
+                <DatePickerWithRange
+                  date={dateRange}
+                  onDateChange={setDateRange}
+                  className="mt-4"
+                />
                 <div className="flex justify-between items-center">
                   <div>
                     <span className="text-sm text-gray-600">From</span>
@@ -195,16 +231,15 @@ export default function PropertyDetailPage() {
                     <span className="text-lg font-semibold">Peak Rate</span>
                   </div>
                 </div>
-
-                <Button className="w-full bg-green-500 hover:bg-green-600 text-white">
+                <Button
+                  onClick={handleReserveNow}
+                  className="w-full bg-green-500 hover:bg-green-600 text-white">
                   Reserve now
                 </Button>
-
                 <div className="text-xs text-gray-500 text-center">
                   You won&apos;t be charged until after your reservation begins.
                   Cancellations are free up to 2 hours before.
                 </div>
-
                 <Button variant="outline" className="w-full">
                   Request free tour
                 </Button>
@@ -217,14 +252,13 @@ export default function PropertyDetailPage() {
             <div className="sticky top-4">
               <Card>
                 <CardContent className="p-6 space-y-4">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    Choose a date and time
-                  </Button>
-
+                  Choose a date and time
+                  <DatePickerWithRange
+                    date={dateRange}
+                    onDateChange={setDateRange}
+                    className="mt-4"
+                  />
+                  <GuestPicker value={guests} onChange={setGuests} />
                   <div className="flex justify-between items-center">
                     <div>
                       <span className="text-sm text-gray-600">From</span>
@@ -236,16 +270,15 @@ export default function PropertyDetailPage() {
                       <span className="text-lg font-semibold">Peak Rate</span>
                     </div>
                   </div>
-
-                  <Button className="w-full bg-green-500 hover:bg-green-600 text-white">
+                  <Button
+                    onClick={handleReserveNow}
+                    className="w-full bg-green-500 hover:bg-green-600 text-white">
                     Reserve now
                   </Button>
-
                   <div className="text-xs text-gray-500 text-center">
                     You won&apos;t be charged until after your reservation
                     begins. Cancellations are free up to 2 hours before.
                   </div>
-
                   <Button variant="outline" className="w-full">
                     Request free tour
                   </Button>

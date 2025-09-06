@@ -58,3 +58,9 @@ export const updateStatusEmail = async (data: VerifyEmail) => {
     data,
   });
 };
+
+export const findTenantById = async (id: string) => {
+  return prisma.tenants.findUnique({
+        where: { user_id: id },
+    });
+}

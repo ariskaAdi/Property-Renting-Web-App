@@ -7,6 +7,11 @@ export enum PropertyCategory {
   guesthouse = "guesthouse",
 }
 
+export interface RoomData {
+  id: string;
+  name: string
+}
+
 export interface createProperty {
   name: string;
   description: string;
@@ -17,6 +22,20 @@ export interface createProperty {
   latitude: string;
   longitude: string;
   main_image: File;
+  property_category: PropertyCategory;
+  rooms?: RoomData[]
+}
+
+export interface updateProperty {
+  name?: string;
+  description?: string;
+  address?: string;
+  city?: string;
+  province?: string;
+  zip_code?: string;
+  latitude?: string;
+  longitude?: string;
+  main_image?: File | null;
   property_category: PropertyCategory;
 }
 

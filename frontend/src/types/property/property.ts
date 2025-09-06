@@ -87,3 +87,8 @@ export interface PropertyResponse {
   tenant: Tenant;
   properties: Property[];
 }
+
+export interface PropertyFilters {
+  property_category?: string;
+  name?: string;
+}

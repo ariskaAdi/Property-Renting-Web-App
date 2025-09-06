@@ -14,7 +14,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { useNewOtp, useResetPassword } from "@/hooks/useUser";
+import { useChangeEmailOtp, useResetPassword } from "@/hooks/useUser";
+import { useVerifyEmail } from "@/hooks/useAuth";
 
 interface FormErrors {
   email?: string;
@@ -40,8 +41,8 @@ export default function SettingsForm() {
   });
 
   const resetPasswordMutation = useResetPassword();
-  //   const updateEmailMutation = useUpdateEmail();
-  const newOtpMutation = useNewOtp();
+  const changeEmailOtpMutation = useChangeEmailOtp(); // ✅ ganti pakai useChangeEmailOtp
+  const verifyEmailMutation = useVerifyEmail();
 
   // ✅ Validators
   const validateEmail = (email: string): string | null => {
@@ -63,6 +64,7 @@ export default function SettingsForm() {
 
   const updateFormData = (field: keyof typeof formData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+
     if (errors[field as keyof FormErrors]) {
       setErrors((prev) => ({ ...prev, [field]: undefined }));
     }
@@ -129,24 +131,24 @@ export default function SettingsForm() {
         }
       );
     } else if (otpDialog.purpose === "email") {
-      //   updateEmailMutation.mutate(
-      //     { email: formData.email, otp: code },
-      //     {
-      //       onSuccess: () => {
-      //         setFormData((prev) => ({ ...prev, email: "" }));
-      //         alert("Email updated successfully ✅");
-      //         setOtpDialog({
-      //           isOpen: false,
-      //           purpose: null,
-      //           code: ["", "", "", "", "", ""],
-      //         });
-      //       },
-      //       onError: () => {
-      //         alert("Failed to update email ❌");
-      //       },
-      //       onSettled: () => setIsLoading(false),
-      //     }
-      //   );
+      verifyEmailMutation.mutate(
+        { email: formData.email, otp: code },
+        {
+          onSuccess: () => {
+            setFormData((prev) => ({ ...prev, email: "" }));
+            alert("Email updated successfully ✅");
+            setOtpDialog({
+              isOpen: false,
+              purpose: null,
+              code: ["", "", "", "", "", ""],
+            });
+          },
+          onError: () => {
+            alert("Failed to update email ❌");
+          },
+          onSettled: () => setIsLoading(false),
+        }
+      );
     }
   };
 
@@ -159,7 +161,7 @@ export default function SettingsForm() {
       return;
     }
     setErrors({});
-    await newOtpMutation.mutateAsync();
+    await changeEmailOtpMutation.mutateAsync(formData.email); // ✅ ganti di sini
     setOtpDialog((prev) => ({ ...prev, isOpen: true, purpose: "email" }));
   };
 
@@ -182,7 +184,7 @@ export default function SettingsForm() {
     }
 
     setErrors({});
-    await newOtpMutation.mutateAsync();
+    await changeEmailOtpMutation.mutateAsync(formData.email); // ❌ sebelumnya newOtpMutation, biarkan password tetap pakai newOtp kalau perlu
     setOtpDialog((prev) => ({ ...prev, isOpen: true, purpose: "password" }));
   };
 

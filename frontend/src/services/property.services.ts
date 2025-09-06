@@ -9,6 +9,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const fetchAllProperties = async (params?: {
   property_category?: string;
+  name?: string;
 }) => {
   const response = await axios.get(`${BASE_URL}/property/all`, { params });
   console.log(response.data);

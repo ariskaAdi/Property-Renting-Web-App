@@ -94,7 +94,7 @@ export function Header() {
           </DropdownMenu>
         ) : (
           <Link href="/auth/login">
-            <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded-3xl cursor-pointer">
+            <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded-3xl cursor-pointer hidden lg:block">
               Login
             </Button>
           </Link>

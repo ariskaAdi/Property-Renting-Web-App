@@ -11,14 +11,23 @@ export const fetchAllRooms = async () => {
 
 export const fetchRoomsByQuery = async (
   propertyname?: string,
-  roomname?: string
+  roomname?: string,
+  checkIn?: string,
+  checkOut?: string
 ) => {
   const response = await axios.get(`${BASE_URL}/room/search`, {
     params: {
       propertyname,
       roomname,
+      checkIn,
+      checkOut,
     },
   });
+  if (!response.data.response || response.data.response.length === 0) {
+    return null;
+  }
+
+  console.log(response.data.response[0]);
   return response.data.response[0];
 };
 

@@ -10,7 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useRoomSearch } from "@/hooks/useRoom";
 import { formatCurrency } from "@/lib/utils";
@@ -22,35 +22,74 @@ import { format } from "date-fns";
 
 export default function PropertyDetailPage() {
   const router = useRouter();
-  const [open, setOpen] = useState(false);
-  const [guests, setGuests] = useState({
-    adults: 1,
-    children: 0,
-    rooms: 1,
-  });
   const params = useSearchParams();
+
   const propertyname = params.get("propertyname") || undefined;
   const roomname = params.get("roomname") || undefined;
+
+  // ---- Date Range Default ----
   const [dateRange, setDateRange] = useState<DateRange | undefined>(() => {
+    const checkInParam = params.get("checkIn");
+    const checkOutParam = params.get("checkOut");
+
+    if (checkInParam && checkOutParam) {
+      return {
+        from: new Date(checkInParam),
+        to: new Date(checkOutParam),
+      };
+    }
+
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
-    return {
-      from: today,
-      to: tomorrow,
-    };
+
+    return { from: today, to: tomorrow };
   });
 
-  const { data, isLoading, isError } = useRoomSearch(propertyname, roomname);
+  // ---- Guests Default ----
+  const [guests, setGuests] = useState({
+    guests: 1,
+    rooms: 1,
+  });
+
+  useEffect(() => {
+    const guestsParam = params.get("guests");
+    const roomsParam = params.get("rooms");
+
+    if (guestsParam) {
+      const totalGuests = parseInt(guestsParam, 10);
+
+      setGuests((prev) => ({
+        ...prev,
+        guests: totalGuests,
+        rooms: roomsParam ? parseInt(roomsParam, 10) : prev.rooms,
+      }));
+    }
+  }, [params]);
+
+  // ---- Modal Open Default ----
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (params.get("checkIn") && params.get("checkOut")) {
+      setOpen(true);
+    }
+  }, [params]);
+  const checkInParam = params.get("checkIn") ?? undefined;
+  const checkOutParam = params.get("checkOut") ?? undefined;
+
+  const { data, isLoading, isError } = useRoomSearch(
+    propertyname,
+    roomname,
+    checkInParam,
+    checkOutParam
+  );
 
   const propertyId = data?.property?.id;
   const roomId = data?.id;
-  const adults = guests.adults;
-  const children = guests.children;
-  const totalGuests = (adults + children).toString();
-  const rooms = guests.rooms.toString();
 
-  console.log(data);
+  const totalGuests = guests.toString();
+  const rooms = guests.rooms.toString();
 
   if (isLoading) return <PropertyDetailSkeleton />;
   if (isError) return <div className="p-8">Something went wrong</div>;
@@ -67,7 +106,6 @@ export default function PropertyDetailPage() {
     router.push(
       `/dashboard/booking-detail?propertyId=${propertyId}&roomId=${roomId}&checkIn=${checkIn}&checkOut=${checkOut}&guests=${totalGuests}&rooms=${rooms}`
     );
-    console.log("Reserving dates:", { checkIn, checkOut });
   };
 
   return (
@@ -217,24 +255,37 @@ export default function PropertyDetailPage() {
                 <DialogTitle>Book this space</DialogTitle>
               </DialogHeader>
               <div className="space-y-4">
-                <Calendar className="w-4 h-4" />
-                Choose a date and time
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4" />
+                  <span className="text-sm text-gray-600">Choose a date</span>
+                </div>
                 <DatePickerWithRange
                   date={dateRange}
                   onDateChange={setDateRange}
                   className="mt-4"
                 />
-                <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-gray-600">Guests & Rooms</span>
+                </div>
+                <GuestPicker value={guests} onChange={setGuests} />
+                <div className="flex justify-between items-center mt-4">
                   <div>
                     <span className="text-sm text-gray-600">From</span>
                     <div className="text-2xl font-bold">
-                      {formatCurrency(data.base_price)}
+                      {data.pricing?.total
+                        ? formatCurrency(data.pricing.total)
+                        : formatCurrency(data.base_price)}
                     </div>
                   </div>
                   <div className="text-right">
-                    <span className="text-lg font-semibold">Peak Rate</span>
+                    {data.pricing?.total ? (
+                      <span className="text-lg font-semibold">Total Price</span>
+                    ) : (
+                      <span className="text-lg font-semibold">Peak Rate</span>
+                    )}
                   </div>
                 </div>
+
                 <Button
                   onClick={handleReserveNow}
                   className="w-full bg-green-500 hover:bg-green-600 text-white">
@@ -256,34 +307,63 @@ export default function PropertyDetailPage() {
             <div className="sticky top-4">
               <Card>
                 <CardContent className="p-6 space-y-4">
-                  Choose a date and time
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4" />
+                    <span className="text-sm text-gray-600">Choose a date</span>
+                  </div>
                   <DatePickerWithRange
                     date={dateRange}
                     onDateChange={setDateRange}
-                    className="mt-4"
                   />
+                  <div className="flex items-center gap-2 mt-4">
+                    <span className="text-sm text-gray-600">
+                      Guests & Rooms
+                    </span>
+                  </div>
                   <GuestPicker value={guests} onChange={setGuests} />
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center mt-4">
                     <div>
                       <span className="text-sm text-gray-600">From</span>
-                      <div className="text-2xl font-bold">
-                        {formatCurrency(data.base_price)}
-                      </div>
+
+                      {data.pricing?.total ? (
+                        <div className="flex flex-col">
+                          <span className="text-sm text-gray-500 line-through">
+                            {formatCurrency(data.base_price)}
+                          </span>
+                          <span className="text-2xl font-bold text-gray-900">
+                            {formatCurrency(data.pricing.total)}
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="text-2xl font-bold text-gray-900">
+                          {formatCurrency(data.base_price)}
+                        </div>
+                      )}
                     </div>
+
                     <div className="text-right">
-                      <span className="text-lg font-semibold">Peak Rate</span>
+                      {data.pricing?.total ? (
+                        <span className="text-lg font-semibold text-green-600">
+                          Total Price
+                        </span>
+                      ) : data.peak_season_rates?.length > 0 ? (
+                        <span className="text-lg font-semibold text-orange-500">
+                          Peak Rate
+                        </span>
+                      ) : null}
                     </div>
                   </div>
+
                   <Button
                     onClick={handleReserveNow}
-                    className="w-full bg-green-500 hover:bg-green-600 text-white">
+                    className="w-full bg-green-500 hover:bg-green-600 text-white mt-4">
                     Reserve now
                   </Button>
                   <div className="text-xs text-gray-500 text-center">
                     You won&apos;t be charged until after your reservation
                     begins. Cancellations are free up to 2 hours before.
                   </div>
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" className="w-full mt-2">
                     Request free tour
                   </Button>
                 </CardContent>

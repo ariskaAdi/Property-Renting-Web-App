@@ -1,7 +1,7 @@
-import dayjs from "dayjs";
 import { prisma } from "../../config/prisma";
 import { RoomsType } from "../../types/rooms/rooms.types";
 import { Decimal } from "@prisma/client/runtime/library";
+import dayjs from "../../utils/dayjs"; // atau path sesuai projectmu
 
 export const createRoomRepository = async (data: RoomsType) => {
   return await prisma.rooms.create({
@@ -42,7 +42,9 @@ export const createRoomAvailability = async (room_id: string, months = 6) => {
   });
 };
 
-export const getRoomAvailabilityWithPriceRepository = async (
+// buat harga sesuai peak season
+
+export const getRoomDefaultAvailabilityWithPriceRepository = async (
   room_id: string,
   weekend_peak?: { type: "percentage" | "nominal"; value: number }
 ) => {
@@ -56,7 +58,7 @@ export const getRoomAvailabilityWithPriceRepository = async (
   const base_price = new Decimal(room.base_price);
 
   const availabilityWithPrice = room.room_availability.map((item) => {
-    const day = dayjs(item.date).day(); // 0 = Sunday, 6 = Saturday
+    const day = dayjs(item.date).day(); // 0 = Minggu, 6 = Sabtu
     let price = base_price;
 
     if (day === 0 || day === 6) {
@@ -66,17 +68,85 @@ export const getRoomAvailabilityWithPriceRepository = async (
             ? base_price.plus(base_price.mul(weekend_peak.value).div(100))
             : base_price.plus(new Decimal(weekend_peak.value));
       } else {
-        price = base_price.mul(1.1); // default +10% weekend
+        price = base_price; // 👉 tetap harga normal
       }
     }
 
     return {
       ...item,
-      price: price.toNumber(), // ubah Decimal ke number supaya bisa dikirim ke frontend
+      price: price.toNumber(),
     };
   });
 
   return availabilityWithPrice;
+};
+
+// get room berdan availability
+export const getRoomAvailabilityWithPriceRepository = async (
+  room_id: string,
+  checkIn: string,
+  checkOut: string,
+  weekend_peak?: { type: "percentage" | "nominal"; value: number }
+) => {
+  const startDate = dayjs(checkIn).toDate();
+  const endDate = dayjs(checkOut).toDate();
+
+  // Ambil room + peak season
+  const room = await prisma.rooms.findUnique({
+    where: { id: room_id },
+    include: { peak_season_rates: true },
+  });
+
+  if (!room) return [];
+
+  // Ambil availability hanya dalam range
+  const availabilities = await prisma.room_availability.findMany({
+    where: {
+      room_id,
+      date: { gte: startDate, lt: endDate },
+    },
+    orderBy: { date: "asc" },
+  });
+
+  const base_price = new Decimal(room.base_price);
+  let total = new Decimal(0);
+
+  const availabilityWithPrice = availabilities.map((item) => {
+    const day = dayjs(item.date).day();
+    let price = base_price;
+
+    // ✅ cek peak season
+    const peak = room.peak_season_rates.find(
+      (rate) =>
+        dayjs(item.date).isSameOrAfter(rate.start_date, "day") &&
+        dayjs(item.date).isSameOrBefore(rate.end_date, "day")
+    );
+
+    if (peak) {
+      price =
+        peak.price_change_type === "percentage"
+          ? base_price.plus(base_price.mul(peak.price_change_value).div(100))
+          : base_price.plus(new Decimal(peak.price_change_value));
+    } else if ((day === 0 || day === 6) && weekend_peak) {
+      // ✅ cek weekend peak
+      price =
+        weekend_peak.type === "percentage"
+          ? base_price.plus(base_price.mul(weekend_peak.value).div(100))
+          : base_price.plus(new Decimal(weekend_peak.value));
+    }
+
+    total = total.plus(price);
+
+    return {
+      ...item,
+      price: price.toNumber(),
+    };
+  });
+
+  return {
+    dates: availabilityWithPrice,
+    total: total.toNumber(),
+  };
 };
 
 export const findRoomRepository = async (property_id: string) => {
@@ -98,7 +168,9 @@ export const findAllRoomsRepository = async () => {
 
 export const getRoomByPropertyAndNameRepository = async (
   propertyname: string,
-  roomname: string
+  roomname: string,
+  checkIn?: string,
+  checkOut?: string
 ) => {
   return await prisma.rooms.findMany({
     where: {
@@ -121,11 +193,46 @@ export const getRoomByPropertyAndNameRepository = async (
               },
             }
           : {},
+        checkIn && checkOut
+          ? {
+              room_availability: {
+                some: {
+                  date: {
+                    gte: new Date(checkIn),
+                    lt: new Date(checkOut),
+                  },
+                  is_available: true,
+                },
+              },
+            }
+          : {},
       ],
     },
     include: {
       property: true,
       room_images: true,
+      room_availability:
+        checkIn && checkOut
+          ? {
+              where: {
+                date: {
+                  gte: new Date(checkIn),
+                  lt: new Date(checkOut),
+                },
+                is_available: true,
+              },
+              orderBy: { date: "asc" },
+            }
+          : false,
+      peak_season_rates:
+        checkIn && checkOut
+          ? {
+              where: {
+                start_date: { lte: new Date(checkOut) },
+                end_date: { gte: new Date(checkIn) },
+              },
+            }
+          : true,
     },
   });
 };

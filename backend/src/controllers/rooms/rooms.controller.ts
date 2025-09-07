@@ -27,13 +27,17 @@ class RoomsController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { propertyname, roomname } = req.query;
+      const { propertyname, roomname, checkIn, checkOut } = req.query;
+
       if (!propertyname || !roomname) {
         throw new AppError("propertyname and roomname are required", 404);
       }
+
       const response = await getRoomByPropertyAndNameService(
         propertyname as string,
-        roomname as string
+        roomname as string,
+        checkIn ? String(checkIn) : undefined,
+        checkOut ? String(checkOut) : undefined
       );
 
       res.status(200).send({ message: "Room found", success: true, response });

@@ -13,10 +13,15 @@ export const useRoom = () => {
   });
 };
 
-export const useRoomSearch = (propertyname?: string, roomname?: string) => {
+export const useRoomSearch = (
+  propertyname?: string,
+  roomname?: string,
+  checkIn?: string,
+  checkOut?: string
+) => {
   return useQuery({
-    queryKey: ["rooms", propertyname, roomname],
-    queryFn: () => fetchRoomsByQuery(propertyname, roomname),
+    queryKey: ["rooms", propertyname, roomname, checkIn, checkOut],
+    queryFn: () => fetchRoomsByQuery(propertyname, roomname, checkIn, checkOut),
     enabled: !!propertyname || !!roomname,
   });
 };

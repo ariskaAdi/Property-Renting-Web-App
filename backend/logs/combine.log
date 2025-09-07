@@ -2625,3 +2625,5 @@ Argument `id`: Invalid value provided. Expected String, provided Object. | MESSA
 2025-09-07 05:50:07 [ERROR]: PATCH /payment/accept/d34b1bfc-ef2b-4bd7-9488-fcfb77d92d9b | STATUS: Invalid time value | MESSAGE: {}
 2025-09-08 00:28:30 [ERROR]: GET /user/me | STATUS: Unauthorized | MESSAGE: {"statusCode":401,"success":false,"message":"Unauthorized"}
 2025-09-08 01:10:47 [ERROR]: POST /reservations/c8e672de-8f47-4d6a-81f2-b4b97ab369b5/reviews | STATUS: Review already submitted. | MESSAGE: {"statusCode":409,"success":false,"message":"Review already submitted."}
+2025-09-08 03:56:07 [ERROR]: GET /user/me | STATUS: Unauthorized | MESSAGE: {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-09-08 03:56:15 [ERROR]: POST /auth/login | STATUS: Invalid password | MESSAGE: {"statusCode":401,"success":false,"message":"Invalid password"}

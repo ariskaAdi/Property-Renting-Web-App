@@ -27,7 +27,7 @@ const sidebarTenant = [
   { icon: Store, label: "Tenant", link: "/dashboard/tenant" },
   { icon: Building, label: "Properties", link: "/dashboard/property" },
   { icon: Grid3X3, label: "Bookings", link: "/dashboard/bookings" },
-  { icon: BarChart3, label: "Statistics", link: "/dashboard/statistics" },
+  { icon: BarChart3, label: "Analytics", link: "/dashboard/analytics" },
   { icon: Bell, label: "Notifications", link: "/dashboard/notifications" },
 ];
 

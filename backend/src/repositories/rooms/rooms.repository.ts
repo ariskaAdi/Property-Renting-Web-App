@@ -1,8 +1,12 @@
 import { prisma } from "../../config/prisma";
 import { RoomsType } from "../../types/rooms/rooms.types";
 import { Decimal } from "@prisma/client/runtime/library";
-import dayjs from "../../utils/dayjs"; // atau path sesuai projectmu
+import dayjs from "../../utils/dayjs";
+import { Prisma } from "../../../prisma/generated/client";
 
+const LOCAL_TZ = "Asia/Jakarta";
+
+// CREATE ROOM
 export const createRoomRepository = async (data: RoomsType) => {
   return await prisma.rooms.create({
     data: {
@@ -21,8 +25,9 @@ export const createRoomRepository = async (data: RoomsType) => {
   });
 };
 
+// CREATE ROOM AVAILABILITY
 export const createRoomAvailability = async (room_id: string, months = 6) => {
-  const today = dayjs();
+  let today = dayjs().tz(LOCAL_TZ).startOf("day");
   const endDate = today.add(months, "month");
   const availabilityData = [];
 
@@ -42,8 +47,7 @@ export const createRoomAvailability = async (room_id: string, months = 6) => {
   });
 };
 
-// buat harga sesuai peak season
-
+// GET DEFAULT AVAILABILITY + PRICE
 export const getRoomDefaultAvailabilityWithPriceRepository = async (
   room_id: string,
   weekend_peak?: { type: "percentage" | "nominal"; value: number }
@@ -58,7 +62,7 @@ export const getRoomDefaultAvailabilityWithPriceRepository = async (
   const base_price = new Decimal(room.base_price);
 
   const availabilityWithPrice = room.room_availability.map((item) => {
-    const day = dayjs(item.date).day(); // 0 = Minggu, 6 = Sabtu
+    const day = dayjs(item.date).tz(LOCAL_TZ).day(); // pake timezone lokal
     let price = base_price;
 
     if (day === 0 || day === 6) {
@@ -67,8 +71,6 @@ export const getRoomDefaultAvailabilityWithPriceRepository = async (
           weekend_peak.type === "percentage"
             ? base_price.plus(base_price.mul(weekend_peak.value).div(100))
             : base_price.plus(new Decimal(weekend_peak.value));
-      } else {
-        price = base_price; // 👉 tetap harga normal
       }
     }
 
@@ -81,17 +83,16 @@ export const getRoomDefaultAvailabilityWithPriceRepository = async (
   return availabilityWithPrice;
 };
 
-// get room berdan availability
+// GET ROOM AVAILABILITY + PRICE RANGE
 export const getRoomAvailabilityWithPriceRepository = async (
   room_id: string,
   checkIn: string,
   checkOut: string,
   weekend_peak?: { type: "percentage" | "nominal"; value: number }
 ) => {
-  const startDate = dayjs(checkIn).toDate();
-  const endDate = dayjs(checkOut).toDate();
+  const startDate = dayjs(checkIn).tz(LOCAL_TZ).startOf("day").toDate();
+  const endDate = dayjs(checkOut).tz(LOCAL_TZ).startOf("day").toDate();
 
-  // Ambil room + peak season
   const room = await prisma.rooms.findUnique({
     where: { id: room_id },
     include: { peak_season_rates: true },
@@ -99,7 +100,6 @@ export const getRoomAvailabilityWithPriceRepository = async (
 
   if (!room) return [];
 
-  // Ambil availability hanya dalam range
   const availabilities = await prisma.room_availability.findMany({
     where: {
       room_id,
@@ -112,14 +112,13 @@ export const getRoomAvailabilityWithPriceRepository = async (
   let total = new Decimal(0);
 
   const availabilityWithPrice = availabilities.map((item) => {
-    const day = dayjs(item.date).day();
+    const day = dayjs(item.date).tz(LOCAL_TZ).day();
     let price = base_price;
 
-    // ✅ cek peak season
     const peak = room.peak_season_rates.find(
       (rate) =>
-        dayjs(item.date).isSameOrAfter(rate.start_date, "day") &&
-        dayjs(item.date).isSameOrBefore(rate.end_date, "day")
+        dayjs(item.date).tz(LOCAL_TZ).isSameOrAfter(rate.start_date, "day") &&
+        dayjs(item.date).tz(LOCAL_TZ).isSameOrBefore(rate.end_date, "day")
     );
 
     if (peak) {
@@ -128,7 +127,6 @@ export const getRoomAvailabilityWithPriceRepository = async (
           ? base_price.plus(base_price.mul(peak.price_change_value).div(100))
           : base_price.plus(new Decimal(peak.price_change_value));
     } else if ((day === 0 || day === 6) && weekend_peak) {
-      // ✅ cek weekend peak
       price =
         weekend_peak.type === "percentage"
           ? base_price.plus(base_price.mul(weekend_peak.value).div(100))
@@ -245,6 +243,42 @@ export const findRoomByIdRepository = async (id: string) => {
 
 export const deleteRoomByIdRepository = async (id: string) => {
   return await prisma.rooms.delete({
+    where: { id },
+  });
+};
+
+export const updateRoomByIdRepository = async (
+  id: string,
+  data: Partial<RoomsType>
+) => {
+  const updateData: Prisma.roomsUpdateInput = {
+    ...(data.property_id && {
+      property: {
+        connect: { id: data.property_id },
+      },
+    }),
+    name: data.name,
+    description: data.description,
+    base_price: data.base_price,
+    capacity: data.capacity,
+    total_rooms: data.total_rooms,
+    image: data.image,
+    ...(data.room_images && {
+      room_images: {
+        deleteMany: {},
+        create: data.room_images.map((img) => ({ image_url: img.image_url })),
+      },
+    }),
+  };
+
+  return await prisma.rooms.update({
+    where: { id },
+    data: updateData,
+  });
+};
+
+export const getRoomByIdRepository = async (id: string) => {
+  return await prisma.rooms.findUnique({
     where: { id },
   });
 };

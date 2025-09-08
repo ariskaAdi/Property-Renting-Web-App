@@ -10,8 +10,10 @@ import {
   findRoomByIdRepository,
   findRoomRepository,
   getRoomAvailabilityWithPriceRepository,
+  getRoomByIdRepository,
   getRoomByPropertyAndNameRepository,
   getRoomDefaultAvailabilityWithPriceRepository,
+  updateRoomByIdRepository,
 } from "../../repositories/rooms/rooms.repository";
 import { RoomsType } from "../../types/rooms/rooms.types";
 
@@ -102,6 +104,101 @@ export const createRoomService = async (
 
   return {
     ...newRoom,
+    room_availability: availabilityWithPrice,
+  };
+};
+
+export const updateRoomService = async (
+  id: string,
+  data: RoomsType,
+  files: Express.Multer.File[],
+  weekend_peak?: { type: "percentage" | "nominal"; value: number }
+) => {
+  const { property_id, name, description, base_price, capacity, total_rooms } =
+    data;
+
+  // cek room dulu
+  const existingRoom = await getRoomByIdRepository(id);
+  if (!existingRoom) throw new AppError("Room not found", 404);
+
+  // handle image upload
+  let uploadedImages: string[] = [];
+  if (files && files.length > 0) {
+    uploadedImages = await Promise.all(
+      files.map(async (file) => {
+        const result = await handleUpload(file);
+        return result.secure_url;
+      })
+    );
+  }
+
+  const parsedCapacity = Number(capacity);
+  const parsedTotalRoom = Number(total_rooms);
+  if (isNaN(parsedCapacity) || isNaN(parsedTotalRoom)) {
+    throw new AppError("Invalid capacity", 400);
+  }
+
+  // update room
+  const updatedRoom = await updateRoomByIdRepository(id, {
+    property_id,
+    name,
+    description,
+    base_price,
+    capacity: parsedCapacity,
+    total_rooms: parsedTotalRoom,
+    ...(uploadedImages.length > 0 && { image: uploadedImages[0] }),
+  });
+
+  if (uploadedImages.length > 0) {
+    await prisma.room_images.deleteMany({ where: { room_id: id } });
+
+    await prisma.room_images.createMany({
+      data: uploadedImages.map((url) => ({
+        room_id: id,
+        image_url: url,
+      })),
+    });
+  }
+
+  // handle peak season rates
+  if (weekend_peak) {
+    const today = dayjs().tz("Asia/Jakarta").startOf("day");
+    const endDate = today.add(6, "month");
+
+    // hapus dulu peak season lama untuk room ini
+    await prisma.peak_season_rates.deleteMany({
+      where: { room_id: id },
+    });
+
+    const peakRatesData: any[] = [];
+    for (let date = today; date.isBefore(endDate); date = date.add(1, "day")) {
+      const day = date.day();
+      if (day === 0 || day === 6) {
+        peakRatesData.push({
+          property_id,
+          room_id: id,
+          start_date: date.toDate(),
+          end_date: date.toDate(),
+          price_change_type: weekend_peak.type,
+          price_change_value: weekend_peak.value,
+        });
+      }
+    }
+
+    if (peakRatesData.length > 0) {
+      await prisma.peak_season_rates.createMany({
+        data: peakRatesData,
+        skipDuplicates: true,
+      });
+    }
+  }
+
+  // ambil availability + harga akhir
+  const availabilityWithPrice =
+    await getRoomDefaultAvailabilityWithPriceRepository(id, weekend_peak);
+
+  return {
+    ...updatedRoom,
     room_availability: availabilityWithPrice,
   };
 };

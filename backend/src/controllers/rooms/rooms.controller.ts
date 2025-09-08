@@ -4,8 +4,10 @@ import {
   deleteRoomByIdService,
   getRoomByPropertyAndNameService,
   getRoomsService,
+  updateRoomService,
 } from "../../services/rooms/rooms.services";
 import AppError from "../../errors/AppError";
+import { getRoomByIdRepository } from "../../repositories/rooms/rooms.repository";
 
 class RoomsController {
   public async getRoomsController(
@@ -78,7 +80,25 @@ class RoomsController {
     next: NextFunction
   ): Promise<void> {
     try {
-      // code
+      const { id } = req.params;
+      const weekend_peak = req.body.weekend_peak
+        ? {
+            type: req.body.weekend_peak.type as "percentage" | "nominal",
+            value: Number(req.body.weekend_peak.value),
+          }
+        : undefined;
+
+      const response = await updateRoomService(
+        id,
+        req.body,
+        req.files as Express.Multer.File[],
+        weekend_peak
+      );
+      res.status(200).send({
+        message: "Room updated suscessfully",
+        success: true,
+        response,
+      });
     } catch (error) {
       next(error);
     }

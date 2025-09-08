@@ -54,3 +54,9 @@ export const createRoom = async (room: CreateRoomType) => {
   console.log(response.data);
   return response.data;
 };
+
+export const deleteRoom = async (id: string) => {
+  const response = await axios.delete(`${BASE_URL}/room/delete/${id}`);
+  console.log(response.data);
+  return response.data;
+};

@@ -18,7 +18,7 @@ import { PropertyDetailSkeleton } from "../fragment/loading-error/PropertyDetail
 import { DateRange } from "react-day-picker";
 import { DatePickerWithRange } from "../ui/DatePickerPopover";
 import { GuestPicker } from "../ui/GuestPicker";
-import { format } from "date-fns";
+import { addDays, format, startOfDay } from "date-fns";
 
 export default function PropertyDetailPage() {
   const router = useRouter();
@@ -26,6 +26,8 @@ export default function PropertyDetailPage() {
 
   const propertyname = params.get("propertyname") || undefined;
   const roomname = params.get("roomname") || undefined;
+  const todayDefault = startOfDay(new Date());
+  const tomorrowDefault = addDays(todayDefault, 1);
 
   // ---- Date Range Default ----
   const [dateRange, setDateRange] = useState<DateRange | undefined>(() => {
@@ -69,14 +71,17 @@ export default function PropertyDetailPage() {
 
   // ---- Modal Open Default ----
   const [open, setOpen] = useState(false);
+  const [showBarWhenModalOpen, setShowBarWhenModalOpen] = useState(false);
 
   useEffect(() => {
     if (params.get("checkIn") && params.get("checkOut")) {
       setOpen(true);
     }
   }, [params]);
-  const checkInParam = params.get("checkIn") ?? undefined;
-  const checkOutParam = params.get("checkOut") ?? undefined;
+  const checkInParam =
+    params.get("checkIn") ?? format(todayDefault, "yyyy-MM-dd");
+  const checkOutParam =
+    params.get("checkOut") ?? format(tomorrowDefault, "yyyy-MM-dd");
 
   const { data, isLoading, isError } = useRoomSearch(
     propertyname,
@@ -84,6 +89,22 @@ export default function PropertyDetailPage() {
     checkInParam,
     checkOutParam
   );
+
+  const handleSearchDate = () => {
+    if (!dateRange?.from || !dateRange?.to) {
+      alert("Please select a date range.");
+      return;
+    }
+
+    const checkIn = format(dateRange.from, "yyyy-MM-dd");
+    const checkOut = format(dateRange.to, "yyyy-MM-dd");
+
+    const paramsObj = new URLSearchParams(Array.from(params.entries()));
+    paramsObj.set("checkIn", checkIn);
+    paramsObj.set("checkOut", checkOut);
+
+    router.replace(`?${paramsObj.toString()}`, { scroll: false });
+  };
 
   const propertyId = data?.property?.id;
   const roomId = data?.id;
@@ -232,21 +253,43 @@ export default function PropertyDetailPage() {
           </div>
 
           {/* Mobile Fixed Booking Bar */}
-          <div className="fixed bottom-0 left-0 w-full p-4 bg-white border-t shadow-lg z-50 lg:hidden">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="text-xs text-gray-500">From</span>
-                <div className="text-lg font-bold">
-                  {formatCurrency(data.base_price)}
+          {!open && (
+            <div
+              onClick={() => setOpen(true)} // klik bar → buka modal
+              className="fixed bottom-0 left-0 w-full p-4 bg-white border-t shadow-lg z-40 lg:hidden cursor-pointer">
+              <div className="flex justify-between items-center mt-4">
+                <div>
+                  <span className="text-sm text-gray-600">From</span>
+                  {data.pricing?.total ? (
+                    <div className="flex flex-col">
+                      <span className="text-sm text-gray-500 line-through">
+                        {formatCurrency(data.base_price)}
+                      </span>
+                      <span className="text-2xl font-bold text-gray-900">
+                        {formatCurrency(data.pricing.total)}
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="text-2xl font-bold text-gray-900">
+                      {formatCurrency(data.base_price)}
+                    </div>
+                  )}
+                </div>
+
+                <div className="text-right">
+                  {data.pricing?.total ? (
+                    <span className="text-lg font-semibold text-green-600">
+                      Total Price
+                    </span>
+                  ) : data.peak_season_rates?.length > 0 ? (
+                    <span className="text-lg font-semibold text-orange-500">
+                      Peak Rate
+                    </span>
+                  ) : null}
                 </div>
               </div>
-              <Button
-                className="bg-green-500 hover:bg-green-600 text-white"
-                onClick={() => setOpen(true)}>
-                Reserve now
-              </Button>
             </div>
-          </div>
+          )}
 
           {/* Modal Booking Detail (Mobile) */}
           <Dialog open={open} onOpenChange={setOpen}>
@@ -254,35 +297,57 @@ export default function PropertyDetailPage() {
               <DialogHeader>
                 <DialogTitle>Book this space</DialogTitle>
               </DialogHeader>
-              <div className="space-y-4">
+              <div className="space-y-4 ">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
                   <span className="text-sm text-gray-600">Choose a date</span>
+                  {/* 🔥 tombol search date untuk mobile modal */}
+                  <Button
+                    onClick={handleSearchDate}
+                    className="ml-auto rounded-4xl">
+                    Search Date
+                  </Button>
                 </div>
                 <DatePickerWithRange
                   date={dateRange}
                   onDateChange={setDateRange}
                   className="mt-4"
                 />
+
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-gray-600">Guests & Rooms</span>
                 </div>
                 <GuestPicker value={guests} onChange={setGuests} />
+
                 <div className="flex justify-between items-center mt-4">
                   <div>
                     <span className="text-sm text-gray-600">From</span>
-                    <div className="text-2xl font-bold">
-                      {data.pricing?.total
-                        ? formatCurrency(data.pricing.total)
-                        : formatCurrency(data.base_price)}
-                    </div>
+                    {data.pricing?.total ? (
+                      <div className="flex flex-col">
+                        <span className="text-sm text-gray-500 line-through">
+                          {formatCurrency(data.base_price)}
+                        </span>
+                        <span className="text-2xl font-bold text-gray-900">
+                          {formatCurrency(data.pricing.total)}
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="text-2xl font-bold text-gray-900">
+                        {formatCurrency(data.base_price)}
+                      </div>
+                    )}
                   </div>
+
                   <div className="text-right">
                     {data.pricing?.total ? (
-                      <span className="text-lg font-semibold">Total Price</span>
-                    ) : (
-                      <span className="text-lg font-semibold">Peak Rate</span>
-                    )}
+                      <span className="text-lg font-semibold text-green-600">
+                        Total Price
+                      </span>
+                    ) : data.peak_season_rates?.length > 0 ? (
+                      <span className="text-lg font-semibold text-orange-500">
+                        Peak Rate
+                      </span>
+                    ) : null}
                   </div>
                 </div>
 
@@ -310,11 +375,18 @@ export default function PropertyDetailPage() {
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
                     <span className="text-sm text-gray-600">Choose a date</span>
+                    {/* tombol search date untuk cari tanggal tersedia */}
+                    <Button
+                      onClick={handleSearchDate}
+                      className="ml-auto rounded-4xl">
+                      search date
+                    </Button>
                   </div>
                   <DatePickerWithRange
                     date={dateRange}
                     onDateChange={setDateRange}
                   />
+
                   <div className="flex items-center gap-2 mt-4">
                     <span className="text-sm text-gray-600">
                       Guests & Rooms

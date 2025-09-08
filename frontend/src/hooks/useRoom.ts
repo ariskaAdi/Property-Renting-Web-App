@@ -1,5 +1,6 @@
 import {
   createRoom,
+  deleteRoom,
   fetchAllRooms,
   fetchRoomsByQuery,
 } from "@/services/room.service";
@@ -29,5 +30,11 @@ export const useRoomSearch = (
 export const useCreateRoom = () => {
   return useMutation({
     mutationFn: (room: CreateRoomType) => createRoom(room),
+  });
+};
+
+export const useDeleteRoom = () => {
+  return useMutation({
+    mutationFn: (id: string) => deleteRoom(id),
   });
 };

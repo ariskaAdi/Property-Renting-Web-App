@@ -2,6 +2,7 @@ import {
   createRoom,
   deleteRoom,
   fetchAllRooms,
+  fetchRoomById,
   fetchRoomsByQuery,
 } from "@/services/room.service";
 import { CreateRoomType } from "@/types/room/room";
@@ -11,6 +12,13 @@ export const useRoom = () => {
   return useQuery({
     queryKey: ["rooms"],
     queryFn: fetchAllRooms,
+  });
+};
+
+export const useRoomById = (id: string) => {
+  return useQuery({
+    queryKey: ["room", id],
+    queryFn: () => fetchRoomById(id),
   });
 };
 

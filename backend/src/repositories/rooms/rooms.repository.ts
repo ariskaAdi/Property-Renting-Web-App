@@ -6,7 +6,6 @@ import { Prisma } from "../../../prisma/generated/client";
 
 const LOCAL_TZ = "Asia/Jakarta";
 
-// CREATE ROOM
 export const createRoomRepository = async (data: RoomsType) => {
   return await prisma.rooms.create({
     data: {
@@ -25,7 +24,6 @@ export const createRoomRepository = async (data: RoomsType) => {
   });
 };
 
-// CREATE ROOM AVAILABILITY
 export const createRoomAvailability = async (room_id: string, months = 6) => {
   let today = dayjs().tz(LOCAL_TZ).startOf("day");
   const endDate = today.add(months, "month");
@@ -47,7 +45,6 @@ export const createRoomAvailability = async (room_id: string, months = 6) => {
   });
 };
 
-// GET DEFAULT AVAILABILITY + PRICE
 export const getRoomDefaultAvailabilityWithPriceRepository = async (
   room_id: string,
   weekend_peak?: { type: "percentage" | "nominal"; value: number }
@@ -62,7 +59,7 @@ export const getRoomDefaultAvailabilityWithPriceRepository = async (
   const base_price = new Decimal(room.base_price);
 
   const availabilityWithPrice = room.room_availability.map((item) => {
-    const day = dayjs(item.date).tz(LOCAL_TZ).day(); // pake timezone lokal
+    const day = dayjs(item.date).tz(LOCAL_TZ).day();
     let price = base_price;
 
     if (day === 0 || day === 6) {
@@ -83,7 +80,6 @@ export const getRoomDefaultAvailabilityWithPriceRepository = async (
   return availabilityWithPrice;
 };
 
-// GET ROOM AVAILABILITY + PRICE RANGE
 export const getRoomAvailabilityWithPriceRepository = async (
   room_id: string,
   checkIn: string,
@@ -280,5 +276,14 @@ export const updateRoomByIdRepository = async (
 export const getRoomByIdRepository = async (id: string) => {
   return await prisma.rooms.findUnique({
     where: { id },
+    select: {
+      name: true,
+      description: true,
+      capacity: true,
+      image: true,
+      total_rooms: true,
+      room_images: true,
+      base_price: true,
+    },
   });
 };

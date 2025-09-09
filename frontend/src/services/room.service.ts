@@ -60,3 +60,15 @@ export const deleteRoom = async (id: string) => {
   console.log(response.data);
   return response.data;
 };
+
+export const fetchRoomById = async (id: string) => {
+  const response = await axios.get(`${BASE_URL}/room/get/${id}`);
+  console.log(response.data);
+  return response.data;
+};
+
+export const editRoom = async (id: string, room: CreateRoomType) => {
+  const response = await axios.patch(`${BASE_URL}/room/edit/${id}`, room);
+  console.log(response.data);
+  return response.data;
+};

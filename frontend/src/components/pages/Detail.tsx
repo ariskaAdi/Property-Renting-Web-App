@@ -29,7 +29,6 @@ export default function PropertyDetailPage() {
   const todayDefault = startOfDay(new Date());
   const tomorrowDefault = addDays(todayDefault, 1);
 
-  // ---- Date Range Default ----
   const [dateRange, setDateRange] = useState<DateRange | undefined>(() => {
     const checkInParam = params.get("checkIn");
     const checkOutParam = params.get("checkOut");
@@ -48,7 +47,6 @@ export default function PropertyDetailPage() {
     return { from: today, to: tomorrow };
   });
 
-  // ---- Guests Default ----
   const [guests, setGuests] = useState({
     guests: 1,
     rooms: 1,
@@ -69,9 +67,7 @@ export default function PropertyDetailPage() {
     }
   }, [params]);
 
-  // ---- Modal Open Default ----
   const [open, setOpen] = useState(false);
-  const [showBarWhenModalOpen, setShowBarWhenModalOpen] = useState(false);
 
   useEffect(() => {
     if (params.get("checkIn") && params.get("checkOut")) {
@@ -255,7 +251,7 @@ export default function PropertyDetailPage() {
           {/* Mobile Fixed Booking Bar */}
           {!open && (
             <div
-              onClick={() => setOpen(true)} // klik bar → buka modal
+              onClick={() => setOpen(true)}
               className="fixed bottom-0 left-0 w-full p-4 bg-white border-t shadow-lg z-40 lg:hidden cursor-pointer">
               <div className="flex justify-between items-center mt-4">
                 <div>

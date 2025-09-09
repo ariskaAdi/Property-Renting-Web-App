@@ -48,6 +48,22 @@ class RoomsController {
     }
   }
 
+  public async getRoomById(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const { id } = req.params;
+
+      const response = await getRoomByIdRepository(id);
+
+      res.status(200).send({ message: "Room found", success: true, response });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   public async createRoomController(
     req: Request,
     res: Response,

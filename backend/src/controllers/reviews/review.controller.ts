@@ -87,7 +87,14 @@ class BookingReviews {
         where: { property_id: property_id },
       });
 
-      res.status(200).json({ data: reviews, total: totalReviews, page, limit });
+      res.status(200).json({
+        data: reviews,
+        meta: {
+          total: totalReviews,
+          page,
+          limit,
+        },
+      });
     } catch (error) {
       next(error);
     }

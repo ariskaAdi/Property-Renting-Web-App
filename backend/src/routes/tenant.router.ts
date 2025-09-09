@@ -34,6 +34,7 @@ class TenantRouter {
       verifyToken,
       this.salesReport.getSalesReport
     );
+    this.route.get("/aggregate-report", verifyToken,this.salesReport.getAggregate)
   }
   public getRouter(): Router {
     return this.route;

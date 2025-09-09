@@ -29,8 +29,10 @@ import {
 } from "@/components/ui/select";
 import { DateRange } from "react-day-picker";
 import { DatePickerWithRange } from "../ui/DatePickerPopover";
-import { useSalesReport } from "@/hooks/useSalesReport";
+import { useSalesAggregate, useSalesReport } from "@/hooks/useSalesReport";
 import { keepPreviousData } from "@tanstack/react-query";
+import { Activity, DollarSign, Users } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
 
 ChartJS.register(
   CategoryScale,
@@ -64,6 +66,8 @@ export function SalesReportDashboard() {
     }
   );
 
+  const { data: aggregate, isLoading: aggLoading, isError: aggError } = useSalesAggregate()
+
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -75,7 +79,15 @@ export function SalesReportDashboard() {
     },
   };
 
-  const ChartComponent = groupBy === 'date' ? Line : Bar
+//   if (!data || data.labels.length < 0) {
+//   return (
+//     <div className="flex h-full w-full items-center justify-center">
+//       <p className="text-muted-foreground font-bold">Not enough data to display a trend.</p>
+//     </div>
+//   );
+// }
+
+  const ChartComponent = groupBy === "date" ? Line : Bar;
 
   return (
     <div className="flex-col md:flex">
@@ -87,7 +99,6 @@ export function SalesReportDashboard() {
           </div>
         </div>
 
-        {/* Main Grid for Dashboard Cards */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
           <Card className="col-span-12 lg:col-span-4 py-6">
             <CardHeader>
@@ -96,7 +107,10 @@ export function SalesReportDashboard() {
                 Showing total sales grouped by {groupBy}.
               </CardDescription>
               <div className="pt-4">
-                <Select value={groupBy} onValueChange={(value) => setGroupBy(value as any)}>
+                <Select
+                  value={groupBy}
+                  onValueChange={(value) => setGroupBy(value as any)}
+                >
                   <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Group By" />
                   </SelectTrigger>
@@ -109,38 +123,88 @@ export function SalesReportDashboard() {
               </div>
             </CardHeader>
             <CardContent className="pl-2 h-[350px] transition-opacity duration-300">
-              <div className={`h-full w-full ${isPlaceholderData ? 'opacity-50' : 'opacity-100'}`}>
+              <div
+                className={`h-full w-full ${
+                  isPlaceholderData ? "opacity-50" : "opacity-100"
+                }`}
+              >
                 {isLoading && <ChartPlaceholder />}
-                {isError && <p className="text-red-500">Error: {(error as Error).message}</p>}
-                {data && <ChartComponent options={chartOptions} data={{
-                  labels: data.labels,
-                  datasets: [{
-                    label: 'Total Sales',
-                    data: data.data,
-                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                  }]
-                }} />}
+                {isError && (
+                  <p className="text-red-500">
+                    Error: {(error as Error).message}
+                  </p>
+                )}
+                {data && (
+                  <ChartComponent
+                    options={chartOptions}
+                    data={{
+                      labels: data.labels,
+                      datasets: [
+                        {
+                          label: "Total Sales",
+                          data: data.data,
+                          backgroundColor: "rgba(75, 192, 192, 0.6)",
+                          borderColor: "rgba(75, 192, 192, 1)",
+                        },
+                      ],
+                    }}
+                  />
+                )}
               </div>
             </CardContent>
           </Card>
 
-          {/* You can add other cards here */}
-          <Card className="col-span-12 lg:col-span-3">
-            <CardHeader>
-              <CardTitle>Recent Sales</CardTitle>
-              <CardDescription>
-                You made 265 sales this month.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {/* Placeholder for another component */}
-              <p>Your recent sales list could go here.</p>
-            </CardContent>
-          </Card>
+          <div className="grid grid-rows-3 gap-6 px-4 h-full">
+            <Card className="flex items-center p-6 h-full">
+              {/* Total Revenue */}
+              <div className="flex items-center w-full">
+                <div className="p-3 bg-green-100 dark:bg-green-900/50 rounded-md mr-4 flex-shrink-0">
+                  {/* SVG replaced with DollarSign icon component */}
+                  <DollarSign className="h-6 w-6 text-green-600 dark:text-green-400" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Total Revenue
+                  </p>
+                  <p className="text-2xl font-bold">{aggregate && formatCurrency(aggregate.totalRevenue)}</p>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="flex items-center p-6 h-full">
+              {/* Total Visitors */}
+              <div className="flex items-center w-full">
+                <div className="p-3 bg-blue-100 dark:bg-blue-900/50 rounded-md mr-4 flex-shrink-0">
+                  {/* SVG replaced with Users icon component */}
+                  <Users className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Total Visitors
+                  </p>
+                  <p className="text-2xl font-bold">{aggregate && aggregate.totalVisitors}</p>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="flex items-center p-6 h-full">
+              {/* Average Revenue per Booking */}
+              <div className="flex items-center w-full">
+                <div className="p-3 bg-orange-100 dark:bg-orange-900/50 rounded-md mr-4 flex-shrink-0">
+                  {/* SVG replaced with Activity icon component */}
+                  <Activity className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Avg. Revenue/Booking
+                  </p>
+                  <p className="text-2xl font-bold">{aggregate && formatCurrency(aggregate.avgRevenuePerBooking)}</p>
+                </div>
+              </div>
+            </Card>
+          </div>
         </div>
       </div>
     </div>
   );
 }
-

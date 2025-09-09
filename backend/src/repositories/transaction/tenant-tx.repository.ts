@@ -285,6 +285,7 @@ export const acceptBookingPayment = async (
       where: {
         id: bookingId,
         status: "waiting_confirmation",
+
         property: {
           tenant_id: tenantId,
         },

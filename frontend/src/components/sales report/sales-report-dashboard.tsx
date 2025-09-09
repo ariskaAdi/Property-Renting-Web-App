@@ -33,6 +33,9 @@ import { useSalesAggregate, useSalesReport } from "@/hooks/useSalesReport";
 import { keepPreviousData } from "@tanstack/react-query";
 import { Activity, DollarSign, Users } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
+import { useSalesReport } from "@/hooks/useSalesReport";
+import { keepPreviousData } from "@tanstack/react-query";
+
 
 ChartJS.register(
   CategoryScale,
@@ -79,6 +82,7 @@ export function SalesReportDashboard() {
     },
   };
 
+
 //   if (!data || data.labels.length < 0) {
 //   return (
 //     <div className="flex h-full w-full items-center justify-center">
@@ -88,6 +92,7 @@ export function SalesReportDashboard() {
 // }
 
   const ChartComponent = groupBy === "date" ? Line : Bar;
+
 
   return (
     <div className="flex-col md:flex">
@@ -99,6 +104,7 @@ export function SalesReportDashboard() {
           </div>
         </div>
 
+
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
           <Card className="col-span-12 lg:col-span-4 py-6">
             <CardHeader>
@@ -107,10 +113,14 @@ export function SalesReportDashboard() {
                 Showing total sales grouped by {groupBy}.
               </CardDescription>
               <div className="pt-4">
+
                 <Select
                   value={groupBy}
                   onValueChange={(value) => setGroupBy(value as any)}
                 >
+
+                <Select value={groupBy} onValueChange={(value) => setGroupBy(value as any)}>
+
                   <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Group By" />
                   </SelectTrigger>
@@ -150,9 +160,24 @@ export function SalesReportDashboard() {
                     }}
                   />
                 )}
+
+              <div className={`h-full w-full ${isPlaceholderData ? 'opacity-50' : 'opacity-100'}`}>
+                {isLoading && <ChartPlaceholder />}
+                {isError && <p className="text-red-500">Error: {(error as Error).message}</p>}
+                {data && <ChartComponent options={chartOptions} data={{
+                  labels: data.labels,
+                  datasets: [{
+                    label: 'Total Sales',
+                    data: data.data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                  }]
+                }} />}
+
               </div>
             </CardContent>
           </Card>
+
 
           <div className="grid grid-rows-3 gap-6 px-4 h-full">
             <Card className="flex items-center p-6 h-full">
@@ -203,6 +228,19 @@ export function SalesReportDashboard() {
               </div>
             </Card>
           </div>
+          <Card className="col-span-12 lg:col-span-3">
+            <CardHeader>
+              <CardTitle>Recent Sales</CardTitle>
+              <CardDescription>
+                You made 265 sales this month.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {/* Placeholder for another component */}
+              <p>Your recent sales list could go here.</p>
+            </CardContent>
+          </Card>
+
         </div>
       </div>
     </div>

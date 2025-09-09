@@ -26,6 +26,7 @@ const ReviewCard = ({ review }: { review: Review }) => {
               src={review.user.profilePicture || "/placeholder.svg"}
               alt={review.user.fullName}
             />
+
             {/* <AvatarFallback>{review.user.fullName.charAt(0)}</AvatarFallback> */}
           </Avatar>
           <div>

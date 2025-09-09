@@ -220,3 +220,4 @@ class SalesReport {
 }
 
 export default SalesReport;
+

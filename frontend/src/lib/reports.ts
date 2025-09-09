@@ -2,6 +2,9 @@ import axios from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
+const BASE_URL = process.env.PUBLIC_NEXT_BASE_URL;
+
+
 interface ChartData {
   labels: string[];
   data: number[];
@@ -29,6 +32,7 @@ export const fetchSalesReport = async (
 
   return response.data.data;
 };
+
 
 export const fetchAggregate = async () => {
     const response = await axios.get(`${BASE_URL}/tenant/aggregate-report`, {

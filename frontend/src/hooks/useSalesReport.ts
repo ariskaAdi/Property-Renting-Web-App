@@ -1,5 +1,9 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+
 import { fetchAggregate, fetchSalesReport, ReportFilters } from "@/lib/reports";
+
+import { fetchSalesReport, ReportFilters } from "@/lib/reports";
+
 
 export const useSalesReport = (filters: ReportFilters) => {
     return useQuery({
@@ -7,6 +11,7 @@ export const useSalesReport = (filters: ReportFilters) => {
         queryFn: () => fetchSalesReport(filters),
         placeholderData: keepPreviousData
     })
+
 }
 
 export const useSalesAggregate = () => {
@@ -15,4 +20,5 @@ export const useSalesAggregate = () => {
         queryFn: fetchAggregate,
         placeholderData: keepPreviousData
     })
+
 }

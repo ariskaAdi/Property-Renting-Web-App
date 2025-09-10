@@ -1,11 +1,12 @@
 import {
   createRoom,
   deleteRoom,
+  editRoom,
   fetchAllRooms,
   fetchRoomById,
   fetchRoomsByQuery,
 } from "@/services/room.service";
-import { CreateRoomType } from "@/types/room/room";
+import { CreateRoomType, EditRoomType } from "@/types/room/room";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useRoom = () => {
@@ -38,6 +39,12 @@ export const useRoomSearch = (
 export const useCreateRoom = () => {
   return useMutation({
     mutationFn: (room: CreateRoomType) => createRoom(room),
+  });
+};
+
+export const useEditRoom = () => {
+  return useMutation({
+    mutationFn: (room: EditRoomType) => editRoom(room.id, room),
   });
 };
 

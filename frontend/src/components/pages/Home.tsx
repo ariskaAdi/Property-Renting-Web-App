@@ -47,6 +47,7 @@ const HomePage = () => {
             setFilters((prev) => ({ ...prev, ...newFilters }))
           }
         />
+
         <PropertyGrid filters={filters} />
       </div>
     </div>

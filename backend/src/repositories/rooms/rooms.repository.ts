@@ -284,6 +284,7 @@ export const getRoomByIdRepository = async (id: string) => {
       total_rooms: true,
       room_images: true,
       base_price: true,
+      property_id: true,
     },
   });
 };

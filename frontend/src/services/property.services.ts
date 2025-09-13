@@ -85,7 +85,7 @@ export const fetchPropertyByLocation = async (
   const response = await axios.get(
     `${BASE_URL}/property/nearby?${params.toString()}`
   );
-
+  console.log(response.data);
   return response.data;
 };
 

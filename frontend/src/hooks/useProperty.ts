@@ -74,6 +74,7 @@ export const usePropertiesByLocation = (
         guests,
         rooms
       ),
+
     enabled: !!latitude && !!longitude && !!radius && !!checkIn && !!checkOut,
     staleTime: 1000 * 60 * 5,
   });

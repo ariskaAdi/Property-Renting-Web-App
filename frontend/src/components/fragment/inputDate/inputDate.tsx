@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { CalendarIcon, LucideMapPin, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { GuestPicker } from "@/components/ui/GuestPicker";
-import { format } from "date-fns";
+import { addDays, format } from "date-fns";
 
 interface MapboxFeature {
   id: string;
@@ -19,11 +19,7 @@ interface MapboxFeature {
   center: [number, number];
 }
 
-interface InputDateProps {
-  height?: string; // contoh: "h-16"
-}
-
-export default function InputDate({ height = "h-12 lg:h-14" }: InputDateProps) {
+export default function InputDate() {
   const [checkIn, setCheckIn] = React.useState<Date | undefined>();
   const [checkOut, setCheckOut] = React.useState<Date | undefined>();
   const [openCheckIn, setOpenCheckIn] = React.useState(false);
@@ -130,7 +126,7 @@ export default function InputDate({ height = "h-12 lg:h-14" }: InputDateProps) {
   const canSearch = !!coords && !!checkIn && !!checkOut && !geoLoading;
 
   return (
-    <div className="w-full flex flex-col lg:flex-row items-stretch border rounded-4xl bg-white p-4 lg:p-0 gap-2 lg:gap-0 shadow-sm ">
+    <div className="w-full flex flex-col lg:flex-row items-stretch border-2 rounded-4xl bg-white p-4 lg:p-0 gap-2 lg:gap-0 shadow-md  border-gray-200 ">
       {/* Location Input */}
       <div className="relative flex-1 px-2 lg:px-4">
         <input
@@ -207,9 +203,9 @@ export default function InputDate({ height = "h-12 lg:h-14" }: InputDateProps) {
             selected={checkOut}
             onSelect={(date) => {
               setCheckOut(date);
-              setOpenCheckOut(false); // Tutup setelah pilih
+              setOpenCheckOut(false);
             }}
-            disabled={{ before: checkIn ?? new Date() }}
+            disabled={{ before: checkIn ? addDays(checkIn, 1) : new Date() }}
           />
         </PopoverContent>
       </Popover>

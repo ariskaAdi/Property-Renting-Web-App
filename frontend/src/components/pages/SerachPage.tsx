@@ -12,8 +12,8 @@ const SerachPage = () => {
   return (
     <div className="min-h-auto  ">
       <div className="flex flex-col items-center justify-center text-center">
-        <div className="w-full max-w-6xl ">
-          <InputDate height="h-18" />
+        <div className="w-full max-w-6xl p-2">
+          <InputDate />
         </div>
       </div>
       <PropertyTypeNav

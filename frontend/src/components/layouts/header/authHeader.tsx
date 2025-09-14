@@ -27,25 +27,26 @@ const AuthHeader = () => {
       ) : isLoggedIn ? (
         <>
           {/* Desktop Auth */}
-          <div className="hidden lg:flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-4 border-l border-gray-200 pl-4">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="flex items-center space-x-2 px-2 hover:bg-transparent">
+                <Button className="flex items-center space-x-2 px-2 hover:bg-gray-50 bg-white ">
                   <Avatar className="w-8 h-8">
                     {user?.profile_picture ? (
                       <AvatarImage src={user.profile_picture} />
                     ) : (
-                      <AvatarFallback>
+                      <AvatarFallback className="text-black font-bold ">
                         {user?.full_name?.charAt(0).toUpperCase() || "U"}
                       </AvatarFallback>
                     )}
                   </Avatar>
-                  <span className="text-sm font-medium">{user?.full_name}</span>
+
+                  <span className="text-sm  text-gray-900 font-bold ">
+                    {user?.full_name}
+                  </span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuContent align="end" className="w-48 ">
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">

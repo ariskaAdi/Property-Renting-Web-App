@@ -1,10 +1,10 @@
 import {
   createPropertyServices,
   fetchAllProperties,
-  fetchPropertyById,
   fetchPropertyByLocation,
   fetchPropertyByTenant,
   getPropertyById,
+  softDeletePropertyService,
   updatePropertyService,
 } from "@/services/property.services";
 import {
@@ -103,5 +103,11 @@ export const useUpdateProperty = () => {
       console.error(error);
       alert("Failed to update property");
     },
+  });
+};
+
+export const useSoftDeleteProperty = () => {
+  return useMutation({
+    mutationFn: (id: string) => softDeletePropertyService(id),
   });
 };

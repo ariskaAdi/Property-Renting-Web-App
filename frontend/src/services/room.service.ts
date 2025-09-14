@@ -56,14 +56,6 @@ export const createRoom = async (room: CreateRoomType) => {
   return response.data;
 };
 
-export const deleteRoom = async (id: string) => {
-  const response = await axios.delete(`${BASE_URL}/room/delete/${id}`, {
-    withCredentials: true,
-  });
-  console.log(response.data);
-  return response.data;
-};
-
 export const fetchRoomById = async (id: string) => {
   const response = await axios.get(`${BASE_URL}/room/get/${id}`);
   console.log(response.data);
@@ -96,6 +88,18 @@ export const editRoom = async (id: string, room: EditRoomType) => {
     withCredentials: true,
   });
 
+  console.log(response.data);
+  return response.data;
+};
+
+export const softDeleteRoom = async (id: string) => {
+  const response = await axios.patch(
+    `${BASE_URL}/room/delete/${id}`,
+    {},
+    {
+      withCredentials: true,
+    }
+  );
   console.log(response.data);
   return response.data;
 };

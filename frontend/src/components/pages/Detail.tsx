@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useRoomSearch } from "@/hooks/useRoom";
@@ -19,28 +20,26 @@ import { DateRange } from "react-day-picker";
 import { ReviewList } from "../reviews/reviews-card";
 
 interface Review {
-  id: string
-  userName: string
-  userAvatar: string
-  yearsOnPlatform: number
-  rating: number
-  date: string
-  content: string
-  isExpanded?: boolean
+  id: string;
+  userName: string;
+  userAvatar: string;
+  yearsOnPlatform: number;
+  rating: number;
+  date: string;
+  content: string;
+  isExpanded?: boolean;
 }
 
 interface ReviewsCardProps {
-  reviews: Review[]
-  reviewsPerPage?: number
+  reviews: Review[];
+  reviewsPerPage?: number;
 }
 
 import { DatePickerWithRange } from "../ui/DatePickerPopover";
 import { GuestPicker } from "../ui/GuestPicker";
 import { addDays, format, startOfDay } from "date-fns";
 
-
 export default function PropertyDetailPage() {
-
   const router = useRouter();
   const params = useSearchParams();
 
@@ -125,7 +124,7 @@ export default function PropertyDetailPage() {
   const propertyId = data?.property?.id;
   const roomId = data?.id;
 
-  const totalGuests = guests.toString();
+  const totalGuests = guests.guests.toString();
   const rooms = guests.rooms.toString();
 
   if (isLoading) return <PropertyDetailSkeleton />;
@@ -228,10 +227,15 @@ export default function PropertyDetailPage() {
                   </div>
                 </CardContent>
               </Card>
-              
+
               <Card className="px-4 py-6">
                 <h3 className="text-lg font-medium ">Reviews & Ratings</h3>
-                <ReviewList propertyId={propertyId}/>
+                {propertyId ? (
+                  <ReviewList propertyId={propertyId} />
+                ) : (
+
+                  <div className="text-center py-8">Loading reviews...</div>
+                )}
               </Card>
 
               <Card>
@@ -277,7 +281,8 @@ export default function PropertyDetailPage() {
           {!open && (
             <div
               onClick={() => setOpen(true)}
-              className="fixed bottom-0 left-0 w-full p-4 bg-white border-t shadow-lg z-40 lg:hidden cursor-pointer">
+              className="fixed bottom-0 left-0 w-full p-4 bg-white border-t shadow-lg z-40 lg:hidden cursor-pointer"
+            >
               <div className="flex justify-between items-center mt-4">
                 <div>
                   <span className="text-sm text-gray-600">From</span>
@@ -325,7 +330,8 @@ export default function PropertyDetailPage() {
                   {/* 🔥 tombol search date untuk mobile modal */}
                   <Button
                     onClick={handleSearchDate}
-                    className="ml-auto rounded-4xl">
+                    className="ml-auto rounded-4xl"
+                  >
                     Search Date
                   </Button>
                 </div>
@@ -374,7 +380,8 @@ export default function PropertyDetailPage() {
 
                 <Button
                   onClick={handleReserveNow}
-                  className="w-full bg-green-500 hover:bg-green-600 text-white">
+                  className="w-full bg-green-500 hover:bg-green-600 text-white"
+                >
                   Reserve now
                 </Button>
                 <div className="text-xs text-gray-500 text-center">
@@ -399,7 +406,8 @@ export default function PropertyDetailPage() {
                     {/* tombol search date untuk cari tanggal tersedia */}
                     <Button
                       onClick={handleSearchDate}
-                      className="ml-auto rounded-4xl">
+                      className="ml-auto rounded-4xl"
+                    >
                       search date
                     </Button>
                   </div>
@@ -449,7 +457,8 @@ export default function PropertyDetailPage() {
 
                   <Button
                     onClick={handleReserveNow}
-                    className="w-full bg-green-500 hover:bg-green-600 text-white mt-4">
+                    className="w-full bg-green-500 hover:bg-green-600 text-white mt-4"
+                  >
                     Reserve now
                   </Button>
                   <div className="text-xs text-gray-500 text-center">

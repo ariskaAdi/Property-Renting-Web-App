@@ -3,7 +3,6 @@
 import Map, { Marker, Popup } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { useState, useEffect } from "react";
-import { usePropertiesByLocation } from "@/hooks/useProperty";
 import { FaHome } from "react-icons/fa";
 import Image from "next/image";
 
@@ -39,11 +38,12 @@ interface MapPagesProps {
   children?: (props: {
     userLocation: { latitude: number; longitude: number } | null;
   }) => React.ReactNode;
+  properties: Property[];
   checkIn?: string;
   checkOut?: string;
 }
 
-const MapPages: React.FC<MapPagesProps> = ({ children, checkIn, checkOut }) => {
+const MapPages: React.FC<MapPagesProps> = ({ children, properties }) => {
   const [viewState, setViewState] = useState({
     longitude: 112.58335,
     latitude: -8.1190028,
@@ -74,22 +74,13 @@ const MapPages: React.FC<MapPagesProps> = ({ children, checkIn, checkOut }) => {
     }
   }, []);
 
-  // Fetch properties
-  const { data } = usePropertiesByLocation(
-    userLocation?.latitude ?? 0,
-    userLocation?.longitude ?? 0,
-    5,
-    checkIn,
-    checkOut
-  );
-
-  const properties: Property[] = data?.properties ?? [];
+  console.log("properties in Map:", properties);
 
   return (
     <div className="flex flex-col lg:flex-row w-full max-w-full overflow-x-hidden">
       {/* Map Section */}
       <div className="w-full lg:flex-1 relative p-2">
-        <div className="h-[500px] rounded-xl overflow-hidden shadow">
+        <div className="h-[300px] md:h-[400px] lg:h-[500px] rounded-xl overflow-hidden shadow">
           <Map
             {...viewState}
             onMove={(evt) => setViewState(evt.viewState)}

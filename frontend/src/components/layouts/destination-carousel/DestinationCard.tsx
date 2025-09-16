@@ -26,36 +26,36 @@ const cities: City[] = [
   {
     id: 1,
     name: "Jakarta",
-    latitude: -6.175, // pusat Kota Jakarta :contentReference[oaicite:0]{index=0}
-    longitude: 106.8275, // :contentReference[oaicite:1]{index=1}
+    latitude: -6.175,
+    longitude: 106.8275,
     picture: "/jakarta.jpg",
   },
   {
     id: 2,
     name: "Bandung",
-    latitude: -6.9147, // pusat Kota Bandung :contentReference[oaicite:2]{index=2}
-    longitude: 107.6098, // :contentReference[oaicite:3]{index=3}
+    latitude: -6.9147,
+    longitude: 107.6098,
     picture: "/bandung.jpg",
   },
   {
     id: 3,
     name: "Surabaya",
-    latitude: -7.2504, // pusat Kota Surabaya :contentReference[oaicite:4]{index=4}
-    longitude: 112.7688, // :contentReference[oaicite:5]{index=5}
+    latitude: -7.2504,
+    longitude: 112.7688,
     picture: "/surabaya.jpg",
   },
   {
     id: 4,
     name: "Bali",
-    latitude: -8.3405, // Bali (pusat pulau Bali) :contentReference[oaicite:6]{index=6}
-    longitude: 115.092, // :contentReference[oaicite:7]{index=7}
+    latitude: -8.3405,
+    longitude: 115.092,
     picture: "/bali.jpg",
   },
   {
     id: 5,
     name: "Malang",
-    latitude: -7.9839, // Kota Malang :contentReference[oaicite:8]{index=8}
-    longitude: 112.6214, // :contentReference[oaicite:9]{index=9}
+    latitude: -7.9839,
+    longitude: 112.6214,
     picture: "/malang.jpg",
   },
 ];
@@ -85,7 +85,7 @@ export default function DestinationCard() {
   }, [api]);
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-6">
+    <section className="w-full max-w-7xl mx-auto p-6" id="destination">
       <h2 className="text-xl font-bold text-gray-900 mb-8">
         Rekomendasi Destinasi Populer
       </h2>
@@ -157,6 +157,6 @@ export default function DestinationCard() {
           />
         ))}
       </div>
-    </div>
+    </section>
   );
 }

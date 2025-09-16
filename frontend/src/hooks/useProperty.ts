@@ -19,6 +19,7 @@ export const useProperties = (filters: PropertyFilters = {}) => {
     queryKey: ["properties", filters],
     queryFn: () => fetchAllProperties(filters),
     select: (data) => data.properties,
+    staleTime: 60 * 1000,
   });
 };
 

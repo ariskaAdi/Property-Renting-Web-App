@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useLoginUser } from "@/hooks/useAuth";
 import LoginGoogle from "@/components/fragment/button-action/LoginGoogle";
 import { useForm } from "react-hook-form";
@@ -22,6 +22,12 @@ import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  console.log("searchParams login:", searchParams.toString());
+
+  const from = searchParams.get("from") || "/";
+  console.log("from value:", from);
+
   const { mutate: login, isPending, isError } = useLoginUser();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -41,7 +47,7 @@ export default function LoginPage() {
     login(
       { email: data.email, password: data.password },
       {
-        onSuccess: () => router.push("/"),
+        onSuccess: () => router.push(from),
         onError: (err) => {
           console.log(err);
         },

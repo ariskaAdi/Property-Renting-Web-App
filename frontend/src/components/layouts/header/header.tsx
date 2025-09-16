@@ -18,8 +18,8 @@ import AuthHeader from "./authHeader";
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Properties", href: "/#EventCategory" },
-  { label: "Contact", href: "/contact" },
+  { label: "Properties", href: "/#properties" },
+  { label: "Destination", href: "/#destination" },
 ];
 
 export function Header() {
@@ -28,17 +28,17 @@ export function Header() {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const pathname = usePathname();
 
-  // Scroll effect
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Kondisi teks
-  // Jika halaman homepage atau event, teks putih kecuali sudah di-scroll
   const isWhiteText =
-    !isScrolled && (pathname === "/" || pathname.includes("#EventCategory"));
+    !isScrolled &&
+    (pathname === "/" ||
+      pathname === "/about" ||
+      pathname.includes("#EventCategory"));
 
   return (
     <header

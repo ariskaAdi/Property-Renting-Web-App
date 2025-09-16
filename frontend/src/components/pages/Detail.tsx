@@ -124,7 +124,7 @@ export default function PropertyDetailPage() {
   const propertyId = data?.property?.id;
   const roomId = data?.id;
 
-  const totalGuests = guests.toString();
+  const totalGuests = guests.guests.toString();
   const rooms = guests.rooms.toString();
 
   if (isLoading) return <PropertyDetailSkeleton />;
@@ -311,7 +311,6 @@ export default function PropertyDetailPage() {
             </div>
           )}
 
-          {/* Modal Booking Detail (Mobile) */}
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent>
               <DialogHeader>
@@ -386,7 +385,6 @@ export default function PropertyDetailPage() {
             </DialogContent>
           </Dialog>
 
-          {/* Desktop Booking Column */}
           <div className="hidden lg:block lg:col-span-1 ">
             <div className="sticky top-[80px]">
               <Card>
@@ -394,7 +392,7 @@ export default function PropertyDetailPage() {
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
                     <span className="text-sm text-gray-600">Choose a date</span>
-                    {/* tombol search date untuk cari tanggal tersedia */}
+
                     <Button
                       onClick={handleSearchDate}
                       className="ml-auto rounded-4xl">

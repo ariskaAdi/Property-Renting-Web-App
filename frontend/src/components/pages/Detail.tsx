@@ -230,12 +230,14 @@ export default function PropertyDetailPage() {
 
               <Card className="px-4 py-6">
                 <h3 className="text-lg font-medium ">Reviews & Ratings</h3>
+
                 {propertyId ? (
                   <ReviewList propertyId={propertyId} />
                 ) : (
 
                   <div className="text-center py-8">Loading reviews...</div>
                 )}
+
               </Card>
 
               <Card>
@@ -317,7 +319,6 @@ export default function PropertyDetailPage() {
             </div>
           )}
 
-          {/* Modal Booking Detail (Mobile) */}
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent>
               <DialogHeader>
@@ -327,7 +328,6 @@ export default function PropertyDetailPage() {
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
                   <span className="text-sm text-gray-600">Choose a date</span>
-                  {/* 🔥 tombol search date untuk mobile modal */}
                   <Button
                     onClick={handleSearchDate}
                     className="ml-auto rounded-4xl"
@@ -395,15 +395,14 @@ export default function PropertyDetailPage() {
             </DialogContent>
           </Dialog>
 
-          {/* Desktop Booking Column */}
-          <div className="hidden lg:block lg:col-span-1">
-            <div className="sticky top-4">
+          <div className="hidden lg:block lg:col-span-1 ">
+            <div className="sticky top-[80px]">
               <Card>
                 <CardContent className="p-6 space-y-4">
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
                     <span className="text-sm text-gray-600">Choose a date</span>
-                    {/* tombol search date untuk cari tanggal tersedia */}
+
                     <Button
                       onClick={handleSearchDate}
                       className="ml-auto rounded-4xl"

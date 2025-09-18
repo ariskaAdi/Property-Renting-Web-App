@@ -13,6 +13,7 @@ export interface FetchBookingsParams {
   startDate?: string;
   endDate?: string;
   bookingId?: string;
+  page?: number;
 }
 
 export type FlexibleBookingParams = Omit<FetchBookingsParams, "status"> & {

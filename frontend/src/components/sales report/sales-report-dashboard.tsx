@@ -33,6 +33,7 @@ import { useSalesAggregate, useSalesReport } from "@/hooks/useSalesReport";
 import { Activity, DollarSign, Users } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { keepPreviousData } from "@tanstack/react-query";
+import { AnalyticsDateRangePicker } from "../ui/AnalyticsDatePicker";
 
 ChartJS.register(
   CategoryScale,
@@ -99,7 +100,7 @@ export function SalesReportDashboard() {
         <div className="flex items-center justify-between space-y-2">
           <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
           <div className="flex items-center space-x-2">
-            <DatePickerWithRange date={dateRange} onDateChange={setDateRange} />
+            <AnalyticsDateRangePicker date={dateRange} onDateChange={setDateRange} />
           </div>
         </div>
 

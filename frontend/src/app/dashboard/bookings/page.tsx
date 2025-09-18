@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader} from "@/components/ui/card";
-import { useBookings, useTenantBookings, useUserBookings } from "@/hooks/useBookings";
+import { useTenantBookings, useUserBookings } from "@/hooks/useBookings";
 import { useMemo } from "react";
 import { useFetchMe } from "@/hooks/useUser";
 import type { FetchBookingsParams } from "@/services/transactions.services";
@@ -14,6 +14,7 @@ import {
 } from "@/types/transactions/transactions";
 import { BookingList } from "@/components/dashboard/BookingList";
 import { BookingsToolbar } from "@/components/dashboard/BookingToolbar";
+import { PaginationControls } from "@/components/ui/PaginationControl";
 
 const BookingsPage = () => {
   const router = useRouter();
@@ -24,6 +25,7 @@ const BookingsPage = () => {
 
   // State Management
   const filters = useMemo(() => {
+    const page = parseInt(searchParams.get('page') as string)
     const urlStatus = searchParams.get("status");
     const status: BookingStatus = isValidBookingStatus(urlStatus)
       ? urlStatus
@@ -36,14 +38,19 @@ const BookingsPage = () => {
       sort: sort,
       startDate: searchParams.get("start") ?? undefined,
       endDate: searchParams.get("end") ?? undefined,
-      bookingId: searchParams.get("id") ?? undefined,
+      bookingId: searchParams.get("bookingId") ?? undefined,
     };
   }, [searchParams]);
 
   const userQuery = useUserBookings(filters, { enabled: role === 'user'});
   const tenantQuery = useTenantBookings(filters, { enabled: role === 'tenant'})
 
-  const {data: bookings, isLoading, isError} = role === 'tenant' ? tenantQuery : userQuery
+  const {data: response, isLoading, isError} = role === 'tenant' ? tenantQuery : userQuery
+
+  console.log("Fetching data:", response)
+
+  const bookings = response?.data
+  const meta = response?.meta
 
   type FilterKeys = keyof FetchBookingsParams;
 
@@ -66,6 +73,12 @@ const BookingsPage = () => {
     router.push(`/dashboard/bookings`);
   };
 
+  const handlePageChange = (newPage: number) => {
+    const current = new URLSearchParams(Array.from(searchParams.entries()))
+    current.set("page", String(newPage))
+    router.push(`/dashboard/bookings?${current.toString()}`)
+  }
+
   return (
     <div className="p-6">
       <Card className="w-full max-w-7xl mx-auto">
@@ -84,6 +97,9 @@ const BookingsPage = () => {
             isError={isError}
             role={role}
           />
+          {meta && meta.totalPages > 1 && (
+            <PaginationControls meta={meta} onPageChange={handlePageChange}/>
+          )}
         </CardContent>
       </Card>
     </div>

@@ -11,6 +11,7 @@ import {
   useUserCancelBooking,
 } from "@/hooks/useBookings";
 import { formatCurrency } from "@/lib/utils";
+import { ViewProofModal } from "../ui/view-proof";
 
 const getStatusColor = (status: string) => {
   switch (status) {
@@ -38,6 +39,7 @@ export const BookingCard = ({ booking, role }: BookingCardProps) => {
     (acc, num) => acc + num.guests_count,
     0
   );
+  const roomName = booking.booking_rooms.map(br => br.room.name).join(', ')
   const price = booking.amount;
 
   console.log("Booking data:", booking);
@@ -81,8 +83,12 @@ export const BookingCard = ({ booking, role }: BookingCardProps) => {
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                   <div>
                     <h3 className="font-semibold text-gray-900">
-                      {booking?.property?.name}
+                      {booking?.property?.name} - {roomName}
                     </h3>
+                    <h6 className="font-semibold text-[12px] text-gray-800">
+                      Booking Reference ID: {booking.id.slice(0,6).toUpperCase()}
+                    </h6>
+                  
                     <div className="flex items-center text-sm text-gray-500 mt-1">
                       <MapPin className="w-4 h-4 mr-1" />
                       {booking.property?.city}
@@ -114,7 +120,7 @@ export const BookingCard = ({ booking, role }: BookingCardProps) => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-2 pt-2">
-                  {role === "tenant" ? (
+                  {role === "tenant" && booking.status === "waiting_confirmation" ? (
                     <Button
                       size="sm"
                       className="bg-orange-500 hover:bg-orange-600 cursor-pointer"
@@ -123,17 +129,10 @@ export const BookingCard = ({ booking, role }: BookingCardProps) => {
                       {" "}
                       Accept
                     </Button>
-                  ) : (
-                    <Button
-                      size="sm"
-                      className="bg-orange-500 hover:bg-orange-600 cursor-pointer"
-                    >
-                      {" "}
-                      View Booking
-                    </Button>
-                  )}
+                  ) : 
+                  ""}
 
-                  {role === "tenant" ? (
+                  {role === "tenant" && booking.status === "waiting_confirmation" ? (
                     <Button
                       size="sm"
                       className="bg-red-500 hover:bg-red-600 cursor-pointer"
@@ -142,28 +141,14 @@ export const BookingCard = ({ booking, role }: BookingCardProps) => {
                       {" "}
                       Reject
                     </Button>
-                  ) : (
-                    <Button
-                      size="sm"
-                      className="bg-red-500 hover:bg-red-600 cursor-pointer"
-                    >
-                      {" "}
-                      Modify Booking
-                    </Button>
-                  )}
-
-                  {role === "tenant" ? (
-                    <Button
-                      size="sm"
-                      className="bg-blue-500 hover:bg-blue-600 cursor-pointer"
-                      onClick={() => handleAccept(booking.id)}
-                    >
-                      {" "}
-                      View Proof
-                    </Button>
                   ) : ""}
 
-                  {booking.status === "waiting_payment" || booking.status === "waiting_confirmation" && (
+                  {role === "tenant" ? (              
+                    <ViewProofModal proof_image={booking.proof_image} status={booking.status}/>
+                    
+                  ) : ""}
+
+                  {booking.status === "waiting_payment" || booking.status === "waiting_confirmation" || booking.status === "confirmed" && (
                     <Button
                       variant="outline"
                       size="sm"

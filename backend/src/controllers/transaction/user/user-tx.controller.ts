@@ -16,6 +16,7 @@ import {
   UpdateBookings,
 } from "../../../repositories/transaction/transaction.repository";
 import { proofUploadService } from "../../../services/transaction/transaction.service";
+import { getFilteredBookings } from "../../../repositories/transaction/user-tx.repository";
 
 type Booking = Prisma.bookingsGetPayload<{}>;
 
@@ -147,15 +148,33 @@ class UserTransactions {
     next: NextFunction
   ) => {
     try {
+      console.log("Full query object received from frontend:", req.query);
       const {
         status,
         check_in_date: startDate,
         check_out_date: endDate,
         sort,
+        bookingId,
       } = req.query;
-      const { bookingId } = req.params;
       const userId = res.locals.decrypt.userId;
       console.log("userId from token:", userId);
+      
+      let page = 1
+      let limit = 5
+
+      if (req.query.page && typeof req.query.page === 'string') {
+        const parsedPage = parseInt(req.query.page, 10);
+        if (!isNaN(parsedPage) && parsedPage > 0) {
+          page = parsedPage
+        }
+      }
+
+      if (req.query.limit && typeof req.query.limit === 'string') {
+        const parsedLimit = parseInt(req.query.limit, 10);
+        if (!isNaN(parsedLimit) && parsedLimit > 0) {
+          limit = parsedLimit
+        }
+      }
 
       // Default Filter
       const whereClause: Prisma.bookingsWhereInput = {
@@ -164,7 +183,10 @@ class UserTransactions {
 
       // Booking ID Filter
       if (bookingId && typeof bookingId === "string") {
-        whereClause.id = bookingId;
+        whereClause.id = {
+          startsWith: bookingId,
+          mode: "insensitive"
+        }
       }
 
       // Status Filter
@@ -193,42 +215,7 @@ class UserTransactions {
         }
       }
 
-      const bookings = await prisma.bookings.findMany({
-        where: whereClause,
-        orderBy: {
-          created_at: sort === "asc" ? "asc" : "desc",
-        },
-        select: {
-          id: true,
-          check_in_date: true,
-          check_out_date: true,
-          payment_deadline: true,
-          amount: true,
-          booking_rooms: {
-            select: {
-              id: true,
-              room_id: true,
-              guests_count: true,
-              nights: true,
-              price_per_night: true,
-              subtotal: true,
-            },
-          },
-          property: {
-            select: {
-              name: true,
-              main_image: true,
-              city: true,
-            },
-          },
-          status: true,
-          _count: {
-            select: {
-              reviews: true,
-            },
-          },
-        },
-      });
+      const bookings = await getFilteredBookings(whereClause, sort, page, limit)
 
       res.status(200).json({
         success: true,
@@ -350,9 +337,9 @@ class UserTransactions {
         throw new AppError("No file uploaded.", 400);
       }
 
-      const { booking_id } = req.params;
+      const { bookingId } = req.params;
 
-      const response = await proofUploadService(userId, booking_id, req.file);
+      const response = await proofUploadService(userId, bookingId, req.file);
 
       res.status(200).json({
         success: true,

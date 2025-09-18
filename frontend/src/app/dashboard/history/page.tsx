@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useBookings } from "@/hooks/useBookings";
+import { formatCurrency } from "@/lib/utils";
 import { FetchBookingsParams } from "@/services/transactions.services";
 import {
   BookingStatus,
@@ -67,7 +68,7 @@ const HistoryTripsPage = () => {
 
   return (
     <div className="p-6">
-      <Card className="w-full max-w-7xl mx-auto">
+      <Card className="w-full max-w-7xl mx-auto py-6">
         <CardHeader className="pb-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <CardTitle className="text-xl font-semibold">
@@ -140,7 +141,7 @@ const HistoryTripsPage = () => {
                         </div>
                         <div className="flex items-center text-gray-600">
                           <span className="font-semibold text-gray-900">
-                            {trip.amount}
+                            {formatCurrency(trip.amount)}
                           </span>
                         </div>
                       </div>

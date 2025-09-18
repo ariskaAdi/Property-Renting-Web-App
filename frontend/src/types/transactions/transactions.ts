@@ -23,32 +23,14 @@ export interface Booking {
   booking_rooms: {
     guests_count: number;
     price_per_night: number;
+    room: Room
   }[];
 }
-// export interface Booking {
-//   id: string;
-//   userId: string;
-//   propertyId: string;
-//   status:
-//     | "waiting_payment"
-//     | "confirmed"
-//     | "canceled"
-//     | "canceled_by_tenant"
-//     | "expired";
-//   checkInDate: string;
-//   checkOutDate: string;
-//   proofImage: string;
-//   paymentDeadline: string;
-//   amount: number;
-//   property: {
-//     mainImage: string;
-//     name: string;
-//     city: string;
-//   };
-//   bookingRooms: {
-//     guestsCount: number;
-//   }[];
-// }
+
+export interface Room {
+  name: string;
+  propertyId: string
+}
 
 export interface BookingApiResponse {
   message: string;

@@ -3,6 +3,7 @@ import { snap } from "../../../config/midtrans";
 import { prisma } from "../../../config/prisma";
 import AppError from "../../../errors/AppError";
 import crypto from "crypto";
+import { sendUserBookingConfirmation } from "../../../services/transaction/transaction.service";
 
 export class MidtransWebhookController {
   public handleNotification = async (
@@ -28,14 +29,8 @@ export class MidtransWebhookController {
         throw new AppError("Invalid Midtrans signature.", 403);
       }
 
-      console.log(`✅ Signature is valid for order ${orderId}.`);
-
       const transactionStatus = notificationJson.transaction_status;
       const fraudStatus = notificationJson.fraud_status;
-
-      console.log(
-        `Webhook received for booking ${orderId}: Transaction status is '${transactionStatus}', Fraud status is '${fraudStatus}'`
-      );
 
       const booking = await prisma.bookings.findUnique({
         where: {
@@ -52,9 +47,15 @@ export class MidtransWebhookController {
           .send("Booking not found, but notification acknowledged.");
       }
 
+      const tenantRecord = await prisma.tenants.findUnique({
+        where: {
+          user_id: booking.user_id
+        }
+      })
+
       if (transactionStatus === "settlement" || transactionStatus === "capture") {
         if (fraudStatus === "accept") {
-          await prisma.bookings.update({
+          const updatedBooking = await prisma.bookings.update({
             where: {
               id: orderId,
             },
@@ -62,7 +63,18 @@ export class MidtransWebhookController {
               status: "confirmed",
               paid_at: new Date(),
             },
+            include: {
+              user:true,
+              property: true,
+              booking_rooms: {
+                include: {
+                  room: true
+                }
+              }
+            }
           });
+
+          await sendUserBookingConfirmation(updatedBooking)
         }
       } else if (
         transactionStatus === "expire" ||

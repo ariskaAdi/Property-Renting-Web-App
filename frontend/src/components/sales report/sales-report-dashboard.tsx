@@ -84,13 +84,13 @@ export function SalesReportDashboard() {
     },
   };
 
-  //   if (!data || data.labels.length < 0) {
-  //   return (
-  //     <div className="flex h-full w-full items-center justify-center">
-  //       <p className="text-muted-foreground font-bold">Not enough data to display a trend.</p>
-  //     </div>
-  //   );
-  // }
+    if (!data || data.labels.length < 0) {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <p className="text-muted-foreground font-bold">Not enough data to display a trend.</p>
+      </div>
+    );
+  }
 
   const ChartComponent = groupBy === "date" ? Line : Bar;
 
@@ -100,12 +100,12 @@ export function SalesReportDashboard() {
         <div className="flex items-center justify-between space-y-2">
           <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
           <div className="flex items-center space-x-2">
-            <AnalyticsDateRangePicker date={dateRange} onDateChange={setDateRange} />
+            
           </div>
         </div>
 
 
-        <h2>Your Sales Report</h2>
+        <AnalyticsDateRangePicker date={dateRange} onDateChange={setDateRange} />
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
           
           <Card className="col-span-12 lg:col-span-4 py-6">
@@ -114,12 +114,7 @@ export function SalesReportDashboard() {
               <CardDescription>
                 Showing total sales grouped by {groupBy}.
               </CardDescription>
-              <div className="pt-4">
-                <Select
-                  value={groupBy}
-                  onValueChange={(value) => setGroupBy(value as any)}
-                />
-
+              <div className="pt-4">          
                 <Select
                   value={groupBy}
                   onValueChange={(value) => setGroupBy(value as any)}

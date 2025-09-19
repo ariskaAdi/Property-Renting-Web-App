@@ -16,7 +16,7 @@ const UserDashboard = () => {
   // local state form
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [preview, setPreview] = useState("/placeholder.svg");
+  const [preview, setPreview] = useState("/placeholder.png");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -24,8 +24,6 @@ const UserDashboard = () => {
   useEffect(() => {
     if (user) {
       setFullName(user.full_name || "");
-      setEmail(user.email || "");
-      setPreview(user.profile_picture || "/placeholder.svg");
     }
   }, [user]);
 
@@ -69,8 +67,8 @@ const UserDashboard = () => {
           <div className="flex flex-col items-center gap-4 lg:w-1/3">
             <div className="relative w-40 h-40 rounded-full overflow-hidden border">
               <Image
-                src={preview || "/avatar.png"}
-                alt="Profile Picture"
+                src={preview}
+                alt={user.full_name.charAt(0).toUpperCase()}
                 fill
                 className="object-cover"
               />

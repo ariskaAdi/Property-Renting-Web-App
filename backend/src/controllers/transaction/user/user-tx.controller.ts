@@ -31,13 +31,7 @@ class UserTransactions {
 
       const userId = role.userId;
       console.log("userId from token:", userId);
-      const user = await getUserById(userId);
-
-      if (!user) {
-        throw new AppError("User not found", 404);
-      }
-
-      // Validating fields
+      
       const {
         propertyId,
         checkInDate,
@@ -80,7 +74,7 @@ class UserTransactions {
             total_price: totalPrice,
             amount: totalPrice,
             user: {
-              connect: { id: user.id },
+              connect: { id: userId },
             },
             property: {
               connect: { id: propertyId },
@@ -242,15 +236,10 @@ class UserTransactions {
 
       const userId = decrypt.userId;
       console.log("userId from token:", userId);
-      const user = await getUserById(userId);
-
-      if (!user) {
-        throw new AppError("User not found", 404);
-      }
 
       const bookings = await prisma.bookings.findMany({
         where: {
-          user_id: user.id,
+          user_id: userId,
           check_out_date: {
             lt: new Date(),
           },

@@ -9,7 +9,7 @@ export const checkBookingAndUserId = async (bookingId: string, userId: string, t
     const response = await db.bookings.findFirst({
         where: {
             id: bookingId,
-            user_id: userId
+            user_id: userId 
         }
     })
 

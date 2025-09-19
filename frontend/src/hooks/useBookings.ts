@@ -4,9 +4,11 @@ import type { FetchBookingsParams, FlexibleBookingParams } from "@/services/tran
 import { toast } from "react-toastify";
 
 export const useBookings = <T extends FlexibleBookingParams>(params: T) => {
+  const { status, sort, startDate, endDate, bookingId, page } = params;
   return useQuery({
-    queryKey: ["bookings", params],
+    queryKey: ["bookings", status, sort, startDate, endDate, bookingId, page ],
     queryFn: () => fetchBookings(params),
+    placeholderData: keepPreviousData
   });
 };
 

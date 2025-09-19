@@ -32,6 +32,18 @@ export interface Room {
   propertyId: string
 }
 
+export interface Meta {
+  page: number,
+  limit: number,
+  totalPages: number,
+  totalItems: number,
+}
+
+export interface PaginatedBookings {
+  data: Booking[],
+  meta: Meta
+}
+
 export interface BookingApiResponse {
   message: string;
   success: boolean;
@@ -41,7 +53,7 @@ export interface BookingApiResponse {
 export interface BookingsApiResponse {
   message: string;
   success: boolean;
-  data: Booking[];
+  data: PaginatedBookings
 }
 
 // Type Guard Booking Status

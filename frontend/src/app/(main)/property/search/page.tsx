@@ -2,11 +2,12 @@ import BookingSectionPage from "@/components/layouts/room-detail/BookingSection"
 import RoomDetail from "@/components/layouts/room-detail/RoomDetail";
 import { fetchRoomsDetailsByQuery } from "@/services/room.service";
 
-export default async function PropertyDetailPage({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | undefined };
+type SearchParams = Promise<{ [key: string]: string | undefined }>;
+
+export default async function PropertyDetailPage(props: {
+  searchParams: SearchParams;
 }) {
+  const searchParams = await props.searchParams;
   const propertyname = searchParams.propertyname;
   const roomname = searchParams.roomname;
 

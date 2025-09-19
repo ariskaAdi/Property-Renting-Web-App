@@ -80,7 +80,7 @@ export default function VerifyEmail() {
           console.log(data);
           setErrorMessage(null);
           if (role === "tenant") {
-            router.push(`/auth/tenant/${decodedEmail}`);
+            router.push(`/auth/tenant/${encodeURIComponent(decodedEmail)}`);
           } else {
             router.push("/auth/login");
           }

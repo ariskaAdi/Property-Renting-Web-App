@@ -27,7 +27,6 @@ export const fetchRoomsByQuery = async (
     return null;
   }
 
-  console.log(response.data.response[0]);
   return response.data.response[0];
 };
 

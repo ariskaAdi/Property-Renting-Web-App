@@ -1,2 +1,1 @@
-2025-09-19 23:22:16 [ERROR]: GET /reservations/get | MESSAGE: Unauthorized access, only user can access this route | STACK: undefined
-2025-09-20 00:16:06 [ERROR]: GET /user/me | MESSAGE: Unauthorized | STACK: undefined
+

@@ -221,7 +221,7 @@ export default function InputDate() {
       {/* Search Button */}
       <div className="flex justify-end lg:flex-none items-center rounded-r-4xl">
         <Button
-          className="rounded-full w-full h-full lg:w-auto flex items-center justify-center gap-2"
+          className="rounded-full w-full h-full lg:w-auto flex items-center justify-center gap-2 cursor-pointer"
           onClick={handleSearch}
           disabled={!canSearch || loading}>
           {loading ? (

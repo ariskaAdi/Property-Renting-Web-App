@@ -6,7 +6,7 @@ export function Banner() {
     {
       icon: BsFillCalendarDateFill,
       title: "Atur jadwal mudah",
-      description: "Ubah atau batalkan jadwal perjalanan dengan fleksibel.",
+      description: "Atur jadwal perjalanan dengan fleksibel.",
     },
     {
       icon: MdPayment,

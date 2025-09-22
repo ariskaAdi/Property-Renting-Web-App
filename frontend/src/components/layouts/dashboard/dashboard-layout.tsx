@@ -8,7 +8,6 @@ import {
   Menu,
   X,
   Building,
-  Bell,
   User,
   BarChart3,
   Store,
@@ -33,7 +32,6 @@ const sidebarUser = [
   { icon: LayoutDashboard, label: "Profile", link: "/dashboard" },
   { icon: Building, label: "Past Bookings", link: "/dashboard/history" },
   { icon: Grid3X3, label: "Bookings", link: "/dashboard/bookings" },
-  { icon: Bell, label: "Notifications", link: "/dashboard/notifications" },
 ];
 
 const settingAccount = [

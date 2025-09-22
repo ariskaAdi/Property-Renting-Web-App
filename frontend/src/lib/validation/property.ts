@@ -20,4 +20,19 @@ export const createPropertySchema = z.object({
   property_category: z.nativeEnum(PropertyCategory),
 });
 
+export const editPropertySchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  description: z.string().min(1, "Description is required"),
+  address: z.string().min(1, "Address is required"),
+  city: z.string().min(1, "City is required"),
+  province: z.string().min(1, "Province is required"),
+  zip_code: z.string().min(1, "Zip code is required"),
+  latitude: z.string().optional(),
+  longitude: z.string().optional(),
+  property_category: z.nativeEnum(PropertyCategory),
+
+  main_image: z.instanceof(File).optional().nullable(),
+});
+
 export type CreatePropertySchema = z.infer<typeof createPropertySchema>;
+export type EditPropertySchema = z.infer<typeof editPropertySchema>;

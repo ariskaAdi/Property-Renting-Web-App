@@ -1,22 +1,30 @@
 "use client";
+
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   onChange: (file: File | null) => void;
+  initialPreview?: string | null;
 };
 
-const FileUpload = ({ onChange }: Props) => {
+const FileUpload = ({ onChange, initialPreview }: Props) => {
   const [preview, setPreview] = useState<string>("");
 
+  useEffect(() => {
+    if (initialPreview) {
+      setPreview(initialPreview);
+    }
+  }, [initialPreview]);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
+    const file = e.target.files?.[0] ?? null;
     if (file) {
       setPreview(URL.createObjectURL(file));
       onChange(file);
     } else {
-      setPreview("");
+      setPreview(initialPreview ?? "");
       onChange(null);
     }
   };

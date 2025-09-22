@@ -397,3 +397,29 @@ Please make sure your database server is running at `aws-0-us-west-1.pooler.supa
     at ri.handleAndLogRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6784)
     at ri.request (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6491)
     at async l (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:133:9812)
+2025-09-22 19:58:15 [ERROR]: GET /user/me | MESSAGE: Unauthorized | STACK: undefined
+2025-09-22 20:57:54 [ERROR]: GET /property/tenant | MESSAGE: 
+Invalid `prisma.tenants.findUnique()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\property\property.repository.ts:72:25
+
+  69 };
+  70 
+  71 export const getTenantWithPropertiesByUserId = async (userId: string) => {
+→ 72   return prisma.tenants.findUnique(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. | STACK: PrismaClientKnownRequestError: 
+Invalid `prisma.tenants.findUnique()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\property\property.repository.ts:72:25
+
+  69 };
+  70 
+  71 export const getTenantWithPropertiesByUserId = async (userId: string) => {
+→ 72   return prisma.tenants.findUnique(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`.
+    at ri.handleRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:7459)
+    at ri.handleAndLogRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6784)
+    at ri.request (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6491)
+    at async l (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:133:9812)

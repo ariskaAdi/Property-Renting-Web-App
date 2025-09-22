@@ -89,11 +89,13 @@ export default function CreatePropertyForm() {
           const { latitude, longitude } = pos.coords;
           setViewState((prev) => ({ ...prev, latitude, longitude }));
           setUserLocation({ latitude, longitude });
+          setValue("latitude", latitude.toString());
+          setValue("longitude", longitude.toString());
         },
         () => {}
       );
     }
-  }, []);
+  }, [setValue]);
 
   return (
     <div className="flex-1 p-4 lg:p-8 space-y-8">

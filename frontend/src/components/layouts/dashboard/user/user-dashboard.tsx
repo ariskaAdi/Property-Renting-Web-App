@@ -25,7 +25,6 @@ const UserDashboard = () => {
   useEffect(() => {
     if (user) {
       setFullName(user.full_name || "");
-
     }
   }, [user]);
 
@@ -69,13 +68,8 @@ const UserDashboard = () => {
           <div className="flex flex-col items-center gap-4 lg:w-1/3">
             <div className="relative w-40 h-40 rounded-full overflow-hidden border">
               <Image
-
-                src={preview}
                 alt={user.full_name.charAt(0).toUpperCase()}
-
                 src={preview && preview.trim() !== "" ? preview : "/avatar.png"}
-                alt="Profile Picture"
-
                 fill
                 unoptimized
                 className="object-cover"
@@ -94,7 +88,8 @@ const UserDashboard = () => {
               variant="outline"
               size="sm"
               type="button"
-              onClick={handleButtonClick}>
+              onClick={handleButtonClick}
+            >
               Change Photo
             </Button>
           </div>
@@ -102,7 +97,8 @@ const UserDashboard = () => {
           {/* Right: Form */}
           <form
             onSubmit={handleSubmit}
-            className="flex-1 space-y-4 lg:space-y-6">
+            className="flex-1 space-y-4 lg:space-y-6"
+          >
             <div>
               <Label htmlFor="name" className="text-sm font-medium mb-2 block">
                 Name
@@ -129,7 +125,8 @@ const UserDashboard = () => {
                 {user.is_verified && (
                   <Badge
                     variant="secondary"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-green-100 text-green-700 hover:bg-green-100 text-xs">
+                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-green-100 text-green-700 hover:bg-green-100 text-xs"
+                  >
                     <CheckCircle className="w-3 h-3 mr-1" />
                     <span className="hidden sm:inline">Verified</span>
                     <span className="sm:hidden">✓</span>
@@ -155,13 +152,15 @@ const UserDashboard = () => {
                   setPreview(user.profile_picture || "/placeholder.svg");
                   setSelectedFile(null);
                 }}
-                className="flex-1 bg-transparent order-2 sm:order-1">
+                className="flex-1 bg-transparent order-2 sm:order-1"
+              >
                 Discard Changes
               </Button>
               <Button
                 type="submit"
                 disabled={isPending}
-                className="flex-1 bg-orange-500 hover:bg-orange-600 order-1 sm:order-2">
+                className="flex-1 bg-orange-500 hover:bg-orange-600 order-1 sm:order-2"
+              >
                 {isPending ? "Saving..." : "Save Changes"}
               </Button>
             </div>

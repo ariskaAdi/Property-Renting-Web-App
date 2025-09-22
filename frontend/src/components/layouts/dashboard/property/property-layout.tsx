@@ -12,6 +12,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import { RoomList } from "../room/room-list";
 import LoadingSpinner from "@/components/fragment/loading-error/LoadingSpinner";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const PropertyLayout = () => {
   const { data, isLoading, isError } = usePropertyByTenant();
@@ -52,6 +54,7 @@ const PropertyLayout = () => {
               editHref={`/dashboard/property/edit/${property.id}`}
               onDelete={() => {
                 deleteProperty(property.id);
+                toast.success("Property deleted!");
               }}
             />
           ))}
@@ -64,11 +67,13 @@ const PropertyLayout = () => {
           <div key={property.id}>
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold">{property.name} - Rooms</h2>
-              <Link
-                href={`/dashboard/property/room/create/${property.id}`}
-                className="text-sm text-blue-500 hover:underline">
-                + Add New Room
-              </Link>
+              <Button asChild className="bg-blue-500">
+                <Link
+                  href={`/dashboard/property/room/create/${property.id}`}
+                  className="text-sm text-blue-500 hover:underline">
+                  + Add New Room
+                </Link>
+              </Button>
             </div>
             <RoomList rooms={property.rooms || []} />
           </div>

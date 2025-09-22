@@ -115,7 +115,7 @@ export default function LoginPage() {
               {/* Submit */}
               <Button
                 type="submit"
-                className="w-full curson-pointer"
+                className="w-full cursor-pointer"
                 disabled={isPending}>
                 {isPending ? "Loading..." : "Login"}
               </Button>

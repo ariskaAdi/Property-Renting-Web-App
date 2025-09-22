@@ -1,4 +1,5 @@
 import { prisma } from "../../config/prisma";
+import AppError from "../../errors/AppError";
 import {
   CreateNewOtp,
   CreateUser,
@@ -46,6 +47,14 @@ export const createNewOtp = async (data: CreateNewOtp) => {
 export const newOtpChangeEmailRepository = async (
   data: newOtpChangeEmailTypes
 ) => {
+  const existingEmail = await prisma.users.findUnique({
+    where: { email: data.email },
+  });
+
+  if (existingEmail && existingEmail.id !== data.id) {
+    throw new AppError("Email already in use", 400);
+  }
+
   return prisma.users.update({
     where: { id: data.id },
     data,
@@ -61,6 +70,6 @@ export const updateStatusEmail = async (data: VerifyEmail) => {
 
 export const findTenantById = async (id: string) => {
   return prisma.tenants.findUnique({
-        where: { user_id: id },
-    });
-}
+    where: { user_id: id },
+  });
+};

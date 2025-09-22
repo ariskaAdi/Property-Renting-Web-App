@@ -32,7 +32,6 @@ export const createRoomService = async (
   const { property_id, name, description, base_price, capacity, total_rooms } =
     data;
 
-  // cek property / room
   const existingRoom = await findRoomRepository(property_id);
   if (!existingRoom) throw new AppError("Room not found", 404);
 
@@ -65,18 +64,20 @@ export const createRoomService = async (
     room_images: uploadedImages.map((url) => ({ image_url: url })),
   });
 
-  // create availability 6 bulan ke depan
   await createRoomAvailability(newRoom.id);
 
-  // insert peak season rates kalau ada weekend_peak
   if (weekend_peak) {
-    console.log("at controller: Weekend Peak consists of:", weekend_peak.type, weekend_peak.value)
-    const today = dayjs().tz("Asia/Jakarta").startOf("day"); // pakai timezone lokal
+    console.log(
+      "at controller: Weekend Peak consists of:",
+      weekend_peak.type,
+      weekend_peak.value
+    );
+    const today = dayjs().tz("Asia/Jakarta").startOf("day");
     const endDate = today.add(6, "month");
     const peakRatesData: any[] = [];
 
     for (let date = today; date.isBefore(endDate); date = date.add(1, "day")) {
-      const day = date.day(); // 0 = Sunday, 6 = Saturday
+      const day = date.day();
       if (day === 0 || day === 6) {
         peakRatesData.push({
           property_id,
@@ -97,7 +98,6 @@ export const createRoomService = async (
     }
   }
 
-  // ambil availability + harga akhir
   const availabilityWithPrice =
     await getRoomDefaultAvailabilityWithPriceRepository(
       newRoom.id,
@@ -119,11 +119,9 @@ export const updateRoomService = async (
   const { property_id, name, description, base_price, capacity, total_rooms } =
     data;
 
-  // cek room dulu
   const existingRoom = await getRoomByIdRepository(id);
   if (!existingRoom) throw new AppError("Room not found", 404);
 
-  // handle image upload
   let uploadedImages: string[] = [];
   if (files && files.length > 0) {
     uploadedImages = await Promise.all(
@@ -140,7 +138,6 @@ export const updateRoomService = async (
     throw new AppError("Invalid capacity", 400);
   }
 
-  // update room
   const updatedRoom = await updateRoomByIdRepository(id, {
     property_id,
     name,
@@ -162,12 +159,10 @@ export const updateRoomService = async (
     });
   }
 
-  // handle peak season rates
   if (weekend_peak) {
     const today = dayjs().tz("Asia/Jakarta").startOf("day");
     const endDate = today.add(6, "month");
 
-    // hapus dulu peak season lama untuk room ini
     await prisma.peak_season_rates.deleteMany({
       where: { room_id: id },
     });
@@ -195,7 +190,6 @@ export const updateRoomService = async (
     }
   }
 
-  // ambil availability + harga akhir
   const availabilityWithPrice =
     await getRoomDefaultAvailabilityWithPriceRepository(id, weekend_peak);
 

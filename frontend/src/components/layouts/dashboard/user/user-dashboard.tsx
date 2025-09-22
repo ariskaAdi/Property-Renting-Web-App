@@ -10,33 +10,47 @@ import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
 import { useFetchMe, useUpdateProfile } from "@/hooks/useUser";
 import LoadingSpinner from "@/components/fragment/loading-error/LoadingSpinner";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+
+type FormValues = {
+  full_name: string;
+};
 
 const UserDashboard = () => {
   const { data: user, isLoading } = useFetchMe();
+  const { register, handleSubmit, reset } = useForm<FormValues>();
 
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-
-  const [preview, setPreview] = useState("/placeholder.png");
-
+  const [preview, setPreview] = useState("/avatar.png");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  useEffect(() => {
-    if (user) {
-      setFullName(user.full_name || "");
-    }
-  }, [user]);
-
   const { mutate, isPending } = useUpdateProfile();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (user) {
+      reset({
+        full_name: user.full_name || "",
+      });
+      setPreview(user.profile_picture || "/avatar.png");
 
-    mutate({
-      full_name: fullName,
-      profile_picture: selectedFile ?? undefined,
-    });
+    }
+  }, [user, reset]);
+
+  const onSubmit = (data: FormValues) => {
+    mutate(
+      {
+        full_name: data.full_name,
+        profile_picture: selectedFile ?? undefined,
+      },
+      {
+        onSuccess: () => {
+          toast.success(
+            "Profile updated successfully! Your profile has been successfully updated."
+          );
+        },
+      }
+    );
   };
 
   const handleButtonClick = () => {
@@ -68,6 +82,7 @@ const UserDashboard = () => {
           <div className="flex flex-col items-center gap-4 lg:w-1/3">
             <div className="relative w-40 h-40 rounded-full overflow-hidden border">
               <Image
+
                 alt={user.full_name.charAt(0).toUpperCase()}
                 src={preview && preview.trim() !== "" ? preview : "/avatar.png"}
                 fill
@@ -96,18 +111,16 @@ const UserDashboard = () => {
 
           {/* Right: Form */}
           <form
+
             onSubmit={handleSubmit}
             className="flex-1 space-y-4 lg:space-y-6"
           >
+
             <div>
               <Label htmlFor="name" className="text-sm font-medium mb-2 block">
                 Name
               </Label>
-              <Input
-                id="name"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-              />
+              <Input id="name" {...register("full_name")} />
             </div>
 
             <div>
@@ -118,7 +131,7 @@ const UserDashboard = () => {
                 <Input
                   id="email"
                   type="email"
-                  value={email}
+                  value={user.email}
                   disabled
                   className="pr-20"
                 />
@@ -147,11 +160,13 @@ const UserDashboard = () => {
                 type="button"
                 variant="outline"
                 onClick={() => {
-                  setFullName(user.full_name || "");
-                  setEmail(user.email || "");
-                  setPreview(user.profile_picture || "/placeholder.svg");
+                  reset({
+                    full_name: user.full_name || "",
+                  });
+                  setPreview(user.profile_picture || "/avatar.png");
                   setSelectedFile(null);
                 }}
+
                 className="flex-1 bg-transparent order-2 sm:order-1"
               >
                 Discard Changes
@@ -159,8 +174,12 @@ const UserDashboard = () => {
               <Button
                 type="submit"
                 disabled={isPending}
+
                 className="flex-1 bg-orange-500 hover:bg-orange-600 order-1 sm:order-2"
               >
+
+                className="flex-1 bg-orange-500 hover:bg-orange-600 order-1 sm:order-2 cursor-pointer">
+
                 {isPending ? "Saving..." : "Save Changes"}
               </Button>
             </div>

@@ -43,7 +43,6 @@ export function RoomList({ rooms }: RoomListProps) {
                 <th className="text-left py-3 px-3 font-medium text-muted-foreground">
                   Room
                 </th>
-
                 <th className="text-left py-3 px-3 font-medium text-muted-foreground">
                   Price
                 </th>
@@ -56,12 +55,12 @@ export function RoomList({ rooms }: RoomListProps) {
                 <th className="text-left py-3 px-3 font-medium text-muted-foreground">
                   Created At
                 </th>
-                <th />
-                <th className="text-left py-3 px-3 font-medium text-muted-foreground ">
+                <th className="text-center py-3 px-3 font-medium text-muted-foreground">
                   Actions
                 </th>
               </tr>
             </thead>
+
             <tbody>
               {rooms.length === 0 ? (
                 <tr>
@@ -109,31 +108,34 @@ export function RoomList({ rooms }: RoomListProps) {
                     <td className="py-3 px-3">
                       {formatDate(room.created_at ?? "")}
                     </td>
-                    <td className="flex justify-evenly items-center py-3 px-3">
-                      <Link href={`/dashboard/property/room/edit/${room.id}`}>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="cursor-pointer">
-                          <Pencil className="w-4 h-4" />
-                        </Button>
-                      </Link>
-                      <DeleteDialog
-                        title="Delete Room"
-                        description="Are you sure you want to delete this room?"
-                        onConfirm={async () => {
-                          await deleteRoom(room.id);
-                          alert("Room deleted successfully");
-                        }}
-                        trigger={
+                    <td className="py-3 px-3 text-center">
+                      <div className="flex items-center justify-center gap-8">
+                        <Link href={`/dashboard/property/room/edit/${room.id}`}>
                           <Button
-                            variant="destructive"
+                            variant="ghost"
                             size="icon"
-                            disabled={isPending}>
-                            <Trash2 className="w-4 h-4" />
+                            className="cursor-pointer">
+                            <Pencil className="w-4 h-4" />
                           </Button>
-                        }
-                      />
+                        </Link>
+
+                        <DeleteDialog
+                          title="Delete Room"
+                          description="Are you sure you want to delete this room?"
+                          onConfirm={async () => {
+                            await deleteRoom(room.id);
+                            alert("Room deleted successfully");
+                          }}
+                          trigger={
+                            <Button
+                              variant="destructive"
+                              size="icon"
+                              disabled={isPending}>
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          }
+                        />
+                      </div>
                     </td>
                   </tr>
                 ))

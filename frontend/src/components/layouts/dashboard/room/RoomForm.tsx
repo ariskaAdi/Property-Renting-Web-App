@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, useFieldArray } from "react-hook-form";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,6 +9,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { EditRoomType } from "@/types/room/room";
 import { toast } from "sonner";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { format, startOfDay } from "date-fns";
+import { CalendarIcon, Plus, X } from "lucide-react";
+import { formatNumber } from "@/lib/utils";
 
 type RoomFormProps = {
   defaultValues: EditRoomType;
@@ -30,6 +40,11 @@ const RoomForm: React.FC<RoomFormProps> = ({
     useForm<EditRoomType>({
       defaultValues,
     });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "custom_peaks",
+  });
 
   const images = watch("image");
   const oldImages = watch("oldImages");
@@ -61,41 +76,59 @@ const RoomForm: React.FC<RoomFormProps> = ({
 
   return (
     <div className="flex-1 p-4 lg:p-8">
-      <Card className="w-full max-w-4xl mx-auto p-8">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-xl font-semibold">Room Form</CardTitle>
+      <Card className="w-full max-w-7xl mx-auto p-8">
+        <CardHeader className="pb-4 lg:pb-6">
+          <CardTitle className="text-xl lg:text-2xl font-semibold">
+            Room Form
+          </CardTitle>
         </CardHeader>
-
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {/* Room Name */}
             <div>
-              <Label htmlFor="name">Room Name</Label>
+              <Label htmlFor="name" className="mb-2">
+                Room Name
+              </Label>
               <Input id="name" {...register("name")} required />
             </div>
 
             {/* Description */}
             <div>
-              <Label htmlFor="description">Description</Label>
-              <Input id="description" {...register("description")} />
+              <Label htmlFor="description" className="mb-2">
+                Description
+              </Label>
+              <Textarea id="description" {...register("description")} />
             </div>
 
             {/* Base Price */}
             <div>
-              <Label htmlFor="base_price">Base Price</Label>
-              <Input
-                id="base_price"
-                type="number"
-                min={0}
-                {...register("base_price", { valueAsNumber: true })}
-                required
+              <Label htmlFor="base_price" className="mb-2">
+                Base Price
+              </Label>
+              <Controller
+                name="base_price"
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <Input
+                    id="base_price"
+                    type="text"
+                    value={field.value ? formatNumber(field.value) : ""}
+                    onChange={(e) => {
+                      const rawValue = e.target.value.replace(/\D/g, "");
+                      field.onChange(rawValue ? parseInt(rawValue, 10) : 0);
+                    }}
+                  />
+                )}
               />
             </div>
 
             {/* Capacity & Total Rooms */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="capacity">Capacity</Label>
+                <Label htmlFor="capacity" className="mb-2">
+                  Capacity
+                </Label>
                 <Input
                   id="capacity"
                   type="number"
@@ -105,7 +138,9 @@ const RoomForm: React.FC<RoomFormProps> = ({
                 />
               </div>
               <div>
-                <Label htmlFor="total_rooms">Total Rooms</Label>
+                <Label htmlFor="total_rooms" className="mb-2">
+                  Total Rooms
+                </Label>
                 <Input
                   id="total_rooms"
                   type="number"
@@ -119,7 +154,7 @@ const RoomForm: React.FC<RoomFormProps> = ({
             {/* Existing images */}
             {existingImages.length > 0 && (
               <div>
-                <Label>Existing Images</Label>
+                <Label className="mb-2">Existing Images</Label>
                 <div className="mt-2 flex gap-4 flex-wrap">
                   {existingImages.map((src, idx) => (
                     <div key={idx} className="relative">
@@ -144,8 +179,10 @@ const RoomForm: React.FC<RoomFormProps> = ({
 
             {/* New upload */}
             <div>
-              <Label htmlFor="images">Add New Images (max 3)</Label>
-              <input
+              <Label htmlFor="images" className="mb-2">
+                Add New Images (max 3)
+              </Label>
+              <Input
                 id="images"
                 type="file"
                 accept="image/*"
@@ -171,7 +208,9 @@ const RoomForm: React.FC<RoomFormProps> = ({
             {/* Weekend Peak */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="weekend_peak_type">Weekend Peak Type</Label>
+                <Label htmlFor="weekend_peak_type" className="mb-2">
+                  Weekend Peak Type
+                </Label>
                 <Controller
                   control={control}
                   name="weekend_peak.type"
@@ -184,12 +223,145 @@ const RoomForm: React.FC<RoomFormProps> = ({
                 />
               </div>
               <div>
-                <Label htmlFor="weekend_peak_value">Value</Label>
+                <Label htmlFor="weekend_peak_value" className="mb-2">
+                  Value
+                </Label>
                 <Input
                   type="number"
                   {...register("weekend_peak.value", { valueAsNumber: true })}
                 />
               </div>
+            </div>
+
+            {/* Custom Peaks */}
+            <div className="space-y-4">
+              <Label className="mb-2">Custom Peaks</Label>
+              {fields.map((field, index) => (
+                <div
+                  key={field.id}
+                  className="border p-4 rounded-lg space-y-3 relative">
+                  {/* Date Range */}
+                  <div className="flex gap-2 p-2">
+                    <Controller
+                      control={control}
+                      name={`custom_peaks.${index}.start_date`}
+                      render={({ field }) => (
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              className="w-[40%] justify-start text-left font-normal">
+                              <CalendarIcon className="mr-2 h-4 w-4" />
+                              {field.value
+                                ? format(new Date(field.value), "PPP")
+                                : "Pick Start Date"}
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="p-0">
+                            <Calendar
+                              mode="single"
+                              selected={
+                                field.value ? new Date(field.value) : undefined
+                              }
+                              onSelect={(date) =>
+                                field.onChange(date?.toISOString())
+                              }
+                              disabled={(date) => {
+                                return date < startOfDay(new Date());
+                              }}
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      )}
+                    />
+
+                    <Controller
+                      control={control}
+                      name={`custom_peaks.${index}.end_date`}
+                      render={({ field }) => {
+                        const startDate = watch(
+                          `custom_peaks.${index}.start_date`
+                        );
+                        return (
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="outline"
+                                className="w-[40%] justify-start text-left font-normal">
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {field.value
+                                  ? format(new Date(field.value), "PPP")
+                                  : "Pick End Date"}
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="p-0">
+                              <Calendar
+                                mode="single"
+                                selected={
+                                  field.value
+                                    ? new Date(field.value)
+                                    : undefined
+                                }
+                                onSelect={(date) =>
+                                  field.onChange(date?.toISOString())
+                                }
+                                disabled={(date) =>
+                                  !startDate ||
+                                  date < startOfDay(new Date(startDate))
+                                }
+                              />
+                            </PopoverContent>
+                          </Popover>
+                        );
+                      }}
+                    />
+                  </div>
+
+                  {/* Type & Value */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <Controller
+                      control={control}
+                      name={`custom_peaks.${index}.type`}
+                      render={({ field }) => (
+                        <select {...field}>
+                          <option value="nominal">Nominal</option>
+                          <option value="percentage">Percentage</option>
+                        </select>
+                      )}
+                    />
+                    <Input
+                      type="number"
+                      placeholder="Value"
+                      {...register(`custom_peaks.${index}.value`, {
+                        valueAsNumber: true,
+                      })}
+                    />
+                  </div>
+
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="sm"
+                    className="absolute top-2 right-2"
+                    onClick={() => remove(index)}>
+                    <X className="w-4 h-4" />
+                  </Button>
+                </div>
+              ))}
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() =>
+                  append({
+                    start_date: "",
+                    end_date: "",
+                    type: "nominal",
+                    value: 0,
+                  })
+                }>
+                <Plus className="w-4 h-4 mr-2" /> Add Custom Peak
+              </Button>
             </div>
 
             <div className="flex gap-4 pt-4">
@@ -201,7 +373,7 @@ const RoomForm: React.FC<RoomFormProps> = ({
               <Button
                 type="submit"
                 disabled={isPending}
-                className="flex-1 bg-orange-500 hover:bg-orange-600">
+                className="flex-1 bg-orange-500 hover:bg-orange-600 cursor-pointer">
                 {isPending ? "Saving..." : "Save Changes"}
               </Button>
             </div>

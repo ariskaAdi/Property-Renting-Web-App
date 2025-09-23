@@ -34,6 +34,12 @@ export interface CreateRoomType {
   total_rooms: number;
   image: File[];
   weekend_peak?: { type: "percentage" | "nominal"; value: number };
+  custom_peaks?: {
+    start_date: string;
+    end_date: string;
+    type: "percentage" | "nominal";
+    value: number;
+  }[];
 }
 
 export interface EditRoomType {
@@ -47,6 +53,12 @@ export interface EditRoomType {
   oldImages?: string[];
   property_id: string;
   weekend_peak?: { type: "percentage" | "nominal"; value: number };
+  custom_peaks?: {
+    start_date: string;
+    end_date: string;
+    type: "percentage" | "nominal";
+    value: number;
+  }[];
 }
 
 export interface RoomImage {

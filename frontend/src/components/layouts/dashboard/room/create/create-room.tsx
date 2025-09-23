@@ -22,6 +22,7 @@ const CreateRoom = ({ property_id }: { property_id: string }) => {
         image: [],
         oldImages: [],
         weekend_peak: { type: "nominal", value: 0 },
+        custom_peaks: [],
       }}
       onSubmit={(data) =>
         createRoom.mutate(data, {

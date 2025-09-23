@@ -44,6 +44,16 @@ export const createNewOtp = async (data: CreateNewOtp) => {
   });
 };
 
+export const createNewOtpChangePaaword = async (
+  userId: string,
+  otp: string
+) => {
+  return prisma.users.update({
+    where: { id: userId },
+    data: { reset_password_otp: otp },
+  });
+};
+
 export const newOtpChangeEmailRepository = async (
   data: newOtpChangeEmailTypes
 ) => {

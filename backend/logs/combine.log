@@ -1162,3 +1162,237 @@ Please make sure your database server is running at `aws-0-us-west-1.pooler.supa
     at ri.handleAndLogRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6784)
     at ri.request (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6491)
     at async l (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:133:9812)
+2025-09-24 16:53:21 [ERROR]: GET /property/all | MESSAGE: 
+Invalid `prisma.rooms.count()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\property\property.repository.ts:45:18
+
+  42     property: propertyWhere,
+  43   },
+  44 }),
+→ 45 prisma.rooms.count(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. | STACK: PrismaClientKnownRequestError: 
+Invalid `prisma.rooms.count()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\property\property.repository.ts:45:18
+
+  42     property: propertyWhere,
+  43   },
+  44 }),
+→ 45 prisma.rooms.count(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`.
+    at ri.handleRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:7459)
+    at ri.handleAndLogRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6784)
+    at ri.request (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6491)
+    at async l (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:133:9812)
+    at async Promise.all (index 1)
+2025-09-24 17:13:55 [ERROR]: GET /room/get/d703f4b9-bae4-45e8-b858-891e0e6fb6a4 | MESSAGE: 
+Invalid `prisma.rooms.findUnique()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\rooms\rooms.repository.ts:340:29
+
+  337 };
+  338 
+  339 export const getRoomByIdRepository = async (id: string) => {
+→ 340   return await prisma.rooms.findUnique(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. | STACK: PrismaClientKnownRequestError: 
+Invalid `prisma.rooms.findUnique()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\rooms\rooms.repository.ts:340:29
+
+  337 };
+  338 
+  339 export const getRoomByIdRepository = async (id: string) => {
+→ 340   return await prisma.rooms.findUnique(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`.
+    at ri.handleRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:7459)
+    at ri.handleAndLogRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6784)
+    at ri.request (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6491)
+    at async l (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:133:9812)
+2025-09-24 17:13:58 [ERROR]: GET /user/me | MESSAGE: 
+Invalid `prisma.users.findUnique()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\user\user.respository.ts:7:23
+
+  4 import AppError from "../../errors/AppError";
+  5 
+  6 export const findUserById = async (userId: string) => {
+→ 7   return prisma.users.findUnique(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. | STACK: PrismaClientKnownRequestError: 
+Invalid `prisma.users.findUnique()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\user\user.respository.ts:7:23
+
+  4 import AppError from "../../errors/AppError";
+  5 
+  6 export const findUserById = async (userId: string) => {
+→ 7   return prisma.users.findUnique(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`.
+    at ri.handleRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:7459)
+    at ri.handleAndLogRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6784)
+    at ri.request (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6491)
+    at async l (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:133:9812)
+2025-09-24 17:17:20 [ERROR]: PATCH /room/update/d703f4b9-bae4-45e8-b858-891e0e6fb6a4 | MESSAGE: 
+Invalid `prisma.peak_season_rates.createMany()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\services\rooms\rooms.services.ts:232:36
+
+  229   price_change_value: peak.value,
+  230 }));
+  231 
+→ 232 await prisma.peak_season_rates.createMany({
+        data: [
+          {
+            property_id: "8a415510-9889-4941-a6ae-473a171780c8",
+            room_id: "d703f4b9-bae4-45e8-b858-891e0e6fb6a4",
+            start_date: new Date("Invalid Date"),
+                        ~~~~~~~~~~~~~~~~~~~~~~~~
+            end_date: new Date("Invalid Date"),
+            price_change_type: "nominal",
+            price_change_value: 0
+          }
+        ],
+        skipDuplicates: true
+      })
+
+Invalid value for argument `start_date`: Provided Date object is invalid. Expected Date. | STACK: PrismaClientValidationError: 
+Invalid `prisma.peak_season_rates.createMany()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\services\rooms\rooms.services.ts:232:36
+
+  229   price_change_value: peak.value,
+  230 }));
+  231 
+→ 232 await prisma.peak_season_rates.createMany({
+        data: [
+          {
+            property_id: "8a415510-9889-4941-a6ae-473a171780c8",
+            room_id: "d703f4b9-bae4-45e8-b858-891e0e6fb6a4",
+            start_date: new Date("Invalid Date"),
+                        ~~~~~~~~~~~~~~~~~~~~~~~~
+            end_date: new Date("Invalid Date"),
+            price_change_type: "nominal",
+            price_change_value: 0
+          }
+        ],
+        skipDuplicates: true
+      })
+
+Invalid value for argument `start_date`: Provided Date object is invalid. Expected Date.
+    at _n (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:32:1363)
+    at e.throwValidationError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:32:10051)
+    at ka (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:32:7488)
+    at Da (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:32:8741)
+    at ka (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:32:8272)
+    at um (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:32:9445)
+    at ka (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:32:7861)
+    at Da (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:32:8741)
+    at Et (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:32:5845)
+    at Mn (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:32:5747)
+2025-09-24 17:21:53 [ERROR]: PATCH /room/delete/d703f4b9-bae4-45e8-b858-891e0e6fb6a4 | MESSAGE: Room not found | STACK: undefined
+2025-09-24 17:31:29 [ERROR]: GET /user/me | MESSAGE: 
+Invalid `prisma.users.findUnique()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\user\user.respository.ts:7:23
+
+  4 import AppError from "../../errors/AppError";
+  5 
+  6 export const findUserById = async (userId: string) => {
+→ 7   return prisma.users.findUnique(
+Server has closed the connection. | STACK: PrismaClientKnownRequestError: 
+Invalid `prisma.users.findUnique()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\user\user.respository.ts:7:23
+
+  4 import AppError from "../../errors/AppError";
+  5 
+  6 export const findUserById = async (userId: string) => {
+→ 7   return prisma.users.findUnique(
+Server has closed the connection.
+    at ri.handleRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:7459)
+    at ri.handleAndLogRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6784)
+    at ri.request (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6491)
+    at async l (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:133:9812)
+2025-09-24 17:35:09 [ERROR]: GET /user/me | MESSAGE: 
+Invalid `prisma.users.findUnique()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\user\user.respository.ts:7:23
+
+  4 import AppError from "../../errors/AppError";
+  5 
+  6 export const findUserById = async (userId: string) => {
+→ 7   return prisma.users.findUnique(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. | STACK: PrismaClientInitializationError: 
+Invalid `prisma.users.findUnique()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\user\user.respository.ts:7:23
+
+  4 import AppError from "../../errors/AppError";
+  5 
+  6 export const findUserById = async (userId: string) => {
+→ 7   return prisma.users.findUnique(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`.
+    at ri.handleRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:7759)
+    at ri.handleAndLogRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6784)
+    at ri.request (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6491)
+    at async l (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:133:9812)
+2025-09-24 19:51:19 [ERROR]: GET /user/me | MESSAGE: Unauthorized | STACK: undefined
+2025-09-24 19:51:23 [ERROR]: GET /property/all | MESSAGE: 
+Invalid `prisma.rooms.count()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\property\property.repository.ts:45:18
+
+  42     property: propertyWhere,
+  43   },
+  44 }),
+→ 45 prisma.rooms.count(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. | STACK: PrismaClientKnownRequestError: 
+Invalid `prisma.rooms.count()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\property\property.repository.ts:45:18
+
+  42     property: propertyWhere,
+  43   },
+  44 }),
+→ 45 prisma.rooms.count(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`.
+    at ri.handleRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:7459)
+    at ri.handleAndLogRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6784)
+    at ri.request (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6491)
+    at async l (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:133:9812)
+    at async Promise.all (index 1)
+2025-09-24 19:51:31 [ERROR]: GET /user/me | MESSAGE: Unauthorized | STACK: undefined
+2025-09-24 20:05:23 [ERROR]: POST /auth/login | MESSAGE: Invalid password | STACK: undefined
+2025-09-24 20:06:10 [ERROR]: GET /user/me | MESSAGE: Unauthorized | STACK: undefined
+2025-09-24 20:26:49 [ERROR]: GET /property/all | MESSAGE: 
+Invalid `prisma.rooms.findMany()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\property\property.repository.ts:34:18
+
+  31 };
+  32 
+  33 const [data, total] = await Promise.all([
+→ 34   prisma.rooms.findMany(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`. | STACK: PrismaClientKnownRequestError: 
+Invalid `prisma.rooms.findMany()` invocation in
+D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\src\repositories\property\property.repository.ts:34:18
+
+  31 };
+  32 
+  33 const [data, total] = await Promise.all([
+→ 34   prisma.rooms.findMany(
+Can't reach database server at `aws-0-us-west-1.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-0-us-west-1.pooler.supabase.com:6543`.
+    at ri.handleRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:7459)
+    at ri.handleAndLogRequestError (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6784)
+    at ri.request (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:124:6491)
+    at async l (D:\adi\purwhadika\FINPRO\Property Renting Web App\backend\prisma\generated\client\runtime\library.js:133:9812)
+    at async Promise.all (index 0)

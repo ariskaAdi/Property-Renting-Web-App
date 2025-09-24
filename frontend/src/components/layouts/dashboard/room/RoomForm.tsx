@@ -19,7 +19,11 @@ import { Calendar } from "@/components/ui/calendar";
 import { format, startOfDay } from "date-fns";
 import { CalendarIcon, Plus, X } from "lucide-react";
 import { formatNumber } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { editRoomSchema } from "@/lib/validation/room";
+import z from "zod";
 
+type EditRoomFormValues = z.infer<typeof editRoomSchema>;
 type RoomFormProps = {
   defaultValues: EditRoomType;
   onSubmit: (data: EditRoomType) => void;
@@ -36,10 +40,18 @@ const RoomForm: React.FC<RoomFormProps> = ({
   const [previews, setPreviews] = useState<string[]>([]);
   const [existingImages, setExistingImages] = useState<string[]>([]);
 
-  const { register, handleSubmit, setValue, watch, reset, control } =
-    useForm<EditRoomType>({
-      defaultValues,
-    });
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    reset,
+    control,
+    formState: { errors },
+  } = useForm<EditRoomFormValues>({
+    defaultValues,
+    resolver: zodResolver(editRoomSchema),
+  });
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -90,6 +102,11 @@ const RoomForm: React.FC<RoomFormProps> = ({
                 Room Name
               </Label>
               <Input id="name" {...register("name")} required />
+              {errors.name && (
+                <p className="text-sm text-red-500 mt-1">
+                  {errors.name.message}
+                </p>
+              )}
             </div>
 
             {/* Description */}
@@ -98,6 +115,11 @@ const RoomForm: React.FC<RoomFormProps> = ({
                 Description
               </Label>
               <Textarea id="description" {...register("description")} />
+              {errors.description && (
+                <p className="text-sm text-red-500 mt-1">
+                  {errors.description.message}
+                </p>
+              )}
             </div>
 
             {/* Base Price */}
@@ -121,6 +143,11 @@ const RoomForm: React.FC<RoomFormProps> = ({
                   />
                 )}
               />
+              {errors.base_price && (
+                <p className="text-sm text-red-500 mt-1">
+                  {errors.base_price.message}
+                </p>
+              )}
             </div>
 
             {/* Capacity & Total Rooms */}
@@ -137,6 +164,11 @@ const RoomForm: React.FC<RoomFormProps> = ({
                   required
                 />
               </div>
+              {errors.capacity && (
+                <p className="text-sm text-red-500 mt-1">
+                  {errors.capacity.message}
+                </p>
+              )}
               <div>
                 <Label htmlFor="total_rooms" className="mb-2">
                   Total Rooms
@@ -148,6 +180,11 @@ const RoomForm: React.FC<RoomFormProps> = ({
                   {...register("total_rooms", { valueAsNumber: true })}
                   required
                 />
+                {errors.total_rooms && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {errors.total_rooms.message}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -189,6 +226,11 @@ const RoomForm: React.FC<RoomFormProps> = ({
                 multiple
                 onChange={handleFileChange}
               />
+              {errors.image && (
+                <p className="text-sm text-red-500 mt-1">
+                  {errors.image.message}
+                </p>
+              )}
               {previews.length > 0 && (
                 <div className="mt-4 flex gap-4 flex-wrap">
                   {previews.map((src, idx) => (
@@ -230,6 +272,11 @@ const RoomForm: React.FC<RoomFormProps> = ({
                   type="number"
                   {...register("weekend_peak.value", { valueAsNumber: true })}
                 />
+                {errors.weekend_peak?.value && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {errors.weekend_peak.value.message}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -336,6 +383,11 @@ const RoomForm: React.FC<RoomFormProps> = ({
                         valueAsNumber: true,
                       })}
                     />
+                    {errors.custom_peaks?.[index]?.start_date && (
+                      <p className="text-sm text-red-500 mt-1">
+                        {errors.custom_peaks[index]?.start_date?.message}
+                      </p>
+                    )}
                   </div>
 
                   <Button

@@ -23,7 +23,7 @@ import { formatCurrency } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import { createBooking } from "@/services/transactions.services";
 import { useRoomAvailability } from "@/hooks/useRoom";
-import { Spinner } from "@/components/ui/shadcn-io/spinner";
+import Image from "next/image";
 
 export default function BookingDetailsForm() {
   const [formData, setFormData] = useState({
@@ -59,6 +59,7 @@ export default function BookingDetailsForm() {
   const startDateString = searchParams.get("checkIn");
   const endDateString = searchParams.get("checkOut");
   const property_id = searchParams.get("propertyId") ?? undefined;
+  const total = searchParams.get("total");
   const room_id = searchParams.get("roomId");
   const guests = searchParams.get("guests");
   const rooms = searchParams.get("rooms");
@@ -86,7 +87,8 @@ export default function BookingDetailsForm() {
   const { data: priceDetails, isLoading: isLoadingPrice } = usePriceQuote(
     room_id!,
     startDateString!,
-    endDateString!
+    endDateString!,
+    total!
   );
 
   const checkIn = startDateString;
@@ -228,8 +230,7 @@ export default function BookingDetailsForm() {
                         value={formData.countryCode}
                         onValueChange={(value) =>
                           handleInputChange("countryCode", value)
-                        }
-                      >
+                        }>
                         <SelectTrigger className="w-20">
                           <SelectValue />
                         </SelectTrigger>
@@ -301,6 +302,10 @@ export default function BookingDetailsForm() {
               onClick={handleContinue}
               disabled={isPending}
               className="w-full bg-green-600 hover:bg-green-700 text-white py-3 text-base font-medium"
+<<<<<<< HEAD
+              size="lg">
+              Continue to Payment
+=======
               size="lg"
             >
               {isPending ? (
@@ -311,6 +316,7 @@ export default function BookingDetailsForm() {
               ) : (
                 "Continue to Payment"
               )}
+>>>>>>> develop
             </Button>
           </div>
 
@@ -319,11 +325,16 @@ export default function BookingDetailsForm() {
             {/* Hotel Images */}
             <Card className="overflow-hidden h-full">
               <div className="relative">
-                <img
-                  src={property?.main_image}
-                  alt={property?.name}
-                  className="w-full h-48 object-cover"
-                />
+                {typeof property?.main_image === "string" &&
+                property.main_image ? (
+                  <Image
+                    src={property.main_image}
+                    alt={property?.name || "Property"}
+                    className="w-full h-48 object-cover"
+                    width={500}
+                    height={300}
+                  />
+                ) : null}
               </div>
               <CardContent className="p-4 space-y-3">
                 <div className="flex flex-col mb-2">

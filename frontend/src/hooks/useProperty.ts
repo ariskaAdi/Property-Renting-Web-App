@@ -3,16 +3,23 @@ import {
   fetchAllProperties,
   fetchPropertyByLocation,
   fetchPropertyByTenant,
+  getPropertyById,
+  softDeletePropertyService,
+  updatePropertyService,
 } from "@/services/property.services";
-import { createProperty } from "@/types/property/property";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  createProperty,
+  PropertyFilters,
+  updateProperty,
+} from "@/types/property/property";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const useProperties = (category?: string) => {
+export const useProperties = (filters: PropertyFilters = {}) => {
   return useQuery({
-    queryKey: ["properties", category],
-    queryFn: () =>
-      fetchAllProperties(category ? { property_category: category } : {}),
+    queryKey: ["properties", filters],
+    queryFn: () => fetchAllProperties(filters),
     select: (data) => data.properties,
+    staleTime: 60 * 1000,
   });
 };
 
@@ -30,39 +37,85 @@ export const usePropertyByTenant = () => {
 };
 
 export const usePropertiesByLocation = (
-  lat: number,
-  lng: number,
+  latitude: number,
+  longitude: number,
   radius: number,
   checkIn?: string,
   checkOut?: string,
   category?: string,
   minPrice?: number,
-  maxPrice?: number
+  maxPrice?: number,
+  guests?: number,
+  rooms?: number
 ) => {
   return useQuery({
     queryKey: [
       "properties-by-location",
-      lat,
-      lng,
+      latitude,
+      longitude,
       radius,
       checkIn,
       checkOut,
       category,
       minPrice,
       maxPrice,
+      guests,
+      rooms,
     ],
     queryFn: () =>
       fetchPropertyByLocation(
-        lat,
-        lng,
+        latitude,
+        longitude,
         radius,
         checkIn,
         checkOut,
         category,
         minPrice,
-        maxPrice
+        maxPrice,
+        guests,
+        rooms
       ),
-    enabled: !!lat && !!lng && !!radius,
+
+    enabled: !!latitude && !!longitude && !!radius && !!checkIn && !!checkOut,
     staleTime: 1000 * 60 * 5,
+  });
+};
+
+export const usePropertyById = (id: string) => {
+  return useQuery({
+    queryKey: ["property", id],
+    queryFn: () => getPropertyById(id),
+    enabled: !!id,
+    retry: false,
+    staleTime: 1000 * 60 * 5,
+  });
+};
+
+export const useUpdateProperty = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, property }: { id: string; property: updateProperty }) =>
+      updatePropertyService(id, property),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["property-by-tenant"] });
+    },
+    onError: (error) => {
+      console.error(error);
+      alert("Failed to update property");
+    },
+  });
+};
+
+export const useSoftDeleteProperty = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => softDeletePropertyService(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["property-by-tenant"] });
+    },
+    onError: (error) => {
+      console.error("Delete failed:", error);
+    },
   });
 };

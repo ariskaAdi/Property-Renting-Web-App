@@ -3,6 +3,7 @@ import {
   BookingTemplateData,
   FormattedRoom,
 } from "../types/transaction/transactions.types";
+import { formatCurrency } from "./formatCurrency";
 
 export const VERIFICATION_EMAIL_TEMPLATE = `
 <!DOCTYPE html>
@@ -23,9 +24,9 @@ export const VERIFICATION_EMAIL_TEMPLATE = `
       <span style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #4CAF50;">{verificationCode}</span>
     </div>
     <p>Enter this code on the verification page to complete your registration.</p>
-    <p>This code will expire in 15 minutes for security reasons.</p>
+    <p>This code will expire in 1 hour for security reasons.</p>
     <p>If you didn't create an account with us, please ignore this email.</p>
-    <p>Best regards,<br>Your App Team</p>
+    <p>Best regards,<br>Homz Team</p>
   </div>
   <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
     <p>This is an automated message, please do not reply to this email.</p>
@@ -62,7 +63,7 @@ export const PASSWORD_RESET_SUCCESS_TEMPLATE = `
       <li>Avoid using the same password across multiple sites</li>
     </ul>
     <p>Thank you for helping us keep your account secure.</p>
-    <p>Best regards,<br>Your App Team</p>
+    <p>Best regards,<br>Homz Team</p>
   </div>
   <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
     <p>This is an automated message, please do not reply to this email.</p>
@@ -92,7 +93,7 @@ export const PASSWORD_RESET_REQUEST_TEMPLATE = `
       <span style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #4CAF50;">{verificationCode}</span>
     </div>
     <p>This link will expire in 24 hour for security reasons.</p>
-    <p>Best regards,<br>Your App Team</p>
+    <p>Best regards,<br>Homz Team</p>
   </div>
   <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
     <p>This is an automated message, please do not reply to this email.</p>
@@ -108,58 +109,183 @@ export const BOOKING_CONFIRMATION_TEMPLATE_SINGLE = (
     <meta charset="UTF-8" />
     <title>Booking Confirmation</title>
   </head>
-  <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
-    <table align="center" width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 8px; padding: 20px;">
+  <body style="font-family: Arial, sans-serif; background-color: #f8fafc; padding: 20px; margin: 0;">
+    <table align="center" width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); overflow: hidden;">
+      
+      <!-- Header -->
       <tr>
-        <td align="center" style="padding-bottom: 20px;">
-          <h2 style="color: #333;">Booking Confirmation</h2>
-          <p style="color: #666; font-size: 14px;">Thank you for your booking! Here are your details:</p>
+        <td style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px 20px; text-align: center;">
+          <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: bold;">Booking Confirmed!</h1>
+          <p style="color: #e2e8f0; margin: 8px 0 0 0; font-size: 16px;">Your reservation is all set</p>
         </td>
       </tr>
+
+      <!-- User Details Section -->
       <tr>
-        <td>
-          <table width="100%" cellpadding="8" cellspacing="0" style="border-collapse: collapse; font-size: 14px; color: #333;">
+        <td style="padding: 30px 20px 20px 20px;">
+          <h2 style="color: #1a202c; margin: 0 0 15px 0; font-size: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">Guest Information</h2>
+          <table width="100%" cellpadding="8" cellspacing="0" style="border-collapse: collapse; font-size: 14px; color: #4a5568;">
             <tr>
-              <td style="border-bottom: 1px solid #ddd;"><strong>Booking ID:</strong></td>
-              <td style="border-bottom: 1px solid #ddd;">${data.booking_id}</td>
+              <td style="border-bottom: 1px solid #e2e8f0; width: 30%;"><strong>Guest Name:</strong></td>
+              <td style="border-bottom: 1px solid #e2e8f0;">${data.guestName || 'John Doe'}</td>
             </tr>
             <tr>
-              <td style="border-bottom: 1px solid #ddd;"><strong>Guests:</strong></td>
-              <td style="border-bottom: 1px solid #ddd;">${data.rooms.map(
-                (gc) => gc.guests_count
-              )}</td>
-            </tr>
-            <tr>
-              <td style="border-bottom: 1px solid #ddd;"><strong>Check-in:</strong></td>
-              <td style="border-bottom: 1px solid #ddd;">${data.rooms.map(
-                (ci) => ci.check_in_date[0]
-              )}</td>
-            </tr>
-            <tr>
-              <td style="border-bottom: 1px solid #ddd;"><strong>Check-out:</strong></td>
-              <td style="border-bottom: 1px solid #ddd;">${data.rooms.map(
-                (ci) => ci.check_out_date[0]
-              )}</td>
-            </tr>
-            <tr>
-              <td style="border-bottom: 1px solid #ddd;"><strong>Rooms:</strong></td>
-              <td style="border-bottom: 1px solid #ddd;">${data.rooms.reduce(
-                (acc, num) => acc + num.quantity,
-                0
-              )}</td>
-            </tr>
-            <tr>
-              <td><strong>Subtotal:</strong></td>
-              <td>${data.rooms.reduce((acc, num) => acc + num.subtotal, 0)}</td>
+              <td style="border-bottom: 1px solid #e2e8f0;"><strong>Email:</strong></td>
+              <td style="border-bottom: 1px solid #e2e8f0;">${data.email|| 'john.doe@email.com'}</td>
             </tr>
           </table>
         </td>
       </tr>
+
+      <!-- Booking Details Section -->
       <tr>
-        <td align="center" style="padding-top: 20px;">
-          <p style="font-size: 13px; color: #888;">If you have any questions, contact us anytime.</p>
+        <td style="padding: 20px;">
+          <h2 style="color: #1a202c; margin: 0 0 15px 0; font-size: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">Booking Details</h2>
+          <table width="100%" cellpadding="8" cellspacing="0" style="border-collapse: collapse; font-size: 14px; color: #4a5568;">
+            <tr>
+              <td style="border-bottom: 1px solid #e2e8f0; width: 30%;"><strong>Booking ID:</strong></td>
+              <td style="border-bottom: 1px solid #e2e8f0;">${data.booking_id.toString().slice(0,6).toUpperCase()}</td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid #e2e8f0;"><strong>Property:</strong></td>
+              <td style="border-bottom: 1px solid #e2e8f0;">${data.propertyName || 'Luxury Downtown Apartment'}</td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid #e2e8f0;"><strong>Guests:</strong></td>
+              <td style="border-bottom: 1px solid #e2e8f0;">${data.rooms.map((gc) => gc.guests_count)}</td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid #e2e8f0;"><strong>Check-in:</strong></td>
+              <td style="border-bottom: 1px solid #e2e8f0;">${data.rooms.map((ci) => ci.check_in_date[0])}</td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid #e2e8f0;"><strong>Check-out:</strong></td>
+              <td style="border-bottom: 1px solid #e2e8f0;">${data.rooms.map((ci) => ci.check_out_date[0])}</td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid #e2e8f0;"><strong>Rooms:</strong></td>
+              <td style="border-bottom: 1px solid #e2e8f0;">${data.rooms.reduce((acc, num) => acc + num.quantity, 0)}</td>
+            </tr>
+            <tr>
+              <td><strong>Total Amount:</strong></td>
+              <td style="color: #38a169; font-weight: bold; font-size: 16px;">${formatCurrency(data.rooms.reduce((acc, num) => acc + num.subtotal, 0))}</td>
+            </tr>
+          </table>
         </td>
       </tr>
+
+      <!-- Check-in Instructions -->
+      <tr>
+        <td style="padding: 20px; background-color: #f7fafc;">
+          <h2 style="color: #1a202c; margin: 0 0 15px 0; font-size: 20px; border-bottom: 2px solid #4299e1; padding-bottom: 8px;">🔑 Check-in Instructions</h2>
+          <div style="background: #ffffff; padding: 15px; border-radius: 8px; border-left: 4px solid #4299e1;">
+            <p style="margin: 0 0 10px 0; color: #2d3748; font-size: 14px;"><strong>Check-in Time:</strong> 3:00 PM - 10:00 PM</p>
+            <p style="margin: 0 0 10px 0; color: #2d3748; font-size: 14px;"><strong>Late Check-in:</strong> Contact us 24 hours in advance for arrivals after 10:00 PM</p>
+            <p style="margin: 0 0 10px 0; color: #2d3748; font-size: 14px;"><strong>Key Collection:</strong></p>
+            <ul style="margin: 5px 0 10px 20px; color: #4a5568; font-size: 14px;">
+              <li>Smart lock code will be sent 24 hours before arrival</li>
+              <li>Backup keys available at the front desk (Building hours: 8 AM - 8 PM)</li>
+              <li>Emergency contact: +1 (555) 999-0000</li>
+            </ul>
+            <p style="margin: 0 0 10px 0; color: #2d3748; font-size: 14px;"><strong>What to Bring:</strong></p>
+            <ul style="margin: 5px 0 0 20px; color: #4a5568; font-size: 14px;">
+              <li>Government-issued photo ID</li>
+              <li>Credit card used for booking</li>
+              <li>Booking confirmation (this email)</li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+
+      <!-- Property Guidelines (Dos and Don'ts) -->
+      <tr>
+        <td style="padding: 20px;">
+          <h2 style="color: #1a202c; margin: 0 0 15px 0; font-size: 20px; border-bottom: 2px solid #48bb78; padding-bottom: 8px;">📋 Property Guidelines</h2>
+          
+          <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="50%" style="vertical-align: top; padding-right: 10px;">
+                <div style="background: #f0fff4; padding: 15px; border-radius: 8px; border-left: 4px solid #48bb78;">
+                  <h3 style="color: #22543d; margin: 0 0 10px 0; font-size: 16px;">✅ Please DO</h3>
+                  <ul style="margin: 0; padding-left: 20px; color: #2f855a; font-size: 13px;">
+                    <li>Keep the property clean and tidy</li>
+                    <li>Report any damages immediately</li>
+                    <li>Use provided amenities respectfully</li>
+                    <li>Lock doors when leaving</li>
+                    <li>Follow building quiet hours (10 PM - 8 AM)</li>
+                    <li>Dispose of trash properly</li>
+                    <li>Turn off lights and AC when leaving</li>
+                  </ul>
+                </div>
+              </td>
+              <td width="50%" style="vertical-align: top; padding-left: 10px;">
+                <div style="background: #fff5f5; padding: 15px; border-radius: 8px; border-left: 4px solid #f56565;">
+                  <h3 style="color: #742a2a; margin: 0 0 10px 0; font-size: 16px;">❌ Please DON'T</h3>
+                  <ul style="margin: 0; padding-left: 20px; color: #c53030; font-size: 13px;">
+                    <li>Smoke inside the property</li>
+                    <li>Bring pets (unless pre-approved)</li>
+                    <li>Host parties or large gatherings</li>
+                    <li>Move or remove furniture</li>
+                    <li>Use candles or open flames</li>
+                    <li>Exceed maximum occupancy</li>
+                    <li>Leave windows open when AC is on</li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <!-- Property Rules -->
+      <tr>
+        <td style="padding: 20px; background-color: #f7fafc;">
+          <h2 style="color: #1a202c; margin: 0 0 15px 0; font-size: 20px; border-bottom: 2px solid #ed8936; padding-bottom: 8px;">⚠️ Important Property Rules</h2>
+          <div style="background: #ffffff; padding: 15px; border-radius: 8px; border-left: 4px solid #ed8936;">
+            <div style="margin-bottom: 15px;">
+              <h3 style="color: #c05621; margin: 0 0 8px 0; font-size: 15px;">Noise Policy</h3>
+              <p style="margin: 0; color: #4a5568; font-size: 13px;">Quiet hours are from 10:00 PM to 8:00 AM. Please be considerate of neighbors and keep noise levels down during these hours.</p>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+              <h3 style="color: #c05621; margin: 0 0 8px 0; font-size: 15px;">Occupancy Limits</h3>
+              <p style="margin: 0; color: #4a5568; font-size: 13px;">Maximum occupancy is strictly enforced. Additional guests require prior approval and may incur extra charges.</p>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+              <h3 style="color: #c05621; margin: 0 0 8px 0; font-size: 15px;">Damage Policy</h3>
+              <p style="margin: 0; color: #4a5568; font-size: 13px;">Guests are responsible for any damages beyond normal wear and tear. Please report any pre-existing damage within 24 hours of arrival.</p>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+              <h3 style="color: #c05621; margin: 0 0 8px 0; font-size: 15px;">Security Deposit</h3>
+              <p style="margin: 0; color: #4a5568; font-size: 13px;">A security hold of Rp200.000 may be placed on your card and released within 7 days after checkout, pending property inspection.</p>
+            </div>
+            
+            <div>
+              <h3 style="color: #c05621; margin: 0 0 8px 0; font-size: 15px;">Cancellation Policy</h3>
+              <p style="margin: 0; color: #4a5568; font-size: 13px;">Free cancellation up to 48 hours before check-in. Late cancellations may incur charges as per our terms and conditions.</p>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <!-- Contact Information -->
+      <tr>
+        <td style="padding: 20px; text-align: center; background-color: #2d3748;">
+          <h3 style="color: #ffffff; margin: 0 0 15px 0; font-size: 18px;">Need Help?</h3>
+          <p style="color: #a0aec0; margin: 0 0 10px 0; font-size: 14px;">We're here to make your stay perfect!</p>
+          <table align="center" cellpadding="5" cellspacing="0">
+            <tr>
+              <td style="color: #e2e8f0; font-size: 13px; padding: 0 15px;">📞 +1 (555) 123-4567</td>
+              <td style="color: #e2e8f0; font-size: 13px; padding: 0 15px;">✉️ support@homz.co.id</td>
+              <td style="color: #e2e8f0; font-size: 13px; padding: 0 15px;">🌐 www.homzproperty.com</td>
+            </tr>
+          </table>
+          <p style="color: #718096; margin: 15px 0 0 0; font-size: 12px;">Available 24/7 for emergencies | Business hours: 8 AM - 8 PM</p>
+        </td>
+      </tr>
+
     </table>
   </body>
 </html>`;
@@ -286,65 +412,139 @@ export const BOOKING_CONFIRMATION_TEMPLATE_MULTIPLE = (
 };
 
 export const BOOKING_REMINDER_TEMPLATE = (
-  guestName: string,
-  booking_id: string,
-  check_in_date: string,
-  check_out_date: string,
-  property_name: string
+  data: BookingTemplateData
 ) => {
   const reminderHtml = `
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Booking Reminder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Stay is Almost Here!</title>
   </head>
-  <body style="margin:0; padding:0; background:#f4f4f4; font-family: Arial, sans-serif;">
-    <table align="center" cellpadding="0" cellspacing="0" width="600" style="background:#ffffff; margin:20px auto; border-radius:8px; overflow:hidden;">
-      <!-- Header -->
+  <body style="margin:0; padding:0; background:#f8f6f4; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;">
+    <table align="center" cellpadding="0" cellspacing="0" width="600" style="background:#ffffff; margin:20px auto; border-radius:12px; overflow:hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08);">
+      
+
       <tr>
-        <td style="background:#4CAF50; padding:20px; text-align:center; color:#fff;">
-          <h2 style="margin:0;">Booking Reminder</h2>
+        <td style="background: linear-gradient(135deg, #e85a74 0%, #d4405a 100%); padding:40px 30px; text-align:center; color:#fff;">
+          <h1 style="margin:0; font-size:28px; font-weight:600; letter-spacing:-0.5px;">Your Stay is Almost Here!</h1>
+          <p style="margin:12px 0 0; font-size:16px; opacity:0.9; font-weight:300;">We can't wait to welcome you</p>
         </td>
       </tr>
 
-      <!-- Body -->
+    
       <tr>
-        <td style="padding:20px; color:#333; font-size:14px; line-height:1.6;">
-          <p>Dear ${guestName},</p>
-          <p>
-            This is a friendly reminder of your upcoming stay at <strong>${property_name}</strong>.
+        <td style="padding:40px 30px; color:#2d3748; font-size:16px; line-height:1.6;">
+          <p style="font-size:18px; margin:0 0 24px; color:#1a202c;">Dear <strong>${data.guestName}</strong>,</p>
+          
+          <p style="margin:0 0 32px; color:#4a5568;">
+            Your upcoming stay at <strong style="color:#e85a74;">${data.propertyName}</strong> is just around the corner! 
+            We're excited to host you and want to ensure everything is ready for your arrival.
           </p>
-          <table width="100%" cellpadding="8" cellspacing="0" style="border-collapse:collapse; margin:15px 0;">
-            <tr>
-              <td style="border-bottom:1px solid #ddd;"><strong>Booking ID:</strong></td>
-              <td style="border-bottom:1px solid #ddd;">${booking_id}</td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid #ddd;"><strong>Check-in:</strong></td>
-              <td style="border-bottom:1px solid #ddd;">${check_in_date}</td>
-            </tr>
-            <tr>
-              <td style="border-bottom:1px solid #ddd;"><strong>Check-out:</strong></td>
-              <td style="border-bottom:1px solid #ddd;">${check_out_date}</td>
-            </tr>
-          </table>
-          <p>
-            We’re excited to host you soon! If you need to make any changes or have questions, please contact our support team.
+
+           Booking details card 
+          <div style="background:#f7fafc; border-radius:12px; padding:24px; margin:32px 0; border-left:4px solid #e85a74;">
+            <h3 style="margin:0 0 20px; color:#2d3748; font-size:18px; font-weight:600;">Booking Details</h3>
+            <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+              <tr>
+                <td style="padding:8px 0; border-bottom:1px solid #e2e8f0; width:35%; color:#4a5568; font-weight:500;">Booking ID:</td>
+                <td style="padding:8px 0; border-bottom:1px solid #e2e8f0; color:#1a202c; font-weight:600;">${data.booking_id.slice(0,6).toUpperCase()}</td>
+              </tr>
+              <tr>
+                <td style="padding:8px 0; border-bottom:1px solid #e2e8f0; color:#4a5568; font-weight:500;">Check-in:</td>
+                <td style="padding:8px 0; border-bottom:1px solid #e2e8f0; color:#1a202c; font-weight:600;">${data.rooms[0].check_in_date}</td>
+              </tr>
+              <tr>
+                <td style="padding:8px 0; border-bottom:1px solid #e2e8f0; color:#4a5568; font-weight:500;">Check-out:</td>
+                <td style="padding:8px 0; border-bottom:1px solid #e2e8f0; color:#1a202c; font-weight:600;">${data.rooms[0].check_out_date}</td>
+              </tr>
+              <tr>
+                <td style="padding:8px 0; color:#4a5568; font-weight:500;">Duration:</td>
+                <td style="padding:8px 0; color:#1a202c; font-weight:600;">${data.rooms[0].nights} nights</td>
+              </tr>
+            </table>
+          </div>
+
+           Pre-arrival checklist 
+          <div style="margin:32px 0;">
+            <h3 style="margin:0 0 20px; color:#2d3748; font-size:18px; font-weight:600;">Pre-Arrival Checklist</h3>
+            <div style="background:#fff5f5; border-radius:8px; padding:20px; border:1px solid #fed7d7;">
+              <ul style="margin:0; padding:0 0 0 20px; color:#4a5568;">
+                <li style="margin:0 0 12px;">📱 Save our contact number: <strong style="color:#e85a74;">+62 8782 144123 (WhatsApp)</strong></li>
+                <li style="margin:0 0 12px;">🆔 Bring valid photo ID for check-in verification</li>
+                <li style="margin:0 0 12px;">🎫 Keep your booking confirmation handy</li>
+                <li style="margin:0 0 12px;">⏰ Standard check-in time: 3:00 PM - 9:00 PM</li>
+                <li style="margin:0;">🚗 Parking instructions will be sent 24 hours before arrival</li>
+              </ul>
+            </div>
+          </div>
+
+           What to expect 
+          <div style="margin:32px 0;">
+            <h3 style="margin:0 0 20px; color:#2d3748; font-size:18px; font-weight:600;">What to Expect</h3>
+            <div style="display:flex; flex-wrap:wrap; gap:16px;">
+              <div style="background:#f0fff4; border-radius:8px; padding:16px; flex:1; min-width:200px; border:1px solid #c6f6d5;">
+                <div style="color:#38a169; font-size:20px; margin-bottom:8px;">🏠</div>
+                <div style="color:#2d3748; font-weight:600; margin-bottom:4px;">Clean & Ready</div>
+                <div style="color:#4a5568; font-size:14px;">Property professionally cleaned and sanitized</div>
+              </div>
+              <div style="background:#f7fafc; border-radius:8px; padding:16px; flex:1; min-width:200px; border:1px solid #e2e8f0;">
+                <div style="color:#4299e1; font-size:20px; margin-bottom:8px;">📋</div>
+                <div style="color:#2d3748; font-weight:600; margin-bottom:4px;">House Guide</div>
+                <div style="color:#4a5568; font-size:14px;">Digital welcome guide with all property info</div>
+              </div>
+            </div>
+          </div>
+
+           Contact section 
+          <div style="margin:32px 0;">
+            <h3 style="margin:0 0 16px; color:#2d3748; font-size:18px; font-weight:600;">Need Assistance?</h3>
+            <p style="margin:0 0 16px; color:#4a5568;">
+              Our support team is available 24/7 to help with any questions or special requests.
+            </p>
+            <div style="text-align:center; margin:24px 0;">
+              <a href="tel:+62 8782 144123 (WhatsApp)" style="display:inline-block; background:#e85a74; color:#ffffff; padding:14px 28px; text-decoration:none; border-radius:8px; font-weight:600; font-size:16px; margin:0 8px 8px 0;">Call Support</a>
+              <a href="mailto:support@homz.co.id" style="display:inline-block; background:#f7fafc; color:#4a5568; padding:14px 28px; text-decoration:none; border-radius:8px; font-weight:600; font-size:16px; border:2px solid #e2e8f0;">Email Us</a>
+            </div>
+          </div>
+
+          <div style="background:#fff8f0; border-radius:8px; padding:20px; margin:32px 0; border-left:4px solid #ed8936;">
+            <p style="margin:0; color:#9c4221; font-weight:500;">
+              <strong>Important:</strong> If your plans change, please contact us as soon as possible. 
+              Late cancellations may be subject to our cancellation policy.
+            </p>
+          </div>
+
+          <p style="margin:32px 0 0; color:#4a5568; font-size:16px;">
+            We're looking forward to providing you with an exceptional stay experience!
+          </p>
+          
+          <p style="margin:16px 0 0; color:#2d3748; font-weight:600;">
+            Warm regards,<br>
+            The ${data.propertyName} Team
           </p>
         </td>
       </tr>
 
-      <!-- Footer -->
+    
       <tr>
-        <td style="padding:15px; text-align:center; background:#f9f9f9; color:#888; font-size:12px;">
-          <p style="margin:0;">© ${new Date().getFullYear()} ${property_name}. All rights reserved.</p>
+        <td style="padding:30px; text-align:center; background:#f8f9fa; border-top:1px solid #e9ecef;">
+          <div style="margin-bottom:16px;">
+            <a href="" style="color:#e85a74; text-decoration:none; font-weight:600; margin:0 16px;">Visit Website</a>
+            <a href="" style="color:#e85a74; text-decoration:none; font-weight:600; margin:0 16px;">Follow Us</a>
+            <a href="" style="color:#e85a74; text-decoration:none; font-weight:600; margin:0 16px;">Contact</a>
+          </div>
+          <p style="margin:16px 0 0; color:#adb5bd; font-size:12px;">
+            © ${new Date().getFullYear()} ${data.propertyName}. All rights reserved.<br>
+            This email was sent regarding booking ${data.booking_id}
+          </p>
         </td>
       </tr>
     </table>
   </body>
 </html>
-`;
+;`
 
   return reminderHtml;
 };
@@ -480,15 +680,15 @@ export const BOOKING_REJECTION_TEMPLATE_SINGLE = (
                                 <tr>
                                     <td>
                                         <strong style="color: #333333;">Booking Reference:</strong> ${
-                                          data.booking_id
+                                          data.booking_id.slice(0,6).toUpperCase()
                                         }<br>
                                         <strong style="color: #333333;">Property:</strong> ${
                                           data.propertyName
                                         }<br>
-                                        <strong style="color: #333333;">Amount:</strong> ${data.rooms.reduce(
+                                        <strong style="color: #333333;">Amount:</strong> ${formatCurrency(data.rooms.reduce(
                                           (acc, num) => acc + num.subtotal,
                                           0
-                                        )}<br>
+                                        ))}<br>
                                         <strong style="color: #333333;">Decline Reason:</strong> Expired Payment Link
                                     </td>
                                 </tr>
@@ -519,8 +719,8 @@ export const BOOKING_REJECTION_TEMPLATE_SINGLE = (
                     <!-- Footer -->
                     <tr>
                         <td align="center" style="padding: 20px; font-size: 12px; color: #999999; border-top: 1px solid #dddddd;">
-                            <p style="margin: 0;">[Property Name] | [Property Address]</p>
-                            <p style="margin: 10px 0 0;">Need help? Contact us at [Support Email]</p>
+                            <p style="margin: 0;"> ${data.propertyName}</p>
+                            <p style="margin: 10px 0 0;">Need help? Contact us at support@homz.com</p>
                         </td>
                     </tr>
                 </table>

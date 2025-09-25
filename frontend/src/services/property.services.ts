@@ -1,12 +1,25 @@
-import { createProperty, PropertyResponse } from "@/types/property/property";
+import {
+  createProperty,
+  PropertyResponse,
+  updateProperty,
+} from "@/types/property/property";
 import axios from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const fetchAllProperties = async (params?: {
   property_category?: string;
+  name?: string;
+  page?: number;
+  limit?: number;
 }) => {
-  const response = await axios.get(`${BASE_URL}/property/all`, { params });
+  const response = await axios.get(`${BASE_URL}/property/all`, {
+    params: {
+      ...params,
+      page: params?.page ?? 1,
+      limit: params?.limit ?? 8,
+    },
+  });
   console.log(response.data);
   return response.data;
 };
@@ -43,7 +56,14 @@ export const fetchPropertyByTenant = async (): Promise<PropertyResponse> => {
   return response.data;
 };
 
-// property.services.ts
+export const fetchPropertyById = async (propertyId: string | undefined) => {
+  const response = await axios.get(`${BASE_URL}/property/get/${propertyId}`, {
+    withCredentials: true,
+  });
+  console.log(response.data);
+  return response.data.property;
+};
+
 export const fetchPropertyByLocation = async (
   latitude: number,
   longitude: number,
@@ -52,7 +72,9 @@ export const fetchPropertyByLocation = async (
   checkOut?: string,
   category?: string,
   minPrice?: number,
-  maxPrice?: number
+  maxPrice?: number,
+  guests?: number,
+  rooms?: number
 ) => {
   const params = new URLSearchParams({
     latitude: latitude.toString(),
@@ -60,14 +82,66 @@ export const fetchPropertyByLocation = async (
     radius: radius.toString(),
   });
 
-  if (checkIn) params.append("checkIn", checkIn);
-  if (checkOut) params.append("checkOut", checkOut);
+  if (checkIn != null && checkIn !== "") params.append("checkIn", checkIn);
+  if (checkOut != null && checkOut !== "") params.append("checkOut", checkOut);
   if (category) params.append("category", category);
   if (minPrice !== undefined) params.append("minPrice", minPrice.toString());
   if (maxPrice !== undefined) params.append("maxPrice", maxPrice.toString());
+  if (guests !== undefined) params.append("guests", guests.toString());
+  if (rooms !== undefined) params.append("rooms", rooms.toString());
 
   const response = await axios.get(
     `${BASE_URL}/property/nearby?${params.toString()}`
+  );
+  console.log(response.data);
+  return response.data;
+};
+
+export const getPropertyById = async (id: string) => {
+  const response = await axios.get<{ property: createProperty }>(
+    `${BASE_URL}/property/get/${id}`
+  );
+  return response.data.property;
+};
+
+export const updatePropertyService = async (
+  id: string,
+  property: updateProperty
+) => {
+  const formData = new FormData();
+
+  if (property.name) formData.append("name", property.name);
+  if (property.description)
+    formData.append("description", property.description);
+  if (property.address) formData.append("address", property.address);
+  if (property.city) formData.append("city", property.city);
+  if (property.province) formData.append("province", property.province);
+  if (property.zip_code) formData.append("zip_code", property.zip_code);
+  if (property.latitude) formData.append("latitude", property.latitude);
+  if (property.longitude) formData.append("longitude", property.longitude);
+  if (property.main_image) formData.append("main_image", property.main_image);
+  if (property.property_category)
+    formData.append("property_category", property.property_category);
+
+  const response = await axios.patch(
+    `${BASE_URL}/property/update/${id}`,
+    formData,
+    {
+      headers: { "Content-Type": "multipart/form-data" },
+      withCredentials: true,
+    }
+  );
+
+  return response.data;
+};
+
+export const softDeletePropertyService = async (id: string) => {
+  const response = await axios.patch(
+    `${BASE_URL}/property/delete/${id}`,
+    {},
+    {
+      withCredentials: true,
+    }
   );
   console.log(response.data);
   return response.data;

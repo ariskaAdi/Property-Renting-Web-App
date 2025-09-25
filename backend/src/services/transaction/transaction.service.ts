@@ -1,113 +1,85 @@
 import { Prisma } from "@prisma/client";
+import { prisma } from "../../config/prisma";
 import AppError from "../../errors/AppError";
-import { findBookingRoomsByBookingId } from "../../repositories/transaction/tenant-tx.repository";
+import { findBookingRoomsByBookingId, updateProofImageRepository } from "../../repositories/transaction/tenant-tx.repository";
 import { sendEmail } from "../email.service";
-import { getEmailAndFullnameById } from "../../repositories/user/user.respository";
+import {
+  getEmailAndFullnameById,
+} from "../../repositories/user/user.respository";
 import {
   BOOKING_CONFIRMATION_TEMPLATE_SINGLE,
   BOOKING_CONFIRMATION_TEMPLATE_MULTIPLE,
   BOOKING_REJECTION_TEMPLATE_SINGLE,
 } from "../../utils/emailTemplates";
-import { scheduler } from "../scheduler.service";
 import {
-  FindRooms,
-  Overlapping,
   FormattedRoom,
   BookingTemplateData,
   BookingRoomCompleteType,
+  BookingWithDetails,
 } from "../../types/transaction/transactions.types";
+import { handleUpload } from "../../config/cloudinary";
+import { checkBookingAndUserId } from "../../repositories/transaction/user-tx.repository";
+import { quickAddJob } from "graphile-worker";
 
 type BookingRoomType = Awaited<
   ReturnType<typeof findBookingRoomsByBookingId>
 >[0];
 
-export const availableRooms = (
-  findRooms: FindRooms[],
-  overlappingBooking: Overlapping[],
-  tx: Prisma.TransactionClient
-) => {
-  const availability = findRooms.map((br) => {
-    const bookingQty = overlappingBooking
-      .filter((ovr) => ovr.room_id === br.room_id)
-      .reduce((acc, num) => acc + num.quantity, 0);
-
-    if (bookingQty + br.quantity > br.room.total_rooms) {
-      throw new AppError("Not enough rooms available to book.", 409);
-    }
-
-    return {
-      room_id: br.room_id,
-      available: br.room.total_rooms - bookingQty,
-    };
-  });
-
-  return availability;
-};
-
 export const sendUserBookingConfirmation = async (
-  bookingId: string,
-  userId: string,
-  bookingRooms: BookingRoomType[]
+  booking: BookingWithDetails
 ) => {
-  const bookingRoomsFromDb = await findBookingRoomsByBookingId(bookingId);
-  const user = await getEmailAndFullnameById(userId);
-  const propertyName = bookingRoomsFromDb[0].room.property.name;
+  
+  const user = booking.user
+  const propertyName = booking.property.name
+
+  if (!user || !propertyName || booking.booking_rooms.length === 0) {
+      throw new AppError("Cannot send confirmation: booking data is incomplete.", 500);
+  }
 
   const formattedRooms: FormattedRoom[] = (
-    bookingRoomsFromDb as BookingRoomCompleteType[]
-  ).map((dbRoom) => {
+    booking.booking_rooms.map((dbRoom) => {
     return {
       name: dbRoom.room.name,
       room_id: dbRoom.room_id,
-      check_in_date: dbRoom.check_in_date.toISOString().split("T"),
-      check_out_date: dbRoom.check_out_date.toISOString().split("T"),
+      check_in_date: dbRoom.check_in_date.toISOString().split("T")[0],
+      check_out_date: dbRoom.check_out_date.toISOString().split("T")[0],
       guests_count: dbRoom.guests_count,
       quantity: dbRoom.quantity,
-      subtotal: dbRoom.subtotal,
+      subtotal: Number(dbRoom.subtotal),
     };
-  });
+  }));
 
   const templateData: BookingTemplateData = {
-    guestName: user.fullname,
-    booking_id: bookingId,
+    guestName: user.full_name,
+    booking_id: booking.id,
     propertyName: propertyName,
     rooms: formattedRooms,
+    email: user.email
   };
 
   await sendEmail(
     user.email,
     "Your Booking Details",
-    bookingRooms.length > 1
+    formattedRooms.length > 1
       ? BOOKING_CONFIRMATION_TEMPLATE_MULTIPLE(templateData)
       : BOOKING_CONFIRMATION_TEMPLATE_SINGLE(templateData)
   );
 };
 
 export const scheduleReminder = async (bookingId: string) => {
-  const findCheckInDate = findBookingRoomsByBookingId(bookingId);
+  const bookings = await findBookingRoomsByBookingId(bookingId);
+  const firstBooking = bookings[0].created_at
 
-  interface BookingRoomCheckIn {
-    check_in_date: Date[];
-  }
-
-  const checkInDate: Date[] = (
-    (await findCheckInDate) as BookingRoomCheckIn[]
-  ).map((ci) => ci.check_in_date[0]);
-  const reminderDate = new Date(checkInDate[0]);
-
-  reminderDate.setDate(reminderDate.getDate() - 1);
-  reminderDate.setHours(9, 0, 0, 0);
-
-  await scheduler.send(
+  if (bookings.length === 0) {
+  return; 
+}
+  
+  await quickAddJob(
+    {connectionString: process.env.DIRECT_URL},
     "send-booking-reminder",
-    {
-      bookingId: bookingId,
-    },
-    {
-      startAfter: reminderDate,
-      singletonKey: `reminder-${bookingId}`,
-    }
-  );
+    {bookingId: bookingId}
+  )
+  
 };
 
 export const sendRejectionNotification = async (
@@ -124,8 +96,8 @@ export const sendRejectionNotification = async (
     return {
       name: dbRoom.room.name,
       room_id: dbRoom.room_id,
-      check_in_date: dbRoom.check_in_date.toISOString().split("T"),
-      check_out_date: dbRoom.check_out_date.toISOString().split("T"),
+      check_in_date: dbRoom.check_in_date.toISOString().split("T")[0],
+      check_out_date: dbRoom.check_out_date.toISOString().split("T")[0],
       guests_count: dbRoom.guests_count,
       quantity: dbRoom.quantity,
       subtotal: dbRoom.subtotal,
@@ -137,6 +109,7 @@ export const sendRejectionNotification = async (
     booking_id: bookingId,
     propertyName: propertyName,
     rooms: formattedRooms,
+    email: user.email
   };
 
   await sendEmail(
@@ -145,3 +118,72 @@ export const sendRejectionNotification = async (
     BOOKING_REJECTION_TEMPLATE_SINGLE(templateData)
   );
 };
+
+export const getRoomAmount = async (roomId: string, checkIn: Date, checkOut: Date) => {
+
+const [room, overlapBookings] = await Promise.all([
+  prisma.rooms.findUnique({
+    where: {
+      id: roomId
+    }, select: {
+      total_rooms: true
+    }
+  }),
+
+  prisma.booking_rooms.findMany({
+    where: {
+      room_id: roomId,
+      booking: {
+        status: {
+          in: ["waiting_confirmation", "confirmed", "waiting_payment"]
+        }
+      },
+      check_in_date: {
+        lt: checkOut
+      },
+      check_out_date: {
+        gt: checkIn
+      }
+    },
+    select: {
+      quantity: true
+    }
+  })
+])
+
+if(!room){
+    return 0;
+  }
+
+  const totalInventory = room.total_rooms
+  const bookedQuantity = overlapBookings.reduce((sum, booking) => sum + booking.quantity, 0)
+
+  const availableInventory = totalInventory - bookedQuantity
+
+  return Math.max(0, availableInventory)
+
+
+}
+
+export const proofUploadService = async (
+  userId: string,
+  bookingId: string,
+  file?: Express.Multer.File
+) => {
+
+  const existingUserBooking = await checkBookingAndUserId(bookingId, userId);
+  if (!existingUserBooking) {
+    throw new AppError("User tied with certain booking ID is not found.", 404);
+  }
+
+  let uploadProof = null;
+  if (file) {
+    uploadProof = await handleUpload(file)
+  }
+
+  const final_img = await updateProofImageRepository(bookingId, {proof_image: uploadProof?.secure_url, status: "waiting_confirmation"})
+
+  return final_img
+};
+
+

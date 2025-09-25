@@ -13,3 +13,17 @@ export const formatCurrency = (amount: number) => {
   });
   return formatter.format(amount);
 };
+
+export const formatNumber = (amount: number) => {
+  return new Intl.NumberFormat("id-ID", {
+    maximumFractionDigits: 0,
+  }).format(amount);
+};
+
+export const formatDate = (dateStr: string) => {
+  const date = new Date(dateStr);
+  const formatter = new Intl.DateTimeFormat("id-ID", {
+    dateStyle: "medium",
+  });
+  return formatter.format(date);
+};

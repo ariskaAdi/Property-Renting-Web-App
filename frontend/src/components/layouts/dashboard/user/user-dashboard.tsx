@@ -8,68 +8,48 @@ import { Label } from "@/components/ui/label";
 import { CheckCircle } from "lucide-react";
 import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
-import { useFetchMe } from "@/hooks/useUser";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { User } from "@/types/auth/auth";
+import { useFetchMe, useUpdateProfile } from "@/hooks/useUser";
+import LoadingSpinner from "@/components/fragment/loading-error/LoadingSpinner";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
-// === API update user ===
-async function updateUser(data: Partial<User>) {
-  const res = await fetch("http://localhost:4000/user/update", {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-    body: JSON.stringify(data),
-  });
-
-  if (!res.ok) throw new Error("Failed to update user");
-  return res.json();
-}
+type FormValues = {
+  full_name: string;
+};
 
 const UserDashboard = () => {
   const { data: user, isLoading } = useFetchMe();
-  const queryClient = useQueryClient();
+  const { register, handleSubmit, reset } = useForm<FormValues>();
 
-  // local state form
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [preview, setPreview] = useState("/placeholder.svg");
+  const [preview, setPreview] = useState("/avatar.png");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
+  const { mutate, isPending } = useUpdateProfile();
+
   useEffect(() => {
     if (user) {
-      setFullName(user.full_name || "");
-      setEmail(user.email || "");
-      setPreview(user.profile_picture || "/placeholder.svg");
+      reset({
+        full_name: user.full_name || "",
+      });
+      setPreview(user.profile_picture || "/avatar.png");
     }
-  }, [user]);
+  }, [user, reset]);
 
-  const mutation = useMutation({
-    mutationFn: updateUser,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["me"] });
-    },
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // siapkan payload
-    const payload: Partial<User> = {
-      full_name: fullName,
-      email,
-    };
-
-    // kalau ada file, biasanya harus diupload via FormData
-    // di sini masih dummy, jadi hanya preview
-    if (selectedFile) {
-      // contoh: bisa append ke FormData dan kirim ke backend
-      // const formData = new FormData();
-      // formData.append("profile_picture", selectedFile);
-      // fetch("http://localhost:4000/user/upload", { method: "POST", body: formData });
-    }
-
-    mutation.mutate(payload);
+  const onSubmit = (data: FormValues) => {
+    mutate(
+      {
+        full_name: data.full_name,
+        profile_picture: selectedFile ?? undefined,
+      },
+      {
+        onSuccess: () => {
+          toast.success(
+            "Profile updated successfully! Your profile has been successfully updated."
+          );
+        },
+      }
+    );
   };
 
   const handleButtonClick = () => {
@@ -84,7 +64,7 @@ const UserDashboard = () => {
     }
   };
 
-  if (isLoading) return <p className="p-4">Loading...</p>;
+  if (isLoading) return <LoadingSpinner />;
   if (!user) return <p className="p-4">No user data found</p>;
 
   return (
@@ -101,9 +81,10 @@ const UserDashboard = () => {
           <div className="flex flex-col items-center gap-4 lg:w-1/3">
             <div className="relative w-40 h-40 rounded-full overflow-hidden border">
               <Image
-                src={preview || "/avatar.png"}
-                alt="Profile Picture"
+                src={preview}
+                alt={user.full_name.charAt(0).toUpperCase()}
                 fill
+                unoptimized
                 className="object-cover"
               />
             </div>
@@ -127,17 +108,13 @@ const UserDashboard = () => {
 
           {/* Right: Form */}
           <form
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             className="flex-1 space-y-4 lg:space-y-6">
             <div>
               <Label htmlFor="name" className="text-sm font-medium mb-2 block">
                 Name
               </Label>
-              <Input
-                id="name"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-              />
+              <Input id="name" {...register("full_name")} />
             </div>
 
             <div>
@@ -148,8 +125,8 @@ const UserDashboard = () => {
                 <Input
                   id="email"
                   type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={user.email}
+                  disabled
                   className="pr-20"
                 />
                 {user.is_verified && (
@@ -168,7 +145,7 @@ const UserDashboard = () => {
               <Label htmlFor="role" className="text-sm font-medium mb-2 block">
                 Role
               </Label>
-              <h1>{user.role}</h1>
+              <Badge className="uppercase">{user.role}</Badge>
             </div>
 
             <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 pt-4 lg:pt-6">
@@ -176,19 +153,20 @@ const UserDashboard = () => {
                 type="button"
                 variant="outline"
                 onClick={() => {
-                  setFullName(user.full_name || "");
-                  setEmail(user.email || "");
-                  setPreview(user.profile_picture || "/placeholder.svg");
+                  reset({
+                    full_name: user.full_name || "",
+                  });
+                  setPreview(user.profile_picture || "/avatar.png");
                   setSelectedFile(null);
                 }}
-                className="flex-1 bg-transparent order-2 sm:order-1">
+                className="flex-1 bg-transparent order-2 sm:order-1 cursor-pointer">
                 Discard Changes
               </Button>
               <Button
                 type="submit"
-                disabled={mutation.isPending}
-                className="flex-1 bg-orange-500 hover:bg-orange-600 order-1 sm:order-2">
-                {mutation.isPending ? "Saving..." : "Save Changes"}
+                disabled={isPending}
+                className="flex-1 bg-orange-500 hover:bg-orange-600 order-1 sm:order-2 cursor-pointer">
+                {isPending ? "Saving..." : "Save Changes"}
               </Button>
             </div>
           </form>

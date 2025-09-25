@@ -12,37 +12,44 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useLoginUser } from "@/hooks/useAuth";
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook, FaGithub } from "react-icons/fa";
+import LoginGoogle from "@/components/fragment/button-action/LoginGoogle";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema, LoginSchema } from "@/lib/validation/auth";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
-
   const router = useRouter();
+  const searchParams = useSearchParams();
+  console.log("searchParams login:", searchParams.toString());
+
+  const from = searchParams.get("from") || "/";
+  console.log("from value:", from);
 
   const { mutate: login, isPending, isError } = useLoginUser();
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginSchema>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = (data: LoginSchema) => {
     login(
+      { email: data.email, password: data.password },
       {
-        email: form.email,
-        password: form.password,
-      },
-      {
-        onSuccess: (data) => {
-          console.log(data);
-
-          router.push("/");
-        },
-        onError: (error) => {
-          console.log(error);
-          alert("gagal login");
+        onSuccess: () => router.push(from),
+        onError: (err) => {
+          console.log(err);
         },
       }
     );
@@ -60,7 +67,7 @@ export default function LoginPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               {/* Email */}
               <div>
                 <Label htmlFor="email" className="mb-2">
@@ -69,38 +76,59 @@ export default function LoginPage() {
                 <Input
                   id="email"
                   type="email"
-                  name="email"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  required
                   placeholder="Enter your email"
+                  {...register("email")}
                 />
+                {errors.email && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
 
-              {/* Password */}
               <div>
                 <Label htmlFor="password" className="mb-2">
                   Password
                 </Label>
-                <Input
-                  id="password"
-                  type="password"
-                  name="password"
-                  value={form.password}
-                  onChange={(e) =>
-                    setForm({ ...form, password: e.target.value })
-                  }
-                  required
-                  placeholder="Enter your password"
-                />
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter your password"
+                    {...register("password")}
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+                    onClick={() => setShowPassword((prev) => !prev)}>
+                    {showPassword ? (
+                      <EyeOff className="w-5 h-5" />
+                    ) : (
+                      <Eye className="w-5 h-5" />
+                    )}
+                  </button>
+                </div>
+                {errors.password && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {errors.password.message}
+                  </p>
+                )}
               </div>
 
               {/* Submit */}
-              <Button type="submit" className="w-full" disabled={isPending}>
+              <Button
+                type="submit"
+                className="w-full cursor-pointer"
+                disabled={isPending}>
                 {isPending ? "Loading..." : "Login"}
               </Button>
             </form>
-            {isError && <p className="text-red-500">Gagal Login</p>}
+
+            {isError && (
+              <p className="text-red-500 mt-2 text-sm">
+                Invalid email or password. Please try again.
+              </p>
+            )}
 
             {/* Divider */}
             <div className="flex items-center gap-2 my-4">
@@ -109,24 +137,7 @@ export default function LoginPage() {
               <div className="flex-1 h-px bg-gray-300"></div>
             </div>
 
-            {/* Social buttons */}
-            <div className="flex flex-col gap-2">
-              <Button
-                variant="outline"
-                className="flex items-center gap-2 w-full">
-                <FcGoogle className="text-red-500" /> Continue with Google
-              </Button>
-              <Button
-                variant="outline"
-                className="flex items-center gap-2 w-full">
-                <FaGithub /> Continue with GitHub
-              </Button>
-              <Button
-                variant="outline"
-                className="flex items-center gap-2 w-full">
-                <FaFacebook className="text-blue-600" /> Continue with Facebook
-              </Button>
-            </div>
+            <LoginGoogle />
           </CardContent>
 
           <CardFooter className="text-center text-sm text-gray-600">

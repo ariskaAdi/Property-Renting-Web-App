@@ -4,42 +4,38 @@ import type React from "react";
 import { useState } from "react";
 import {
   LayoutDashboard,
-  DollarSign,
-  HelpCircle,
   Settings,
   Menu,
   X,
   Building,
-  Bell,
   User,
   BarChart3,
   Store,
+  Grid3X3,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useFetchMe } from "@/hooks/useUser";
 import { ButtonLogout } from "@/components/fragment/button-action/buttonAction";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import LoadingSpinner from "@/components/fragment/loading-error/LoadingSpinner";
 
 const sidebarTenant = [
   { icon: User, label: "Profile", link: "/dashboard" },
   { icon: Store, label: "Tenant", link: "/dashboard/tenant" },
   { icon: Building, label: "Properties", link: "/dashboard/property" },
-  { icon: DollarSign, label: "Payment", link: "/dashboard/payment" },
-  { icon: BarChart3, label: "Statistics", link: "/dashboard/statistics" },
-  { icon: Bell, label: "Notifications", link: "/dashboard/notifications" },
+  { icon: Grid3X3, label: "Bookings", link: "/dashboard/bookings" },
+  { icon: BarChart3, label: "Analytics", link: "/dashboard/analytics" },
 ];
 
 const sidebarUser = [
   { icon: LayoutDashboard, label: "Profile", link: "/dashboard" },
-  { icon: Building, label: "History Trips", link: "/dashboard/trips" },
-  { icon: DollarSign, label: "Payment", link: "/dashboard/payment" },
-  { icon: Bell, label: "Notifications", link: "/dashboard/notifications" },
+  { icon: Building, label: "Past Bookings", link: "/dashboard/pastbookings" },
+  { icon: Grid3X3, label: "Bookings", link: "/dashboard/bookings" },
 ];
 
-const helpItems = [
-  { icon: HelpCircle, label: "Help & Center" },
-  { icon: Settings, label: "Settings" },
+const settingAccount = [
+  { icon: Settings, label: "Settings", link: "/dashboard/settings" },
 ];
 
 interface DashboardLayoutProps {
@@ -52,7 +48,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const pathname = usePathname();
 
   if (isLoading) {
-    return <div className="p-6">Loading...</div>;
+    return <LoadingSpinner />;
   }
   if (error) {
     return <div className="p-6 text-red-500">Failed to load user</div>;
@@ -80,17 +76,19 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center justify-between p-6 border-b border-sidebar-border">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-sidebar-accent rounded-lg flex items-center justify-center">
-                <LayoutDashboard className="w-5 h-5 text-sidebar-accent-foreground" />
+            <Link href="/">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-black rounded flex items-center justify-center">
+                  <span className="text-white text-sm font-bold">h</span>
+                </div>
+                <div>
+                  <h2 className="text-sidebar-foreground font-bold">homz</h2>
+                  <p className="text-sidebar-foreground/60 text-xs">
+                    Property Management
+                  </p>
+                </div>
               </div>
-              <div>
-                <h2 className="text-sidebar-foreground font-bold">Logo</h2>
-                <p className="text-sidebar-foreground/60 text-xs">
-                  Property Management
-                </p>
-              </div>
-            </div>
+            </Link>
             <button
               onClick={() => setSidebarOpen(false)}
               className="lg:hidden text-sidebar-foreground">
@@ -126,23 +124,24 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                 })}
               </nav>
             </div>
-
-            {/* Help & Support */}
+            {/* Setting */}
             <div>
               <h3 className="text-sidebar-foreground/60 text-xs font-medium uppercase tracking-wider mb-3">
-                HELP & SUPPORT
+                SETTING ACCOUNT
               </h3>
               <nav className="space-y-1">
-                {helpItems.map((item, index) => (
+                {settingAccount.map((item, index) => (
                   <a
                     key={index}
-                    href="#"
+                    href={item.link}
                     className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-sidebar-foreground hover:bg-black/10 transition-colors">
                     <item.icon className="w-5 h-5" />
                     <span>{item.label}</span>
                   </a>
                 ))}
-                <ButtonLogout />
+                <div className="mt-8">
+                  <ButtonLogout />
+                </div>
               </nav>
             </div>
           </div>

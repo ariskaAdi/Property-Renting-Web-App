@@ -1,7 +1,9 @@
 import { Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { BookingCard } from "./BookingCard";
+import { BookingCard, BookingCardProps } from "./BookingCard";
 import { Booking } from "@/types/transactions/transactions";
+import React from "react";
+
 
 const BookingCardSkeleton = () => (
   <div className="h-40 w-full bg-gray-100 rounded-lg animate-pulse"></div>
@@ -11,16 +13,25 @@ type BookingListProps = {
   bookings?: Booking[];
   isLoading: boolean;
   isError: boolean;
+  isFetching: boolean;
+  role: "tenant" | "user";
+  uploadFile: File | null;
+  onFileSelect: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const BookingList = ({
   bookings,
   isLoading,
   isError,
+  isFetching,
+  onFileSelect,
+  role,
 }: BookingListProps) => {
+
+
   if (isLoading) {
     return (
-      <div className="space-y-4">
+      <div className="space-y-6">
         <BookingCardSkeleton />
         <BookingCardSkeleton />
         <BookingCardSkeleton />
@@ -55,10 +66,15 @@ export const BookingList = ({
     );
   }
 
+  
   return (
-    <div className="grid gap-4">
+    <div
+      className={`grid transition-opacity ${
+        isFetching ? "opacity-60" : "opacity-100"
+      }`}
+    >
       {bookings.map((booking) => (
-        <BookingCard key={booking.id} booking={booking} />
+        <BookingCard key={booking.id} booking={booking} role={role} />
       ))}
     </div>
   );

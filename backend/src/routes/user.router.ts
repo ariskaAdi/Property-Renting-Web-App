@@ -15,7 +15,7 @@ class UserRouter {
 
   private initializeRoutes() {
     this.route.get("/me", verifyToken, this.userController.getUserId);
-    this.route.post(
+    this.route.patch(
       "/otp-password",
       verifyToken,
       this.userController.otpChangePassword
@@ -30,6 +30,11 @@ class UserRouter {
       verifyToken,
       uploaderMemory().single("profile_picture"),
       this.userController.updateProfile
+    );
+    this.route.patch(
+      "/change-email-otp",
+      verifyToken,
+      this.userController.newOtpChangeEmail
     );
   }
 

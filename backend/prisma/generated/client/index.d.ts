@@ -62,7 +62,35 @@ export const trx_status: {
   REJECTED: 'REJECTED'
 };
 
+<<<<<<< HEAD
 export type trx_status = (typeof trx_status)[keyof typeof trx_status]
+=======
+export type PriceChangeType = (typeof PriceChangeType)[keyof typeof PriceChangeType]
+
+
+export const BookingStatus: {
+  waiting_payment: 'waiting_payment',
+  waiting_confirmation: 'waiting_confirmation',
+  confirmed: 'confirmed',
+  canceled: 'canceled',
+  canceled_by_tenant: 'canceled_by_tenant',
+  expired: 'expired'
+};
+
+export type BookingStatus = (typeof BookingStatus)[keyof typeof BookingStatus]
+
+
+export const PropertyCategory: {
+  apartment: 'apartment',
+  house: 'house',
+  villa: 'villa',
+  hotel: 'hotel',
+  hostel: 'hostel',
+  guesthouse: 'guesthouse'
+};
+
+export type PropertyCategory = (typeof PropertyCategory)[keyof typeof PropertyCategory]
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
 }
 
@@ -1366,6 +1394,7 @@ export namespace Prisma {
    * Count Type Account_tableCountOutputType
    */
 
+<<<<<<< HEAD
   export type Account_tableCountOutputType = {
     transaction_table: number
     properties_table: number
@@ -1378,6 +1407,16 @@ export namespace Prisma {
     properties_table?: boolean | Account_tableCountOutputTypeCountProperties_tableArgs
     user_review?: boolean | Account_tableCountOutputTypeCountUser_reviewArgs
     booked_user_list?: boolean | Account_tableCountOutputTypeCountBooked_user_listArgs
+=======
+  export type UsersCountOutputType = {
+    bookings: number
+    reviews: number
+  }
+
+  export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bookings?: boolean | UsersCountOutputTypeCountBookingsArgs
+    reviews?: boolean | UsersCountOutputTypeCountReviewsArgs
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   // Custom InputTypes
@@ -1405,6 +1444,7 @@ export namespace Prisma {
     where?: properties_tableWhereInput
   }
 
+<<<<<<< HEAD
   /**
    * Account_tableCountOutputType without action
    */
@@ -1419,6 +1459,8 @@ export namespace Prisma {
     where?: booked_user_listWhereInput
   }
 
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
   /**
    * Count Type Transaction_tableCountOutputType
@@ -1778,10 +1820,16 @@ export namespace Prisma {
   export type $account_tablePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "account_table"
     objects: {
+<<<<<<< HEAD
       transaction_table: Prisma.$transaction_tablePayload<ExtArgs>[]
       properties_table: Prisma.$properties_tablePayload<ExtArgs>[]
       user_review: Prisma.$user_reviewPayload<ExtArgs>[]
       booked_user_list: Prisma.$booked_user_listPayload<ExtArgs>[]
+=======
+      bookings: Prisma.$bookingsPayload<ExtArgs>[]
+      reviews: Prisma.$reviewsPayload<ExtArgs>[]
+      tenants: Prisma.$tenantsPayload<ExtArgs> | null
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2185,10 +2233,16 @@ export namespace Prisma {
    */
   export interface Prisma__account_tableClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+<<<<<<< HEAD
     transaction_table<T extends account_table$transaction_tableArgs<ExtArgs> = {}>(args?: Subset<T, account_table$transaction_tableArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$transaction_tablePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     properties_table<T extends account_table$properties_tableArgs<ExtArgs> = {}>(args?: Subset<T, account_table$properties_tableArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$properties_tablePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user_review<T extends account_table$user_reviewArgs<ExtArgs> = {}>(args?: Subset<T, account_table$user_reviewArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_reviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     booked_user_list<T extends account_table$booked_user_listArgs<ExtArgs> = {}>(args?: Subset<T, account_table$booked_user_listArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$booked_user_listPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+=======
+    bookings<T extends users$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, users$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$bookingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reviews<T extends users$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, users$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tenants<T extends users$tenantsArgs<ExtArgs> = {}>(args?: Subset<T, users$tenantsArgs<ExtArgs>>): Prisma__tenantsClient<$Result.GetResult<Prisma.$tenantsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2675,6 +2729,7 @@ export namespace Prisma {
     /**
      * Choose, which related nodes to fetch as well
      */
+<<<<<<< HEAD
     include?: user_reviewInclude<ExtArgs> | null
     where?: user_reviewWhereInput
     orderBy?: user_reviewOrderByWithRelationInput | user_reviewOrderByWithRelationInput[]
@@ -2682,6 +2737,10 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: User_reviewScalarFieldEnum | User_reviewScalarFieldEnum[]
+=======
+    include?: tenantsInclude<ExtArgs> | null
+    where?: tenantsWhereInput
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   /**
@@ -7596,6 +7655,7 @@ export namespace Prisma {
     _max?: Booked_user_listMaxAggregateInputType
   }
 
+<<<<<<< HEAD
   export type Booked_user_listGroupByOutputType = {
     id: number
     transaction_id: number
@@ -7611,6 +7671,1301 @@ export namespace Prisma {
   }
 
   type GetBooked_user_listGroupByPayload<T extends booked_user_listGroupByArgs> = Prisma.PrismaPromise<
+=======
+  export type BookingsGroupByOutputType = {
+    id: string
+    user_id: string
+    property_id: string
+    status: $Enums.BookingStatus
+    check_in_date: Date
+    check_out_date: Date
+    total_price: Decimal
+    payment_deadline: Date
+    created_at: Date
+    updated_at: Date
+    amount: Decimal
+    paid_at: Date | null
+    proof_image: string | null
+    _count: BookingsCountAggregateOutputType | null
+    _avg: BookingsAvgAggregateOutputType | null
+    _sum: BookingsSumAggregateOutputType | null
+    _min: BookingsMinAggregateOutputType | null
+    _max: BookingsMaxAggregateOutputType | null
+  }
+
+  type GetBookingsGroupByPayload<T extends bookingsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BookingsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BookingsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BookingsGroupByOutputType[P]>
+            : GetScalarType<T[P], BookingsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type bookingsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    property_id?: boolean
+    status?: boolean
+    check_in_date?: boolean
+    check_out_date?: boolean
+    total_price?: boolean
+    payment_deadline?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    amount?: boolean
+    paid_at?: boolean
+    proof_image?: boolean
+    booking_rooms?: boolean | bookings$booking_roomsArgs<ExtArgs>
+    property?: boolean | propertiesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    reviews?: boolean | bookings$reviewsArgs<ExtArgs>
+    _count?: boolean | BookingsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bookings"]>
+
+  export type bookingsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    property_id?: boolean
+    status?: boolean
+    check_in_date?: boolean
+    check_out_date?: boolean
+    total_price?: boolean
+    payment_deadline?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    amount?: boolean
+    paid_at?: boolean
+    proof_image?: boolean
+    property?: boolean | propertiesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bookings"]>
+
+  export type bookingsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    property_id?: boolean
+    status?: boolean
+    check_in_date?: boolean
+    check_out_date?: boolean
+    total_price?: boolean
+    payment_deadline?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    amount?: boolean
+    paid_at?: boolean
+    proof_image?: boolean
+    property?: boolean | propertiesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bookings"]>
+
+  export type bookingsSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    property_id?: boolean
+    status?: boolean
+    check_in_date?: boolean
+    check_out_date?: boolean
+    total_price?: boolean
+    payment_deadline?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    amount?: boolean
+    paid_at?: boolean
+    proof_image?: boolean
+  }
+
+  export type bookingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "property_id" | "status" | "check_in_date" | "check_out_date" | "total_price" | "payment_deadline" | "created_at" | "updated_at" | "amount" | "paid_at" | "proof_image", ExtArgs["result"]["bookings"]>
+  export type bookingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    booking_rooms?: boolean | bookings$booking_roomsArgs<ExtArgs>
+    property?: boolean | propertiesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    reviews?: boolean | bookings$reviewsArgs<ExtArgs>
+    _count?: boolean | BookingsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type bookingsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    property?: boolean | propertiesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type bookingsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    property?: boolean | propertiesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $bookingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "bookings"
+    objects: {
+      booking_rooms: Prisma.$booking_roomsPayload<ExtArgs>[]
+      property: Prisma.$propertiesPayload<ExtArgs>
+      user: Prisma.$usersPayload<ExtArgs>
+      reviews: Prisma.$reviewsPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      user_id: string
+      property_id: string
+      status: $Enums.BookingStatus
+      check_in_date: Date
+      check_out_date: Date
+      total_price: Prisma.Decimal
+      payment_deadline: Date
+      created_at: Date
+      updated_at: Date
+      amount: Prisma.Decimal
+      paid_at: Date | null
+      proof_image: string | null
+    }, ExtArgs["result"]["bookings"]>
+    composites: {}
+  }
+
+  type bookingsGetPayload<S extends boolean | null | undefined | bookingsDefaultArgs> = $Result.GetResult<Prisma.$bookingsPayload, S>
+
+  type bookingsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<bookingsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BookingsCountAggregateInputType | true
+    }
+
+  export interface bookingsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['bookings'], meta: { name: 'bookings' } }
+    /**
+     * Find zero or one Bookings that matches the filter.
+     * @param {bookingsFindUniqueArgs} args - Arguments to find a Bookings
+     * @example
+     * // Get one Bookings
+     * const bookings = await prisma.bookings.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends bookingsFindUniqueArgs>(args: SelectSubset<T, bookingsFindUniqueArgs<ExtArgs>>): Prisma__bookingsClient<$Result.GetResult<Prisma.$bookingsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Bookings that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {bookingsFindUniqueOrThrowArgs} args - Arguments to find a Bookings
+     * @example
+     * // Get one Bookings
+     * const bookings = await prisma.bookings.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends bookingsFindUniqueOrThrowArgs>(args: SelectSubset<T, bookingsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__bookingsClient<$Result.GetResult<Prisma.$bookingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Bookings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {bookingsFindFirstArgs} args - Arguments to find a Bookings
+     * @example
+     * // Get one Bookings
+     * const bookings = await prisma.bookings.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends bookingsFindFirstArgs>(args?: SelectSubset<T, bookingsFindFirstArgs<ExtArgs>>): Prisma__bookingsClient<$Result.GetResult<Prisma.$bookingsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Bookings that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {bookingsFindFirstOrThrowArgs} args - Arguments to find a Bookings
+     * @example
+     * // Get one Bookings
+     * const bookings = await prisma.bookings.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends bookingsFindFirstOrThrowArgs>(args?: SelectSubset<T, bookingsFindFirstOrThrowArgs<ExtArgs>>): Prisma__bookingsClient<$Result.GetResult<Prisma.$bookingsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Bookings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {bookingsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Bookings
+     * const bookings = await prisma.bookings.findMany()
+     * 
+     * // Get first 10 Bookings
+     * const bookings = await prisma.bookings.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bookingsWithIdOnly = await prisma.bookings.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends bookingsFindManyArgs>(args?: SelectSubset<T, bookingsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$bookingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Bookings.
+     * @param {bookingsCreateArgs} args - Arguments to create a Bookings.
+     * @example
+     * // Create one Bookings
+     * const Bookings = await prisma.bookings.create({
+     *   data: {
+     *     // ... data to create a Bookings
+     *   }
+     * })
+     * 
+     */
+    create<T extends bookingsCreateArgs>(args: SelectSubset<T, bookingsCreateArgs<ExtArgs>>): Prisma__bookingsClient<$Result.GetResult<Prisma.$bookingsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Bookings.
+     * @param {bookingsCreateManyArgs} args - Arguments to create many Bookings.
+     * @example
+     * // Create many Bookings
+     * const bookings = await prisma.bookings.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends bookingsCreateManyArgs>(args?: SelectSubset<T, bookingsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Bookings and returns the data saved in the database.
+     * @param {bookingsCreateManyAndReturnArgs} args - Arguments to create many Bookings.
+     * @example
+     * // Create many Bookings
+     * const bookings = await prisma.bookings.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Bookings and only return the `id`
+     * const bookingsWithIdOnly = await prisma.bookings.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends bookingsCreateManyAndReturnArgs>(args?: SelectSubset<T, bookingsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$bookingsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Bookings.
+     * @param {bookingsDeleteArgs} args - Arguments to delete one Bookings.
+     * @example
+     * // Delete one Bookings
+     * const Bookings = await prisma.bookings.delete({
+     *   where: {
+     *     // ... filter to delete one Bookings
+     *   }
+     * })
+     * 
+     */
+    delete<T extends bookingsDeleteArgs>(args: SelectSubset<T, bookingsDeleteArgs<ExtArgs>>): Prisma__bookingsClient<$Result.GetResult<Prisma.$bookingsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Bookings.
+     * @param {bookingsUpdateArgs} args - Arguments to update one Bookings.
+     * @example
+     * // Update one Bookings
+     * const bookings = await prisma.bookings.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends bookingsUpdateArgs>(args: SelectSubset<T, bookingsUpdateArgs<ExtArgs>>): Prisma__bookingsClient<$Result.GetResult<Prisma.$bookingsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Bookings.
+     * @param {bookingsDeleteManyArgs} args - Arguments to filter Bookings to delete.
+     * @example
+     * // Delete a few Bookings
+     * const { count } = await prisma.bookings.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends bookingsDeleteManyArgs>(args?: SelectSubset<T, bookingsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Bookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {bookingsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Bookings
+     * const bookings = await prisma.bookings.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends bookingsUpdateManyArgs>(args: SelectSubset<T, bookingsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Bookings and returns the data updated in the database.
+     * @param {bookingsUpdateManyAndReturnArgs} args - Arguments to update many Bookings.
+     * @example
+     * // Update many Bookings
+     * const bookings = await prisma.bookings.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Bookings and only return the `id`
+     * const bookingsWithIdOnly = await prisma.bookings.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends bookingsUpdateManyAndReturnArgs>(args: SelectSubset<T, bookingsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$bookingsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Bookings.
+     * @param {bookingsUpsertArgs} args - Arguments to update or create a Bookings.
+     * @example
+     * // Update or create a Bookings
+     * const bookings = await prisma.bookings.upsert({
+     *   create: {
+     *     // ... data to create a Bookings
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Bookings we want to update
+     *   }
+     * })
+     */
+    upsert<T extends bookingsUpsertArgs>(args: SelectSubset<T, bookingsUpsertArgs<ExtArgs>>): Prisma__bookingsClient<$Result.GetResult<Prisma.$bookingsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Bookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {bookingsCountArgs} args - Arguments to filter Bookings to count.
+     * @example
+     * // Count the number of Bookings
+     * const count = await prisma.bookings.count({
+     *   where: {
+     *     // ... the filter for the Bookings we want to count
+     *   }
+     * })
+    **/
+    count<T extends bookingsCountArgs>(
+      args?: Subset<T, bookingsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BookingsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Bookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BookingsAggregateArgs>(args: Subset<T, BookingsAggregateArgs>): Prisma.PrismaPromise<GetBookingsAggregateType<T>>
+
+    /**
+     * Group by Bookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {bookingsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends bookingsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: bookingsGroupByArgs['orderBy'] }
+        : { orderBy?: bookingsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, bookingsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBookingsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the bookings model
+   */
+  readonly fields: bookingsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for bookings.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__bookingsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    booking_rooms<T extends bookings$booking_roomsArgs<ExtArgs> = {}>(args?: Subset<T, bookings$booking_roomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$booking_roomsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    property<T extends propertiesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, propertiesDefaultArgs<ExtArgs>>): Prisma__propertiesClient<$Result.GetResult<Prisma.$propertiesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    reviews<T extends bookings$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, bookings$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the bookings model
+   */
+  interface bookingsFieldRefs {
+    readonly id: FieldRef<"bookings", 'String'>
+    readonly user_id: FieldRef<"bookings", 'String'>
+    readonly property_id: FieldRef<"bookings", 'String'>
+    readonly status: FieldRef<"bookings", 'BookingStatus'>
+    readonly check_in_date: FieldRef<"bookings", 'DateTime'>
+    readonly check_out_date: FieldRef<"bookings", 'DateTime'>
+    readonly total_price: FieldRef<"bookings", 'Decimal'>
+    readonly payment_deadline: FieldRef<"bookings", 'DateTime'>
+    readonly created_at: FieldRef<"bookings", 'DateTime'>
+    readonly updated_at: FieldRef<"bookings", 'DateTime'>
+    readonly amount: FieldRef<"bookings", 'Decimal'>
+    readonly paid_at: FieldRef<"bookings", 'DateTime'>
+    readonly proof_image: FieldRef<"bookings", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * bookings findUnique
+   */
+  export type bookingsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the bookings
+     */
+    select?: bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the bookings
+     */
+    omit?: bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookingsInclude<ExtArgs> | null
+    /**
+     * Filter, which bookings to fetch.
+     */
+    where: bookingsWhereUniqueInput
+  }
+
+  /**
+   * bookings findUniqueOrThrow
+   */
+  export type bookingsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the bookings
+     */
+    select?: bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the bookings
+     */
+    omit?: bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookingsInclude<ExtArgs> | null
+    /**
+     * Filter, which bookings to fetch.
+     */
+    where: bookingsWhereUniqueInput
+  }
+
+  /**
+   * bookings findFirst
+   */
+  export type bookingsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the bookings
+     */
+    select?: bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the bookings
+     */
+    omit?: bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookingsInclude<ExtArgs> | null
+    /**
+     * Filter, which bookings to fetch.
+     */
+    where?: bookingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of bookings to fetch.
+     */
+    orderBy?: bookingsOrderByWithRelationInput | bookingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for bookings.
+     */
+    cursor?: bookingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` bookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of bookings.
+     */
+    distinct?: BookingsScalarFieldEnum | BookingsScalarFieldEnum[]
+  }
+
+  /**
+   * bookings findFirstOrThrow
+   */
+  export type bookingsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the bookings
+     */
+    select?: bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the bookings
+     */
+    omit?: bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookingsInclude<ExtArgs> | null
+    /**
+     * Filter, which bookings to fetch.
+     */
+    where?: bookingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of bookings to fetch.
+     */
+    orderBy?: bookingsOrderByWithRelationInput | bookingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for bookings.
+     */
+    cursor?: bookingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` bookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of bookings.
+     */
+    distinct?: BookingsScalarFieldEnum | BookingsScalarFieldEnum[]
+  }
+
+  /**
+   * bookings findMany
+   */
+  export type bookingsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the bookings
+     */
+    select?: bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the bookings
+     */
+    omit?: bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookingsInclude<ExtArgs> | null
+    /**
+     * Filter, which bookings to fetch.
+     */
+    where?: bookingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of bookings to fetch.
+     */
+    orderBy?: bookingsOrderByWithRelationInput | bookingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing bookings.
+     */
+    cursor?: bookingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` bookings.
+     */
+    skip?: number
+    distinct?: BookingsScalarFieldEnum | BookingsScalarFieldEnum[]
+  }
+
+  /**
+   * bookings create
+   */
+  export type bookingsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the bookings
+     */
+    select?: bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the bookings
+     */
+    omit?: bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookingsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a bookings.
+     */
+    data: XOR<bookingsCreateInput, bookingsUncheckedCreateInput>
+  }
+
+  /**
+   * bookings createMany
+   */
+  export type bookingsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many bookings.
+     */
+    data: bookingsCreateManyInput | bookingsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * bookings createManyAndReturn
+   */
+  export type bookingsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the bookings
+     */
+    select?: bookingsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the bookings
+     */
+    omit?: bookingsOmit<ExtArgs> | null
+    /**
+     * The data used to create many bookings.
+     */
+    data: bookingsCreateManyInput | bookingsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookingsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * bookings update
+   */
+  export type bookingsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the bookings
+     */
+    select?: bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the bookings
+     */
+    omit?: bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookingsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a bookings.
+     */
+    data: XOR<bookingsUpdateInput, bookingsUncheckedUpdateInput>
+    /**
+     * Choose, which bookings to update.
+     */
+    where: bookingsWhereUniqueInput
+  }
+
+  /**
+   * bookings updateMany
+   */
+  export type bookingsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update bookings.
+     */
+    data: XOR<bookingsUpdateManyMutationInput, bookingsUncheckedUpdateManyInput>
+    /**
+     * Filter which bookings to update
+     */
+    where?: bookingsWhereInput
+    /**
+     * Limit how many bookings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * bookings updateManyAndReturn
+   */
+  export type bookingsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the bookings
+     */
+    select?: bookingsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the bookings
+     */
+    omit?: bookingsOmit<ExtArgs> | null
+    /**
+     * The data used to update bookings.
+     */
+    data: XOR<bookingsUpdateManyMutationInput, bookingsUncheckedUpdateManyInput>
+    /**
+     * Filter which bookings to update
+     */
+    where?: bookingsWhereInput
+    /**
+     * Limit how many bookings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookingsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * bookings upsert
+   */
+  export type bookingsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the bookings
+     */
+    select?: bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the bookings
+     */
+    omit?: bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookingsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the bookings to update in case it exists.
+     */
+    where: bookingsWhereUniqueInput
+    /**
+     * In case the bookings found by the `where` argument doesn't exist, create a new bookings with this data.
+     */
+    create: XOR<bookingsCreateInput, bookingsUncheckedCreateInput>
+    /**
+     * In case the bookings was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<bookingsUpdateInput, bookingsUncheckedUpdateInput>
+  }
+
+  /**
+   * bookings delete
+   */
+  export type bookingsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the bookings
+     */
+    select?: bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the bookings
+     */
+    omit?: bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookingsInclude<ExtArgs> | null
+    /**
+     * Filter which bookings to delete.
+     */
+    where: bookingsWhereUniqueInput
+  }
+
+  /**
+   * bookings deleteMany
+   */
+  export type bookingsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which bookings to delete
+     */
+    where?: bookingsWhereInput
+    /**
+     * Limit how many bookings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * bookings.booking_rooms
+   */
+  export type bookings$booking_roomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the booking_rooms
+     */
+    select?: booking_roomsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the booking_rooms
+     */
+    omit?: booking_roomsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: booking_roomsInclude<ExtArgs> | null
+    where?: booking_roomsWhereInput
+    orderBy?: booking_roomsOrderByWithRelationInput | booking_roomsOrderByWithRelationInput[]
+    cursor?: booking_roomsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Booking_roomsScalarFieldEnum | Booking_roomsScalarFieldEnum[]
+  }
+
+  /**
+   * bookings.reviews
+   */
+  export type bookings$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    where?: reviewsWhereInput
+    orderBy?: reviewsOrderByWithRelationInput | reviewsOrderByWithRelationInput[]
+    cursor?: reviewsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReviewsScalarFieldEnum | ReviewsScalarFieldEnum[]
+  }
+
+  /**
+   * bookings without action
+   */
+  export type bookingsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the bookings
+     */
+    select?: bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the bookings
+     */
+    omit?: bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookingsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model booking_rooms
+   */
+
+  export type AggregateBooking_rooms = {
+    _count: Booking_roomsCountAggregateOutputType | null
+    _avg: Booking_roomsAvgAggregateOutputType | null
+    _sum: Booking_roomsSumAggregateOutputType | null
+    _min: Booking_roomsMinAggregateOutputType | null
+    _max: Booking_roomsMaxAggregateOutputType | null
+  }
+
+  export type Booking_roomsAvgAggregateOutputType = {
+    guests_count: number | null
+    price_per_night: Decimal | null
+    nights: number | null
+    quantity: number | null
+    subtotal: Decimal | null
+  }
+
+  export type Booking_roomsSumAggregateOutputType = {
+    guests_count: number | null
+    price_per_night: Decimal | null
+    nights: number | null
+    quantity: number | null
+    subtotal: Decimal | null
+  }
+
+  export type Booking_roomsMinAggregateOutputType = {
+    id: string | null
+    booking_id: string | null
+    room_id: string | null
+    guests_count: number | null
+    price_per_night: Decimal | null
+    check_in_date: Date | null
+    check_out_date: Date | null
+    nights: number | null
+    quantity: number | null
+    subtotal: Decimal | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Booking_roomsMaxAggregateOutputType = {
+    id: string | null
+    booking_id: string | null
+    room_id: string | null
+    guests_count: number | null
+    price_per_night: Decimal | null
+    check_in_date: Date | null
+    check_out_date: Date | null
+    nights: number | null
+    quantity: number | null
+    subtotal: Decimal | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Booking_roomsCountAggregateOutputType = {
+    id: number
+    booking_id: number
+    room_id: number
+    guests_count: number
+    price_per_night: number
+    check_in_date: number
+    check_out_date: number
+    nights: number
+    quantity: number
+    subtotal: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Booking_roomsAvgAggregateInputType = {
+    guests_count?: true
+    price_per_night?: true
+    nights?: true
+    quantity?: true
+    subtotal?: true
+  }
+
+  export type Booking_roomsSumAggregateInputType = {
+    guests_count?: true
+    price_per_night?: true
+    nights?: true
+    quantity?: true
+    subtotal?: true
+  }
+
+  export type Booking_roomsMinAggregateInputType = {
+    id?: true
+    booking_id?: true
+    room_id?: true
+    guests_count?: true
+    price_per_night?: true
+    check_in_date?: true
+    check_out_date?: true
+    nights?: true
+    quantity?: true
+    subtotal?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Booking_roomsMaxAggregateInputType = {
+    id?: true
+    booking_id?: true
+    room_id?: true
+    guests_count?: true
+    price_per_night?: true
+    check_in_date?: true
+    check_out_date?: true
+    nights?: true
+    quantity?: true
+    subtotal?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Booking_roomsCountAggregateInputType = {
+    id?: true
+    booking_id?: true
+    room_id?: true
+    guests_count?: true
+    price_per_night?: true
+    check_in_date?: true
+    check_out_date?: true
+    nights?: true
+    quantity?: true
+    subtotal?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Booking_roomsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which booking_rooms to aggregate.
+     */
+    where?: booking_roomsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of booking_rooms to fetch.
+     */
+    orderBy?: booking_roomsOrderByWithRelationInput | booking_roomsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: booking_roomsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` booking_rooms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` booking_rooms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned booking_rooms
+    **/
+    _count?: true | Booking_roomsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Booking_roomsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Booking_roomsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Booking_roomsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Booking_roomsMaxAggregateInputType
+  }
+
+  export type GetBooking_roomsAggregateType<T extends Booking_roomsAggregateArgs> = {
+        [P in keyof T & keyof AggregateBooking_rooms]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBooking_rooms[P]>
+      : GetScalarType<T[P], AggregateBooking_rooms[P]>
+  }
+
+
+
+
+  export type booking_roomsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: booking_roomsWhereInput
+    orderBy?: booking_roomsOrderByWithAggregationInput | booking_roomsOrderByWithAggregationInput[]
+    by: Booking_roomsScalarFieldEnum[] | Booking_roomsScalarFieldEnum
+    having?: booking_roomsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Booking_roomsCountAggregateInputType | true
+    _avg?: Booking_roomsAvgAggregateInputType
+    _sum?: Booking_roomsSumAggregateInputType
+    _min?: Booking_roomsMinAggregateInputType
+    _max?: Booking_roomsMaxAggregateInputType
+  }
+
+  export type Booking_roomsGroupByOutputType = {
+    id: string
+    booking_id: string
+    room_id: string
+    guests_count: number
+    price_per_night: Decimal
+    check_in_date: Date
+    check_out_date: Date
+    nights: number
+    quantity: number
+    subtotal: Decimal
+    created_at: Date
+    updated_at: Date
+    _count: Booking_roomsCountAggregateOutputType | null
+    _avg: Booking_roomsAvgAggregateOutputType | null
+    _sum: Booking_roomsSumAggregateOutputType | null
+    _min: Booking_roomsMinAggregateOutputType | null
+    _max: Booking_roomsMaxAggregateOutputType | null
+  }
+
+  type GetBooking_roomsGroupByPayload<T extends booking_roomsGroupByArgs> = Prisma.PrismaPromise<
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     Array<
       PickEnumerable<Booked_user_listGroupByOutputType, T['by']> &
         {
@@ -7626,6 +8981,7 @@ export namespace Prisma {
 
   export type booked_user_listSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+<<<<<<< HEAD
     transaction_id?: boolean
     account_id?: boolean
     properties_id?: boolean
@@ -7635,9 +8991,26 @@ export namespace Prisma {
     properties_table?: boolean | properties_tableDefaultArgs<ExtArgs>
     transaction_table?: boolean | transaction_tableDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["booked_user_list"]>
+=======
+    booking_id?: boolean
+    room_id?: boolean
+    guests_count?: boolean
+    price_per_night?: boolean
+    check_in_date?: boolean
+    check_out_date?: boolean
+    nights?: boolean
+    quantity?: boolean
+    subtotal?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    booking?: boolean | bookingsDefaultArgs<ExtArgs>
+    room?: boolean | roomsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["booking_rooms"]>
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
   export type booked_user_listSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+<<<<<<< HEAD
     transaction_id?: boolean
     account_id?: boolean
     properties_id?: boolean
@@ -7647,9 +9020,26 @@ export namespace Prisma {
     properties_table?: boolean | properties_tableDefaultArgs<ExtArgs>
     transaction_table?: boolean | transaction_tableDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["booked_user_list"]>
+=======
+    booking_id?: boolean
+    room_id?: boolean
+    guests_count?: boolean
+    price_per_night?: boolean
+    check_in_date?: boolean
+    check_out_date?: boolean
+    nights?: boolean
+    quantity?: boolean
+    subtotal?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    booking?: boolean | bookingsDefaultArgs<ExtArgs>
+    room?: boolean | roomsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["booking_rooms"]>
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
   export type booked_user_listSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+<<<<<<< HEAD
     transaction_id?: boolean
     account_id?: boolean
     properties_id?: boolean
@@ -7659,9 +9049,26 @@ export namespace Prisma {
     properties_table?: boolean | properties_tableDefaultArgs<ExtArgs>
     transaction_table?: boolean | transaction_tableDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["booked_user_list"]>
+=======
+    booking_id?: boolean
+    room_id?: boolean
+    guests_count?: boolean
+    price_per_night?: boolean
+    check_in_date?: boolean
+    check_out_date?: boolean
+    nights?: boolean
+    quantity?: boolean
+    subtotal?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    booking?: boolean | bookingsDefaultArgs<ExtArgs>
+    room?: boolean | roomsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["booking_rooms"]>
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
   export type booked_user_listSelectScalar = {
     id?: boolean
+<<<<<<< HEAD
     transaction_id?: boolean
     account_id?: boolean
     properties_id?: boolean
@@ -7681,6 +9088,22 @@ export namespace Prisma {
 =======
   export type booking_roomsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "booking_id" | "room_id" | "guests_count" | "price_per_night" | "nights" | "subtotal" | "created_at" | "updated_at" | "check_in_date" | "check_out_date" | "quantity", ExtArgs["result"]["booking_rooms"]>
 >>>>>>> main
+=======
+    booking_id?: boolean
+    room_id?: boolean
+    guests_count?: boolean
+    price_per_night?: boolean
+    check_in_date?: boolean
+    check_out_date?: boolean
+    nights?: boolean
+    quantity?: boolean
+    subtotal?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type booking_roomsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "booking_id" | "room_id" | "guests_count" | "price_per_night" | "check_in_date" | "check_out_date" | "nights" | "quantity" | "subtotal" | "created_at" | "updated_at", ExtArgs["result"]["booking_rooms"]>
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   export type booking_roomsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     booking?: boolean | bookingsDefaultArgs<ExtArgs>
     room?: boolean | roomsDefaultArgs<ExtArgs>
@@ -7705,6 +9128,7 @@ export namespace Prisma {
       transaction_table: Prisma.$transaction_tablePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
+<<<<<<< HEAD
       id: number
       transaction_id: number
       account_id: number
@@ -7712,6 +9136,21 @@ export namespace Prisma {
       total_price: number
       booking_date_end: Date
     }, ExtArgs["result"]["booked_user_list"]>
+=======
+      id: string
+      booking_id: string
+      room_id: string
+      guests_count: number
+      price_per_night: Prisma.Decimal
+      check_in_date: Date
+      check_out_date: Date
+      nights: number
+      quantity: number
+      subtotal: Prisma.Decimal
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["booking_rooms"]>
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     composites: {}
   }
 
@@ -8136,6 +9575,7 @@ export namespace Prisma {
   /**
    * Fields of the booked_user_list model
    */
+<<<<<<< HEAD
   interface booked_user_listFieldRefs {
     readonly id: FieldRef<"booked_user_list", 'Int'>
     readonly transaction_id: FieldRef<"booked_user_list", 'Int'>
@@ -8143,6 +9583,21 @@ export namespace Prisma {
     readonly properties_id: FieldRef<"booked_user_list", 'Int'>
     readonly total_price: FieldRef<"booked_user_list", 'Int'>
     readonly booking_date_end: FieldRef<"booked_user_list", 'DateTime'>
+=======
+  interface booking_roomsFieldRefs {
+    readonly id: FieldRef<"booking_rooms", 'String'>
+    readonly booking_id: FieldRef<"booking_rooms", 'String'>
+    readonly room_id: FieldRef<"booking_rooms", 'String'>
+    readonly guests_count: FieldRef<"booking_rooms", 'Int'>
+    readonly price_per_night: FieldRef<"booking_rooms", 'Decimal'>
+    readonly check_in_date: FieldRef<"booking_rooms", 'DateTime'>
+    readonly check_out_date: FieldRef<"booking_rooms", 'DateTime'>
+    readonly nights: FieldRef<"booking_rooms", 'Int'>
+    readonly quantity: FieldRef<"booking_rooms", 'Int'>
+    readonly subtotal: FieldRef<"booking_rooms", 'Decimal'>
+    readonly created_at: FieldRef<"booking_rooms", 'DateTime'>
+    readonly updated_at: FieldRef<"booking_rooms", 'DateTime'>
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
     
 
@@ -8553,7 +10008,1171 @@ export namespace Prisma {
     /**
      * Choose, which related nodes to fetch as well
      */
+<<<<<<< HEAD
     include?: booked_user_listInclude<ExtArgs> | null
+=======
+    include?: booking_roomsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model reviews
+   */
+
+  export type AggregateReviews = {
+    _count: ReviewsCountAggregateOutputType | null
+    _avg: ReviewsAvgAggregateOutputType | null
+    _sum: ReviewsSumAggregateOutputType | null
+    _min: ReviewsMinAggregateOutputType | null
+    _max: ReviewsMaxAggregateOutputType | null
+  }
+
+  export type ReviewsAvgAggregateOutputType = {
+    rating: number | null
+  }
+
+  export type ReviewsSumAggregateOutputType = {
+    rating: number | null
+  }
+
+  export type ReviewsMinAggregateOutputType = {
+    id: string | null
+    booking_id: string | null
+    user_id: string | null
+    property_id: string | null
+    rating: number | null
+    comment: string | null
+    tenant_reply: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ReviewsMaxAggregateOutputType = {
+    id: string | null
+    booking_id: string | null
+    user_id: string | null
+    property_id: string | null
+    rating: number | null
+    comment: string | null
+    tenant_reply: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ReviewsCountAggregateOutputType = {
+    id: number
+    booking_id: number
+    user_id: number
+    property_id: number
+    rating: number
+    comment: number
+    tenant_reply: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type ReviewsAvgAggregateInputType = {
+    rating?: true
+  }
+
+  export type ReviewsSumAggregateInputType = {
+    rating?: true
+  }
+
+  export type ReviewsMinAggregateInputType = {
+    id?: true
+    booking_id?: true
+    user_id?: true
+    property_id?: true
+    rating?: true
+    comment?: true
+    tenant_reply?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ReviewsMaxAggregateInputType = {
+    id?: true
+    booking_id?: true
+    user_id?: true
+    property_id?: true
+    rating?: true
+    comment?: true
+    tenant_reply?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ReviewsCountAggregateInputType = {
+    id?: true
+    booking_id?: true
+    user_id?: true
+    property_id?: true
+    rating?: true
+    comment?: true
+    tenant_reply?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type ReviewsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which reviews to aggregate.
+     */
+    where?: reviewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of reviews to fetch.
+     */
+    orderBy?: reviewsOrderByWithRelationInput | reviewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: reviewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned reviews
+    **/
+    _count?: true | ReviewsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ReviewsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ReviewsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ReviewsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ReviewsMaxAggregateInputType
+  }
+
+  export type GetReviewsAggregateType<T extends ReviewsAggregateArgs> = {
+        [P in keyof T & keyof AggregateReviews]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateReviews[P]>
+      : GetScalarType<T[P], AggregateReviews[P]>
+  }
+
+
+
+
+  export type reviewsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: reviewsWhereInput
+    orderBy?: reviewsOrderByWithAggregationInput | reviewsOrderByWithAggregationInput[]
+    by: ReviewsScalarFieldEnum[] | ReviewsScalarFieldEnum
+    having?: reviewsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ReviewsCountAggregateInputType | true
+    _avg?: ReviewsAvgAggregateInputType
+    _sum?: ReviewsSumAggregateInputType
+    _min?: ReviewsMinAggregateInputType
+    _max?: ReviewsMaxAggregateInputType
+  }
+
+  export type ReviewsGroupByOutputType = {
+    id: string
+    booking_id: string
+    user_id: string
+    property_id: string
+    rating: number
+    comment: string | null
+    tenant_reply: string | null
+    created_at: Date
+    updated_at: Date
+    _count: ReviewsCountAggregateOutputType | null
+    _avg: ReviewsAvgAggregateOutputType | null
+    _sum: ReviewsSumAggregateOutputType | null
+    _min: ReviewsMinAggregateOutputType | null
+    _max: ReviewsMaxAggregateOutputType | null
+  }
+
+  type GetReviewsGroupByPayload<T extends reviewsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ReviewsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ReviewsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ReviewsGroupByOutputType[P]>
+            : GetScalarType<T[P], ReviewsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type reviewsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    booking_id?: boolean
+    user_id?: boolean
+    property_id?: boolean
+    rating?: boolean
+    comment?: boolean
+    tenant_reply?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    booking?: boolean | bookingsDefaultArgs<ExtArgs>
+    property?: boolean | propertiesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reviews"]>
+
+  export type reviewsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    booking_id?: boolean
+    user_id?: boolean
+    property_id?: boolean
+    rating?: boolean
+    comment?: boolean
+    tenant_reply?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    booking?: boolean | bookingsDefaultArgs<ExtArgs>
+    property?: boolean | propertiesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reviews"]>
+
+  export type reviewsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    booking_id?: boolean
+    user_id?: boolean
+    property_id?: boolean
+    rating?: boolean
+    comment?: boolean
+    tenant_reply?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    booking?: boolean | bookingsDefaultArgs<ExtArgs>
+    property?: boolean | propertiesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reviews"]>
+
+  export type reviewsSelectScalar = {
+    id?: boolean
+    booking_id?: boolean
+    user_id?: boolean
+    property_id?: boolean
+    rating?: boolean
+    comment?: boolean
+    tenant_reply?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type reviewsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "booking_id" | "user_id" | "property_id" | "rating" | "comment" | "tenant_reply" | "created_at" | "updated_at", ExtArgs["result"]["reviews"]>
+  export type reviewsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    booking?: boolean | bookingsDefaultArgs<ExtArgs>
+    property?: boolean | propertiesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type reviewsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    booking?: boolean | bookingsDefaultArgs<ExtArgs>
+    property?: boolean | propertiesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type reviewsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    booking?: boolean | bookingsDefaultArgs<ExtArgs>
+    property?: boolean | propertiesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $reviewsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "reviews"
+    objects: {
+      booking: Prisma.$bookingsPayload<ExtArgs>
+      property: Prisma.$propertiesPayload<ExtArgs>
+      user: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      booking_id: string
+      user_id: string
+      property_id: string
+      rating: number
+      comment: string | null
+      tenant_reply: string | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["reviews"]>
+    composites: {}
+  }
+
+  type reviewsGetPayload<S extends boolean | null | undefined | reviewsDefaultArgs> = $Result.GetResult<Prisma.$reviewsPayload, S>
+
+  type reviewsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<reviewsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ReviewsCountAggregateInputType | true
+    }
+
+  export interface reviewsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['reviews'], meta: { name: 'reviews' } }
+    /**
+     * Find zero or one Reviews that matches the filter.
+     * @param {reviewsFindUniqueArgs} args - Arguments to find a Reviews
+     * @example
+     * // Get one Reviews
+     * const reviews = await prisma.reviews.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends reviewsFindUniqueArgs>(args: SelectSubset<T, reviewsFindUniqueArgs<ExtArgs>>): Prisma__reviewsClient<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Reviews that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {reviewsFindUniqueOrThrowArgs} args - Arguments to find a Reviews
+     * @example
+     * // Get one Reviews
+     * const reviews = await prisma.reviews.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends reviewsFindUniqueOrThrowArgs>(args: SelectSubset<T, reviewsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__reviewsClient<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Reviews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviewsFindFirstArgs} args - Arguments to find a Reviews
+     * @example
+     * // Get one Reviews
+     * const reviews = await prisma.reviews.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends reviewsFindFirstArgs>(args?: SelectSubset<T, reviewsFindFirstArgs<ExtArgs>>): Prisma__reviewsClient<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Reviews that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviewsFindFirstOrThrowArgs} args - Arguments to find a Reviews
+     * @example
+     * // Get one Reviews
+     * const reviews = await prisma.reviews.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends reviewsFindFirstOrThrowArgs>(args?: SelectSubset<T, reviewsFindFirstOrThrowArgs<ExtArgs>>): Prisma__reviewsClient<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Reviews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviewsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Reviews
+     * const reviews = await prisma.reviews.findMany()
+     * 
+     * // Get first 10 Reviews
+     * const reviews = await prisma.reviews.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const reviewsWithIdOnly = await prisma.reviews.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends reviewsFindManyArgs>(args?: SelectSubset<T, reviewsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Reviews.
+     * @param {reviewsCreateArgs} args - Arguments to create a Reviews.
+     * @example
+     * // Create one Reviews
+     * const Reviews = await prisma.reviews.create({
+     *   data: {
+     *     // ... data to create a Reviews
+     *   }
+     * })
+     * 
+     */
+    create<T extends reviewsCreateArgs>(args: SelectSubset<T, reviewsCreateArgs<ExtArgs>>): Prisma__reviewsClient<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Reviews.
+     * @param {reviewsCreateManyArgs} args - Arguments to create many Reviews.
+     * @example
+     * // Create many Reviews
+     * const reviews = await prisma.reviews.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends reviewsCreateManyArgs>(args?: SelectSubset<T, reviewsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Reviews and returns the data saved in the database.
+     * @param {reviewsCreateManyAndReturnArgs} args - Arguments to create many Reviews.
+     * @example
+     * // Create many Reviews
+     * const reviews = await prisma.reviews.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Reviews and only return the `id`
+     * const reviewsWithIdOnly = await prisma.reviews.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends reviewsCreateManyAndReturnArgs>(args?: SelectSubset<T, reviewsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Reviews.
+     * @param {reviewsDeleteArgs} args - Arguments to delete one Reviews.
+     * @example
+     * // Delete one Reviews
+     * const Reviews = await prisma.reviews.delete({
+     *   where: {
+     *     // ... filter to delete one Reviews
+     *   }
+     * })
+     * 
+     */
+    delete<T extends reviewsDeleteArgs>(args: SelectSubset<T, reviewsDeleteArgs<ExtArgs>>): Prisma__reviewsClient<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Reviews.
+     * @param {reviewsUpdateArgs} args - Arguments to update one Reviews.
+     * @example
+     * // Update one Reviews
+     * const reviews = await prisma.reviews.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends reviewsUpdateArgs>(args: SelectSubset<T, reviewsUpdateArgs<ExtArgs>>): Prisma__reviewsClient<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Reviews.
+     * @param {reviewsDeleteManyArgs} args - Arguments to filter Reviews to delete.
+     * @example
+     * // Delete a few Reviews
+     * const { count } = await prisma.reviews.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends reviewsDeleteManyArgs>(args?: SelectSubset<T, reviewsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviewsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Reviews
+     * const reviews = await prisma.reviews.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends reviewsUpdateManyArgs>(args: SelectSubset<T, reviewsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Reviews and returns the data updated in the database.
+     * @param {reviewsUpdateManyAndReturnArgs} args - Arguments to update many Reviews.
+     * @example
+     * // Update many Reviews
+     * const reviews = await prisma.reviews.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Reviews and only return the `id`
+     * const reviewsWithIdOnly = await prisma.reviews.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends reviewsUpdateManyAndReturnArgs>(args: SelectSubset<T, reviewsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Reviews.
+     * @param {reviewsUpsertArgs} args - Arguments to update or create a Reviews.
+     * @example
+     * // Update or create a Reviews
+     * const reviews = await prisma.reviews.upsert({
+     *   create: {
+     *     // ... data to create a Reviews
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Reviews we want to update
+     *   }
+     * })
+     */
+    upsert<T extends reviewsUpsertArgs>(args: SelectSubset<T, reviewsUpsertArgs<ExtArgs>>): Prisma__reviewsClient<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviewsCountArgs} args - Arguments to filter Reviews to count.
+     * @example
+     * // Count the number of Reviews
+     * const count = await prisma.reviews.count({
+     *   where: {
+     *     // ... the filter for the Reviews we want to count
+     *   }
+     * })
+    **/
+    count<T extends reviewsCountArgs>(
+      args?: Subset<T, reviewsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ReviewsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReviewsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ReviewsAggregateArgs>(args: Subset<T, ReviewsAggregateArgs>): Prisma.PrismaPromise<GetReviewsAggregateType<T>>
+
+    /**
+     * Group by Reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviewsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends reviewsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: reviewsGroupByArgs['orderBy'] }
+        : { orderBy?: reviewsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, reviewsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReviewsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the reviews model
+   */
+  readonly fields: reviewsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for reviews.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__reviewsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    booking<T extends bookingsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, bookingsDefaultArgs<ExtArgs>>): Prisma__bookingsClient<$Result.GetResult<Prisma.$bookingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    property<T extends propertiesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, propertiesDefaultArgs<ExtArgs>>): Prisma__propertiesClient<$Result.GetResult<Prisma.$propertiesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the reviews model
+   */
+  interface reviewsFieldRefs {
+    readonly id: FieldRef<"reviews", 'String'>
+    readonly booking_id: FieldRef<"reviews", 'String'>
+    readonly user_id: FieldRef<"reviews", 'String'>
+    readonly property_id: FieldRef<"reviews", 'String'>
+    readonly rating: FieldRef<"reviews", 'Int'>
+    readonly comment: FieldRef<"reviews", 'String'>
+    readonly tenant_reply: FieldRef<"reviews", 'String'>
+    readonly created_at: FieldRef<"reviews", 'DateTime'>
+    readonly updated_at: FieldRef<"reviews", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * reviews findUnique
+   */
+  export type reviewsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which reviews to fetch.
+     */
+    where: reviewsWhereUniqueInput
+  }
+
+  /**
+   * reviews findUniqueOrThrow
+   */
+  export type reviewsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which reviews to fetch.
+     */
+    where: reviewsWhereUniqueInput
+  }
+
+  /**
+   * reviews findFirst
+   */
+  export type reviewsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which reviews to fetch.
+     */
+    where?: reviewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of reviews to fetch.
+     */
+    orderBy?: reviewsOrderByWithRelationInput | reviewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for reviews.
+     */
+    cursor?: reviewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of reviews.
+     */
+    distinct?: ReviewsScalarFieldEnum | ReviewsScalarFieldEnum[]
+  }
+
+  /**
+   * reviews findFirstOrThrow
+   */
+  export type reviewsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which reviews to fetch.
+     */
+    where?: reviewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of reviews to fetch.
+     */
+    orderBy?: reviewsOrderByWithRelationInput | reviewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for reviews.
+     */
+    cursor?: reviewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of reviews.
+     */
+    distinct?: ReviewsScalarFieldEnum | ReviewsScalarFieldEnum[]
+  }
+
+  /**
+   * reviews findMany
+   */
+  export type reviewsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which reviews to fetch.
+     */
+    where?: reviewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of reviews to fetch.
+     */
+    orderBy?: reviewsOrderByWithRelationInput | reviewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing reviews.
+     */
+    cursor?: reviewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` reviews.
+     */
+    skip?: number
+    distinct?: ReviewsScalarFieldEnum | ReviewsScalarFieldEnum[]
+  }
+
+  /**
+   * reviews create
+   */
+  export type reviewsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a reviews.
+     */
+    data: XOR<reviewsCreateInput, reviewsUncheckedCreateInput>
+  }
+
+  /**
+   * reviews createMany
+   */
+  export type reviewsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many reviews.
+     */
+    data: reviewsCreateManyInput | reviewsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * reviews createManyAndReturn
+   */
+  export type reviewsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * The data used to create many reviews.
+     */
+    data: reviewsCreateManyInput | reviewsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * reviews update
+   */
+  export type reviewsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a reviews.
+     */
+    data: XOR<reviewsUpdateInput, reviewsUncheckedUpdateInput>
+    /**
+     * Choose, which reviews to update.
+     */
+    where: reviewsWhereUniqueInput
+  }
+
+  /**
+   * reviews updateMany
+   */
+  export type reviewsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update reviews.
+     */
+    data: XOR<reviewsUpdateManyMutationInput, reviewsUncheckedUpdateManyInput>
+    /**
+     * Filter which reviews to update
+     */
+    where?: reviewsWhereInput
+    /**
+     * Limit how many reviews to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * reviews updateManyAndReturn
+   */
+  export type reviewsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * The data used to update reviews.
+     */
+    data: XOR<reviewsUpdateManyMutationInput, reviewsUncheckedUpdateManyInput>
+    /**
+     * Filter which reviews to update
+     */
+    where?: reviewsWhereInput
+    /**
+     * Limit how many reviews to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * reviews upsert
+   */
+  export type reviewsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the reviews to update in case it exists.
+     */
+    where: reviewsWhereUniqueInput
+    /**
+     * In case the reviews found by the `where` argument doesn't exist, create a new reviews with this data.
+     */
+    create: XOR<reviewsCreateInput, reviewsUncheckedCreateInput>
+    /**
+     * In case the reviews was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<reviewsUpdateInput, reviewsUncheckedUpdateInput>
+  }
+
+  /**
+   * reviews delete
+   */
+  export type reviewsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * Filter which reviews to delete.
+     */
+    where: reviewsWhereUniqueInput
+  }
+
+  /**
+   * reviews deleteMany
+   */
+  export type reviewsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which reviews to delete
+     */
+    where?: reviewsWhereInput
+    /**
+     * Limit how many reviews to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * reviews without action
+   */
+  export type reviewsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
 
@@ -8650,7 +11269,44 @@ export namespace Prisma {
     booking_date_end: 'booking_date_end'
   };
 
+<<<<<<< HEAD
   export type Booked_user_listScalarFieldEnum = (typeof Booked_user_listScalarFieldEnum)[keyof typeof Booked_user_listScalarFieldEnum]
+=======
+  export type BookingsScalarFieldEnum = (typeof BookingsScalarFieldEnum)[keyof typeof BookingsScalarFieldEnum]
+
+
+  export const Booking_roomsScalarFieldEnum: {
+    id: 'id',
+    booking_id: 'booking_id',
+    room_id: 'room_id',
+    guests_count: 'guests_count',
+    price_per_night: 'price_per_night',
+    check_in_date: 'check_in_date',
+    check_out_date: 'check_out_date',
+    nights: 'nights',
+    quantity: 'quantity',
+    subtotal: 'subtotal',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Booking_roomsScalarFieldEnum = (typeof Booking_roomsScalarFieldEnum)[keyof typeof Booking_roomsScalarFieldEnum]
+
+
+  export const ReviewsScalarFieldEnum: {
+    id: 'id',
+    booking_id: 'booking_id',
+    user_id: 'user_id',
+    property_id: 'property_id',
+    rating: 'rating',
+    comment: 'comment',
+    tenant_reply: 'tenant_reply',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type ReviewsScalarFieldEnum = (typeof ReviewsScalarFieldEnum)[keyof typeof ReviewsScalarFieldEnum]
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
 
   export const SortOrder: {
@@ -8797,7 +11453,10 @@ export namespace Prisma {
     bookings?: BookingsListRelationFilter
     reviews?: ReviewsListRelationFilter
     tenants?: XOR<TenantsNullableScalarRelationFilter, tenantsWhereInput> | null
+<<<<<<< HEAD
 >>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type account_tableOrderByWithRelationInput = {
@@ -8821,7 +11480,10 @@ export namespace Prisma {
     bookings?: bookingsOrderByRelationAggregateInput
     reviews?: reviewsOrderByRelationAggregateInput
     tenants?: tenantsOrderByWithRelationInput
+<<<<<<< HEAD
 >>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type account_tableWhereUniqueInput = Prisma.AtLeast<{
@@ -9271,9 +11933,194 @@ export namespace Prisma {
     booking_date_end?: DateTimeWithAggregatesFilter<"booked_user_list"> | Date | string
   }
 
+<<<<<<< HEAD
   export type account_tableCreateInput = {
     fullname: string
     username: string
+=======
+  export type booking_roomsWhereInput = {
+    AND?: booking_roomsWhereInput | booking_roomsWhereInput[]
+    OR?: booking_roomsWhereInput[]
+    NOT?: booking_roomsWhereInput | booking_roomsWhereInput[]
+    id?: StringFilter<"booking_rooms"> | string
+    booking_id?: StringFilter<"booking_rooms"> | string
+    room_id?: StringFilter<"booking_rooms"> | string
+    guests_count?: IntFilter<"booking_rooms"> | number
+    price_per_night?: DecimalFilter<"booking_rooms"> | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFilter<"booking_rooms"> | Date | string
+    check_out_date?: DateTimeFilter<"booking_rooms"> | Date | string
+    nights?: IntFilter<"booking_rooms"> | number
+    quantity?: IntFilter<"booking_rooms"> | number
+    subtotal?: DecimalFilter<"booking_rooms"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"booking_rooms"> | Date | string
+    updated_at?: DateTimeFilter<"booking_rooms"> | Date | string
+    booking?: XOR<BookingsScalarRelationFilter, bookingsWhereInput>
+    room?: XOR<RoomsScalarRelationFilter, roomsWhereInput>
+  }
+
+  export type booking_roomsOrderByWithRelationInput = {
+    id?: SortOrder
+    booking_id?: SortOrder
+    room_id?: SortOrder
+    guests_count?: SortOrder
+    price_per_night?: SortOrder
+    check_in_date?: SortOrder
+    check_out_date?: SortOrder
+    nights?: SortOrder
+    quantity?: SortOrder
+    subtotal?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    booking?: bookingsOrderByWithRelationInput
+    room?: roomsOrderByWithRelationInput
+  }
+
+  export type booking_roomsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: booking_roomsWhereInput | booking_roomsWhereInput[]
+    OR?: booking_roomsWhereInput[]
+    NOT?: booking_roomsWhereInput | booking_roomsWhereInput[]
+    booking_id?: StringFilter<"booking_rooms"> | string
+    room_id?: StringFilter<"booking_rooms"> | string
+    guests_count?: IntFilter<"booking_rooms"> | number
+    price_per_night?: DecimalFilter<"booking_rooms"> | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFilter<"booking_rooms"> | Date | string
+    check_out_date?: DateTimeFilter<"booking_rooms"> | Date | string
+    nights?: IntFilter<"booking_rooms"> | number
+    quantity?: IntFilter<"booking_rooms"> | number
+    subtotal?: DecimalFilter<"booking_rooms"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"booking_rooms"> | Date | string
+    updated_at?: DateTimeFilter<"booking_rooms"> | Date | string
+    booking?: XOR<BookingsScalarRelationFilter, bookingsWhereInput>
+    room?: XOR<RoomsScalarRelationFilter, roomsWhereInput>
+  }, "id">
+
+  export type booking_roomsOrderByWithAggregationInput = {
+    id?: SortOrder
+    booking_id?: SortOrder
+    room_id?: SortOrder
+    guests_count?: SortOrder
+    price_per_night?: SortOrder
+    check_in_date?: SortOrder
+    check_out_date?: SortOrder
+    nights?: SortOrder
+    quantity?: SortOrder
+    subtotal?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: booking_roomsCountOrderByAggregateInput
+    _avg?: booking_roomsAvgOrderByAggregateInput
+    _max?: booking_roomsMaxOrderByAggregateInput
+    _min?: booking_roomsMinOrderByAggregateInput
+    _sum?: booking_roomsSumOrderByAggregateInput
+  }
+
+  export type booking_roomsScalarWhereWithAggregatesInput = {
+    AND?: booking_roomsScalarWhereWithAggregatesInput | booking_roomsScalarWhereWithAggregatesInput[]
+    OR?: booking_roomsScalarWhereWithAggregatesInput[]
+    NOT?: booking_roomsScalarWhereWithAggregatesInput | booking_roomsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"booking_rooms"> | string
+    booking_id?: StringWithAggregatesFilter<"booking_rooms"> | string
+    room_id?: StringWithAggregatesFilter<"booking_rooms"> | string
+    guests_count?: IntWithAggregatesFilter<"booking_rooms"> | number
+    price_per_night?: DecimalWithAggregatesFilter<"booking_rooms"> | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeWithAggregatesFilter<"booking_rooms"> | Date | string
+    check_out_date?: DateTimeWithAggregatesFilter<"booking_rooms"> | Date | string
+    nights?: IntWithAggregatesFilter<"booking_rooms"> | number
+    quantity?: IntWithAggregatesFilter<"booking_rooms"> | number
+    subtotal?: DecimalWithAggregatesFilter<"booking_rooms"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeWithAggregatesFilter<"booking_rooms"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"booking_rooms"> | Date | string
+  }
+
+  export type reviewsWhereInput = {
+    AND?: reviewsWhereInput | reviewsWhereInput[]
+    OR?: reviewsWhereInput[]
+    NOT?: reviewsWhereInput | reviewsWhereInput[]
+    id?: StringFilter<"reviews"> | string
+    booking_id?: StringFilter<"reviews"> | string
+    user_id?: StringFilter<"reviews"> | string
+    property_id?: StringFilter<"reviews"> | string
+    rating?: IntFilter<"reviews"> | number
+    comment?: StringNullableFilter<"reviews"> | string | null
+    tenant_reply?: StringNullableFilter<"reviews"> | string | null
+    created_at?: DateTimeFilter<"reviews"> | Date | string
+    updated_at?: DateTimeFilter<"reviews"> | Date | string
+    booking?: XOR<BookingsScalarRelationFilter, bookingsWhereInput>
+    property?: XOR<PropertiesScalarRelationFilter, propertiesWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }
+
+  export type reviewsOrderByWithRelationInput = {
+    id?: SortOrder
+    booking_id?: SortOrder
+    user_id?: SortOrder
+    property_id?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrderInput | SortOrder
+    tenant_reply?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    booking?: bookingsOrderByWithRelationInput
+    property?: propertiesOrderByWithRelationInput
+    user?: usersOrderByWithRelationInput
+  }
+
+  export type reviewsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    booking_id?: string
+    AND?: reviewsWhereInput | reviewsWhereInput[]
+    OR?: reviewsWhereInput[]
+    NOT?: reviewsWhereInput | reviewsWhereInput[]
+    user_id?: StringFilter<"reviews"> | string
+    property_id?: StringFilter<"reviews"> | string
+    rating?: IntFilter<"reviews"> | number
+    comment?: StringNullableFilter<"reviews"> | string | null
+    tenant_reply?: StringNullableFilter<"reviews"> | string | null
+    created_at?: DateTimeFilter<"reviews"> | Date | string
+    updated_at?: DateTimeFilter<"reviews"> | Date | string
+    booking?: XOR<BookingsScalarRelationFilter, bookingsWhereInput>
+    property?: XOR<PropertiesScalarRelationFilter, propertiesWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }, "id" | "booking_id">
+
+  export type reviewsOrderByWithAggregationInput = {
+    id?: SortOrder
+    booking_id?: SortOrder
+    user_id?: SortOrder
+    property_id?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrderInput | SortOrder
+    tenant_reply?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: reviewsCountOrderByAggregateInput
+    _avg?: reviewsAvgOrderByAggregateInput
+    _max?: reviewsMaxOrderByAggregateInput
+    _min?: reviewsMinOrderByAggregateInput
+    _sum?: reviewsSumOrderByAggregateInput
+  }
+
+  export type reviewsScalarWhereWithAggregatesInput = {
+    AND?: reviewsScalarWhereWithAggregatesInput | reviewsScalarWhereWithAggregatesInput[]
+    OR?: reviewsScalarWhereWithAggregatesInput[]
+    NOT?: reviewsScalarWhereWithAggregatesInput | reviewsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"reviews"> | string
+    booking_id?: StringWithAggregatesFilter<"reviews"> | string
+    user_id?: StringWithAggregatesFilter<"reviews"> | string
+    property_id?: StringWithAggregatesFilter<"reviews"> | string
+    rating?: IntWithAggregatesFilter<"reviews"> | number
+    comment?: StringNullableWithAggregatesFilter<"reviews"> | string | null
+    tenant_reply?: StringNullableWithAggregatesFilter<"reviews"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"reviews"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"reviews"> | Date | string
+  }
+
+  export type usersCreateInput = {
+    id?: string
+    role: $Enums.Role
+    full_name: string
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     email: string
     role: $Enums.account_role
     password: string
@@ -9291,7 +12138,10 @@ export namespace Prisma {
     bookings?: bookingsCreateNestedManyWithoutUserInput
     reviews?: reviewsCreateNestedManyWithoutUserInput
     tenants?: tenantsCreateNestedOneWithoutUserInput
+<<<<<<< HEAD
 >>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type account_tableUncheckedCreateInput = {
@@ -9315,7 +12165,10 @@ export namespace Prisma {
     bookings?: bookingsUncheckedCreateNestedManyWithoutUserInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUserInput
     tenants?: tenantsUncheckedCreateNestedOneWithoutUserInput
+<<<<<<< HEAD
 >>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type account_tableUpdateInput = {
@@ -9338,7 +12191,10 @@ export namespace Prisma {
     bookings?: bookingsUpdateManyWithoutUserNestedInput
     reviews?: reviewsUpdateManyWithoutUserNestedInput
     tenants?: tenantsUpdateOneWithoutUserNestedInput
+<<<<<<< HEAD
 >>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type account_tableUncheckedUpdateInput = {
@@ -9362,7 +12218,10 @@ export namespace Prisma {
     bookings?: bookingsUncheckedUpdateManyWithoutUserNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUserNestedInput
     tenants?: tenantsUncheckedUpdateOneWithoutUserNestedInput
+<<<<<<< HEAD
 >>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type account_tableCreateManyInput = {
@@ -9768,6 +12627,7 @@ export namespace Prisma {
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+<<<<<<< HEAD
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -9777,6 +12637,236 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+=======
+  export type bookingsCreateManyInput = {
+    id?: string
+    user_id: string
+    property_id: string
+    status: $Enums.BookingStatus
+    check_in_date: Date | string
+    check_out_date: Date | string
+    total_price: Decimal | DecimalJsLike | number | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
+    amount: Decimal | DecimalJsLike | number | string
+    paid_at?: Date | string | null
+    proof_image?: string | null
+  }
+
+  export type bookingsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type bookingsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    property_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proof_image?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type booking_roomsCreateInput = {
+    id?: string
+    guests_count: number
+    price_per_night: Decimal | DecimalJsLike | number | string
+    check_in_date: Date | string
+    check_out_date: Date | string
+    nights: number
+    quantity: number
+    subtotal: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+    booking: bookingsCreateNestedOneWithoutBooking_roomsInput
+    room: roomsCreateNestedOneWithoutBooking_roomsInput
+  }
+
+  export type booking_roomsUncheckedCreateInput = {
+    id?: string
+    booking_id: string
+    room_id: string
+    guests_count: number
+    price_per_night: Decimal | DecimalJsLike | number | string
+    check_in_date: Date | string
+    check_out_date: Date | string
+    nights: number
+    quantity: number
+    subtotal: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type booking_roomsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    guests_count?: IntFieldUpdateOperationsInput | number
+    price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    nights?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking?: bookingsUpdateOneRequiredWithoutBooking_roomsNestedInput
+    room?: roomsUpdateOneRequiredWithoutBooking_roomsNestedInput
+  }
+
+  export type booking_roomsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    booking_id?: StringFieldUpdateOperationsInput | string
+    room_id?: StringFieldUpdateOperationsInput | string
+    guests_count?: IntFieldUpdateOperationsInput | number
+    price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    nights?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type booking_roomsCreateManyInput = {
+    id?: string
+    booking_id: string
+    room_id: string
+    guests_count: number
+    price_per_night: Decimal | DecimalJsLike | number | string
+    check_in_date: Date | string
+    check_out_date: Date | string
+    nights: number
+    quantity: number
+    subtotal: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type booking_roomsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    guests_count?: IntFieldUpdateOperationsInput | number
+    price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    nights?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type booking_roomsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    booking_id?: StringFieldUpdateOperationsInput | string
+    room_id?: StringFieldUpdateOperationsInput | string
+    guests_count?: IntFieldUpdateOperationsInput | number
+    price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    nights?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type reviewsCreateInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    tenant_reply?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    booking: bookingsCreateNestedOneWithoutReviewsInput
+    property: propertiesCreateNestedOneWithoutReviewsInput
+    user: usersCreateNestedOneWithoutReviewsInput
+  }
+
+  export type reviewsUncheckedCreateInput = {
+    id?: string
+    booking_id: string
+    user_id: string
+    property_id: string
+    rating: number
+    comment?: string | null
+    tenant_reply?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type reviewsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking?: bookingsUpdateOneRequiredWithoutReviewsNestedInput
+    property?: propertiesUpdateOneRequiredWithoutReviewsNestedInput
+    user?: usersUpdateOneRequiredWithoutReviewsNestedInput
+  }
+
+  export type reviewsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    booking_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    property_id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type reviewsCreateManyInput = {
+    id?: string
+    booking_id: string
+    user_id: string
+    property_id: string
+    rating: number
+    comment?: string | null
+    tenant_reply?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type reviewsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type reviewsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    booking_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    property_id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -9831,6 +12921,7 @@ export namespace Prisma {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   export type Booked_user_listListRelationFilter = {
     every?: booked_user_listWhereInput
     some?: booked_user_listWhereInput
@@ -9840,6 +12931,11 @@ export namespace Prisma {
     is?: tenantsWhereInput | null
     isNot?: tenantsWhereInput | null
 >>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
+=======
+  export type TenantsNullableScalarRelationFilter = {
+    is?: tenantsWhereInput | null
+    isNot?: tenantsWhereInput | null
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type transaction_tableOrderByRelationAggregateInput = {
@@ -9851,6 +12947,7 @@ export namespace Prisma {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   export type user_reviewOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -9858,6 +12955,8 @@ export namespace Prisma {
   export type booked_user_listOrderByRelationAggregateInput = {
     _count?: SortOrder
 =======
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   export type usersCountOrderByAggregateInput = {
     id?: SortOrder
     role?: SortOrder
@@ -10246,6 +13345,7 @@ export namespace Prisma {
     connect?: properties_tableWhereUniqueInput | properties_tableWhereUniqueInput[]
   }
 
+<<<<<<< HEAD
   export type user_reviewCreateNestedManyWithoutAccount_tableInput = {
     create?: XOR<user_reviewCreateWithoutAccount_tableInput, user_reviewUncheckedCreateWithoutAccount_tableInput> | user_reviewCreateWithoutAccount_tableInput[] | user_reviewUncheckedCreateWithoutAccount_tableInput[]
     connectOrCreate?: user_reviewCreateOrConnectWithoutAccount_tableInput | user_reviewCreateOrConnectWithoutAccount_tableInput[]
@@ -10279,6 +13379,67 @@ export namespace Prisma {
     connectOrCreate?: user_reviewCreateOrConnectWithoutAccount_tableInput | user_reviewCreateOrConnectWithoutAccount_tableInput[]
     createMany?: user_reviewCreateManyAccount_tableInputEnvelope
     connect?: user_reviewWhereUniqueInput | user_reviewWhereUniqueInput[]
+=======
+  export type booking_roomsCountOrderByAggregateInput = {
+    id?: SortOrder
+    booking_id?: SortOrder
+    room_id?: SortOrder
+    guests_count?: SortOrder
+    price_per_night?: SortOrder
+    check_in_date?: SortOrder
+    check_out_date?: SortOrder
+    nights?: SortOrder
+    quantity?: SortOrder
+    subtotal?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type booking_roomsAvgOrderByAggregateInput = {
+    guests_count?: SortOrder
+    price_per_night?: SortOrder
+    nights?: SortOrder
+    quantity?: SortOrder
+    subtotal?: SortOrder
+  }
+
+  export type booking_roomsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    booking_id?: SortOrder
+    room_id?: SortOrder
+    guests_count?: SortOrder
+    price_per_night?: SortOrder
+    check_in_date?: SortOrder
+    check_out_date?: SortOrder
+    nights?: SortOrder
+    quantity?: SortOrder
+    subtotal?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type booking_roomsMinOrderByAggregateInput = {
+    id?: SortOrder
+    booking_id?: SortOrder
+    room_id?: SortOrder
+    guests_count?: SortOrder
+    price_per_night?: SortOrder
+    check_in_date?: SortOrder
+    check_out_date?: SortOrder
+    nights?: SortOrder
+    quantity?: SortOrder
+    subtotal?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type booking_roomsSumOrderByAggregateInput = {
+    guests_count?: SortOrder
+    price_per_night?: SortOrder
+    nights?: SortOrder
+    quantity?: SortOrder
+    subtotal?: SortOrder
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
 <<<<<<< HEAD
@@ -10293,10 +13454,15 @@ export namespace Prisma {
     booking_id?: SortOrder
     user_id?: SortOrder
     property_id?: SortOrder
+    rating?: SortOrder
     comment?: SortOrder
     tenant_reply?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type reviewsAvgOrderByAggregateInput = {
+    rating?: SortOrder
   }
 
   export type reviewsMaxOrderByAggregateInput = {
@@ -10304,6 +13470,7 @@ export namespace Prisma {
     booking_id?: SortOrder
     user_id?: SortOrder
     property_id?: SortOrder
+    rating?: SortOrder
     comment?: SortOrder
     tenant_reply?: SortOrder
     created_at?: SortOrder
@@ -10315,10 +13482,15 @@ export namespace Prisma {
     booking_id?: SortOrder
     user_id?: SortOrder
     property_id?: SortOrder
+    rating?: SortOrder
     comment?: SortOrder
     tenant_reply?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type reviewsSumOrderByAggregateInput = {
+    rating?: SortOrder
   }
 
   export type bookingsCreateNestedManyWithoutUserInput = {
@@ -10359,7 +13531,10 @@ export namespace Prisma {
     create?: XOR<tenantsCreateWithoutUserInput, tenantsUncheckedCreateWithoutUserInput>
     connectOrCreate?: tenantsCreateOrConnectWithoutUserInput
     connect?: tenantsWhereUniqueInput
+<<<<<<< HEAD
 >>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -10417,6 +13592,7 @@ export namespace Prisma {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   export type booked_user_listUpdateManyWithoutAccount_tableNestedInput = {
     create?: XOR<booked_user_listCreateWithoutAccount_tableInput, booked_user_listUncheckedCreateWithoutAccount_tableInput> | booked_user_listCreateWithoutAccount_tableInput[] | booked_user_listUncheckedCreateWithoutAccount_tableInput[]
     connectOrCreate?: booked_user_listCreateOrConnectWithoutAccount_tableInput | booked_user_listCreateOrConnectWithoutAccount_tableInput[]
@@ -10430,6 +13606,8 @@ export namespace Prisma {
     updateMany?: booked_user_listUpdateManyWithWhereWithoutAccount_tableInput | booked_user_listUpdateManyWithWhereWithoutAccount_tableInput[]
     deleteMany?: booked_user_listScalarWhereInput | booked_user_listScalarWhereInput[]
 =======
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   export type tenantsUpdateOneWithoutUserNestedInput = {
     create?: XOR<tenantsCreateWithoutUserInput, tenantsUncheckedCreateWithoutUserInput>
     connectOrCreate?: tenantsCreateOrConnectWithoutUserInput
@@ -11418,6 +14596,7 @@ export namespace Prisma {
 =======
   export type reviewsCreateWithoutUserInput = {
     id?: string
+    rating: number
     comment?: string | null
     tenant_reply?: string | null
     created_at?: Date | string
@@ -11430,6 +14609,7 @@ export namespace Prisma {
     id?: string
     booking_id: string
     property_id: string
+    rating: number
     comment?: string | null
     tenant_reply?: string | null
     created_at?: Date | string
@@ -11532,6 +14712,7 @@ export namespace Prisma {
     booking_id?: StringFilter<"reviews"> | string
     user_id?: StringFilter<"reviews"> | string
     property_id?: StringFilter<"reviews"> | string
+    rating?: IntFilter<"reviews"> | number
     comment?: StringNullableFilter<"reviews"> | string | null
     tenant_reply?: StringNullableFilter<"reviews"> | string | null
     created_at?: DateTimeFilter<"reviews"> | Date | string
@@ -11940,8 +15121,395 @@ export namespace Prisma {
     data: XOR<properties_tableUpdateWithoutTransaction_tableInput, properties_tableUncheckedUpdateWithoutTransaction_tableInput>
   }
 
+<<<<<<< HEAD
   export type properties_tableUpdateWithoutTransaction_tableInput = {
     room_id?: IntFieldUpdateOperationsInput | number
+=======
+  export type bookingsCreateOrConnectWithoutPropertyInput = {
+    where: bookingsWhereUniqueInput
+    create: XOR<bookingsCreateWithoutPropertyInput, bookingsUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type bookingsCreateManyPropertyInputEnvelope = {
+    data: bookingsCreateManyPropertyInput | bookingsCreateManyPropertyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type peak_season_ratesCreateWithoutPropertyInput = {
+    id?: string
+    start_date: Date | string
+    end_date: Date | string
+    price_change_type: $Enums.PriceChangeType
+    price_change_value: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+    room: roomsCreateNestedOneWithoutPeak_season_ratesInput
+  }
+
+  export type peak_season_ratesUncheckedCreateWithoutPropertyInput = {
+    id?: string
+    room_id: string
+    start_date: Date | string
+    end_date: Date | string
+    price_change_type: $Enums.PriceChangeType
+    price_change_value: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type peak_season_ratesCreateOrConnectWithoutPropertyInput = {
+    where: peak_season_ratesWhereUniqueInput
+    create: XOR<peak_season_ratesCreateWithoutPropertyInput, peak_season_ratesUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type peak_season_ratesCreateManyPropertyInputEnvelope = {
+    data: peak_season_ratesCreateManyPropertyInput | peak_season_ratesCreateManyPropertyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type tenantsCreateWithoutPropertiesInput = {
+    id?: string
+    company_name: string
+    address: string
+    phone_number: string
+    logo?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: usersCreateNestedOneWithoutTenantsInput
+  }
+
+  export type tenantsUncheckedCreateWithoutPropertiesInput = {
+    id?: string
+    user_id: string
+    company_name: string
+    address: string
+    phone_number: string
+    logo?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type tenantsCreateOrConnectWithoutPropertiesInput = {
+    where: tenantsWhereUniqueInput
+    create: XOR<tenantsCreateWithoutPropertiesInput, tenantsUncheckedCreateWithoutPropertiesInput>
+  }
+
+  export type property_imagesCreateWithoutPropertyInput = {
+    id?: string
+    image_url: string
+    created_at?: Date | string
+  }
+
+  export type property_imagesUncheckedCreateWithoutPropertyInput = {
+    id?: string
+    image_url: string
+    created_at?: Date | string
+  }
+
+  export type property_imagesCreateOrConnectWithoutPropertyInput = {
+    where: property_imagesWhereUniqueInput
+    create: XOR<property_imagesCreateWithoutPropertyInput, property_imagesUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type property_imagesCreateManyPropertyInputEnvelope = {
+    data: property_imagesCreateManyPropertyInput | property_imagesCreateManyPropertyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type reviewsCreateWithoutPropertyInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    tenant_reply?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    booking: bookingsCreateNestedOneWithoutReviewsInput
+    user: usersCreateNestedOneWithoutReviewsInput
+  }
+
+  export type reviewsUncheckedCreateWithoutPropertyInput = {
+    id?: string
+    booking_id: string
+    user_id: string
+    rating: number
+    comment?: string | null
+    tenant_reply?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type reviewsCreateOrConnectWithoutPropertyInput = {
+    where: reviewsWhereUniqueInput
+    create: XOR<reviewsCreateWithoutPropertyInput, reviewsUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type reviewsCreateManyPropertyInputEnvelope = {
+    data: reviewsCreateManyPropertyInput | reviewsCreateManyPropertyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type roomsCreateWithoutPropertyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    base_price: Decimal | DecimalJsLike | number | string
+    capacity: number
+    image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    total_rooms: number
+    booking_rooms?: booking_roomsCreateNestedManyWithoutRoomInput
+    peak_season_rates?: peak_season_ratesCreateNestedManyWithoutRoomInput
+    room_availability?: room_availabilityCreateNestedManyWithoutRoomInput
+    room_images?: room_imagesCreateNestedManyWithoutRoomInput
+  }
+
+  export type roomsUncheckedCreateWithoutPropertyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    base_price: Decimal | DecimalJsLike | number | string
+    capacity: number
+    image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    total_rooms: number
+    booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutRoomInput
+    peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutRoomInput
+    room_availability?: room_availabilityUncheckedCreateNestedManyWithoutRoomInput
+    room_images?: room_imagesUncheckedCreateNestedManyWithoutRoomInput
+  }
+
+  export type roomsCreateOrConnectWithoutPropertyInput = {
+    where: roomsWhereUniqueInput
+    create: XOR<roomsCreateWithoutPropertyInput, roomsUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type roomsCreateManyPropertyInputEnvelope = {
+    data: roomsCreateManyPropertyInput | roomsCreateManyPropertyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type bookingsUpsertWithWhereUniqueWithoutPropertyInput = {
+    where: bookingsWhereUniqueInput
+    update: XOR<bookingsUpdateWithoutPropertyInput, bookingsUncheckedUpdateWithoutPropertyInput>
+    create: XOR<bookingsCreateWithoutPropertyInput, bookingsUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type bookingsUpdateWithWhereUniqueWithoutPropertyInput = {
+    where: bookingsWhereUniqueInput
+    data: XOR<bookingsUpdateWithoutPropertyInput, bookingsUncheckedUpdateWithoutPropertyInput>
+  }
+
+  export type bookingsUpdateManyWithWhereWithoutPropertyInput = {
+    where: bookingsScalarWhereInput
+    data: XOR<bookingsUpdateManyMutationInput, bookingsUncheckedUpdateManyWithoutPropertyInput>
+  }
+
+  export type peak_season_ratesUpsertWithWhereUniqueWithoutPropertyInput = {
+    where: peak_season_ratesWhereUniqueInput
+    update: XOR<peak_season_ratesUpdateWithoutPropertyInput, peak_season_ratesUncheckedUpdateWithoutPropertyInput>
+    create: XOR<peak_season_ratesCreateWithoutPropertyInput, peak_season_ratesUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type peak_season_ratesUpdateWithWhereUniqueWithoutPropertyInput = {
+    where: peak_season_ratesWhereUniqueInput
+    data: XOR<peak_season_ratesUpdateWithoutPropertyInput, peak_season_ratesUncheckedUpdateWithoutPropertyInput>
+  }
+
+  export type peak_season_ratesUpdateManyWithWhereWithoutPropertyInput = {
+    where: peak_season_ratesScalarWhereInput
+    data: XOR<peak_season_ratesUpdateManyMutationInput, peak_season_ratesUncheckedUpdateManyWithoutPropertyInput>
+  }
+
+  export type peak_season_ratesScalarWhereInput = {
+    AND?: peak_season_ratesScalarWhereInput | peak_season_ratesScalarWhereInput[]
+    OR?: peak_season_ratesScalarWhereInput[]
+    NOT?: peak_season_ratesScalarWhereInput | peak_season_ratesScalarWhereInput[]
+    id?: StringFilter<"peak_season_rates"> | string
+    property_id?: StringFilter<"peak_season_rates"> | string
+    room_id?: StringFilter<"peak_season_rates"> | string
+    start_date?: DateTimeFilter<"peak_season_rates"> | Date | string
+    end_date?: DateTimeFilter<"peak_season_rates"> | Date | string
+    price_change_type?: EnumPriceChangeTypeFilter<"peak_season_rates"> | $Enums.PriceChangeType
+    price_change_value?: DecimalFilter<"peak_season_rates"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"peak_season_rates"> | Date | string
+    updated_at?: DateTimeFilter<"peak_season_rates"> | Date | string
+  }
+
+  export type tenantsUpsertWithoutPropertiesInput = {
+    update: XOR<tenantsUpdateWithoutPropertiesInput, tenantsUncheckedUpdateWithoutPropertiesInput>
+    create: XOR<tenantsCreateWithoutPropertiesInput, tenantsUncheckedCreateWithoutPropertiesInput>
+    where?: tenantsWhereInput
+  }
+
+  export type tenantsUpdateToOneWithWhereWithoutPropertiesInput = {
+    where?: tenantsWhereInput
+    data: XOR<tenantsUpdateWithoutPropertiesInput, tenantsUncheckedUpdateWithoutPropertiesInput>
+  }
+
+  export type tenantsUpdateWithoutPropertiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: usersUpdateOneRequiredWithoutTenantsNestedInput
+  }
+
+  export type tenantsUncheckedUpdateWithoutPropertiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    company_name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type property_imagesUpsertWithWhereUniqueWithoutPropertyInput = {
+    where: property_imagesWhereUniqueInput
+    update: XOR<property_imagesUpdateWithoutPropertyInput, property_imagesUncheckedUpdateWithoutPropertyInput>
+    create: XOR<property_imagesCreateWithoutPropertyInput, property_imagesUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type property_imagesUpdateWithWhereUniqueWithoutPropertyInput = {
+    where: property_imagesWhereUniqueInput
+    data: XOR<property_imagesUpdateWithoutPropertyInput, property_imagesUncheckedUpdateWithoutPropertyInput>
+  }
+
+  export type property_imagesUpdateManyWithWhereWithoutPropertyInput = {
+    where: property_imagesScalarWhereInput
+    data: XOR<property_imagesUpdateManyMutationInput, property_imagesUncheckedUpdateManyWithoutPropertyInput>
+  }
+
+  export type property_imagesScalarWhereInput = {
+    AND?: property_imagesScalarWhereInput | property_imagesScalarWhereInput[]
+    OR?: property_imagesScalarWhereInput[]
+    NOT?: property_imagesScalarWhereInput | property_imagesScalarWhereInput[]
+    id?: StringFilter<"property_images"> | string
+    property_id?: StringFilter<"property_images"> | string
+    image_url?: StringFilter<"property_images"> | string
+    created_at?: DateTimeFilter<"property_images"> | Date | string
+  }
+
+  export type reviewsUpsertWithWhereUniqueWithoutPropertyInput = {
+    where: reviewsWhereUniqueInput
+    update: XOR<reviewsUpdateWithoutPropertyInput, reviewsUncheckedUpdateWithoutPropertyInput>
+    create: XOR<reviewsCreateWithoutPropertyInput, reviewsUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type reviewsUpdateWithWhereUniqueWithoutPropertyInput = {
+    where: reviewsWhereUniqueInput
+    data: XOR<reviewsUpdateWithoutPropertyInput, reviewsUncheckedUpdateWithoutPropertyInput>
+  }
+
+  export type reviewsUpdateManyWithWhereWithoutPropertyInput = {
+    where: reviewsScalarWhereInput
+    data: XOR<reviewsUpdateManyMutationInput, reviewsUncheckedUpdateManyWithoutPropertyInput>
+  }
+
+  export type roomsUpsertWithWhereUniqueWithoutPropertyInput = {
+    where: roomsWhereUniqueInput
+    update: XOR<roomsUpdateWithoutPropertyInput, roomsUncheckedUpdateWithoutPropertyInput>
+    create: XOR<roomsCreateWithoutPropertyInput, roomsUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type roomsUpdateWithWhereUniqueWithoutPropertyInput = {
+    where: roomsWhereUniqueInput
+    data: XOR<roomsUpdateWithoutPropertyInput, roomsUncheckedUpdateWithoutPropertyInput>
+  }
+
+  export type roomsUpdateManyWithWhereWithoutPropertyInput = {
+    where: roomsScalarWhereInput
+    data: XOR<roomsUpdateManyMutationInput, roomsUncheckedUpdateManyWithoutPropertyInput>
+  }
+
+  export type roomsScalarWhereInput = {
+    AND?: roomsScalarWhereInput | roomsScalarWhereInput[]
+    OR?: roomsScalarWhereInput[]
+    NOT?: roomsScalarWhereInput | roomsScalarWhereInput[]
+    id?: StringFilter<"rooms"> | string
+    property_id?: StringFilter<"rooms"> | string
+    name?: StringFilter<"rooms"> | string
+    description?: StringNullableFilter<"rooms"> | string | null
+    base_price?: DecimalFilter<"rooms"> | Decimal | DecimalJsLike | number | string
+    capacity?: IntFilter<"rooms"> | number
+    image?: StringNullableFilter<"rooms"> | string | null
+    created_at?: DateTimeFilter<"rooms"> | Date | string
+    updated_at?: DateTimeFilter<"rooms"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"rooms"> | Date | string | null
+    total_rooms?: IntFilter<"rooms"> | number
+  }
+
+  export type propertiesCreateWithoutProperty_imagesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    province: string
+    zip_code: string
+    latitude: Decimal | DecimalJsLike | number | string
+    longitude: Decimal | DecimalJsLike | number | string
+    main_image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    property_category: $Enums.PropertyCategory
+    bookings?: bookingsCreateNestedManyWithoutPropertyInput
+    peak_season_rates?: peak_season_ratesCreateNestedManyWithoutPropertyInput
+    tenant: tenantsCreateNestedOneWithoutPropertiesInput
+    reviews?: reviewsCreateNestedManyWithoutPropertyInput
+    rooms?: roomsCreateNestedManyWithoutPropertyInput
+  }
+
+  export type propertiesUncheckedCreateWithoutProperty_imagesInput = {
+    id?: string
+    tenant_id: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    province: string
+    zip_code: string
+    latitude: Decimal | DecimalJsLike | number | string
+    longitude: Decimal | DecimalJsLike | number | string
+    main_image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    property_category: $Enums.PropertyCategory
+    bookings?: bookingsUncheckedCreateNestedManyWithoutPropertyInput
+    peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutPropertyInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutPropertyInput
+    rooms?: roomsUncheckedCreateNestedManyWithoutPropertyInput
+  }
+
+  export type propertiesCreateOrConnectWithoutProperty_imagesInput = {
+    where: propertiesWhereUniqueInput
+    create: XOR<propertiesCreateWithoutProperty_imagesInput, propertiesUncheckedCreateWithoutProperty_imagesInput>
+  }
+
+  export type propertiesUpsertWithoutProperty_imagesInput = {
+    update: XOR<propertiesUpdateWithoutProperty_imagesInput, propertiesUncheckedUpdateWithoutProperty_imagesInput>
+    create: XOR<propertiesCreateWithoutProperty_imagesInput, propertiesUncheckedCreateWithoutProperty_imagesInput>
+    where?: propertiesWhereInput
+  }
+
+  export type propertiesUpdateToOneWithWhereWithoutProperty_imagesInput = {
+    where?: propertiesWhereInput
+    data: XOR<propertiesUpdateWithoutProperty_imagesInput, propertiesUncheckedUpdateWithoutProperty_imagesInput>
+  }
+
+  export type propertiesUpdateWithoutProperty_imagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     name?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -12008,10 +15576,15 @@ export namespace Prisma {
     booking_date_end: Date | string
     payment_proof_url: string
     created_at?: Date | string
+<<<<<<< HEAD
     transaction_status: $Enums.trx_status
     account_table: account_tableCreateNestedOneWithoutTransaction_tableInput
     user_review?: user_reviewCreateNestedManyWithoutTransaction_tableInput
     booked_user_list?: booked_user_listCreateNestedManyWithoutTransaction_tableInput
+=======
+    updated_at?: Date | string
+    booking: bookingsCreateNestedOneWithoutBooking_roomsInput
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type transaction_tableUncheckedCreateWithoutProperties_tableInput = {
@@ -12021,9 +15594,13 @@ export namespace Prisma {
     booking_date_end: Date | string
     payment_proof_url: string
     created_at?: Date | string
+<<<<<<< HEAD
     transaction_status: $Enums.trx_status
     user_review?: user_reviewUncheckedCreateNestedManyWithoutTransaction_tableInput
     booked_user_list?: booked_user_listUncheckedCreateNestedManyWithoutTransaction_tableInput
+=======
+    updated_at?: Date | string
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type transaction_tableCreateOrConnectWithoutProperties_tableInput = {
@@ -12036,9 +15613,750 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+<<<<<<< HEAD
   export type account_tableCreateWithoutProperties_tableInput = {
     fullname: string
     username: string
+=======
+  export type peak_season_ratesCreateWithoutRoomInput = {
+    id?: string
+    start_date: Date | string
+    end_date: Date | string
+    price_change_type: $Enums.PriceChangeType
+    price_change_value: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+    property: propertiesCreateNestedOneWithoutPeak_season_ratesInput
+  }
+
+  export type peak_season_ratesUncheckedCreateWithoutRoomInput = {
+    id?: string
+    property_id: string
+    start_date: Date | string
+    end_date: Date | string
+    price_change_type: $Enums.PriceChangeType
+    price_change_value: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type peak_season_ratesCreateOrConnectWithoutRoomInput = {
+    where: peak_season_ratesWhereUniqueInput
+    create: XOR<peak_season_ratesCreateWithoutRoomInput, peak_season_ratesUncheckedCreateWithoutRoomInput>
+  }
+
+  export type peak_season_ratesCreateManyRoomInputEnvelope = {
+    data: peak_season_ratesCreateManyRoomInput | peak_season_ratesCreateManyRoomInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type room_availabilityCreateWithoutRoomInput = {
+    id?: string
+    date: Date | string
+    is_available: boolean
+    price_override?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type room_availabilityUncheckedCreateWithoutRoomInput = {
+    id?: string
+    date: Date | string
+    is_available: boolean
+    price_override?: Decimal | DecimalJsLike | number | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type room_availabilityCreateOrConnectWithoutRoomInput = {
+    where: room_availabilityWhereUniqueInput
+    create: XOR<room_availabilityCreateWithoutRoomInput, room_availabilityUncheckedCreateWithoutRoomInput>
+  }
+
+  export type room_availabilityCreateManyRoomInputEnvelope = {
+    data: room_availabilityCreateManyRoomInput | room_availabilityCreateManyRoomInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type room_imagesCreateWithoutRoomInput = {
+    id?: string
+    image_url: string
+    created_at?: Date | string
+  }
+
+  export type room_imagesUncheckedCreateWithoutRoomInput = {
+    id?: string
+    image_url: string
+    created_at?: Date | string
+  }
+
+  export type room_imagesCreateOrConnectWithoutRoomInput = {
+    where: room_imagesWhereUniqueInput
+    create: XOR<room_imagesCreateWithoutRoomInput, room_imagesUncheckedCreateWithoutRoomInput>
+  }
+
+  export type room_imagesCreateManyRoomInputEnvelope = {
+    data: room_imagesCreateManyRoomInput | room_imagesCreateManyRoomInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type propertiesCreateWithoutRoomsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    province: string
+    zip_code: string
+    latitude: Decimal | DecimalJsLike | number | string
+    longitude: Decimal | DecimalJsLike | number | string
+    main_image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    property_category: $Enums.PropertyCategory
+    bookings?: bookingsCreateNestedManyWithoutPropertyInput
+    peak_season_rates?: peak_season_ratesCreateNestedManyWithoutPropertyInput
+    tenant: tenantsCreateNestedOneWithoutPropertiesInput
+    property_images?: property_imagesCreateNestedManyWithoutPropertyInput
+    reviews?: reviewsCreateNestedManyWithoutPropertyInput
+  }
+
+  export type propertiesUncheckedCreateWithoutRoomsInput = {
+    id?: string
+    tenant_id: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    province: string
+    zip_code: string
+    latitude: Decimal | DecimalJsLike | number | string
+    longitude: Decimal | DecimalJsLike | number | string
+    main_image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    property_category: $Enums.PropertyCategory
+    bookings?: bookingsUncheckedCreateNestedManyWithoutPropertyInput
+    peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutPropertyInput
+    property_images?: property_imagesUncheckedCreateNestedManyWithoutPropertyInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutPropertyInput
+  }
+
+  export type propertiesCreateOrConnectWithoutRoomsInput = {
+    where: propertiesWhereUniqueInput
+    create: XOR<propertiesCreateWithoutRoomsInput, propertiesUncheckedCreateWithoutRoomsInput>
+  }
+
+  export type booking_roomsUpsertWithWhereUniqueWithoutRoomInput = {
+    where: booking_roomsWhereUniqueInput
+    update: XOR<booking_roomsUpdateWithoutRoomInput, booking_roomsUncheckedUpdateWithoutRoomInput>
+    create: XOR<booking_roomsCreateWithoutRoomInput, booking_roomsUncheckedCreateWithoutRoomInput>
+  }
+
+  export type booking_roomsUpdateWithWhereUniqueWithoutRoomInput = {
+    where: booking_roomsWhereUniqueInput
+    data: XOR<booking_roomsUpdateWithoutRoomInput, booking_roomsUncheckedUpdateWithoutRoomInput>
+  }
+
+  export type booking_roomsUpdateManyWithWhereWithoutRoomInput = {
+    where: booking_roomsScalarWhereInput
+    data: XOR<booking_roomsUpdateManyMutationInput, booking_roomsUncheckedUpdateManyWithoutRoomInput>
+  }
+
+  export type booking_roomsScalarWhereInput = {
+    AND?: booking_roomsScalarWhereInput | booking_roomsScalarWhereInput[]
+    OR?: booking_roomsScalarWhereInput[]
+    NOT?: booking_roomsScalarWhereInput | booking_roomsScalarWhereInput[]
+    id?: StringFilter<"booking_rooms"> | string
+    booking_id?: StringFilter<"booking_rooms"> | string
+    room_id?: StringFilter<"booking_rooms"> | string
+    guests_count?: IntFilter<"booking_rooms"> | number
+    price_per_night?: DecimalFilter<"booking_rooms"> | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFilter<"booking_rooms"> | Date | string
+    check_out_date?: DateTimeFilter<"booking_rooms"> | Date | string
+    nights?: IntFilter<"booking_rooms"> | number
+    quantity?: IntFilter<"booking_rooms"> | number
+    subtotal?: DecimalFilter<"booking_rooms"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"booking_rooms"> | Date | string
+    updated_at?: DateTimeFilter<"booking_rooms"> | Date | string
+  }
+
+  export type peak_season_ratesUpsertWithWhereUniqueWithoutRoomInput = {
+    where: peak_season_ratesWhereUniqueInput
+    update: XOR<peak_season_ratesUpdateWithoutRoomInput, peak_season_ratesUncheckedUpdateWithoutRoomInput>
+    create: XOR<peak_season_ratesCreateWithoutRoomInput, peak_season_ratesUncheckedCreateWithoutRoomInput>
+  }
+
+  export type peak_season_ratesUpdateWithWhereUniqueWithoutRoomInput = {
+    where: peak_season_ratesWhereUniqueInput
+    data: XOR<peak_season_ratesUpdateWithoutRoomInput, peak_season_ratesUncheckedUpdateWithoutRoomInput>
+  }
+
+  export type peak_season_ratesUpdateManyWithWhereWithoutRoomInput = {
+    where: peak_season_ratesScalarWhereInput
+    data: XOR<peak_season_ratesUpdateManyMutationInput, peak_season_ratesUncheckedUpdateManyWithoutRoomInput>
+  }
+
+  export type room_availabilityUpsertWithWhereUniqueWithoutRoomInput = {
+    where: room_availabilityWhereUniqueInput
+    update: XOR<room_availabilityUpdateWithoutRoomInput, room_availabilityUncheckedUpdateWithoutRoomInput>
+    create: XOR<room_availabilityCreateWithoutRoomInput, room_availabilityUncheckedCreateWithoutRoomInput>
+  }
+
+  export type room_availabilityUpdateWithWhereUniqueWithoutRoomInput = {
+    where: room_availabilityWhereUniqueInput
+    data: XOR<room_availabilityUpdateWithoutRoomInput, room_availabilityUncheckedUpdateWithoutRoomInput>
+  }
+
+  export type room_availabilityUpdateManyWithWhereWithoutRoomInput = {
+    where: room_availabilityScalarWhereInput
+    data: XOR<room_availabilityUpdateManyMutationInput, room_availabilityUncheckedUpdateManyWithoutRoomInput>
+  }
+
+  export type room_availabilityScalarWhereInput = {
+    AND?: room_availabilityScalarWhereInput | room_availabilityScalarWhereInput[]
+    OR?: room_availabilityScalarWhereInput[]
+    NOT?: room_availabilityScalarWhereInput | room_availabilityScalarWhereInput[]
+    id?: StringFilter<"room_availability"> | string
+    room_id?: StringFilter<"room_availability"> | string
+    date?: DateTimeFilter<"room_availability"> | Date | string
+    is_available?: BoolFilter<"room_availability"> | boolean
+    price_override?: DecimalNullableFilter<"room_availability"> | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFilter<"room_availability"> | Date | string
+    updated_at?: DateTimeFilter<"room_availability"> | Date | string
+  }
+
+  export type room_imagesUpsertWithWhereUniqueWithoutRoomInput = {
+    where: room_imagesWhereUniqueInput
+    update: XOR<room_imagesUpdateWithoutRoomInput, room_imagesUncheckedUpdateWithoutRoomInput>
+    create: XOR<room_imagesCreateWithoutRoomInput, room_imagesUncheckedCreateWithoutRoomInput>
+  }
+
+  export type room_imagesUpdateWithWhereUniqueWithoutRoomInput = {
+    where: room_imagesWhereUniqueInput
+    data: XOR<room_imagesUpdateWithoutRoomInput, room_imagesUncheckedUpdateWithoutRoomInput>
+  }
+
+  export type room_imagesUpdateManyWithWhereWithoutRoomInput = {
+    where: room_imagesScalarWhereInput
+    data: XOR<room_imagesUpdateManyMutationInput, room_imagesUncheckedUpdateManyWithoutRoomInput>
+  }
+
+  export type room_imagesScalarWhereInput = {
+    AND?: room_imagesScalarWhereInput | room_imagesScalarWhereInput[]
+    OR?: room_imagesScalarWhereInput[]
+    NOT?: room_imagesScalarWhereInput | room_imagesScalarWhereInput[]
+    id?: StringFilter<"room_images"> | string
+    room_id?: StringFilter<"room_images"> | string
+    image_url?: StringFilter<"room_images"> | string
+    created_at?: DateTimeFilter<"room_images"> | Date | string
+  }
+
+  export type propertiesUpsertWithoutRoomsInput = {
+    update: XOR<propertiesUpdateWithoutRoomsInput, propertiesUncheckedUpdateWithoutRoomsInput>
+    create: XOR<propertiesCreateWithoutRoomsInput, propertiesUncheckedCreateWithoutRoomsInput>
+    where?: propertiesWhereInput
+  }
+
+  export type propertiesUpdateToOneWithWhereWithoutRoomsInput = {
+    where?: propertiesWhereInput
+    data: XOR<propertiesUpdateWithoutRoomsInput, propertiesUncheckedUpdateWithoutRoomsInput>
+  }
+
+  export type propertiesUpdateWithoutRoomsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    zip_code?: StringFieldUpdateOperationsInput | string
+    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    bookings?: bookingsUpdateManyWithoutPropertyNestedInput
+    peak_season_rates?: peak_season_ratesUpdateManyWithoutPropertyNestedInput
+    tenant?: tenantsUpdateOneRequiredWithoutPropertiesNestedInput
+    property_images?: property_imagesUpdateManyWithoutPropertyNestedInput
+    reviews?: reviewsUpdateManyWithoutPropertyNestedInput
+  }
+
+  export type propertiesUncheckedUpdateWithoutRoomsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenant_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    zip_code?: StringFieldUpdateOperationsInput | string
+    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    bookings?: bookingsUncheckedUpdateManyWithoutPropertyNestedInput
+    peak_season_rates?: peak_season_ratesUncheckedUpdateManyWithoutPropertyNestedInput
+    property_images?: property_imagesUncheckedUpdateManyWithoutPropertyNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutPropertyNestedInput
+  }
+
+  export type roomsCreateWithoutRoom_imagesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    base_price: Decimal | DecimalJsLike | number | string
+    capacity: number
+    image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    total_rooms: number
+    booking_rooms?: booking_roomsCreateNestedManyWithoutRoomInput
+    peak_season_rates?: peak_season_ratesCreateNestedManyWithoutRoomInput
+    room_availability?: room_availabilityCreateNestedManyWithoutRoomInput
+    property: propertiesCreateNestedOneWithoutRoomsInput
+  }
+
+  export type roomsUncheckedCreateWithoutRoom_imagesInput = {
+    id?: string
+    property_id: string
+    name: string
+    description?: string | null
+    base_price: Decimal | DecimalJsLike | number | string
+    capacity: number
+    image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    total_rooms: number
+    booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutRoomInput
+    peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutRoomInput
+    room_availability?: room_availabilityUncheckedCreateNestedManyWithoutRoomInput
+  }
+
+  export type roomsCreateOrConnectWithoutRoom_imagesInput = {
+    where: roomsWhereUniqueInput
+    create: XOR<roomsCreateWithoutRoom_imagesInput, roomsUncheckedCreateWithoutRoom_imagesInput>
+  }
+
+  export type roomsUpsertWithoutRoom_imagesInput = {
+    update: XOR<roomsUpdateWithoutRoom_imagesInput, roomsUncheckedUpdateWithoutRoom_imagesInput>
+    create: XOR<roomsCreateWithoutRoom_imagesInput, roomsUncheckedCreateWithoutRoom_imagesInput>
+    where?: roomsWhereInput
+  }
+
+  export type roomsUpdateToOneWithWhereWithoutRoom_imagesInput = {
+    where?: roomsWhereInput
+    data: XOR<roomsUpdateWithoutRoom_imagesInput, roomsUncheckedUpdateWithoutRoom_imagesInput>
+  }
+
+  export type roomsUpdateWithoutRoom_imagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
+    booking_rooms?: booking_roomsUpdateManyWithoutRoomNestedInput
+    peak_season_rates?: peak_season_ratesUpdateManyWithoutRoomNestedInput
+    room_availability?: room_availabilityUpdateManyWithoutRoomNestedInput
+    property?: propertiesUpdateOneRequiredWithoutRoomsNestedInput
+  }
+
+  export type roomsUncheckedUpdateWithoutRoom_imagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    property_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
+    booking_rooms?: booking_roomsUncheckedUpdateManyWithoutRoomNestedInput
+    peak_season_rates?: peak_season_ratesUncheckedUpdateManyWithoutRoomNestedInput
+    room_availability?: room_availabilityUncheckedUpdateManyWithoutRoomNestedInput
+  }
+
+  export type roomsCreateWithoutRoom_availabilityInput = {
+    id?: string
+    name: string
+    description?: string | null
+    base_price: Decimal | DecimalJsLike | number | string
+    capacity: number
+    image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    total_rooms: number
+    booking_rooms?: booking_roomsCreateNestedManyWithoutRoomInput
+    peak_season_rates?: peak_season_ratesCreateNestedManyWithoutRoomInput
+    room_images?: room_imagesCreateNestedManyWithoutRoomInput
+    property: propertiesCreateNestedOneWithoutRoomsInput
+  }
+
+  export type roomsUncheckedCreateWithoutRoom_availabilityInput = {
+    id?: string
+    property_id: string
+    name: string
+    description?: string | null
+    base_price: Decimal | DecimalJsLike | number | string
+    capacity: number
+    image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    total_rooms: number
+    booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutRoomInput
+    peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutRoomInput
+    room_images?: room_imagesUncheckedCreateNestedManyWithoutRoomInput
+  }
+
+  export type roomsCreateOrConnectWithoutRoom_availabilityInput = {
+    where: roomsWhereUniqueInput
+    create: XOR<roomsCreateWithoutRoom_availabilityInput, roomsUncheckedCreateWithoutRoom_availabilityInput>
+  }
+
+  export type roomsUpsertWithoutRoom_availabilityInput = {
+    update: XOR<roomsUpdateWithoutRoom_availabilityInput, roomsUncheckedUpdateWithoutRoom_availabilityInput>
+    create: XOR<roomsCreateWithoutRoom_availabilityInput, roomsUncheckedCreateWithoutRoom_availabilityInput>
+    where?: roomsWhereInput
+  }
+
+  export type roomsUpdateToOneWithWhereWithoutRoom_availabilityInput = {
+    where?: roomsWhereInput
+    data: XOR<roomsUpdateWithoutRoom_availabilityInput, roomsUncheckedUpdateWithoutRoom_availabilityInput>
+  }
+
+  export type roomsUpdateWithoutRoom_availabilityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
+    booking_rooms?: booking_roomsUpdateManyWithoutRoomNestedInput
+    peak_season_rates?: peak_season_ratesUpdateManyWithoutRoomNestedInput
+    room_images?: room_imagesUpdateManyWithoutRoomNestedInput
+    property?: propertiesUpdateOneRequiredWithoutRoomsNestedInput
+  }
+
+  export type roomsUncheckedUpdateWithoutRoom_availabilityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    property_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
+    booking_rooms?: booking_roomsUncheckedUpdateManyWithoutRoomNestedInput
+    peak_season_rates?: peak_season_ratesUncheckedUpdateManyWithoutRoomNestedInput
+    room_images?: room_imagesUncheckedUpdateManyWithoutRoomNestedInput
+  }
+
+  export type propertiesCreateWithoutPeak_season_ratesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    province: string
+    zip_code: string
+    latitude: Decimal | DecimalJsLike | number | string
+    longitude: Decimal | DecimalJsLike | number | string
+    main_image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    property_category: $Enums.PropertyCategory
+    bookings?: bookingsCreateNestedManyWithoutPropertyInput
+    tenant: tenantsCreateNestedOneWithoutPropertiesInput
+    property_images?: property_imagesCreateNestedManyWithoutPropertyInput
+    reviews?: reviewsCreateNestedManyWithoutPropertyInput
+    rooms?: roomsCreateNestedManyWithoutPropertyInput
+  }
+
+  export type propertiesUncheckedCreateWithoutPeak_season_ratesInput = {
+    id?: string
+    tenant_id: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    province: string
+    zip_code: string
+    latitude: Decimal | DecimalJsLike | number | string
+    longitude: Decimal | DecimalJsLike | number | string
+    main_image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    property_category: $Enums.PropertyCategory
+    bookings?: bookingsUncheckedCreateNestedManyWithoutPropertyInput
+    property_images?: property_imagesUncheckedCreateNestedManyWithoutPropertyInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutPropertyInput
+    rooms?: roomsUncheckedCreateNestedManyWithoutPropertyInput
+  }
+
+  export type propertiesCreateOrConnectWithoutPeak_season_ratesInput = {
+    where: propertiesWhereUniqueInput
+    create: XOR<propertiesCreateWithoutPeak_season_ratesInput, propertiesUncheckedCreateWithoutPeak_season_ratesInput>
+  }
+
+  export type roomsCreateWithoutPeak_season_ratesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    base_price: Decimal | DecimalJsLike | number | string
+    capacity: number
+    image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    total_rooms: number
+    booking_rooms?: booking_roomsCreateNestedManyWithoutRoomInput
+    room_availability?: room_availabilityCreateNestedManyWithoutRoomInput
+    room_images?: room_imagesCreateNestedManyWithoutRoomInput
+    property: propertiesCreateNestedOneWithoutRoomsInput
+  }
+
+  export type roomsUncheckedCreateWithoutPeak_season_ratesInput = {
+    id?: string
+    property_id: string
+    name: string
+    description?: string | null
+    base_price: Decimal | DecimalJsLike | number | string
+    capacity: number
+    image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    total_rooms: number
+    booking_rooms?: booking_roomsUncheckedCreateNestedManyWithoutRoomInput
+    room_availability?: room_availabilityUncheckedCreateNestedManyWithoutRoomInput
+    room_images?: room_imagesUncheckedCreateNestedManyWithoutRoomInput
+  }
+
+  export type roomsCreateOrConnectWithoutPeak_season_ratesInput = {
+    where: roomsWhereUniqueInput
+    create: XOR<roomsCreateWithoutPeak_season_ratesInput, roomsUncheckedCreateWithoutPeak_season_ratesInput>
+  }
+
+  export type propertiesUpsertWithoutPeak_season_ratesInput = {
+    update: XOR<propertiesUpdateWithoutPeak_season_ratesInput, propertiesUncheckedUpdateWithoutPeak_season_ratesInput>
+    create: XOR<propertiesCreateWithoutPeak_season_ratesInput, propertiesUncheckedCreateWithoutPeak_season_ratesInput>
+    where?: propertiesWhereInput
+  }
+
+  export type propertiesUpdateToOneWithWhereWithoutPeak_season_ratesInput = {
+    where?: propertiesWhereInput
+    data: XOR<propertiesUpdateWithoutPeak_season_ratesInput, propertiesUncheckedUpdateWithoutPeak_season_ratesInput>
+  }
+
+  export type propertiesUpdateWithoutPeak_season_ratesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    zip_code?: StringFieldUpdateOperationsInput | string
+    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    bookings?: bookingsUpdateManyWithoutPropertyNestedInput
+    tenant?: tenantsUpdateOneRequiredWithoutPropertiesNestedInput
+    property_images?: property_imagesUpdateManyWithoutPropertyNestedInput
+    reviews?: reviewsUpdateManyWithoutPropertyNestedInput
+    rooms?: roomsUpdateManyWithoutPropertyNestedInput
+  }
+
+  export type propertiesUncheckedUpdateWithoutPeak_season_ratesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenant_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    zip_code?: StringFieldUpdateOperationsInput | string
+    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    bookings?: bookingsUncheckedUpdateManyWithoutPropertyNestedInput
+    property_images?: property_imagesUncheckedUpdateManyWithoutPropertyNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutPropertyNestedInput
+    rooms?: roomsUncheckedUpdateManyWithoutPropertyNestedInput
+  }
+
+  export type roomsUpsertWithoutPeak_season_ratesInput = {
+    update: XOR<roomsUpdateWithoutPeak_season_ratesInput, roomsUncheckedUpdateWithoutPeak_season_ratesInput>
+    create: XOR<roomsCreateWithoutPeak_season_ratesInput, roomsUncheckedCreateWithoutPeak_season_ratesInput>
+    where?: roomsWhereInput
+  }
+
+  export type roomsUpdateToOneWithWhereWithoutPeak_season_ratesInput = {
+    where?: roomsWhereInput
+    data: XOR<roomsUpdateWithoutPeak_season_ratesInput, roomsUncheckedUpdateWithoutPeak_season_ratesInput>
+  }
+
+  export type roomsUpdateWithoutPeak_season_ratesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
+    booking_rooms?: booking_roomsUpdateManyWithoutRoomNestedInput
+    room_availability?: room_availabilityUpdateManyWithoutRoomNestedInput
+    room_images?: room_imagesUpdateManyWithoutRoomNestedInput
+    property?: propertiesUpdateOneRequiredWithoutRoomsNestedInput
+  }
+
+  export type roomsUncheckedUpdateWithoutPeak_season_ratesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    property_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    base_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    total_rooms?: IntFieldUpdateOperationsInput | number
+    booking_rooms?: booking_roomsUncheckedUpdateManyWithoutRoomNestedInput
+    room_availability?: room_availabilityUncheckedUpdateManyWithoutRoomNestedInput
+    room_images?: room_imagesUncheckedUpdateManyWithoutRoomNestedInput
+  }
+
+  export type booking_roomsCreateWithoutBookingInput = {
+    id?: string
+    guests_count: number
+    price_per_night: Decimal | DecimalJsLike | number | string
+    check_in_date: Date | string
+    check_out_date: Date | string
+    nights: number
+    quantity: number
+    subtotal: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+    room: roomsCreateNestedOneWithoutBooking_roomsInput
+  }
+
+  export type booking_roomsUncheckedCreateWithoutBookingInput = {
+    id?: string
+    room_id: string
+    guests_count: number
+    price_per_night: Decimal | DecimalJsLike | number | string
+    check_in_date: Date | string
+    check_out_date: Date | string
+    nights: number
+    quantity: number
+    subtotal: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type booking_roomsCreateOrConnectWithoutBookingInput = {
+    where: booking_roomsWhereUniqueInput
+    create: XOR<booking_roomsCreateWithoutBookingInput, booking_roomsUncheckedCreateWithoutBookingInput>
+  }
+
+  export type booking_roomsCreateManyBookingInputEnvelope = {
+    data: booking_roomsCreateManyBookingInput | booking_roomsCreateManyBookingInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type propertiesCreateWithoutBookingsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    province: string
+    zip_code: string
+    latitude: Decimal | DecimalJsLike | number | string
+    longitude: Decimal | DecimalJsLike | number | string
+    main_image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    property_category: $Enums.PropertyCategory
+    peak_season_rates?: peak_season_ratesCreateNestedManyWithoutPropertyInput
+    tenant: tenantsCreateNestedOneWithoutPropertiesInput
+    property_images?: property_imagesCreateNestedManyWithoutPropertyInput
+    reviews?: reviewsCreateNestedManyWithoutPropertyInput
+    rooms?: roomsCreateNestedManyWithoutPropertyInput
+  }
+
+  export type propertiesUncheckedCreateWithoutBookingsInput = {
+    id?: string
+    tenant_id: string
+    name: string
+    description?: string | null
+    address: string
+    city: string
+    province: string
+    zip_code: string
+    latitude: Decimal | DecimalJsLike | number | string
+    longitude: Decimal | DecimalJsLike | number | string
+    main_image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    property_category: $Enums.PropertyCategory
+    peak_season_rates?: peak_season_ratesUncheckedCreateNestedManyWithoutPropertyInput
+    property_images?: property_imagesUncheckedCreateNestedManyWithoutPropertyInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutPropertyInput
+    rooms?: roomsUncheckedCreateNestedManyWithoutPropertyInput
+  }
+
+  export type propertiesCreateOrConnectWithoutBookingsInput = {
+    where: propertiesWhereUniqueInput
+    create: XOR<propertiesCreateWithoutBookingsInput, propertiesUncheckedCreateWithoutBookingsInput>
+  }
+
+  export type usersCreateWithoutBookingsInput = {
+    id?: string
+    role: $Enums.Role
+    full_name: string
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     email: string
     role: $Enums.account_role
     password: string
@@ -12054,7 +16372,10 @@ export namespace Prisma {
     verify_otp_expires_at?: Date | string | null
     reviews?: reviewsCreateNestedManyWithoutUserInput
     tenants?: tenantsCreateNestedOneWithoutUserInput
+<<<<<<< HEAD
 >>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type account_tableUncheckedCreateWithoutProperties_tableInput = {
@@ -12076,7 +16397,10 @@ export namespace Prisma {
     verify_otp_expires_at?: Date | string | null
     reviews?: reviewsUncheckedCreateNestedManyWithoutUserInput
     tenants?: tenantsUncheckedCreateNestedOneWithoutUserInput
+<<<<<<< HEAD
 >>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type account_tableCreateOrConnectWithoutProperties_tableInput = {
@@ -12084,6 +16408,7 @@ export namespace Prisma {
     create: XOR<account_tableCreateWithoutProperties_tableInput, account_tableUncheckedCreateWithoutProperties_tableInput>
   }
 
+<<<<<<< HEAD
   export type user_reviewCreateWithoutProperties_tableInput = {
     review: string
     account_table: account_tableCreateNestedOneWithoutUser_reviewInput
@@ -12095,6 +16420,28 @@ export namespace Prisma {
     account_id: number
     transaction_id: number
     review: string
+=======
+  export type reviewsCreateWithoutBookingInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    tenant_reply?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    property: propertiesCreateNestedOneWithoutReviewsInput
+    user: usersCreateNestedOneWithoutReviewsInput
+  }
+
+  export type reviewsUncheckedCreateWithoutBookingInput = {
+    id?: string
+    user_id: string
+    property_id: string
+    rating: number
+    comment?: string | null
+    tenant_reply?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type user_reviewCreateOrConnectWithoutProperties_tableInput = {
@@ -12177,7 +16524,10 @@ export namespace Prisma {
     verify_otp_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reviews?: reviewsUpdateManyWithoutUserNestedInput
     tenants?: tenantsUpdateOneWithoutUserNestedInput
+<<<<<<< HEAD
 >>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type account_tableUncheckedUpdateWithoutProperties_tableInput = {
@@ -12199,7 +16549,10 @@ export namespace Prisma {
     verify_otp_expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reviews?: reviewsUncheckedUpdateManyWithoutUserNestedInput
     tenants?: tenantsUncheckedUpdateOneWithoutUserNestedInput
+<<<<<<< HEAD
 >>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type user_reviewUpsertWithWhereUniqueWithoutProperties_tableInput = {
@@ -12252,7 +16605,10 @@ export namespace Prisma {
     verify_otp_expires_at?: Date | string | null
     bookings?: bookingsCreateNestedManyWithoutUserInput
     tenants?: tenantsCreateNestedOneWithoutUserInput
+<<<<<<< HEAD
 >>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type account_tableUncheckedCreateWithoutUser_reviewInput = {
@@ -12274,7 +16630,10 @@ export namespace Prisma {
     verify_otp_expires_at?: Date | string | null
     bookings?: bookingsUncheckedCreateNestedManyWithoutUserInput
     tenants?: tenantsUncheckedCreateNestedOneWithoutUserInput
+<<<<<<< HEAD
 >>>>>>> c264426341793e356b88aebe764f2bd8f7e3f1b4
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type account_tableCreateOrConnectWithoutUser_reviewInput = {
@@ -12450,6 +16809,7 @@ export namespace Prisma {
     id?: string
     booking_id: string
     property_id: string
+    rating: number
     comment?: string | null
     tenant_reply?: string | null
     created_at?: Date | string
@@ -12507,6 +16867,7 @@ export namespace Prisma {
 
   export type reviewsUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12519,6 +16880,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     booking_id?: StringFieldUpdateOperationsInput | string
     property_id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12529,6 +16891,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     booking_id?: StringFieldUpdateOperationsInput | string
     property_id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12551,10 +16914,119 @@ export namespace Prisma {
     booked_user_list?: booked_user_listCreateNestedManyWithoutProperties_tableInput
   }
 
+<<<<<<< HEAD
   export type properties_tableUncheckedCreateWithoutUser_reviewInput = {
     id?: number
     account_id: number
     room_id: number
+=======
+  export type propertiesUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    zip_code?: StringFieldUpdateOperationsInput | string
+    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    bookings?: bookingsUpdateManyWithoutPropertyNestedInput
+    peak_season_rates?: peak_season_ratesUpdateManyWithoutPropertyNestedInput
+    property_images?: property_imagesUpdateManyWithoutPropertyNestedInput
+    reviews?: reviewsUpdateManyWithoutPropertyNestedInput
+    rooms?: roomsUpdateManyWithoutPropertyNestedInput
+  }
+
+  export type propertiesUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    zip_code?: StringFieldUpdateOperationsInput | string
+    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    bookings?: bookingsUncheckedUpdateManyWithoutPropertyNestedInput
+    peak_season_rates?: peak_season_ratesUncheckedUpdateManyWithoutPropertyNestedInput
+    property_images?: property_imagesUncheckedUpdateManyWithoutPropertyNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutPropertyNestedInput
+    rooms?: roomsUncheckedUpdateManyWithoutPropertyNestedInput
+  }
+
+  export type propertiesUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    zip_code?: StringFieldUpdateOperationsInput | string
+    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    main_image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    property_category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+  }
+
+  export type bookingsCreateManyPropertyInput = {
+    id?: string
+    user_id: string
+    status: $Enums.BookingStatus
+    check_in_date: Date | string
+    check_out_date: Date | string
+    total_price: Decimal | DecimalJsLike | number | string
+    payment_deadline?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
+    amount: Decimal | DecimalJsLike | number | string
+    paid_at?: Date | string | null
+    proof_image?: string | null
+  }
+
+  export type peak_season_ratesCreateManyPropertyInput = {
+    id?: string
+    room_id: string
+    start_date: Date | string
+    end_date: Date | string
+    price_change_type: $Enums.PriceChangeType
+    price_change_value: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type property_imagesCreateManyPropertyInput = {
+    id?: string
+    image_url: string
+    created_at?: Date | string
+  }
+
+  export type reviewsCreateManyPropertyInput = {
+    id?: string
+    booking_id: string
+    user_id: string
+    rating: number
+    comment?: string | null
+    tenant_reply?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type roomsCreateManyPropertyInput = {
+    id?: string
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     name: string
     category: string
     address: string
@@ -12647,8 +17119,86 @@ export namespace Prisma {
     data: XOR<properties_tableUpdateWithoutUser_reviewInput, properties_tableUncheckedUpdateWithoutUser_reviewInput>
   }
 
+<<<<<<< HEAD
   export type properties_tableUpdateWithoutUser_reviewInput = {
     room_id?: IntFieldUpdateOperationsInput | number
+=======
+  export type peak_season_ratesUncheckedUpdateWithoutPropertyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    room_id?: StringFieldUpdateOperationsInput | string
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    price_change_type?: EnumPriceChangeTypeFieldUpdateOperationsInput | $Enums.PriceChangeType
+    price_change_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type peak_season_ratesUncheckedUpdateManyWithoutPropertyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    room_id?: StringFieldUpdateOperationsInput | string
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    price_change_type?: EnumPriceChangeTypeFieldUpdateOperationsInput | $Enums.PriceChangeType
+    price_change_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type property_imagesUpdateWithoutPropertyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    image_url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type property_imagesUncheckedUpdateWithoutPropertyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    image_url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type property_imagesUncheckedUpdateManyWithoutPropertyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    image_url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type reviewsUpdateWithoutPropertyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking?: bookingsUpdateOneRequiredWithoutReviewsNestedInput
+    user?: usersUpdateOneRequiredWithoutReviewsNestedInput
+  }
+
+  export type reviewsUncheckedUpdateWithoutPropertyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    booking_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type reviewsUncheckedUpdateManyWithoutPropertyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    booking_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type roomsUpdateWithoutPropertyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     name?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -12925,7 +17475,11 @@ export namespace Prisma {
     booking_date_end: Date | string
     payment_proof_url: string
     created_at?: Date | string
+<<<<<<< HEAD
     transaction_status: $Enums.trx_status
+=======
+    updated_at?: Date | string
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type properties_tableCreateManyAccount_tableInput = {
@@ -13164,10 +17718,15 @@ export namespace Prisma {
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
     payment_proof_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     transaction_status?: Enumtrx_statusFieldUpdateOperationsInput | $Enums.trx_status
     account_table?: account_tableUpdateOneRequiredWithoutTransaction_tableNestedInput
     user_review?: user_reviewUpdateManyWithoutTransaction_tableNestedInput
     booked_user_list?: booked_user_listUpdateManyWithoutTransaction_tableNestedInput
+=======
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking?: bookingsUpdateOneRequiredWithoutBooking_roomsNestedInput
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type transaction_tableUncheckedUpdateWithoutProperties_tableInput = {
@@ -13177,9 +17736,13 @@ export namespace Prisma {
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
     payment_proof_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     transaction_status?: Enumtrx_statusFieldUpdateOperationsInput | $Enums.trx_status
     user_review?: user_reviewUncheckedUpdateManyWithoutTransaction_tableNestedInput
     booked_user_list?: booked_user_listUncheckedUpdateManyWithoutTransaction_tableNestedInput
+=======
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type transaction_tableUncheckedUpdateManyWithoutProperties_tableInput = {
@@ -13189,7 +17752,11 @@ export namespace Prisma {
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
     payment_proof_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     transaction_status?: Enumtrx_statusFieldUpdateOperationsInput | $Enums.trx_status
+=======
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   export type user_reviewUpdateWithoutProperties_tableInput = {
@@ -13227,12 +17794,140 @@ export namespace Prisma {
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+<<<<<<< HEAD
   export type booked_user_listUncheckedUpdateManyWithoutProperties_tableInput = {
     id?: IntFieldUpdateOperationsInput | number
     transaction_id?: IntFieldUpdateOperationsInput | number
     account_id?: IntFieldUpdateOperationsInput | number
     total_price?: IntFieldUpdateOperationsInput | number
     booking_date_end?: DateTimeFieldUpdateOperationsInput | Date | string
+=======
+  export type room_availabilityUncheckedUpdateManyWithoutRoomInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_available?: BoolFieldUpdateOperationsInput | boolean
+    price_override?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type room_imagesUpdateWithoutRoomInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    image_url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type room_imagesUncheckedUpdateWithoutRoomInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    image_url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type room_imagesUncheckedUpdateManyWithoutRoomInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    image_url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type booking_roomsCreateManyBookingInput = {
+    id?: string
+    room_id: string
+    guests_count: number
+    price_per_night: Decimal | DecimalJsLike | number | string
+    check_in_date: Date | string
+    check_out_date: Date | string
+    nights: number
+    quantity: number
+    subtotal: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type reviewsCreateManyBookingInput = {
+    id?: string
+    user_id: string
+    property_id: string
+    rating: number
+    comment?: string | null
+    tenant_reply?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type booking_roomsUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    guests_count?: IntFieldUpdateOperationsInput | number
+    price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    nights?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    room?: roomsUpdateOneRequiredWithoutBooking_roomsNestedInput
+  }
+
+  export type booking_roomsUncheckedUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    room_id?: StringFieldUpdateOperationsInput | string
+    guests_count?: IntFieldUpdateOperationsInput | number
+    price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    nights?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type booking_roomsUncheckedUpdateManyWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    room_id?: StringFieldUpdateOperationsInput | string
+    guests_count?: IntFieldUpdateOperationsInput | number
+    price_per_night?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    check_in_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    check_out_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    nights?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type reviewsUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    property?: propertiesUpdateOneRequiredWithoutReviewsNestedInput
+    user?: usersUpdateOneRequiredWithoutReviewsNestedInput
+  }
+
+  export type reviewsUncheckedUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    property_id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type reviewsUncheckedUpdateManyWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    property_id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    tenant_reply?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
 

@@ -1,68 +1,69 @@
-import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Filter } from "lucide-react";
+"use client";
 
-const filterOptions = [
-  { label: "All", active: true },
-  { label: "Top Villa", active: false },
-  { label: "Free Reschedule", active: false },
-  { label: "Book Now Pay Later", active: false },
-  { label: "Self Check-in", active: false },
-  { label: "Instant Book", active: false },
-];
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { X } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export function FilterSection() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [name, setName] = useState(searchParams.get("name") || "");
+
+  const handleSearchClick = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (name) {
+      params.set("name", name);
+    } else {
+      params.delete("name");
+    }
+    params.set("page", "1"); // reset ke page 1 tiap search
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
+
+  const handleClear = () => {
+    setName("");
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("name");
+    params.set("page", "1");
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") handleSearchClick();
+  };
+
   return (
-    <div className="space-y-4 mb-6">
-      {/* Mobile Filter Options - Horizontal Scroll */}
-      <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-2 md:pb-0">
-        {filterOptions.map((option, index) => (
+    <div className="flex items-center gap-2 mb-6 w-full">
+      <div className="relative flex-grow">
+        <input
+          type="text"
+          placeholder="Find a property name..."
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          onKeyDown={handleKeyDown}
+          className="border rounded-3xl bg-white p-2 lg:p-3 text-sm w-full shadow-sm pr-8 font-bold"
+        />
+
+        {name && (
           <Button
-            key={index}
-            variant={option.active ? "default" : "ghost"}
-            size="sm"
-            className={`${
-              option.active ? "bg-black text-white" : "text-gray-600"
-            } whitespace-nowrap flex-shrink-0`}>
-            {option.label}
+            type="button"
+            variant="ghost"
+            onClick={handleClear}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-white rounded-full cursor-pointer bg-gray-400 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 p-0">
+            <X className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
           </Button>
-        ))}
+        )}
       </div>
 
-      {/* Filter and Sort Controls */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-        <div className="flex-1" />
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-          <Button
-            variant="outline"
-            size="sm"
-            className="flex items-center justify-center space-x-2">
-            <Filter className="w-4 h-4" />
-            <span>Filter</span>
-          </Button>
-          <Select defaultValue="highest-price">
-            <SelectTrigger className="w-full sm:w-48">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="highest-price">
-                Sort by: Highest Price
-              </SelectItem>
-              <SelectItem value="lowest-price">
-                Sort by: Lowest Price
-              </SelectItem>
-              <SelectItem value="newest">Sort by: Newest</SelectItem>
-              <SelectItem value="rating">Sort by: Rating</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
+      <Button
+        variant="default"
+        size="lg"
+        onClick={handleSearchClick}
+        className="bg-blue-600 text-white rounded-4xl cursor-pointer">
+        Search
+      </Button>
     </div>
   );
 }

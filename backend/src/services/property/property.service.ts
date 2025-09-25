@@ -4,22 +4,28 @@ import AppError from "../../errors/AppError";
 import {
   createPropertyRepository,
 <<<<<<< HEAD
+<<<<<<< HEAD
   findNearbyPropertiesRepository,
 =======
 >>>>>>> main
+=======
+  findNearbyPropertiesRepository,
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   findPropertyByIdRepository,
   getAllPropertiesRepository,
   getPropertyByIdRepository,
+  softDeletePropertyRepository,
+  updatePropertyRepository,
 } from "../../repositories/property/property.repository";
 import { PropertyTypes } from "../../types/property/property.types";
 
-export const getAllPropertiesService = async (filter: {
+export const getAllPropertiesService = async (params: {
   property_category?: string;
+  name?: string;
+  page: number;
+  limit: number;
 }) => {
-  const response = await getAllPropertiesRepository({
-    property_category: filter.property_category,
-  });
-  return response;
+  return getAllPropertiesRepository(params);
 };
 
 export const getPropertyByIdService = async (id: string) => {
@@ -80,6 +86,9 @@ export const createPropertyServices = async (
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 export const getPropertyByLocationServices = async (
   lat: number,
   lng: number,
@@ -88,8 +97,18 @@ export const getPropertyByLocationServices = async (
   checkOut?: string,
   category?: PropertyCategory,
   minPrice?: number,
+<<<<<<< HEAD
   maxPrice?: number
 ) => {
+=======
+  maxPrice?: number,
+  guests?: number,
+  rooms?: number
+) => {
+  if (!checkIn || !checkOut) {
+    throw new Error("checkIn dan checkOut wajib diisi");
+  }
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   return await findNearbyPropertiesRepository(
     lat,
     lng,
@@ -98,6 +117,7 @@ export const getPropertyByLocationServices = async (
     checkOut,
     category,
     minPrice,
+<<<<<<< HEAD
     maxPrice
   );
 };
@@ -106,8 +126,75 @@ export const getPropertyByLocationServices = async (
 >>>>>>> main
 export const updatePropertyServices = async (data: any, id: string) => {
   // code
+=======
+    maxPrice,
+    guests,
+    rooms
+  );
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 };
 
-export const deletePropertyServices = async (id: string) => {
-  // code
+export const updatePropertyServices = async (
+  propertyId: string,
+  data: PropertyTypes,
+  file: Express.Multer.File,
+  tenant_id: string
+) => {
+  const existingProperty = await findPropertyByIdRepository(propertyId);
+  if (!existingProperty) {
+    throw new AppError("Property not found", 404);
+  }
+
+  const {
+    name,
+    description,
+    address,
+    city,
+    province,
+    zip_code,
+    latitude,
+    longitude,
+    property_category,
+  } = data;
+
+  let uploadImage = null;
+  if (file) {
+    uploadImage = await handleUpload(file);
+  }
+  const normalizedCategory = property_category.toLowerCase();
+
+  const isValidCategory = Object.values(PropertyCategory).includes(
+    normalizedCategory as PropertyCategory
+  );
+
+  if (!isValidCategory) {
+    throw new AppError("Invalid property category", 400);
+  }
+
+  const updatedProperty = await updatePropertyRepository({
+    propertyId,
+    tenant_id,
+    name,
+    description,
+    address,
+    city,
+    province,
+    zip_code,
+    latitude,
+    longitude,
+    property_category: property_category as PropertyCategory,
+    main_image: uploadImage?.secure_url || "",
+  });
+  return updatedProperty;
+};
+
+export const deletePropertyService = async (
+  propertyId: string,
+  tenant_id: string
+) => {
+  const existingProperty = await findPropertyByIdRepository(propertyId);
+  if (!existingProperty) {
+    throw new AppError("Property not found", 404);
+  }
+  return await softDeletePropertyRepository(propertyId, tenant_id);
 };

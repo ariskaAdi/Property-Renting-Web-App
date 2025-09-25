@@ -2,7 +2,6 @@ import { Prisma } from "@prisma/client";
 import { prisma } from "../../config/prisma";
 import AppError from "../../errors/AppError";
 import { BookingStatus } from "../../../prisma/generated/client";
-import { BookingRoomCompleteType } from "../../types/transaction/transactions.types";
 
 export const ValidateBooking = async (
   booking_id: string,
@@ -28,19 +27,17 @@ export const ValidateBooking = async (
 };
 
 export const UpdateBookings = async (
-  transaction_id: string,
+  booking_id: string,
   status: BookingStatus,
   tx?: Prisma.TransactionClient
 ) => {
-  const updateBooking = await tx.bookings.update({
+  const db = tx ?? prisma;
+  const updateBooking = await db.bookings.update({
     where: {
-      id: transaction_id,
+      id: booking_id,
     },
     data: {
       status: status,
-    },
-    select: {
-      user_id: true,
     },
   });
 
@@ -48,7 +45,7 @@ export const UpdateBookings = async (
     throw new AppError("Booking cannot be updated", 400);
   }
 
-  return updateBooking.user_id;
+  return updateBooking;
 };
 
 export const findBookingRoomsByBookingId = async (
@@ -87,65 +84,61 @@ export const findBookingRoomsByBookingId = async (
   return bookingRooms;
 };
 
-export const OverlappingBooking = async (
-  bookingId: string,
-  tx: Prisma.TransactionClient
+export const checkRoomInventory = async (
+  tx: Prisma.TransactionClient,
+  roomId: string,
+  checkInDate: Date,
+  checkOutDate: Date,
+  requestQuantity: number
 ) => {
-  const findBookings = await findBookingRoomsByBookingId(bookingId, tx);
-
-  const roomIds: string[] = (findBookings as BookingRoomCompleteType[]).map(
-    (rid) => rid.room_id
-  );
-  const bookingRoomIds: string[] = (
-    findBookings as BookingRoomCompleteType[]
-  ).map((brid) => brid.id);
-  const checkOut: Date[] = (findBookings as BookingRoomCompleteType[]).map(
-    (co) => co.check_out_date
-  );
-  const checkIn: Date[] = (findBookings as BookingRoomCompleteType[]).map(
-    (ci) => ci.check_in_date
-  );
-
-  const earliestCheckIn = new Date(
-    Math.min(...checkIn.map((date) => date.getTime()))
-  );
-  const latestCheckOut = new Date(
-    Math.max(...checkOut.map((date) => date.getTime()))
-  );
-
-  if (roomIds.length === 0) {
-    return [];
-  }
-
-  const ovrBooking = await tx.booking_rooms.findMany({
+  const db = tx ?? prisma;
+  const room = tx.rooms.findUnique({
     where: {
-      room_id: {
-        in: roomIds,
-      },
-      id: {
-        not: {
-          in: bookingRoomIds,
-        },
-      },
-      OR: [
-        { booking: { status: "confirmed" } },
-        { booking: { status: "waiting_payment" } },
-      ],
-      check_in_date: { lt: latestCheckOut },
-      check_out_date: { gt: earliestCheckIn },
+      id: roomId,
     },
     select: {
-      room_id: true,
-      quantity: true,
-      room: {
-        select: {
-          total_rooms: true,
-        },
-      },
+      total_rooms: true,
     },
   });
 
-  return ovrBooking;
+  if (!room) {
+    throw new AppError("Room not found", 404);
+  }
+
+  const totalInventory = room.total_rooms;
+
+  const overlapBookings = await tx.booking_rooms.findMany({
+    where: {
+      room_id: roomId,
+      booking: {
+        status: {
+          in: ["confirmed", "waiting_confirmation", "waiting_payment"],
+        },
+      },
+      check_in_date: {
+        lt: new Date(checkOutDate),
+      },
+      check_out_date: {
+        gt: new Date(checkInDate),
+      },
+    },
+    select: {
+      quantity: true,
+    },
+  });
+
+  const bookedQuantity = overlapBookings.reduce(
+    (sum: number, booking: { quantity: number }) => sum + booking.quantity,
+    0
+  );
+
+  const availableInventory = totalInventory - bookedQuantity;
+  if (requestQuantity > availableInventory) {
+    throw new AppError(
+      `Room is not available. Only ${availableInventory} rooms left.`,
+      400
+    );
+  }
 };
 
 export const UpdateRoomAvailability = async (
@@ -193,17 +186,7 @@ export const FindProofImage = async (
   });
 
   if (!result) {
-    throw new AppError("The booking does not exist.", 404);
-  } else {
-    if (result.proof_image) {
-      console.log("Proof image exists:", result.proof_image);
-    } else {
-      console.log(
-        "Booking exists, but a proof image has not been uploaded yet. Cancellation cannot be processed."
-      );
-      return;
-    }
+    throw new AppError("This booking does not exist.", 404);
   }
-
   return result;
 };

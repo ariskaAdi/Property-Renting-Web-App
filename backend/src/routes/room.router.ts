@@ -1,7 +1,8 @@
 import { Router } from "express";
 import RoomsController from "../controllers/rooms/rooms.controller";
-import { handleUpload } from "../config/cloudinary";
 import { uploaderMemory } from "../middleware/uploader";
+import { verifyToken } from "../middleware/VerifyToken";
+import { onlyTenant } from "../middleware/by-role/tenantMiddleware";
 
 class RoomRouter {
   private route: Router;
@@ -16,6 +17,7 @@ class RoomRouter {
   private initializeRoutes() {
     this.route.get("/all", this.roomRouter.getRoomsController);
 <<<<<<< HEAD
+<<<<<<< HEAD
     this.route.get("/search", this.roomRouter.getRoomByPropertyAndName);
     this.route.post(
       "/create",
@@ -26,10 +28,45 @@ class RoomRouter {
       "/create/:property_id",
       uploaderMemory().single("image"),
 >>>>>>> main
+=======
+    this.route.get("/search", this.roomRouter.getRoomByPropertyAndName);
+    this.route.get("/details", this.roomRouter.getRoomByPropertyAndNameDetail);
+    this.route.get("/get-date/:id", this.roomRouter.getRoomAvailability);
+    this.route.get("/get/:id", this.roomRouter.getRoomById);
+    this.route.post(
+      "/block/:id",
+      verifyToken,
+      onlyTenant,
+      this.roomRouter.blockRoomByTenant
+    );
+    this.route.post(
+      "/unblock/:id",
+      verifyToken,
+      onlyTenant,
+      this.roomRouter.unBlockRoomByTenant
+    );
+    this.route.post(
+      "/create",
+      verifyToken,
+      onlyTenant,
+      uploaderMemory().array("images", 3),
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
       this.roomRouter.createRoomController
     );
-    this.route.patch("/update/:id", this.roomRouter.updateRoom);
-    this.route.delete("/delete/:id", this.roomRouter.deleteRoom);
+    this.route.patch(
+      "/update/:id",
+      verifyToken,
+      onlyTenant,
+      uploaderMemory().array("images", 3),
+      this.roomRouter.updateRoom
+    );
+    this.route.patch(
+      "/delete/:id",
+      verifyToken,
+      onlyTenant,
+
+      this.roomRouter.deleteRoom
+    );
   }
 
   public getRouter(): Router {

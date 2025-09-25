@@ -1,22 +1,30 @@
 import { NextFunction, Request, Response } from "express";
 import {
   createPropertyServices,
-  deletePropertyServices,
+  deletePropertyService,
   getAllPropertiesService,
   getPropertyByIdService,
+<<<<<<< HEAD
 <<<<<<< HEAD
   getPropertyByLocationServices,
 =======
 >>>>>>> main
+=======
+  getPropertyByLocationServices,
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   updatePropertyServices,
 } from "../../services/property/property.service";
 import { findTenantByUserId } from "../../repositories/tenant/tenant.repository";
 import AppError from "../../errors/AppError";
 import { PropertyCategory } from "../../../prisma/generated/client";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { getTenantWithPropertiesByUserId } from "../../repositories/property/property.repository";
 =======
 >>>>>>> main
+=======
+import { getTenantWithPropertiesByUserId } from "../../repositories/property/property.repository";
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
 class PropertyController {
   public async getAllProperties(
@@ -24,7 +32,8 @@ class PropertyController {
     res: Response,
     next: NextFunction
   ): Promise<void> {
-    const { property_category } = req.query;
+    const { property_category, name, page = "1", limit = "8" } = req.query;
+
     try {
       if (
         property_category &&
@@ -34,12 +43,22 @@ class PropertyController {
       ) {
         throw new AppError("Invalid property category", 400);
       }
-      const properties = await getAllPropertiesService({
+
+      const { data, total } = await getAllPropertiesService({
         property_category: property_category as PropertyCategory,
+        name: name as string,
+        page: Number(page),
+        limit: Number(limit),
       });
-      res
-        .status(200)
-        .send({ message: "Properties found", success: true, properties });
+
+      res.status(200).send({
+        message: "Properties found",
+        success: true,
+        properties: data,
+        total,
+        page: Number(page),
+        limit: Number(limit),
+      });
     } catch (error) {
       next(error);
     }
@@ -61,6 +80,9 @@ class PropertyController {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   public async getPropertiesByTenantId(
     req: Request,
     res: Response,
@@ -107,6 +129,11 @@ class PropertyController {
         radius,
         checkIn,
         checkOut,
+<<<<<<< HEAD
+=======
+        guests,
+        rooms,
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
         category,
         minPrice,
         maxPrice,
@@ -116,7 +143,15 @@ class PropertyController {
         throw new AppError("latitude, longitude, and radius are required", 400);
       }
 
+<<<<<<< HEAD
       const rad = radius ? Number(radius) : 5;
+=======
+      if (!checkIn || !checkOut) {
+        throw new AppError("checkIn and checkOut are required", 400);
+      }
+
+      const rad = Number(radius) || 5;
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
       const lat = Number(latitude);
       const lng = Number(longitude);
 
@@ -128,7 +163,13 @@ class PropertyController {
         checkOut as string,
         category as PropertyCategory,
         minPrice ? Number(minPrice) : undefined,
+<<<<<<< HEAD
         maxPrice ? Number(maxPrice) : undefined
+=======
+        maxPrice ? Number(maxPrice) : undefined,
+        guests ? Number(guests) : undefined,
+        rooms ? Number(rooms) : undefined
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
       );
 
       res.status(200).send({
@@ -136,6 +177,18 @@ class PropertyController {
         success: true,
         radius: rad,
         user_location: { latitude: lat, longitude: lng },
+<<<<<<< HEAD
+=======
+        filters: {
+          checkIn,
+          checkOut,
+          guests: guests ? Number(guests) : undefined,
+          rooms: rooms ? Number(rooms) : undefined,
+          category,
+          minPrice: minPrice ? Number(minPrice) : undefined,
+          maxPrice: maxPrice ? Number(maxPrice) : undefined,
+        },
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
         properties,
       });
     } catch (error) {
@@ -143,8 +196,11 @@ class PropertyController {
     }
   }
 
+<<<<<<< HEAD
 =======
 >>>>>>> main
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   public async createProperty(
     req: Request,
     res: Response,
@@ -177,7 +233,20 @@ class PropertyController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const property = await updatePropertyServices(req.params.id, req.body);
+      const userId = res.locals.decrypt.userId;
+      const tenant = await findTenantByUserId(userId);
+
+      if (!tenant) {
+        throw new AppError("tenant not found", 404);
+      }
+
+      const propertyId = req.params.id;
+      const property = await updatePropertyServices(
+        propertyId,
+        req.body,
+        req.file as Express.Multer.File,
+        tenant.id
+      );
       res
         .status(200)
         .send({ message: "Property updated", success: true, property });
@@ -192,10 +261,20 @@ class PropertyController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const property = await deletePropertyServices(req.params.id);
+      const userId = res.locals.decrypt.userId;
+      const tenant = await findTenantByUserId(userId);
+
+      if (!tenant) {
+        throw new AppError("Tenant not found", 404);
+      }
+
+      const propertyId = req.params.id;
+
+      await deletePropertyService(propertyId, tenant.id);
+
       res
         .status(200)
-        .send({ message: "Property deleted", success: true, property });
+        .send({ message: "Property deleted (soft delete)", success: true });
     } catch (error) {
       next(error);
     }

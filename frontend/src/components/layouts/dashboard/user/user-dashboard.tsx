@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { CheckCircle } from "lucide-react";
 import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
+<<<<<<< HEAD
 import { useFetchMe } from "@/hooks/useUser";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { User } from "@/types/auth/auth";
@@ -70,6 +71,50 @@ const UserDashboard = () => {
     }
 
     mutation.mutate(payload);
+=======
+import { useFetchMe, useUpdateProfile } from "@/hooks/useUser";
+import LoadingSpinner from "@/components/fragment/loading-error/LoadingSpinner";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+
+type FormValues = {
+  full_name: string;
+};
+
+const UserDashboard = () => {
+  const { data: user, isLoading } = useFetchMe();
+  const { register, handleSubmit, reset } = useForm<FormValues>();
+
+  const [preview, setPreview] = useState("/avatar.png");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const { mutate, isPending } = useUpdateProfile();
+
+  useEffect(() => {
+    if (user) {
+      reset({
+        full_name: user.full_name || "",
+      });
+      setPreview(user.profile_picture || "/avatar.png");
+    }
+  }, [user, reset]);
+
+  const onSubmit = (data: FormValues) => {
+    mutate(
+      {
+        full_name: data.full_name,
+        profile_picture: selectedFile ?? undefined,
+      },
+      {
+        onSuccess: () => {
+          toast.success(
+            "Profile updated successfully! Your profile has been successfully updated."
+          );
+        },
+      }
+    );
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   };
 
   const handleButtonClick = () => {
@@ -84,7 +129,11 @@ const UserDashboard = () => {
     }
   };
 
+<<<<<<< HEAD
   if (isLoading) return <p className="p-4">Loading...</p>;
+=======
+  if (isLoading) return <LoadingSpinner />;
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   if (!user) return <p className="p-4">No user data found</p>;
 
   return (
@@ -101,9 +150,16 @@ const UserDashboard = () => {
           <div className="flex flex-col items-center gap-4 lg:w-1/3">
             <div className="relative w-40 h-40 rounded-full overflow-hidden border">
               <Image
+<<<<<<< HEAD
                 src={preview || "/avatar.png"}
                 alt="Profile Picture"
                 fill
+=======
+                src={preview}
+                alt={user.full_name.charAt(0).toUpperCase()}
+                fill
+                unoptimized
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
                 className="object-cover"
               />
             </div>
@@ -127,17 +183,25 @@ const UserDashboard = () => {
 
           {/* Right: Form */}
           <form
+<<<<<<< HEAD
             onSubmit={handleSubmit}
+=======
+            onSubmit={handleSubmit(onSubmit)}
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
             className="flex-1 space-y-4 lg:space-y-6">
             <div>
               <Label htmlFor="name" className="text-sm font-medium mb-2 block">
                 Name
               </Label>
+<<<<<<< HEAD
               <Input
                 id="name"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
               />
+=======
+              <Input id="name" {...register("full_name")} />
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
             </div>
 
             <div>
@@ -148,8 +212,13 @@ const UserDashboard = () => {
                 <Input
                   id="email"
                   type="email"
+<<<<<<< HEAD
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+=======
+                  value={user.email}
+                  disabled
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
                   className="pr-20"
                 />
                 {user.is_verified && (
@@ -168,7 +237,11 @@ const UserDashboard = () => {
               <Label htmlFor="role" className="text-sm font-medium mb-2 block">
                 Role
               </Label>
+<<<<<<< HEAD
               <h1>{user.role}</h1>
+=======
+              <Badge className="uppercase">{user.role}</Badge>
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
             </div>
 
             <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 pt-4 lg:pt-6">
@@ -176,19 +249,35 @@ const UserDashboard = () => {
                 type="button"
                 variant="outline"
                 onClick={() => {
+<<<<<<< HEAD
                   setFullName(user.full_name || "");
                   setEmail(user.email || "");
                   setPreview(user.profile_picture || "/placeholder.svg");
                   setSelectedFile(null);
                 }}
                 className="flex-1 bg-transparent order-2 sm:order-1">
+=======
+                  reset({
+                    full_name: user.full_name || "",
+                  });
+                  setPreview(user.profile_picture || "/avatar.png");
+                  setSelectedFile(null);
+                }}
+                className="flex-1 bg-transparent order-2 sm:order-1 cursor-pointer">
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
                 Discard Changes
               </Button>
               <Button
                 type="submit"
+<<<<<<< HEAD
                 disabled={mutation.isPending}
                 className="flex-1 bg-orange-500 hover:bg-orange-600 order-1 sm:order-2">
                 {mutation.isPending ? "Saving..." : "Save Changes"}
+=======
+                disabled={isPending}
+                className="flex-1 bg-orange-500 hover:bg-orange-600 order-1 sm:order-2 cursor-pointer">
+                {isPending ? "Saving..." : "Save Changes"}
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
               </Button>
             </div>
           </form>
@@ -198,4 +287,8 @@ const UserDashboard = () => {
   );
 };
 
+<<<<<<< HEAD
 export default UserDashboard;
+=======
+export default UserDashboard;
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37

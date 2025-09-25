@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,43 +12,89 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 =======
 import { useParams, useRouter } from "next/navigation";
 >>>>>>> main
 import { useVerifyEmail } from "@/hooks/useAuth";
+=======
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useNewOtpVerification, useVerifyEmail } from "@/hooks/useAuth";
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
 export default function VerifyEmail() {
   const { email } = useParams<{ email: string }>();
   const decodedEmail = decodeURIComponent(email);
 <<<<<<< HEAD
+<<<<<<< HEAD
   const searchParams = useSearchParams();
   const role = searchParams.get("role");
 =======
 >>>>>>> main
+=======
+  const searchParams = useSearchParams();
+  const role = searchParams.get("role");
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const router = useRouter();
 
-  const { mutate: VerifyEmail, isPending, isError } = useVerifyEmail();
+  const {
+    mutate: VerifyEmail,
+    isPending: isVerifyPending,
+    isError,
+  } = useVerifyEmail();
+  const { mutate: resendOtp, isPending: isResendPending } =
+    useNewOtpVerification();
+
+  const [timeLeft, setTimeLeft] = useState(60 * 60);
+
+  useEffect(() => {
+    if (timeLeft <= 0) return;
+
+    const interval = setInterval(() => {
+      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timeLeft]);
+
+  // Format menit:detik
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${String(minutes).padStart(2, "0")}:${String(secs).padStart(
+      2,
+      "0"
+    )}`;
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
     const value = e.target.value.slice(-1);
 =======
     const value = e.target.value.slice(-1); // hanya ambil 1 karakter
 >>>>>>> main
+=======
+    const value = e.target.value.slice(-1);
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     // Auto focus ke input berikutnya
 >>>>>>> main
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     if (value && index < 5) {
       const nextInput = document.getElementById(`otp-${index + 1}`);
       nextInput?.focus();
@@ -58,13 +104,13 @@ export default function VerifyEmail() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const otpValue = otp.join("");
-    console.log("OTP entered:", otpValue);
 
     VerifyEmail(
       { email: decodedEmail, otp: otpValue },
       {
         onSuccess: (data) => {
           console.log(data);
+<<<<<<< HEAD
 <<<<<<< HEAD
           if (role === "tenant") {
             router.push(`/auth/tenant/${decodedEmail}`);
@@ -74,9 +120,32 @@ export default function VerifyEmail() {
 =======
           router.push("/auth/login");
 >>>>>>> main
+=======
+          setErrorMessage(null);
+          if (role === "tenant") {
+            router.push(`/auth/tenant/${encodeURIComponent(decodedEmail)}`);
+          } else {
+            router.push("/auth/login");
+          }
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
         },
         onError: (error) => {
           console.log(error);
+          setErrorMessage("Invalid OTP");
+          setOtp(["", "", "", "", "", ""]);
+          const firstInput = document.getElementById("otp-0");
+          firstInput?.focus();
+        },
+      }
+    );
+  };
+
+  const handleResend = () => {
+    resendOtp(
+      { email: decodedEmail },
+      {
+        onSuccess: () => {
+          setTimeLeft(60 * 60);
         },
       }
     );
@@ -126,24 +195,34 @@ export default function VerifyEmail() {
                     />
                   ))}
                 </div>
+                {errorMessage && (
+                  <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
+                )}
               </div>
 
               {/* Submit */}
               <Button
                 type="submit"
-                className="w-full mt-4"
-                disabled={isPending}>
-                {isPending ? "Loading..." : "Verify"}
+                className="w-full mt-4 cursor-pointer"
+                disabled={isVerifyPending}>
+                {isVerifyPending ? "Loading..." : "Verify"}
                 {isError && "Error"}
               </Button>
             </form>
           </CardContent>
 
-          <CardFooter className="text-center text-sm text-gray-600">
-            Didn&apos;t receive OTP?{" "}
-            <Button variant="link" className="text-blue-500 hover:underline">
+          <CardFooter className="flex flex-col items-center gap-2 text-sm text-gray-600">
+            <div>Didn&apos;t receive OTP?</div>
+            <Button
+              variant="link"
+              className="text-blue-500 hover:underline"
+              disabled={isResendPending}
+              onClick={handleResend}>
               Resend OTP
             </Button>
+            <div className="text-gray-500 text-xs">
+              OTP valid for: {formatTime(timeLeft)}
+            </div>
           </CardFooter>
         </Card>
       </div>

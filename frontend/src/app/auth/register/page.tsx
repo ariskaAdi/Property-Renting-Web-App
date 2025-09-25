@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,15 +13,34 @@ import {
 } from "@/components/ui/card";
 import { useRegisterUser } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema, RegisterSchema } from "@/lib/validation/auth";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function RegisterPage() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-    role: "user",
+  const router = useRouter();
+  const { mutate: register, isPending, isError } = useRegisterUser();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const {
+    register: formRegister,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    watch,
+  } = useForm<RegisterSchema>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      role: "user",
+    },
   });
 
+<<<<<<< HEAD
   const router = useRouter();
 
   const { mutate: register, isPending, isError } = useRegisterUser();
@@ -49,6 +67,12 @@ export default function RegisterPage() {
       },
       onError: (error) => {
         console.log(error);
+=======
+  const onSubmit = (data: RegisterSchema) => {
+    register(data, {
+      onSuccess: () => {
+        router.push(`/auth/verify-email/${data.email}?role=${data.role}`);
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
       },
     });
   };
@@ -65,7 +89,7 @@ export default function RegisterPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               {/* Username */}
               <div>
                 <Label htmlFor="name" className="mb-2">
@@ -73,12 +97,14 @@ export default function RegisterPage() {
                 </Label>
                 <Input
                   id="name"
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  required
+                  {...formRegister("name")}
                   placeholder="Enter your username"
                 />
+                {errors.name && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {errors.name.message}
+                  </p>
+                )}
               </div>
 
               {/* Email */}
@@ -89,12 +115,14 @@ export default function RegisterPage() {
                 <Input
                   id="email"
                   type="email"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  required
+                  {...formRegister("email")}
                   placeholder="Enter your email"
                 />
+                {errors.email && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
 
               {/* Password */}
@@ -102,15 +130,29 @@ export default function RegisterPage() {
                 <Label htmlFor="password" className="mb-2">
                   Password
                 </Label>
-                <Input
-                  id="password"
-                  type="password"
-                  name="password"
-                  value={form.password}
-                  onChange={handleChange}
-                  required
-                  placeholder="Enter your password"
-                />
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    {...formRegister("password")}
+                    placeholder="Enter your password"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700">
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </button>
+                </div>
+                {errors.password && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {errors.password.message}
+                  </p>
+                )}
               </div>
 
               {/* Role */}
@@ -120,27 +162,34 @@ export default function RegisterPage() {
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="checkbox"
-                      checked={form.role === "user"}
-                      onChange={() => handleRoleChange("user")}
+                      checked={watch("role") === "user"}
+                      onChange={() => setValue("role", "user")}
                     />
                     User
                   </label>
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="checkbox"
-                      checked={form.role === "tenant"}
-                      onChange={() => handleRoleChange("tenant")}
+                      checked={watch("role") === "tenant"}
+                      onChange={() => setValue("role", "tenant")}
                     />
                     Tenant
                   </label>
                 </div>
+                {errors.role && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {errors.role.message}
+                  </p>
+                )}
               </div>
 
               {/* Submit */}
               <Button type="submit" className="w-full" disabled={isPending}>
                 {isPending ? "Loading..." : "Register"}
-                {isError && "Error"}
               </Button>
+              {isError && (
+                <p className="text-sm text-red-500 mt-2">Failed to register</p>
+              )}
             </form>
           </CardContent>
 

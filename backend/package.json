@@ -4,7 +4,9 @@
   "description": "echo \"# Project\" > README.md",
   "main": "src/index.ts",
   "scripts": {
-    "start": "src/index.ts",
+    "start:api": "src/index.ts",
+    "start:worker:expirations": "nodemon src/services/jobs/expired-booking.worker.ts",
+    "start:worker:bookingreminder": "nodemon src/services/jobs/booking-reminder.worker.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.ts"
   },
@@ -19,18 +21,27 @@
     "cloudinary": "^2.7.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+<<<<<<< HEAD
+=======
+    "date-fns": "^4.1.0",
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     "dayjs": "^1.11.15",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
+    "googleapis": "^159.0.0",
+    "graphile-worker": "^0.16.6",
     "handlebars": "^4.7.8",
     "jsonwebtoken": "^9.0.2",
     "luxon": "^3.7.1",
+    "midtrans-client": "^1.4.3",
     "multer": "^2.0.2",
     "node-cron": "^4.2.1",
     "nodemailer": "^7.0.5",
     "pg-boss": "^10.3.2",
     "prisma": "^6.13.0",
+    "qs": "^6.14.0",
+    "react-toastify": "^11.0.5",
     "streamifier": "^0.1.1",
     "winston": "^3.17.0"
   },
@@ -40,8 +51,10 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/midtrans-client": "^1.4.0",
     "@types/node": "^24.2.0",
     "@types/nodemailer": "^6.4.17",
+    "@types/qs": "^6.14.0",
     "@types/streamifier": "^0.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"

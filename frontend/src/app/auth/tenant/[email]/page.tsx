@@ -1,17 +1,32 @@
 "use client";
 
+<<<<<<< HEAD
 import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+=======
+import { useParams, useRouter } from "next/navigation";
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRegisterTenant } from "@/hooks/useTenant";
 import Image from "next/image";
+<<<<<<< HEAD
+=======
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  registerTenantSchema,
+  RegisterTenantSchema,
+} from "@/lib/validation/tenant";
+import { useState } from "react";
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
 export default function RegisterTenantPage() {
   const { email } = useParams<{ email: string }>();
   const decodedEmail = decodeURIComponent(email);
+<<<<<<< HEAD
   const router = useRouter();
 
   const [form, setForm] = useState({
@@ -45,6 +60,39 @@ export default function RegisterTenantPage() {
         address: form.address,
         phone_number: form.phone_number,
         logo: logoFile,
+=======
+
+  const router = useRouter();
+
+  const { mutate: registerTenant, isPending, isError } = useRegisterTenant();
+
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<RegisterTenantSchema>({
+    resolver: zodResolver(registerTenantSchema),
+    defaultValues: {
+      email: decodedEmail,
+      company_name: "",
+      address: "",
+      phone_number: "",
+      logo: undefined as unknown as File,
+    },
+  });
+
+  const onSubmit = (data: RegisterTenantSchema) => {
+    registerTenant(
+      {
+        email: decodedEmail || "",
+        company_name: data.company_name,
+        address: data.address,
+        phone_number: data.phone_number,
+        logo: data.logo,
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
       },
       {
         onSuccess: () => {
@@ -66,6 +114,7 @@ export default function RegisterTenantPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
+<<<<<<< HEAD
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <Label htmlFor="company_name">Company Name</Label>
@@ -103,10 +152,48 @@ export default function RegisterTenantPage() {
                 />
               </div>
 
+=======
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              {/* Company Name */}
+              <div>
+                <Label htmlFor="company_name">Company Name</Label>
+                <Input id="company_name" {...register("company_name")} />
+                {errors.company_name && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {errors.company_name.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Address */}
+              <div>
+                <Label htmlFor="address">Address</Label>
+                <Input id="address" {...register("address")} />
+                {errors.address && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {errors.address.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Phone Number */}
+              <div>
+                <Label htmlFor="phone_number">Phone Number</Label>
+                <Input id="phone_number" {...register("phone_number")} />
+                {errors.phone_number && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {errors.phone_number.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Logo */}
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
               <div>
                 <Label htmlFor="logo">Company Logo</Label>
                 <Input
                   id="logo"
+<<<<<<< HEAD
                   name="logo"
                   type="file"
                   accept="image/*"
@@ -119,6 +206,27 @@ export default function RegisterTenantPage() {
                   <div className="mt-4 flex justify-center">
                     <Image
                       src={URL.createObjectURL(logoFile)}
+=======
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      setValue("logo", file, { shouldValidate: true });
+                      setLogoPreview(URL.createObjectURL(file));
+                    }
+                  }}
+                />
+                {errors.logo && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {errors.logo.message}
+                  </p>
+                )}
+                {logoPreview && (
+                  <div className="mt-4 flex justify-center">
+                    <Image
+                      src={logoPreview}
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
                       alt="Logo Preview"
                       width={150}
                       height={150}
@@ -130,8 +238,15 @@ export default function RegisterTenantPage() {
 
               <Button type="submit" className="w-full" disabled={isPending}>
                 {isPending ? "Loading..." : "Register Tenant"}
+<<<<<<< HEAD
                 {isError && "Error"}
               </Button>
+=======
+              </Button>
+              {isError && (
+                <p className="text-sm text-red-500 mt-2">Failed to register</p>
+              )}
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
             </form>
           </CardContent>
         </Card>

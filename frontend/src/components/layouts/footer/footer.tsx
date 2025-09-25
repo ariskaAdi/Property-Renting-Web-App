@@ -8,11 +8,19 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About */}
           <div>
+<<<<<<< HEAD
             <h3 className="text-lg font-semibold mb-4">StayEase</h3>
             <p className="text-gray-400 text-sm">
               StayEase is your trusted platform for booking villas, apartments,
               homestays, and hotels. Find the perfect accommodation for your
               next trip quickly and easily.
+=======
+            <h3 className="text-lg font-semibold mb-4">homz</h3>
+            <p className="text-gray-400 text-sm">
+              Homz adalah platform sewa properti modern yang memudahkan
+              masyarakat Indonesia menemukan hunian dengan cepat, aman, dan
+              nyaman.
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
             </p>
           </div>
 
@@ -27,7 +35,11 @@ export function Footer() {
               </li>
               <li>
                 <Link
+<<<<<<< HEAD
                   href="/properties"
+=======
+                  href="/#properties"
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
                   className="text-gray-400 hover:text-white">
                   Properties
                 </Link>
@@ -39,9 +51,15 @@ export function Footer() {
               </li>
               <li>
                 <Link
+<<<<<<< HEAD
                   href="/contact"
                   className="text-gray-400 hover:text-white">
                   Contact
+=======
+                  href="/#destination"
+                  className="text-gray-400 hover:text-white">
+                  Desitnation
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
                 </Link>
               </li>
             </ul>
@@ -61,7 +79,11 @@ export function Footer() {
               </li>
               <li className="flex items-center">
                 <Mail className="h-4 w-4 mr-2" />
+<<<<<<< HEAD
                 support@stayease.com
+=======
+                support@homz.com
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
               </li>
             </ul>
           </div>
@@ -69,7 +91,11 @@ export function Footer() {
 
         {/* Footer Bottom */}
         <div className="mt-10 pt-6 border-t border-gray-800 text-center text-sm text-gray-500">
+<<<<<<< HEAD
           © {new Date().getFullYear()} StayEase. All rights reserved.
+=======
+          © {new Date().getFullYear()} homz. All rights reserved.
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
         </div>
       </div>
     </footer>

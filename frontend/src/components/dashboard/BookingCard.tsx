@@ -2,7 +2,7 @@ import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import { Booking } from "@/types/transactions/transactions";
-import { MapPin, Calendar, Users, ShieldCheck } from "lucide-react";
+import { MapPin, Calendar, Users} from "lucide-react";
 import {
   useCancelBookingByRole,
   useTenantAcceptBooking,
@@ -15,7 +15,8 @@ import { useRef, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Spinner } from "../ui/shadcn-io/spinner";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
+import Image from "next/image";
 
 const getStatusColor = (status: string) => {
   switch (status) {
@@ -36,9 +37,8 @@ export type BookingCardProps = {
 };
 
 export const BookingCard = ({ booking, role }: BookingCardProps) => {
-  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [_, setIsSuccessModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [uploadFile, setUploadFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
   const cancelBookingMutation = useCancelBookingByRole(role);
@@ -104,10 +104,10 @@ export const BookingCard = ({ booking, role }: BookingCardProps) => {
         toast.success("Payment proof uploaded successfully!");
         setIsSuccessModalOpen(true);
         router.push("/dashboard/bookings?page=1&status=confirmed&sort=desc");
-      } catch (error: any) {
+      } catch (error) {
         toast.error(
-          error.response?.data?.message || "Upload failed. Please try again."
-        );
+          "Failed to upload payment proof. Please try again later.");
+          console.log(error);
       } finally {
         setIsLoading(false);
       }
@@ -123,10 +123,10 @@ export const BookingCard = ({ booking, role }: BookingCardProps) => {
             <div className="flex flex-col lg:flex-row gap-4">
         
               <div className="w-full lg:w-32 h-20 rounded-lg overflow-hidden bg-gray-100">
-                <img
+                <Image
                   src={booking.property?.main_image ?? "/placeholder.svg"}
-                  alt={booking.property?.name}
-                  className="w-full h-full object-cover"
+                  alt={booking.property?.name || "Property Image"}
+                  className="object-cover w-full h-full"
                 />
               </div>
 

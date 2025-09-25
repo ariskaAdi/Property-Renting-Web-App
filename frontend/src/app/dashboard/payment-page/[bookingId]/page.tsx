@@ -24,7 +24,7 @@ export type PaymentPageParams = {
 export default function PaymentPage() {
   const [timeLeft, setTimeLeft] = useState<string>("");
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
   const params = useParams<PaymentPageParams>();
   const uploadMutation = useUploadProofMutation();
 
@@ -32,27 +32,11 @@ export default function PaymentPage() {
   const bookingId = params.bookingId;
 
   // Fetch Booking
-  const {
-    data: booking,
-    isLoading: BookingLoading,
-    isError,
-  } = useUserBookingByQuery(bookingId);
+  const { data: booking, isError } = useUserBookingByQuery(bookingId);
 
   // Data Parsing
 
-  let startDateDisplay = "Date not available";
-  let endDateDisplay = "Date not available";
   let totalPriceDisplay = "Calculating...";
-
-  if (booking?.check_in_date) {
-    const startDateObject = parseISO(booking.check_in_date);
-    startDateDisplay = format(startDateObject, "eee, d MMM yyyy");
-  }
-
-  if (booking?.check_out_date) {
-    const endDateObject = parseISO(booking.check_out_date);
-    endDateDisplay = format(endDateObject, "eee, d MMM yyyy");
-  }
 
   if (booking?.total_price) {
     totalPriceDisplay = formatCurrency(booking.total_price);

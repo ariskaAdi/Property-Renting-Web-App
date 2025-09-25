@@ -1,24 +1,17 @@
+import { FlexibleBookingParams } from "@/services/transactions.services";
 import {
-  FetchBookingsParams,
-  FlexibleBookingParams,
-} from "@/services/transactions.services";
-import {
-  Booking,
   BookingsApiResponse,
   BookingStatus,
-  isValidBookingHistoryStatus,
   isValidBookingStatus,
   isValidSort,
   PaginatedBookings,
   SortStatus,
-  VALID_BOOKING_HISTORY_STATUS,
 } from "@/types/transactions/transactions";
 import axios from "axios";
 import qs from "qs";
 import { getCurrentUser } from "@/lib/cookie-auth";
 import { PastBookingsClient } from "@/components/dashboard/PastBookingsClientPage";
 import { cookies } from "next/headers";
-import { isBefore } from "date-fns";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -64,7 +57,9 @@ export default async function pastBookingsPage({
   const status = Array.isArray(sp.status) ? sp.status[0] : sp.status;
   const sort = Array.isArray(sp.sort) ? sp.sort[0] : sp.sort;
   const page = Array.isArray(sp.page) ? sp.page[0] : sp.page;
-  const startDate = Array.isArray(sp.startDate) ? sp.startDate[0] : sp.startDate;
+  const startDate = Array.isArray(sp.startDate)
+    ? sp.startDate[0]
+    : sp.startDate;
   const endDate = Array.isArray(sp.endDate) ? sp.endDate[0] : sp.endDate;
   const bookingId = Array.isArray(sp.bookingId)
     ? sp.bookingId[0]
@@ -76,7 +71,7 @@ export default async function pastBookingsPage({
     page: string;
     bookingId: string;
     startDate?: string;
-    endDate?: string 
+    endDate?: string;
   };
 
   const filters: Filters = {

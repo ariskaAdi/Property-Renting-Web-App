@@ -53,12 +53,12 @@ export default async function UserSalesTable() {
           </tr>
         </thead>
         <tbody className="text-sm leading-relaxed text-[var(--color-foreground)]">
-          {userData.map((user: any) => (
+          {userData.map((user: { [key: string]: any }) => (
             <tr
               key={user.userId}
               className="border-b border-[var(--color-border)] last:border-b-0 last:[&>td:first-child]:rounded-bl-[var(--radius-xl)] last:[&>td:last-child]:rounded-br-[var(--radius-xl)]"
             >
-              {columns.map((column: any) => (
+              {columns.map((column: { key: string }) => (
                 <td
                   key={column.key}
                   className="px-4 py-4 font-medium text-[var(--color-foreground)]"

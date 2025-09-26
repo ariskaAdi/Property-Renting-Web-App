@@ -25,7 +25,9 @@ interface SnapProps {
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const SnapMidtrans = ({ bookingId }: SnapProps) => {
-  const [_, setPaymentResult] = useState<SnapSuccessResult | SnapErrorResult | null>(null);
+  const [paymentResult, setPaymentResult] = useState<
+    SnapSuccessResult | SnapErrorResult | null
+  >(null);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -102,6 +104,18 @@ export const SnapMidtrans = ({ bookingId }: SnapProps) => {
               once the tenant accepts your payment.
             </DialogDescription>
           </DialogHeader>
+
+          {paymentResult && "order_id" in paymentResult && (
+            <div className="text-sm text-muted-foreground bg-slate-50 p-4 rounded-lg border text-left space-y-1">
+              <p>
+                <strong>Order ID:</strong> {paymentResult.order_id}
+              </p>
+              <p className="capitalize">
+                <strong>Payment Type:</strong>{" "}
+                {paymentResult.payment_type.replace(/_/g, " ")}
+              </p>
+            </div>
+          )}
           <DialogFooter>
             <Button onClick={handleCloseModal}>View My Bookings</Button>
           </DialogFooter>

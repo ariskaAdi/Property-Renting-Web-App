@@ -15,11 +15,13 @@ import { cookies } from "next/headers";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
+type SearchParams = { [ key: string]: string | string[] | undefined };
+
 type BookingsPageProps = {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<SearchParams>;
 };
 
-export const fetchBookings = async <T extends FlexibleBookingParams>(
+const fetchBookings = async <T extends FlexibleBookingParams>(
   query: T
 ): Promise<PaginatedBookings> => {
   try {
@@ -46,11 +48,10 @@ export const fetchBookings = async <T extends FlexibleBookingParams>(
   }
 };
 
-export default async function pastBookingsPage({
-  searchParams,
-}: BookingsPageProps) {
+export default async function pastBookingsPage(
+  props: BookingsPageProps) {
   const user = await getCurrentUser();
-  const sp = await searchParams;
+  const sp = await props.searchParams;
   const role =
     user?.role === "user" || user?.role === "tenant" ? user.role : "user";
 

@@ -61,6 +61,7 @@ export const UploadProofFunction = ({
       toast.error(
        "Upload failed. Please try again."
       );
+      console.error("Error uploading payment proof:", error);
     } finally {
       setIsLoading(false);
     }

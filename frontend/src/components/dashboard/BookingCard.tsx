@@ -2,7 +2,7 @@ import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import { Booking } from "@/types/transactions/transactions";
-import { MapPin, Calendar, Users} from "lucide-react";
+import { MapPin, Calendar, Users, CheckCircle } from "lucide-react";
 import {
   useCancelBookingByRole,
   useTenantAcceptBooking,
@@ -17,6 +17,8 @@ import { useRouter } from "next/navigation";
 import { Spinner } from "../ui/shadcn-io/spinner";
 import { toast } from "sonner";
 import Image from "next/image";
+import { Dialog, DialogContent, DialogFooter, DialogHeader } from "../ui/dialog";
+import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 
 const getStatusColor = (status: string) => {
   switch (status) {
@@ -37,7 +39,7 @@ export type BookingCardProps = {
 };
 
 export const BookingCard = ({ booking, role }: BookingCardProps) => {
-  const [_, setIsSuccessModalOpen] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
@@ -52,7 +54,7 @@ export const BookingCard = ({ booking, role }: BookingCardProps) => {
   const price = booking.amount;
 
   const bookingId = booking.id;
-  const hasReviewed = booking._count.reviews
+  const hasReviewed = booking._count.reviews;
 
   const isTenantActionRequired =
     role === "tenant" && booking.status === "waiting_confirmation";
@@ -103,25 +105,47 @@ export const BookingCard = ({ booking, role }: BookingCardProps) => {
         );
         toast.success("Payment proof uploaded successfully!");
         setIsSuccessModalOpen(true);
-        router.push("/dashboard/bookings?page=1&status=confirmed&sort=desc");
       } catch (error) {
-        toast.error(
-          "Failed to upload payment proof. Please try again later.");
-          console.log(error);
+        toast.error("Failed to upload payment proof. Please try again later.");
+        console.log(error);
       } finally {
         setIsLoading(false);
       }
     }
   };
 
+   const handleCloseModal = () => {
+    setIsSuccessModalOpen(false);
+    router.push("/dashboard/bookings?page=1&status=waiting_confirmation&sort=desc");
+  };
+
   return (
     <CardContent className="px-1 py-1">
+      <Dialog open={isSuccessModalOpen} onOpenChange={setIsSuccessModalOpen}>
+        <DialogContent
+          onEscapeKeyDown={(e) => e.preventDefault()}
+          onInteractOutside={(e) => e.preventDefault()}
+          className="sm:max-w-md"
+        >
+          <DialogHeader className="flex flex-col items-center text-center">
+            <CheckCircle className="h-16 w-16 text-green-500 mb-4" />
+            <DialogTitle className="text-2xl">Upload Successful!</DialogTitle>
+            <DialogDescription className="pt-2">
+              Your payment proof has been submitted. The tenant will verify it
+              shortly.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="pt-4">
+            <Button onClick={handleCloseModal} className="w-full">
+              View My Bookings
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       <div className="space-y-1">
-        
         <Card key={booking.id} className="border border-gray-200">
           <CardContent className="p-4">
             <div className="flex flex-col lg:flex-row gap-4">
-        
               <div className="w-full lg:w-32 h-20 rounded-lg overflow-hidden bg-gray-100">
                 <Image
                   src={booking.property?.main_image ?? "/placeholder.svg"}

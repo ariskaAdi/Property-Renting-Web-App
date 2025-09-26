@@ -33,12 +33,22 @@ class PropertyRouter {
     this.route.get("/all", this.propertyController.getAllProperties);
     this.route.get("/:propertyId/reviews", this.reviewController.getReviews);
     this.route.get("/get/:id", this.propertyController.getPropertyById);
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     this.route.get("/nearby", this.propertyController.getPropertyByLocation);
     this.route.get(
       "/tenant",
       verifyToken,
       this.propertyController.getPropertiesByTenantId
     );
+<<<<<<< HEAD
+=======
+>>>>>>> main
+    this.route.patch("/update/:id", this.propertyController.updateProperty);
+    this.route.delete("/delete/:id", this.propertyController.deleteProperty);
+=======
     this.route.patch(
       "/update/:id",
       verifyToken,
@@ -53,6 +63,7 @@ class PropertyRouter {
       onlyTenant,
       this.propertyController.deleteProperty
     );
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   public getRouter(): Router {

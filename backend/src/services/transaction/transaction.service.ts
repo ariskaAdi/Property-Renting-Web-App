@@ -1,7 +1,15 @@
 import { Prisma } from "@prisma/client";
 import { prisma } from "../../config/prisma";
 import AppError from "../../errors/AppError";
+<<<<<<< HEAD
+<<<<<<< HEAD
+import { findBookingRoomsByBookingId } from "../../repositories/transaction/tenant-tx.repository";
+=======
+import { findBookingRoomsByBookingId } from "../../repositories/transaction/transaction.repository";
+>>>>>>> main
+=======
 import { findBookingRoomsByBookingId, updateProofImageRepository } from "../../repositories/transaction/tenant-tx.repository";
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 import { sendEmail } from "../email.service";
 import {
   getEmailAndFullnameById,

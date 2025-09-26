@@ -2,6 +2,23 @@ import { Request, Response, NextFunction } from "express";
 import { prisma } from "../../../config/prisma";
 import AppError from "../../../errors/AppError";
 import {
+<<<<<<< HEAD
+  findBookingRoomsByBookingId,
+<<<<<<< HEAD
+  findOrderByStatus,
+=======
+>>>>>>> main
+  FindProofImage,
+  OverlappingBooking,
+  UpdateBookings,
+  UpdateRoomAvailability,
+  ValidateBooking,
+<<<<<<< HEAD
+} from "../../../repositories/transaction/tenant-tx.repository";
+=======
+} from "../../../repositories/transaction/transaction.repository";
+>>>>>>> main
+=======
   acceptBookingPayment,
   findBookingByIdRepository,
   findBookingIncludeBookingRooms,
@@ -10,6 +27,7 @@ import {
   UpdateRoomAvailability,
   ValidateBooking,
 } from "../../../repositories/transaction/tenant-tx.repository";
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 import { getEmailAndFullnameById } from "../../../repositories/user/user.respository";
 import {
   getRoomAmount,
@@ -29,13 +47,83 @@ class TenantTransactions {
     next: NextFunction
   ) => {
     try {
+<<<<<<< HEAD
+<<<<<<< HEAD
       const role = res.locals.decrypt.role;
+      // Validate Transaction ID
+
+      const transactionId = req.params?.id;
+=======
+      // Validate Role
+      const decrypt = res.locals.decrypt;
+=======
+      const role = res.locals.decrypt.role;
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
       const bookingId = req.params.id;
 
+<<<<<<< HEAD
+      // Validate Transaction ID
+
+      const transactionId = req.params.id;
+>>>>>>> main
+
+      if (!transactionId) {
+        throw new AppError("Invalid transaction ID", 400);
+      }
+
+      // Batch Query Accept Transaction
+<<<<<<< HEAD
+      const bookingProcess = await prisma.$transaction(async (tx) => {
+        // Validate Property --> repository selects property key
+        await ValidateBooking(transactionId, role.userId, tx);
+
+        // Update booking and Return UserID
+=======
+
+      const bookingProcess = await prisma.$transaction(async (tx) => {
+        // Validate Property --> repository selects property key
+        await ValidateBooking(transactionId, decrypt.userId, tx);
+
+        // Update booking and Return UserID
+
+>>>>>>> main
+        const userID = await UpdateBookings(transactionId, "confirmed", tx);
+
+        // Validate user
+
+        await getEmailAndFullnameById(userID);
+
+        // Find rooms
+        const findRooms = await findBookingRoomsByBookingId(transactionId, tx);
+
+        // Finding overlapping booking from date, room_id, and booking status
+        const overlappingBooking = await OverlappingBooking(transactionId, tx);
+
+        // Calculating room availability based on dates and room
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
+        const availability = availableRooms(findRooms, overlappingBooking, tx);
+
+        return {
+          userID,
+          findRooms,
+          availability,
+        };
+      });
+
+      // Send Booking Confirmation
+      await sendUserBookingConfirmation(
+        transactionId,
+        bookingProcess.userID,
+        bookingProcess.findRooms
+=======
       const updatedBooking = await acceptBookingPayment(
         bookingId,
         role.tenant_id
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
       );
 
       quickAddJob(
@@ -67,15 +155,38 @@ class TenantTransactions {
     next: NextFunction
   ) => {
     try {
+<<<<<<< HEAD
+<<<<<<< HEAD
+      const role = res.locals.decrypt.role;
+=======
+      // Validate Role
+      const decrypt = res.locals.decrypt;
+
+      if (!decrypt || decrypt.role !== "tenant") {
+        throw new AppError("Unauthorized access", 401);
+      }
+>>>>>>> main
+=======
       const role = res.locals.decrypt.role;
 
       const bookingId = req.params.id;
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
       if (!bookingId) {
         throw new AppError("Invalid transaction ID", 400);
       }
 
       const rejectProcess = await prisma.$transaction(async (tx) => {
+<<<<<<< HEAD
+        // Validate Property --> repository selects property key
+<<<<<<< HEAD
+        await ValidateBooking(transactionId, role.userId, tx);
+=======
+        await ValidateBooking(transactionId, decrypt.userId, tx);
+>>>>>>> main
+
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
         // Update booking and Return UserID
 
         const updatedBooking = await UpdateBookings(bookingId, "waiting_payment", tx);
@@ -111,12 +222,38 @@ class TenantTransactions {
     next: NextFunction
   ) => {
     try {
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+      // Validate Role
+      const decrypt = res.locals.decrypt;
+=======
       const bookingId = req.params.id;
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
       if (!bookingId) {
         throw new AppError("Invalid booking ID", 400);
       }
 
+<<<<<<< HEAD
+>>>>>>> main
+      // Validate Transaction
+
+      const transactionId = req.params.id;
+
+      if (!transactionId) {
+        throw new AppError("Invalid transaction ID", 400);
+      }
+
+      // Find Payment Proof
+<<<<<<< HEAD
+      await FindProofImage(transactionId);
+=======
+      await FindProofImage(transactionId)
+>>>>>>> main
+
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
       // Update Status to Canceled
       const cancelledBooking = await UpdateBookings(
         bookingId,
@@ -130,6 +267,50 @@ class TenantTransactions {
       // Send Response
       res.json({
         message: "Payment canceled by Tenant, booking updated",
+<<<<<<< HEAD
+<<<<<<< HEAD
+        data: cancelledBooking,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public getOrderByStatus = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      // Fetch Orders Based on Booking Status
+      const { BookingStatus } = req.query;
+
+      if (!BookingStatus || typeof BookingStatus !== "string") {
+        throw new AppError("Booking status query parameter is required.", 400);
+      }
+
+      const orderByStatus = await findOrderByStatus(BookingStatus);
+
+      if (!orderByStatus || orderByStatus.length === 0) {
+        res.json({
+          message: "No orders found.",
+          data: [],
+        });
+      }
+
+      res.json({
+        message: "Order(s) by booking status successfully retrieved.",
+        data: orderByStatus,
+      });
+    } catch (error) {
+      next(error);
+=======
+        data: cancelledBooking
+      });
+    } catch (error) {
+        next(error)
+>>>>>>> main
+=======
         data: cancelledBooking,
       });
     } catch (error) {
@@ -434,6 +615,7 @@ class TenantTransactions {
       });
     } catch (error) {
       next(error);
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     }
   };
 }

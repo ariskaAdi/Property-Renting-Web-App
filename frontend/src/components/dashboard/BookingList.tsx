@@ -1,9 +1,8 @@
 import { Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { BookingCard} from "./BookingCard";
+import { BookingCard } from "./BookingCard";
 import { Booking } from "@/types/transactions/transactions";
 import React from "react";
-
 
 const BookingCardSkeleton = () => (
   <div className="h-40 w-full bg-gray-100 rounded-lg animate-pulse"></div>
@@ -26,7 +25,6 @@ export const BookingList = ({
   isFetching,
   role,
 }: BookingListProps) => {
-
 
   if (isLoading) {
     return (
@@ -64,7 +62,6 @@ export const BookingList = ({
       </div>
     );
   }
-
   
   return (
     <div

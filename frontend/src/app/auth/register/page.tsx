@@ -40,10 +40,39 @@ export default function RegisterPage() {
     },
   });
 
+<<<<<<< HEAD
+  const router = useRouter();
+
+  const { mutate: register, isPending, isError } = useRegisterUser();
+
+  const handleRoleChange = (role: string) => {
+    setForm({ ...form, role });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    register(form, {
+      onSuccess: (data) => {
+        console.log(data);
+<<<<<<< HEAD
+        router.push(`/auth/verify-email/${form.email}?role=${form.role}`);
+=======
+        router.push(`/auth/verify-email/${form.email}`);
+>>>>>>> main
+      },
+      onError: (error) => {
+        console.log(error);
+=======
   const onSubmit = (data: RegisterSchema) => {
     register(data, {
       onSuccess: () => {
         router.push(`/auth/verify-email/${data.email}?role=${data.role}`);
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
       },
     });
   };

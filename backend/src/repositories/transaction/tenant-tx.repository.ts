@@ -1,4 +1,10 @@
 import { Prisma } from "@prisma/client";
+<<<<<<< HEAD
+import { prisma } from "../../config/prisma";
+import AppError from "../../errors/AppError";
+import { BookingStatus } from "../../../prisma/generated/client";
+import { BookingRoomCompleteType } from "../../types/transaction/transactions.types";
+=======
 import { Prisma as PrismaNew } from "../../../prisma/generated/client";
 import { prisma } from "../../config/prisma";
 import AppError from "../../errors/AppError";
@@ -11,6 +17,7 @@ import {
 } from "../../types/transaction/transactions.types";
 import { quickAddJob } from "graphile-worker";
 import { BookingWithDetails } from "../../services/jobs/send-confirmation";
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
 export const ValidateBooking = async (
   booking_id: string,
@@ -36,6 +43,15 @@ export const ValidateBooking = async (
 };
 
 export const UpdateBookings = async (
+<<<<<<< HEAD
+  transaction_id: string,
+  status: BookingStatus,
+  tx?: Prisma.TransactionClient
+) => {
+  const updateBooking = await tx.bookings.update({
+    where: {
+      id: transaction_id,
+=======
   bookingId: string,
   status: BookingStatus,
   tx?: Prisma.TransactionClient
@@ -44,15 +60,28 @@ export const UpdateBookings = async (
   const updateBooking = await db.bookings.update({
     where: {
       id: bookingId,
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     },
     data: {
       status: status,
     },
+<<<<<<< HEAD
+    select: {
+      user_id: true,
+    },
+  });
+
+  if (!updateBooking) {
+    throw new AppError("Booking cannot be updated", 400);
+  }
+
+=======
     include: {
       booking_rooms: true
     }
   });
 
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   return updateBooking.user_id;
 };
 
@@ -75,7 +104,10 @@ export const findBookingRoomsByBookingId = async (
       guests_count: true,
       nights: true,
       subtotal: true,
+<<<<<<< HEAD
+=======
       created_at: true,
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
       room: {
         select: {
           total_rooms: true,
@@ -93,17 +125,91 @@ export const findBookingRoomsByBookingId = async (
   return bookingRooms;
 };
 
+<<<<<<< HEAD
+export const OverlappingBooking = async (
+  bookingId: string,
+  tx: Prisma.TransactionClient
+) => {
+  const findBookings = await findBookingRoomsByBookingId(bookingId, tx);
+
+  const roomIds: string[] = (findBookings as BookingRoomCompleteType[]).map(
+    (rid) => rid.room_id
+  );
+  const bookingRoomIds: string[] = (
+    findBookings as BookingRoomCompleteType[]
+  ).map((brid) => brid.id);
+  const checkOut: Date[] = (findBookings as BookingRoomCompleteType[]).map(
+    (co) => co.check_out_date
+  );
+  const checkIn: Date[] = (findBookings as BookingRoomCompleteType[]).map(
+    (ci) => ci.check_in_date
+  );
+
+  const earliestCheckIn = new Date(
+    Math.min(...checkIn.map((date) => date.getTime()))
+  );
+  const latestCheckOut = new Date(
+    Math.max(...checkOut.map((date) => date.getTime()))
+  );
+
+  if (roomIds.length === 0) {
+    return [];
+  }
+
+  const ovrBooking = await tx.booking_rooms.findMany({
+    where: {
+      room_id: {
+        in: roomIds,
+      },
+      id: {
+        not: {
+          in: bookingRoomIds,
+        },
+      },
+      OR: [
+        { booking: { status: "confirmed" } },
+        { booking: { status: "waiting_payment" } },
+      ],
+      check_in_date: { lt: latestCheckOut },
+      check_out_date: { gt: earliestCheckIn },
+    },
+    select: {
+      room_id: true,
+      quantity: true,
+      room: {
+        select: {
+          total_rooms: true,
+        },
+      },
+    },
+  });
+
+  return ovrBooking;
+};
+
+export const UpdateRoomAvailability = async (
+  roomId: string,
+  data: string[],
+=======
 export const UpdateRoomAvailability = async (
   roomId: string,
   date: string[],
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   availability: Boolean,
   tx?: Prisma.TransactionClient
 ) => {
   const earliestCheckIn = new Date(
+<<<<<<< HEAD
+    Math.min(...data.map((date: any) => new Date(date).getTime()))
+  );
+  const latestCheckOut = new Date(
+    Math.max(...data.map((date: any) => new Date(date).getTime()))
+=======
     Math.min(...date.map((date: any) => new Date(date).getTime()))
   );
   const latestCheckOut = new Date(
     Math.max(...date.map((date: any) => new Date(date).getTime()))
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   );
 
   const db = tx ?? prisma;
@@ -128,7 +234,11 @@ export const FindProofImage = async (
   tx?: Prisma.TransactionClient
 ) => {
   const db = tx ?? prisma;
+<<<<<<< HEAD
+  const result = await db.bookings.findUnique({
+=======
   const result = await db.bookings.findFirst({
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     where: {
       id: bookingId,
     },
@@ -137,6 +247,32 @@ export const FindProofImage = async (
     },
   });
 
+<<<<<<< HEAD
+  if (!result) {
+    throw new AppError("The booking does not exist.", 404);
+  } else {
+    if (result.proof_image) {
+      console.log("Proof image exists:", result.proof_image);
+    } else {
+      console.log(
+        "Booking exists, but a proof image has not been uploaded yet. Cancellation cannot be processed."
+      );
+      return;
+    }
+  }
+
+  return result;
+};
+
+export const findOrderByStatus = async (
+  order_status: string,
+  tx?: Prisma.TransactionClient
+) => {
+  const db = tx ?? prisma;
+  const orderList = await db.booking.findMany({
+    where: {
+      BookingStatus: order_status,
+=======
   return result;
 };
 
@@ -168,11 +304,14 @@ export const getOrderRepository = async (
           },
         },
       },
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     },
   });
 
   return orderList;
 };
+<<<<<<< HEAD
+=======
 
 export const findBookingByIdRepository = async (
   bookingId: string,
@@ -269,3 +408,4 @@ export const acceptBookingPayment = async (
     );
   }
 };
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37

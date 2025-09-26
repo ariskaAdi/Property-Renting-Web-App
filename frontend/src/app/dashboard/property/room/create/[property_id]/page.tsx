@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+import CreateRoom from "@/components/layouts/dashboard/room/create-room";
+import React from "react";
+
+const page = () => {
+  return <CreateRoom />;
+};
+
+export default page;
+=======
 "use client";
 
 import CreateRoom from "@/components/layouts/dashboard/room/create/create-room";
@@ -13,3 +23,4 @@ const Page = () => {
 };
 
 export default Page;
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37

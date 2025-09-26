@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+import PropertyDetailPage from "@/components/pages/Detail";
+import React from "react";
+
+const page = () => {
+  return (
+    <div>
+      <PropertyDetailPage />
+    </div>
+  );
+};
+
+export default page;
+=======
 import BookingSectionPage from "@/components/layouts/room-detail/BookingSection";
 import RoomDetail from "@/components/layouts/room-detail/RoomDetail";
 import { fetchRoomsDetailsByQuery } from "@/services/room.service";
@@ -29,3 +43,4 @@ export default async function PropertyDetailPage(props: {
     </main>
   );
 }
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37

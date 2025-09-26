@@ -16,6 +16,19 @@ class RoomRouter {
 
   private initializeRoutes() {
     this.route.get("/all", this.roomRouter.getRoomsController);
+<<<<<<< HEAD
+<<<<<<< HEAD
+    this.route.get("/search", this.roomRouter.getRoomByPropertyAndName);
+    this.route.post(
+      "/create",
+      uploaderMemory().array("images", 5),
+=======
+    this.route.get("/get/:id", this.roomRouter.getRoomByIdController);
+    this.route.post(
+      "/create/:property_id",
+      uploaderMemory().single("image"),
+>>>>>>> main
+=======
     this.route.get("/search", this.roomRouter.getRoomByPropertyAndName);
     this.route.get("/details", this.roomRouter.getRoomByPropertyAndNameDetail);
     this.route.get("/get-date/:id", this.roomRouter.getRoomAvailability);
@@ -37,6 +50,7 @@ class RoomRouter {
       verifyToken,
       onlyTenant,
       uploaderMemory().array("images", 3),
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
       this.roomRouter.createRoomController
     );
     this.route.patch(

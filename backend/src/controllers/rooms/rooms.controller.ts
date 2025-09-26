@@ -2,12 +2,25 @@ import { NextFunction, Request, Response } from "express";
 import {
   createRoomService,
   deleteRoomByIdService,
+<<<<<<< HEAD
+<<<<<<< HEAD
+  getRoomByPropertyAndNameService,
+  getRoomsService,
+} from "../../services/rooms/rooms.services";
+import AppError from "../../errors/AppError";
+=======
+  getRoomByIdService,
+=======
   getRoomAvailableService,
   getRoomByPropertyAndNameService,
   getRoomByPropertyAndNameServiceDetail,
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   getRoomsService,
   updateRoomService,
 } from "../../services/rooms/rooms.services";
+<<<<<<< HEAD
+>>>>>>> main
+=======
 import AppError from "../../errors/AppError";
 import {
   blockAllRoomsByTenantRepository,
@@ -15,6 +28,7 @@ import {
   unBlockAllRoomsByTenantRepository,
 } from "../../repositories/rooms/rooms.repository";
 import { findTenantByUserId } from "../../repositories/tenant/tenant.repository";
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
 class RoomsController {
   public async getRoomsController(
@@ -30,12 +44,35 @@ class RoomsController {
     }
   }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
   public async getRoomByPropertyAndName(
+=======
+  public async getRoomByIdController(
+>>>>>>> main
+=======
+  public async getRoomByPropertyAndName(
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> {
     try {
+<<<<<<< HEAD
+<<<<<<< HEAD
+      const { propertyname, roomname } = req.query;
+      if (!propertyname || !roomname) {
+        throw new AppError("propertyname and roomname are required", 404);
+      }
+      const response = await getRoomByPropertyAndNameService(
+        propertyname as string,
+        roomname as string
+      );
+
+=======
+      const response = await getRoomByIdService(req.params.id);
+>>>>>>> main
+=======
       const { propertyname, roomname, checkIn, checkOut } = req.query;
 
       if (!propertyname || !roomname) {
@@ -49,6 +86,7 @@ class RoomsController {
         checkOut ? String(checkOut) : undefined
       );
 
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
       res.status(200).send({ message: "Room found", success: true, response });
     } catch (error) {
       next(error);
@@ -126,6 +164,10 @@ class RoomsController {
     next: NextFunction
   ): Promise<void> {
     try {
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
       const weekend_peak = req.body.weekend_peak
         ? {
             type: req.body.weekend_peak.type as "percentage" | "nominal",
@@ -133,6 +175,20 @@ class RoomsController {
           }
         : undefined;
 
+<<<<<<< HEAD
+      const response = await createRoomService(
+        req.body,
+        req.files as Express.Multer.File[],
+        weekend_peak
+=======
+      const { property_id } = req.params;
+
+      const response = await createRoomService(
+        req.body,
+        property_id,
+        req.file as Express.Multer.File
+>>>>>>> main
+=======
       const custom_peaks = req.body.custom_peaks
         ? req.body.custom_peaks.map((p: any) => ({
             start_date: new Date(p.start_date),
@@ -147,6 +203,7 @@ class RoomsController {
         req.files as Express.Multer.File[],
         weekend_peak,
         custom_peaks
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
       );
       res
         .status(200)

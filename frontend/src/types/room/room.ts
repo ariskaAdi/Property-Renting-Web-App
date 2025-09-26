@@ -3,7 +3,15 @@ export interface Room {
   property_id: string;
   name: string;
   description: string;
+<<<<<<< HEAD
+<<<<<<< HEAD
   base_price: number;
+=======
+  base_price: string;
+>>>>>>> main
+=======
+  base_price: number;
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   capacity: number;
   image: string;
   total_rooms: number;
@@ -24,12 +32,16 @@ export interface ApiProperty {
   property_category: string;
   rooms: Room[];
 }
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 
 export interface RoomAvailabilityParams {
   roomId: string;
   checkIn: string; 
   checkOut: string; 
 }
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
 export interface CreateRoomType {
   property_id: string;
@@ -40,6 +52,11 @@ export interface CreateRoomType {
   total_rooms: number;
   image: File[];
   weekend_peak?: { type: "percentage" | "nominal"; value: number };
+<<<<<<< HEAD
+}
+=======
+>>>>>>> main
+=======
   custom_peaks?: {
     start_date: string;
     end_date: string;
@@ -125,3 +142,4 @@ export interface RoomDetailData {
 export interface RoomDetailProps {
   data: RoomDetailData;
 }
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37

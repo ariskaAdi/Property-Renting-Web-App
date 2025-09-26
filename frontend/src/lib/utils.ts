@@ -13,6 +13,8 @@ export const formatCurrency = (amount: number) => {
   });
   return formatter.format(amount);
 };
+<<<<<<< HEAD
+=======
 
 export const formatNumber = (amount: number) => {
   return new Intl.NumberFormat("id-ID", {
@@ -27,3 +29,4 @@ export const formatDate = (dateStr: string) => {
   });
   return formatter.format(date);
 };
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37

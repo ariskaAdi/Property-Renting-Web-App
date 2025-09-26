@@ -20,6 +20,8 @@ export const registerTenant = async (tenant: TenantTypes) => {
   console.log(response.data);
   return response.data;
 };
+<<<<<<< HEAD
+=======
 
 export const updateTenant = async (
   company_name: string,
@@ -43,3 +45,4 @@ export const updateTenant = async (
   console.log(response.data);
   return response.data;
 };
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37

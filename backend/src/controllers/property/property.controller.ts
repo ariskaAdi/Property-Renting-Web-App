@@ -4,13 +4,27 @@ import {
   deletePropertyService,
   getAllPropertiesService,
   getPropertyByIdService,
+<<<<<<< HEAD
+<<<<<<< HEAD
   getPropertyByLocationServices,
+=======
+>>>>>>> main
+=======
+  getPropertyByLocationServices,
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   updatePropertyServices,
 } from "../../services/property/property.service";
 import { findTenantByUserId } from "../../repositories/tenant/tenant.repository";
 import AppError from "../../errors/AppError";
 import { PropertyCategory } from "../../../prisma/generated/client";
+<<<<<<< HEAD
+<<<<<<< HEAD
 import { getTenantWithPropertiesByUserId } from "../../repositories/property/property.repository";
+=======
+>>>>>>> main
+=======
+import { getTenantWithPropertiesByUserId } from "../../repositories/property/property.repository";
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
 class PropertyController {
   public async getAllProperties(
@@ -65,6 +79,10 @@ class PropertyController {
     }
   }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   public async getPropertiesByTenantId(
     req: Request,
     res: Response,
@@ -111,8 +129,11 @@ class PropertyController {
         radius,
         checkIn,
         checkOut,
+<<<<<<< HEAD
+=======
         guests,
         rooms,
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
         category,
         minPrice,
         maxPrice,
@@ -122,11 +143,15 @@ class PropertyController {
         throw new AppError("latitude, longitude, and radius are required", 400);
       }
 
+<<<<<<< HEAD
+      const rad = radius ? Number(radius) : 5;
+=======
       if (!checkIn || !checkOut) {
         throw new AppError("checkIn and checkOut are required", 400);
       }
 
       const rad = Number(radius) || 5;
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
       const lat = Number(latitude);
       const lng = Number(longitude);
 
@@ -138,9 +163,13 @@ class PropertyController {
         checkOut as string,
         category as PropertyCategory,
         minPrice ? Number(minPrice) : undefined,
+<<<<<<< HEAD
+        maxPrice ? Number(maxPrice) : undefined
+=======
         maxPrice ? Number(maxPrice) : undefined,
         guests ? Number(guests) : undefined,
         rooms ? Number(rooms) : undefined
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
       );
 
       res.status(200).send({
@@ -148,6 +177,8 @@ class PropertyController {
         success: true,
         radius: rad,
         user_location: { latitude: lat, longitude: lng },
+<<<<<<< HEAD
+=======
         filters: {
           checkIn,
           checkOut,
@@ -157,6 +188,7 @@ class PropertyController {
           minPrice: minPrice ? Number(minPrice) : undefined,
           maxPrice: maxPrice ? Number(maxPrice) : undefined,
         },
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
         properties,
       });
     } catch (error) {
@@ -164,6 +196,11 @@ class PropertyController {
     }
   }
 
+<<<<<<< HEAD
+=======
+>>>>>>> main
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   public async createProperty(
     req: Request,
     res: Response,

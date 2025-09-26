@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+import { fetchBookings } from "@/services/transactions.services";
+import { useQuery } from "@tanstack/react-query";
+import type { FetchBookingsParams } from "@/services/transactions.services";
+
+export const useBookings = (params: FetchBookingsParams) => {
+    return useQuery({
+        queryKey: ["bookings", params],
+        queryFn: () => fetchBookings(params)
+    })
+}
+=======
 import {
   fetchBookings,
   fetchTenantBookingById,
@@ -156,3 +168,4 @@ export const useUploadProofMutation = () => {
     },
   });
 };
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37

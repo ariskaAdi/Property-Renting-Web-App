@@ -3,7 +3,14 @@ import { handleUpload } from "../../config/cloudinary";
 import { prisma } from "../../config/prisma";
 import AppError from "../../errors/AppError";
 import {
+<<<<<<< HEAD
+<<<<<<< HEAD
   createRoomAvailability,
+=======
+>>>>>>> main
+=======
+  createRoomAvailability,
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   createRoomRepository,
   deleteRoomByIdRepository,
   findAllRoomsRepository,
@@ -11,12 +18,20 @@ import {
   findByRoomIdRepository,
   findRoomByIdRepository,
   findRoomRepository,
+<<<<<<< HEAD
+<<<<<<< HEAD
+  getRoomAvailabilityWithPriceRepository,
+  getRoomByPropertyAndNameRepository,
+=======
+>>>>>>> main
+=======
   getRoomAvailabilityWithPriceRepository,
   getRoomByIdRepository,
   getRoomByPropertyAndNameRepository,
   getRoomByPropertyAndNameRepositoryDetail,
   getRoomDefaultAvailabilityWithPriceRepository,
   updateRoomByIdRepository,
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 } from "../../repositories/rooms/rooms.repository";
 import { RoomsType } from "../../types/rooms/rooms.types";
 
@@ -28,6 +43,26 @@ dayjs.extend(timezone);
 
 export const createRoomService = async (
   data: RoomsType,
+<<<<<<< HEAD
+<<<<<<< HEAD
+  files: Express.Multer.File[],
+  weekend_peak?: { type: "percentage" | "nominal"; value: number }
+) => {
+  const { property_id, name, description, base_price, capacity, total_rooms } =
+    data;
+  // pengecekan room
+=======
+  property_id: string,
+  file: Express.Multer.File
+) => {
+  const { name, description, base_price, capacity, total_rooms } = data;
+>>>>>>> main
+  const existingRoom = await findRoomRepository(property_id);
+  if (!existingRoom) {
+    throw new AppError("Room not found", 404);
+  }
+<<<<<<< HEAD
+=======
   files: Express.Multer.File[],
   weekend_peak?: { type: "percentage" | "nominal"; value: number },
   custom_peaks: {
@@ -43,6 +78,7 @@ export const createRoomService = async (
   const existingRoom = await findRoomRepository(property_id);
   if (!existingRoom) throw new AppError("Room not found", 404);
 
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   // handle image
   let uploadedImages: string[] = [];
   if (files && files.length > 0) {
@@ -52,6 +88,14 @@ export const createRoomService = async (
         return result.secure_url;
       })
     );
+<<<<<<< HEAD
+=======
+  let uploadImage = null;
+  if (file) {
+    uploadImage = await handleUpload(file);
+>>>>>>> main
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   }
 
   const parsedCapacity = Number(capacity);
@@ -67,10 +111,36 @@ export const createRoomService = async (
     description,
     base_price,
     capacity: parsedCapacity,
+<<<<<<< HEAD
+<<<<<<< HEAD
     image: uploadedImages[0] || "",
     total_rooms: parsedTotalRoom,
     room_images: uploadedImages.map((url) => ({ image_url: url })),
   });
+
+  await createRoomAvailability(newRoom.id);
+  // jika tenant ingin merubah harga per weekend
+
+  const availabilityWithPrice = await getRoomAvailabilityWithPriceRepository(
+    newRoom.id,
+    weekend_peak
+  );
+  return {
+    ...newRoom,
+    room_availability: availabilityWithPrice,
+  };
+=======
+    image: uploadImage?.secure_url || "",
+=======
+    image: uploadedImages[0] || "",
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
+    total_rooms: parsedTotalRoom,
+    room_images: uploadedImages.map((url) => ({ image_url: url })),
+  });
+<<<<<<< HEAD
+  return newRoom;
+>>>>>>> main
+=======
 
   await createRoomAvailability(newRoom.id);
 
@@ -250,6 +320,7 @@ export const updateRoomService = async (
     room_availability: availabilityWithPrice,
     peak_season_rates: peakSeasonRates,
   };
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 };
 
 export const getRoomsService = async () => {
@@ -257,6 +328,27 @@ export const getRoomsService = async () => {
   return response;
 };
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+export const getRoomByPropertyAndNameService = async (
+  propertyname: string,
+  roomname: string
+) => {
+  const room = await getRoomByPropertyAndNameRepository(propertyname, roomname);
+  if (room.length === 0) {
+    throw new AppError("Room not found", 404);
+  }
+  return room;
+=======
+export const getRoomByIdService = async (id: string) => {
+  const existingRoom = await findRoomByIdRepository(id);
+  if (!existingRoom) {
+    throw new AppError("Room not found", 404);
+  }
+  const response = await findAllRoomsRepository();
+  return response;
+>>>>>>> main
+=======
 export const getRoomAvailableService = async (
   roomId: string,
   startDate?: string,
@@ -322,6 +414,7 @@ export const getRoomByPropertyAndNameServiceDetail = async (
   }
   const room = rooms[0];
   return room;
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 };
 
 export const deleteRoomByIdService = async (id: string) => {

@@ -1,5 +1,12 @@
 "use client";
 
+<<<<<<< HEAD
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { MoreHorizontal } from "lucide-react";
+=======
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -8,11 +15,33 @@ import { formatCurrency, formatDate } from "@/lib/utils";
 import Link from "next/link";
 import { DeleteDialog } from "@/components/fragment/button-action/DeleteDialog";
 import { useDeleteRoom } from "@/hooks/useRoom";
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
 interface RoomListProps {
   rooms: Array<{
     id: string;
     name: string;
+<<<<<<< HEAD
+    base_price: string;
+    capacity: number;
+    image?: string;
+    status?: string;
+    propertyName?: string;
+    room_images?: { image_url: string }[];
+  }>;
+}
+
+const statusColors: Record<string, string> = {
+  Available: "bg-green-100 text-green-800",
+  Occupied: "bg-yellow-100 text-yellow-800",
+  Maintenance: "bg-red-100 text-red-800",
+};
+
+export function RoomList({ rooms }: RoomListProps) {
+  return (
+    <Card>
+      <CardContent>
+=======
     base_price: number;
     capacity: number;
     total_rooms: number;
@@ -33,6 +62,7 @@ export function RoomList({ rooms }: RoomListProps) {
   return (
     <div>
       <div>
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
         <div className="overflow-x-auto rounded-lg border ">
           <table className="w-full text-sm">
             <thead className="bg-muted/50">
@@ -44,12 +74,73 @@ export function RoomList({ rooms }: RoomListProps) {
                   Room
                 </th>
                 <th className="text-left py-3 px-3 font-medium text-muted-foreground">
+<<<<<<< HEAD
+                  Property
+                </th>
+                <th className="text-left py-3 px-3 font-medium text-muted-foreground">
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
                   Price
                 </th>
                 <th className="text-left py-3 px-3 font-medium text-muted-foreground">
                   Capacity
                 </th>
                 <th className="text-left py-3 px-3 font-medium text-muted-foreground">
+<<<<<<< HEAD
+                  Status
+                </th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              {rooms.map((room, index) => (
+                <tr
+                  key={room.id}
+                  className="border-t hover:bg-muted/30 transition-colors">
+                  <td className="py-3 px-3">{index + 1}</td>
+                  <td className="py-3 px-3">
+                    <div className="flex items-center space-x-3">
+                      <Avatar className="w-9 h-9">
+                        <AvatarImage
+                          src={room.image || room.room_images?.[0]?.image_url}
+                          alt={room.name}
+                        />
+                        <AvatarFallback>
+                          {room.name?.slice(0, 2).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="font-medium">{room.name}</span>
+                    </div>
+                  </td>
+                  <td className="py-3 px-3">{room.propertyName || "-"}</td>
+                  <td className="py-3 px-3 text-muted-foreground">
+                    Rp {Number(room.base_price).toLocaleString("id-ID")}
+                  </td>
+                  <td className="py-3 px-3">{room.capacity}</td>
+                  <td className="py-3 px-3">
+                    <Badge
+                      variant="secondary"
+                      className={
+                        statusColors[
+                          room.status as keyof typeof statusColors
+                        ] || "bg-gray-100 text-gray-800"
+                      }>
+                      {room.status || "Available"}
+                    </Badge>
+                  </td>
+                  <td className="py-3 px-3 text-right">
+                    <Button variant="ghost" size="icon">
+                      <MoreHorizontal className="w-4 h-4" />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </CardContent>
+    </Card>
+=======
                   Total Room
                 </th>
                 <th className="text-left py-3 px-3 font-medium text-muted-foreground">
@@ -171,5 +262,6 @@ export function RoomList({ rooms }: RoomListProps) {
         </div>
       </div>
     </div>
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   );
 }

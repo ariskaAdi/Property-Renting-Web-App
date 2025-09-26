@@ -1,4 +1,11 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+import { CreateRoomType } from "@/types/room/room";
+=======
+>>>>>>> main
+=======
 import { CreateRoomType, EditRoomType } from "@/types/room/room";
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 import axios from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -8,17 +15,32 @@ export const fetchAllRooms = async () => {
   console.log(response.data);
   return response.data;
 };
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+export const fetchRoomsByQuery = async (
+  propertyname?: string,
+  roomname?: string
+=======
 
 export const fetchRoomsByQuery = async (
   propertyname?: string,
   roomname?: string,
   checkIn?: string,
   checkOut?: string
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 ) => {
   const response = await axios.get(`${BASE_URL}/room/search`, {
     params: {
       propertyname,
       roomname,
+<<<<<<< HEAD
+    },
+  });
+  return response.data.response[0];
+};
+
+=======
       checkIn,
       checkOut,
     },
@@ -80,6 +102,7 @@ export const unBlockRoomByTenant = async (
   return response.data;
 };
 
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 export const createRoom = async (room: CreateRoomType) => {
   const formData = new FormData();
   formData.append("property_id", room.property_id);
@@ -88,6 +111,9 @@ export const createRoom = async (room: CreateRoomType) => {
   formData.append("base_price", room.base_price.toString());
   formData.append("capacity", room.capacity.toString());
   formData.append("total_rooms", room.total_rooms.toString());
+<<<<<<< HEAD
+  formData.append("weekend_peak", JSON.stringify(room.weekend_peak));
+=======
   if (room.weekend_peak) {
     formData.append("weekend_peak[type]", room.weekend_peak.type);
     formData.append("weekend_peak[value]", room.weekend_peak.value.toString());
@@ -100,6 +126,7 @@ export const createRoom = async (room: CreateRoomType) => {
       formData.append(`custom_peaks[${index}][value]`, peak.value.toString());
     });
   }
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
   room.image.forEach((file) => {
     formData.append("images", file);
@@ -109,12 +136,19 @@ export const createRoom = async (room: CreateRoomType) => {
     headers: {
       "Content-Type": "multipart/form-data",
     },
+<<<<<<< HEAD
+=======
     withCredentials: true,
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   });
 
   console.log(response.data);
   return response.data;
 };
+<<<<<<< HEAD
+=======
+>>>>>>> main
+=======
 
 export const fetchRoomById = async (id: string) => {
   const response = await axios.get(`${BASE_URL}/room/get/${id}`);
@@ -178,3 +212,4 @@ export const softDeleteRoom = async (id: string) => {
   console.log(response.data);
   return response.data;
 };
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37

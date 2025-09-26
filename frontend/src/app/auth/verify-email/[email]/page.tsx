@@ -11,14 +11,31 @@ import {
   CardTitle,
   CardFooter,
 } from "@/components/ui/card";
+<<<<<<< HEAD
+<<<<<<< HEAD
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+=======
+import { useParams, useRouter } from "next/navigation";
+>>>>>>> main
+import { useVerifyEmail } from "@/hooks/useAuth";
+=======
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useNewOtpVerification, useVerifyEmail } from "@/hooks/useAuth";
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
 export default function VerifyEmail() {
   const { email } = useParams<{ email: string }>();
   const decodedEmail = decodeURIComponent(email);
+<<<<<<< HEAD
+<<<<<<< HEAD
   const searchParams = useSearchParams();
   const role = searchParams.get("role");
+=======
+>>>>>>> main
+=======
+  const searchParams = useSearchParams();
+  const role = searchParams.get("role");
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -58,11 +75,26 @@ export default function VerifyEmail() {
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
+<<<<<<< HEAD
+<<<<<<< HEAD
     const value = e.target.value.slice(-1);
+=======
+    const value = e.target.value.slice(-1); // hanya ambil 1 karakter
+>>>>>>> main
+=======
+    const value = e.target.value.slice(-1);
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    // Auto focus ke input berikutnya
+>>>>>>> main
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
     if (value && index < 5) {
       const nextInput = document.getElementById(`otp-${index + 1}`);
       nextInput?.focus();
@@ -78,12 +110,24 @@ export default function VerifyEmail() {
       {
         onSuccess: (data) => {
           console.log(data);
+<<<<<<< HEAD
+<<<<<<< HEAD
+          if (role === "tenant") {
+            router.push(`/auth/tenant/${decodedEmail}`);
+          } else {
+            router.push("/auth/login");
+          }
+=======
+          router.push("/auth/login");
+>>>>>>> main
+=======
           setErrorMessage(null);
           if (role === "tenant") {
             router.push(`/auth/tenant/${encodeURIComponent(decodedEmail)}`);
           } else {
             router.push("/auth/login");
           }
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
         },
         onError: (error) => {
           console.log(error);

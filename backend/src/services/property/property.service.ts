@@ -3,7 +3,14 @@ import { handleUpload } from "../../config/cloudinary";
 import AppError from "../../errors/AppError";
 import {
   createPropertyRepository,
+<<<<<<< HEAD
+<<<<<<< HEAD
   findNearbyPropertiesRepository,
+=======
+>>>>>>> main
+=======
+  findNearbyPropertiesRepository,
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   findPropertyByIdRepository,
   getAllPropertiesRepository,
   getPropertyByIdRepository,
@@ -78,6 +85,10 @@ export const createPropertyServices = async (
   return newProperty;
 };
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 export const getPropertyByLocationServices = async (
   lat: number,
   lng: number,
@@ -86,6 +97,10 @@ export const getPropertyByLocationServices = async (
   checkOut?: string,
   category?: PropertyCategory,
   minPrice?: number,
+<<<<<<< HEAD
+  maxPrice?: number
+) => {
+=======
   maxPrice?: number,
   guests?: number,
   rooms?: number
@@ -93,6 +108,7 @@ export const getPropertyByLocationServices = async (
   if (!checkIn || !checkOut) {
     throw new Error("checkIn dan checkOut wajib diisi");
   }
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   return await findNearbyPropertiesRepository(
     lat,
     lng,
@@ -101,10 +117,21 @@ export const getPropertyByLocationServices = async (
     checkOut,
     category,
     minPrice,
+<<<<<<< HEAD
+    maxPrice
+  );
+};
+
+=======
+>>>>>>> main
+export const updatePropertyServices = async (data: any, id: string) => {
+  // code
+=======
     maxPrice,
     guests,
     rooms
   );
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 };
 
 export const updatePropertyServices = async (

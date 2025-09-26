@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+import {
+  createRoom,
+  fetchAllRooms,
+  fetchRoomsByQuery,
+} from "@/services/room.service";
+import { CreateRoomType } from "@/types/room/room";
+import { useMutation, useQuery } from "@tanstack/react-query";
+=======
+import { fetchAllRooms } from "@/services/room.service";
+import { useQuery } from "@tanstack/react-query";
+>>>>>>> main
+=======
 import {
   blockRoomByTenant,
   createRoom,
@@ -17,6 +31,7 @@ import {
   RoomAvailabilityParams,
 } from "@/types/room/room";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 
 export const useRoom = () => {
   return useQuery({
@@ -24,6 +39,15 @@ export const useRoom = () => {
     queryFn: fetchAllRooms,
   });
 };
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+export const useRoomSearch = (propertyname?: string, roomname?: string) => {
+  return useQuery({
+    queryKey: ["rooms", propertyname, roomname],
+    queryFn: () => fetchRoomsByQuery(propertyname, roomname),
+    enabled: !!propertyname || !!roomname,
+=======
 
 export const useRoomById = (id: string) => {
   return useQuery({
@@ -109,6 +133,7 @@ export const useRoomDetailSearch = (
     queryKey: ["roomsDetails", propertyname, roomname],
     queryFn: () => fetchRoomsDetailsByQuery(propertyname, roomname),
     enabled: !!propertyname && !!roomname,
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
   });
 };
 
@@ -117,6 +142,10 @@ export const useCreateRoom = () => {
     mutationFn: (room: CreateRoomType) => createRoom(room),
   });
 };
+<<<<<<< HEAD
+=======
+>>>>>>> main
+=======
 
 export const useEditRoom = () => {
   return useMutation({
@@ -151,3 +180,4 @@ export const useRoomAvailability = (params: RoomAvailabilityParams) => {
     enabled: !!roomId && !!checkIn && !!checkOut,
   });
 };
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37

@@ -1,3 +1,12 @@
+import App from ".";
+
+const main = () => {
+  const server = new App();
+
+  server.start();
+};
+
+main();
 import express, { Application, Response, Request, NextFunction } from "express";
 import cors from "cors";
 import qs from "qs";

@@ -1,3 +1,9 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
   provider = "prisma-client-js"
   output   = "./generated/client"
@@ -9,6 +15,20 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+<<<<<<< HEAD
+model account_table {
+  id                Int                 @id @default(autoincrement())
+  fullname          String
+  username          String              @unique
+  email             String              @unique
+  role              account_role
+  password          String
+  created_at        DateTime            @default(now())
+  transaction_table transaction_table[]
+  properties_table  properties_table[]
+  user_review       user_review[]
+  booked_user_list  booked_user_list[]
+=======
 model users {
   id                    String     @id @default(uuid())
   role                  Role
@@ -25,72 +45,88 @@ model users {
   bookings              bookings[]
   reviews               reviews[]
   tenants               tenants?
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 }
 
-model tenants {
-  id           String       @id @default(uuid())
-  user_id      String       @unique
-  company_name String       @db.VarChar(100)
-  address      String
-  phone_number String       @db.VarChar(20)
-  logo         String?      @db.VarChar(255)
-  created_at   DateTime     @default(now())
-  updated_at   DateTime     @updatedAt
-  properties   properties[]
-  user         users        @relation(fields: [user_id], references: [id])
+enum account_role {
+  USER
+  TENANT
 }
 
-model properties {
-  id                String              @id @default(uuid())
-  tenant_id         String
-  name              String              @db.VarChar(150)
-  description       String?
+model transaction_table {
+  id                 Int                @id @default(autoincrement())
+  account_id         Int
+  properties_id      Int
+  booking_date_start DateTime
+  booking_date_end   DateTime
+  payment_proof_url  String
+  created_at         DateTime           @default(now())
+  transaction_status trx_status
+  account_table      account_table      @relation(fields: [account_id], references: [id])
+  properties_table   properties_table   @relation(fields: [properties_id], references: [id])
+  user_review        user_review[]
+  booked_user_list   booked_user_list[]
+}
+
+enum trx_status {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model properties_table {
+  id                Int                 @id @default(autoincrement())
+  account_id        Int
+  room_id           Int
+  name              String
+  category          String
   address           String
-  city              String              @db.VarChar(100)
-  province          String              @db.VarChar(100)
-  zip_code          String              @db.VarChar(10)
-  latitude          Decimal             @db.Decimal(10, 8)
-  longitude         Decimal             @db.Decimal(11, 8)
-  main_image        String?             @db.VarChar(255)
+  description       String
+  city              String
+  images            String
   created_at        DateTime            @default(now())
-  updated_at        DateTime            @updatedAt
-  deleted_at        DateTime?           @db.Timestamp(0)
-  property_category PropertyCategory
-  bookings          bookings[]
-  peak_season_rates peak_season_rates[]
-  tenant            tenants             @relation(fields: [tenant_id], references: [id])
-  property_images   property_images[]
-  reviews           reviews[]
-  rooms             rooms[]
+  updated_at        DateTime
+  transaction_table transaction_table[]
+  account_table     account_table       @relation(fields: [account_id], references: [id])
+  user_review       user_review[]
+  booked_user_list  booked_user_list[]
 }
 
-model property_images {
-  id          String     @id @default(uuid())
-  property_id String
-  image_url   String     @db.VarChar(255)
-  created_at  DateTime   @default(now())
-  property    properties @relation(fields: [property_id], references: [id])
+model room_table {
+  id            Int      @id @default(autoincrement())
+  properties_id Int
+  name          String
+  capacity      Int
+  price         Int
+  description   String
+  images        String
+  created_at    DateTime @default(now())
+  updated_at    DateTime
 }
 
-model rooms {
-  id                String              @id @default(uuid())
-  property_id       String
-  name              String              @db.VarChar(100)
-  description       String?
-  base_price        Decimal             @db.Decimal(12, 2)
-  capacity          Int
-  image             String?             @db.VarChar(255)
-  created_at        DateTime            @default(now())
-  updated_at        DateTime            @updatedAt
-  deleted_at        DateTime?           @db.Timestamp(0)
-  total_rooms       Int
-  booking_rooms     booking_rooms[]
-  peak_season_rates peak_season_rates[]
-  room_availability room_availability[]
-  room_images       room_images[]
-  property          properties          @relation(fields: [property_id], references: [id])
+model user_review {
+  id                Int               @id @default(autoincrement())
+  account_id        Int
+  properties_id     Int
+  transaction_id    Int
+  review            String
+  account_table     account_table     @relation(fields: [account_id], references: [id])
+  properties_table  properties_table  @relation(fields: [properties_id], references: [id])
+  transaction_table transaction_table @relation(fields: [transaction_id], references: [id])
 }
 
+<<<<<<< HEAD
+model booked_user_list {
+  id                Int               @id @default(autoincrement())
+  transaction_id    Int
+  account_id        Int
+  properties_id     Int
+  total_price       Int
+  booking_date_end  DateTime
+  account_table     account_table     @relation(fields: [account_id], references: [id])
+  properties_table  properties_table  @relation(fields: [properties_id], references: [id])
+  transaction_table transaction_table @relation(fields: [transaction_id], references: [id])
+=======
 model room_images {
   id         String   @id @default(uuid())
   room_id    String
@@ -206,4 +242,5 @@ enum PropertyCategory {
   hotel
   hostel
   guesthouse
+>>>>>>> 7b29b52940e187336f48ff3e6913f8aa62356e37
 }

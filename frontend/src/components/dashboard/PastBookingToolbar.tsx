@@ -5,6 +5,7 @@ import { Input } from "../ui/input";
 import { FilterPopover } from "../fragment/filter-popover/FilterPopover";
 import { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
+import { on } from "events";
 
 type BookingsToolbarProps = {
   filters: FetchBookingsParams;
@@ -25,7 +26,7 @@ export const PastBookingsToolbar = ({
 
   useEffect(() => {
     onFilterChange('bookingId', debouncedSearchTerm)
-  }, [debouncedSearchTerm])
+  }, [debouncedSearchTerm, onFilterChange])
 
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-5">

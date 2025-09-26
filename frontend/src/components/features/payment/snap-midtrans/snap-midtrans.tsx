@@ -3,7 +3,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { Card } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import {
@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import { CheckCircle } from "lucide-react";
 import { Spinner } from "@/components/ui/shadcn-io/spinner";
+import { SnapSuccessResult, SnapErrorResult } from "../../../../../global";
 
 interface SnapProps {
   bookingId: string;
@@ -24,7 +25,7 @@ interface SnapProps {
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const SnapMidtrans = ({ bookingId }: SnapProps) => {
-  const [paymentResult, setPaymentResult] = useState(null);
+  const [_, setPaymentResult] = useState<SnapSuccessResult | SnapErrorResult | null>(null);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -51,19 +52,19 @@ export const SnapMidtrans = ({ bookingId }: SnapProps) => {
       }
 
       window.snap.pay(token, {
-        onSuccess: (result: any) => {
+        onSuccess: (result: SnapSuccessResult) => {
           setPaymentResult(result);
           console.log("Payment Successful.");
           toast.success("Payment successful!");
           setIsSuccessModalOpen(true);
         },
-        onError: (result: any) => {
+        onError: (result: SnapErrorResult) => {
           setPaymentResult(result);
           console.log("Payment Unsuccessful.");
           toast.error("Payment failed.");
         },
         onClose: () => {
-          toast.warn("You closed the payment window without finishing.");
+          toast.warning("You closed the payment window without finishing.");
         },
       });
     } catch (error) {

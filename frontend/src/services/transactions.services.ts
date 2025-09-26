@@ -1,13 +1,11 @@
 import axios from "axios";
 import {
-  Booking,
   BookingApiResponse,
   BookingsApiResponse,
   BookingStatus,
   PaginatedBookings,
 } from "@/types/transactions/transactions";
 import qs from "qs";
-import { cookies } from "next/headers";
 import { RoomAvailabilityParams } from "@/types/room/room";
 
 export interface FetchBookingsParams {

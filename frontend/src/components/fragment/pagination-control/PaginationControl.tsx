@@ -1,4 +1,3 @@
-import { Booking, Meta } from "@/types/transactions/transactions";
 import {
   Pagination,
   PaginationContent,

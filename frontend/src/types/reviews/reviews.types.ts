@@ -1,7 +1,3 @@
-type FetchReviewList = {
-    propertyId: string
-}
-
 export interface ReviewUser {
     full_name: string;
     profilePicture: string | null;

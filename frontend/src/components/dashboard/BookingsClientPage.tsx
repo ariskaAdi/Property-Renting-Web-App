@@ -1,12 +1,12 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader} from "@/components/ui/card";
 import { BookingsToolbar } from "./BookingToolbar";
 import { PaginationControl } from "../fragment/pagination-control/PaginationControl";
 import { BookingList } from "./BookingList";
 import { Booking, Filters, Meta } from "@/types/transactions/transactions";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 interface BookingsClientProps {
   bookings: Booking[];
@@ -26,7 +26,7 @@ export function BookingsClient({
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const handleFilterChange = (key: string, value: string | null) => {
+  const handleFilterChange = useCallback((key: string, value: string | null) => {
     const current = new URLSearchParams(Array.from(searchParams.entries()));
 
     if (!value) {
@@ -40,7 +40,7 @@ export function BookingsClient({
     const query = search ? `?${search}` : "";
 
     router.push(`/dashboard/bookings${query}`);
-  };
+  }, [router, searchParams]);
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { PaginationControl } from "../fragment/pagination-control/PaginationControl";
 import { BookingList } from "./BookingList";
 import { Booking, Filters, Meta } from "@/types/transactions/transactions";
-import { useState, useTransition } from "react";
+import { useCallback, useState, useTransition } from "react";
 import { PastBookingsToolbar } from "./PastBookingToolbar";
 
 interface PastBookingsClientProps {
@@ -24,10 +24,9 @@ export function PastBookingsClient({
   const router = useRouter();
   const searchParams = useSearchParams();
   const [uploadFile, setUploadFile] = useState<File | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [isPending, startTransition] = useTransition();
 
-  const handleFilterChange = (key: string, value: string | null) => {
+  const handleFilterChange = useCallback((key: string, value: string | null) => {
     const current = new URLSearchParams(Array.from(searchParams.entries()));
 
     if (!value) {
@@ -43,7 +42,7 @@ export function PastBookingsClient({
     startTransition(() => {
       router.push(`/dashboard/pastbookings${query}`);
     });
-  };
+  }, [router, searchParams])
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

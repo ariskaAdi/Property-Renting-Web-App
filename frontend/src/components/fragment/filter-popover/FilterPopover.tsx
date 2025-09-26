@@ -18,11 +18,9 @@ import {
 // Import the types and constants
 import { FetchBookingsParams } from "@/services/transactions.services";
 import {
-  VALID_BOOKING_STATUS,
-  BookingStatus,
+  VALID_BOOKING_STATUS
 } from "@/types/transactions/transactions";
-import { useState } from "react";
-import DatePicker from "react-datepicker";
+
 import "react-datepicker/dist/react-datepicker.css";
 
 // Define the component's props

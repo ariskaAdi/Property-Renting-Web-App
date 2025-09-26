@@ -100,16 +100,16 @@ export type BookingStatus = (typeof VALID_BOOKING_STATUS)[number];
 
 export type BookingHistoryStatus = Exclude<BookingStatus, "waiting_payment">;
 
-export function isValidBookingStatus(status: any): status is BookingStatus {
-  return VALID_BOOKING_STATUS.includes(status);
+export function isValidBookingStatus(status: unknown): status is BookingStatus {
+  return typeof status === 'string' && VALID_BOOKING_STATUS.includes(status as any);
 }
 
 export function isValidBookingHistoryStatus(
-  status: any
+  status: unknown
 ): status is BookingHistoryStatus {
-  return (
-    status !== "waiting_payment" &&
-    VALID_BOOKING_HISTORY_STATUS.includes(status)
+  return ( typeof status === 'string' &&
+    status !== "waiting_payment" && 
+    VALID_BOOKING_HISTORY_STATUS.includes(status as any)
   );
 }
 
@@ -118,6 +118,6 @@ export const VALID_SORT = ["asc", "desc"] as const;
 
 export type SortStatus = (typeof VALID_SORT)[number];
 
-export function isValidSort(sort: any): sort is SortStatus {
-  return VALID_SORT.includes(sort);
+export function isValidSort(sort: unknown): sort is SortStatus {
+  return typeof sort === 'string' && VALID_SORT.includes(sort as any);
 }

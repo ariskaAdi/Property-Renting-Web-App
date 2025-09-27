@@ -26,6 +26,7 @@ export const fetchRoomsByQuery = async (
   if (!response.data.response || response.data.response.length === 0) {
     return null;
   }
+  console.log(response.data.response[0]);
 
   return response.data.response[0];
 };
@@ -42,6 +43,43 @@ export const fetchRoomsDetailsByQuery = async (
   return result;
 };
 
+export const blockRoomByTenant = async (
+  id: string,
+  start_date?: string,
+  end_date?: string
+) => {
+  const response = await axios.post(
+    `${BASE_URL}/room/block/${id}?startDate=${start_date}&endDate=${end_date}`,
+    {},
+    { withCredentials: true }
+  );
+  return response.data;
+};
+
+export const getRoomAvailability = async (
+  id: string,
+  start_date?: string,
+  end_date?: string
+) => {
+  const response = await axios.get(
+    `${BASE_URL}/room/get-date/${id}?startDate=${start_date}&endDate=${end_date}`
+  );
+  return response.data;
+};
+
+export const unBlockRoomByTenant = async (
+  id: string,
+  start_date?: string,
+  end_date?: string
+) => {
+  const response = await axios.post(
+    `${BASE_URL}/room/unblock/${id}?startDate=${start_date}&endDate=${end_date}`,
+    {},
+    { withCredentials: true }
+  );
+  return response.data;
+};
+
 export const createRoom = async (room: CreateRoomType) => {
   const formData = new FormData();
   formData.append("property_id", room.property_id);
@@ -53,6 +91,14 @@ export const createRoom = async (room: CreateRoomType) => {
   if (room.weekend_peak) {
     formData.append("weekend_peak[type]", room.weekend_peak.type);
     formData.append("weekend_peak[value]", room.weekend_peak.value.toString());
+  }
+  if (room.custom_peaks && room.custom_peaks.length > 0) {
+    room.custom_peaks.forEach((peak, index) => {
+      formData.append(`custom_peaks[${index}][start_date]`, peak.start_date);
+      formData.append(`custom_peaks[${index}][end_date]`, peak.end_date);
+      formData.append(`custom_peaks[${index}][type]`, peak.type);
+      formData.append(`custom_peaks[${index}][value]`, peak.value.toString());
+    });
   }
 
   room.image.forEach((file) => {
@@ -77,30 +123,45 @@ export const fetchRoomById = async (id: string) => {
 };
 
 export const editRoom = async (id: string, room: EditRoomType) => {
-  const formdata = new FormData();
-  formdata.append("name", room.name);
-  formdata.append("description", room.description);
-  formdata.append("base_price", room.base_price.toString());
-  formdata.append("capacity", room.capacity.toString());
-  formdata.append("total_rooms", room.total_rooms.toString());
-  formdata.append("weekend_peak", JSON.stringify(room.weekend_peak));
-
+  const formData = new FormData();
+  formData.append("name", room.name);
+  formData.append("description", room.description);
+  formData.append("base_price", room.base_price.toString());
+  formData.append("capacity", room.capacity.toString());
+  formData.append("total_rooms", room.total_rooms.toString());
+  formData.append("property_id", room.property_id.toString());
+  if (room.weekend_peak) {
+    formData.append("weekend_peak[type]", room.weekend_peak.type);
+    formData.append("weekend_peak[value]", room.weekend_peak.value.toString());
+  }
+  if (room.custom_peaks && room.custom_peaks.length > 0) {
+    room.custom_peaks.forEach((peak, index) => {
+      formData.append(`custom_peaks[${index}][start_date]`, peak.start_date);
+      formData.append(`custom_peaks[${index}][end_date]`, peak.end_date);
+      formData.append(`custom_peaks[${index}][type]`, peak.type);
+      formData.append(`custom_peaks[${index}][value]`, peak.value.toString());
+    });
+  }
   room.image.forEach((file) => {
-    formdata.append("images", file);
+    formData.append("images", file);
   });
 
   if (room.oldImages && room.oldImages.length > 0) {
     room.oldImages.forEach((url) => {
-      formdata.append("oldImages", url);
+      formData.append("oldImages", url);
     });
   }
 
-  const response = await axios.patch(`${BASE_URL}/room/edit/${id}`, formdata, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-    withCredentials: true,
-  });
+  const response = await axios.patch(
+    `${BASE_URL}/room/update/${id}`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      withCredentials: true,
+    }
+  );
 
   console.log(response.data);
   return response.data;

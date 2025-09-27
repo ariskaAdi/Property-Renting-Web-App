@@ -9,7 +9,6 @@ import {
   isValidSort,
   ProofImage,
 } from "../../types/transaction/transactions.types";
-import { scheduleBookingReminder } from "../../services/jobs/booking-reminder.worker";
 
 export const ValidateBooking = async (
   booking_id: string,
@@ -303,40 +302,29 @@ export const acceptBookingPayment = async (
   bookingId: string,
   tenantId: string
 ) => {
-  return prisma.$transaction(async (tx) => {
-    const booking = await tx.bookings.findFirst({
+  try {
+    const updatedBooking = await prisma.bookings.update({
       where: {
         id: bookingId,
         status: "waiting_confirmation",
-        property: {
-          tenant_id: tenantId,
-        },
+        property: { tenant_id: tenantId },
       },
-    });
-
-    if (!booking) {
-      throw new AppError(
-        "Booking not found, not awaiting confirmation, or you are not authorized.",
-        404
-      );
-    }
-
-    const updatedBooking = await tx.bookings.update({
-      where: { id: bookingId },
       data: {
         status: "confirmed",
         paid_at: new Date(),
       },
-
       include: {
         user: { select: { full_name: true, email: true } },
-        property: { select: { name: true, city: true, main_image: true } },
+        property: { select: { name: true, city: true} },
         booking_rooms: { include: { room: { select: { name: true } } } },
       },
     });
 
-    await scheduleBookingReminder(updatedBooking)
-
     return updatedBooking;
-  });
+  } catch (error) {
+    throw new AppError(
+      "Booking not found, not awaiting confirmation, or you are not authorized.",
+      404
+    );
+  }
 };

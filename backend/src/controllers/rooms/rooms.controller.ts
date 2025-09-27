@@ -2,13 +2,18 @@ import { NextFunction, Request, Response } from "express";
 import {
   createRoomService,
   deleteRoomByIdService,
+  getRoomAvailableService,
   getRoomByPropertyAndNameService,
   getRoomByPropertyAndNameServiceDetail,
   getRoomsService,
   updateRoomService,
 } from "../../services/rooms/rooms.services";
 import AppError from "../../errors/AppError";
-import { getRoomByIdRepository } from "../../repositories/rooms/rooms.repository";
+import {
+  blockAllRoomsByTenantRepository,
+  getRoomByIdRepository,
+  unBlockAllRoomsByTenantRepository,
+} from "../../repositories/rooms/rooms.repository";
 import { findTenantByUserId } from "../../repositories/tenant/tenant.repository";
 
 class RoomsController {
@@ -89,6 +94,32 @@ class RoomsController {
     }
   }
 
+  public async getRoomAvailability(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const { id } = req.params;
+      const { startDate, endDate } = req.query;
+
+      if (!id) {
+        throw new AppError("id is required", 400);
+      }
+      const availability = await getRoomAvailableService(
+        id,
+        startDate as string,
+        endDate as string
+      );
+
+      res
+        .status(200)
+        .send({ message: "Room found", success: true, availability });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   public async createRoomController(
     req: Request,
     res: Response,
@@ -102,10 +133,20 @@ class RoomsController {
           }
         : undefined;
 
+      const custom_peaks = req.body.custom_peaks
+        ? req.body.custom_peaks.map((p: any) => ({
+            start_date: new Date(p.start_date),
+            end_date: new Date(p.end_date),
+            type: p.type as "percentage" | "nominal",
+            value: Number(p.value),
+          }))
+        : [];
+
       const response = await createRoomService(
         req.body,
         req.files as Express.Multer.File[],
-        weekend_peak
+        weekend_peak,
+        custom_peaks
       );
       res
         .status(200)
@@ -122,6 +163,7 @@ class RoomsController {
   ): Promise<void> {
     try {
       const { id } = req.params;
+
       const weekend_peak = req.body.weekend_peak
         ? {
             type: req.body.weekend_peak.type as "percentage" | "nominal",
@@ -129,16 +171,103 @@ class RoomsController {
           }
         : undefined;
 
+      const custom_peaks = req.body.custom_peaks
+        ? req.body.custom_peaks.map((p: any) => ({
+            start_date: new Date(p.start_date),
+            end_date: new Date(p.end_date),
+            type: p.type as "percentage" | "nominal",
+            value: Number(p.value),
+          }))
+        : [];
+
       const response = await updateRoomService(
         id,
         req.body,
         req.files as Express.Multer.File[],
-        weekend_peak
+        weekend_peak,
+        custom_peaks
       );
+
       res.status(200).send({
-        message: "Room updated suscessfully",
+        message: "Room updated successfully",
         success: true,
         response,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async blockRoomByTenant(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const userId = res.locals.decrypt.userId;
+      const tenant = await findTenantByUserId(userId);
+
+      if (!tenant) {
+        throw new AppError("Tenant not found", 404);
+      }
+
+      const { id } = req.params;
+      const { startDate, endDate } = req.query;
+
+      if (!id) {
+        throw new AppError("id is required", 400);
+      }
+      if (!startDate || !endDate) {
+        throw new AppError("startDate and endDate are required", 400);
+      }
+
+      const result = await blockAllRoomsByTenantRepository(
+        id,
+        new Date(startDate as string),
+        new Date(endDate as string)
+      );
+
+      res.status(200).json({
+        success: true,
+        ...result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async unBlockRoomByTenant(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const userId = res.locals.decrypt.userId;
+      const tenant = await findTenantByUserId(userId);
+
+      if (!tenant) {
+        throw new AppError("Tenant not found", 404);
+      }
+
+      const { id } = req.params;
+      const { startDate, endDate } = req.query;
+
+      if (!id) {
+        throw new AppError("id is required", 400);
+      }
+      if (!startDate || !endDate) {
+        throw new AppError("startDate and endDate are required", 400);
+      }
+
+      const result = await unBlockAllRoomsByTenantRepository(
+        id,
+        new Date(startDate as string),
+        new Date(endDate as string)
+      );
+
+      res.status(200).json({
+        success: true,
+        ...result,
       });
     } catch (error) {
       next(error);

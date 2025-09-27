@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, Bed, Wifi, Coffee, Shield, Clock, X } from "lucide-react";
+import { Users, Wifi, Coffee } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { usePropertyById } from "@/hooks/useProperty";
 import { format, parseISO } from "date-fns";
@@ -23,6 +23,8 @@ import { formatCurrency } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import { createBooking } from "@/services/transactions.services";
 import { useRoomAvailability } from "@/hooks/useRoom";
+import Image from "next/image";
+import { Spinner } from "@/components/ui/shadcn-io/spinner";
 
 export default function BookingDetailsForm() {
   const [formData, setFormData] = useState({
@@ -33,7 +35,7 @@ export default function BookingDetailsForm() {
   });
   const router = useRouter();
 
-  const createBookingMutation = useMutation({
+  const { mutate: createNewBooking, isPending } = useMutation({
     mutationFn: createBooking,
 
     onSuccess: (data) => {
@@ -41,7 +43,7 @@ export default function BookingDetailsForm() {
 
       console.log("Booking created successfully!", data);
       console.log("ID is:", bookingId);
-      
+
       toast.success("Your booking has been made! Please proceed to payment.");
       router.push(`/dashboard/payment-page/${bookingId}`);
     },
@@ -58,6 +60,7 @@ export default function BookingDetailsForm() {
   const startDateString = searchParams.get("checkIn");
   const endDateString = searchParams.get("checkOut");
   const property_id = searchParams.get("propertyId") ?? undefined;
+  const total = searchParams.get("total");
   const room_id = searchParams.get("roomId");
   const guests = searchParams.get("guests");
   const rooms = searchParams.get("rooms");
@@ -79,14 +82,17 @@ export default function BookingDetailsForm() {
   const startDateDisplay = format(startDate, "eee, d MMM yyyy");
   const endDateDisplay = format(endDate, "eee, d MMM yyyy");
 
-  const { data: property, isLoading: isLoadingProperty } =
+  const { data: property} =
     usePropertyById(property_id);
 
-  const { data: priceDetails, isLoading: isLoadingPrice } = usePriceQuote(
+  const { data: priceDetails} = usePriceQuote(
     room_id!,
     startDateString!,
-    endDateString!
+    endDateString!,
+    total!
   );
+
+  console.log("DEBUG: Price Details:", priceDetails);
 
   const checkIn = startDateString;
   const checkOut = endDateString;
@@ -102,7 +108,13 @@ export default function BookingDetailsForm() {
     checkIn,
     checkOut: checkOut,
   });
-  console.log("DEBUG: Query Status:", { status, isLoading, isError, error, availableCount });
+  console.log("DEBUG: Query Status:", {
+    status,
+    isLoading,
+    isError,
+    error,
+    availableCount,
+  });
 
   const selectedRoom = property?.rooms?.find((r) => r.id === room_id);
 
@@ -148,7 +160,7 @@ export default function BookingDetailsForm() {
       taxesAndFees: priceDetails?.taxesAndFees,
     };
 
-    createBookingMutation.mutate(finalBookingPayload);
+    createNewBooking(finalBookingPayload);
   };
 
   return (
@@ -221,8 +233,7 @@ export default function BookingDetailsForm() {
                         value={formData.countryCode}
                         onValueChange={(value) =>
                           handleInputChange("countryCode", value)
-                        }
-                      >
+                        }>
                         <SelectTrigger className="w-20">
                           <SelectValue />
                         </SelectTrigger>
@@ -292,10 +303,18 @@ export default function BookingDetailsForm() {
 
             <Button
               onClick={handleContinue}
+              disabled={isPending}
               className="w-full bg-green-600 hover:bg-green-700 text-white py-3 text-base font-medium"
               size="lg"
             >
-              Continue to Payment
+              {isPending ? (
+                <div className="flex items-center justify-center gap-2">
+                  <Spinner className="h-5 w-5" />
+                  <span>Processing...</span>
+                </div>
+              ) : (
+                "Continue to Payment"
+              )}
             </Button>
           </div>
 
@@ -304,11 +323,16 @@ export default function BookingDetailsForm() {
             {/* Hotel Images */}
             <Card className="overflow-hidden h-full">
               <div className="relative">
-                <img
-                  src={property?.main_image}
-                  alt={property?.name}
-                  className="w-full h-48 object-cover"
-                />
+                {typeof property?.main_image === "string" &&
+                property.main_image ? (
+                  <Image
+                    src={property.main_image}
+                    alt={property?.name || "Property"}
+                    className="w-full h-48 object-cover"
+                    width={500}
+                    height={300}
+                  />
+                ) : null}
               </div>
               <CardContent className="p-4 space-y-3">
                 <div className="flex flex-col mb-2">

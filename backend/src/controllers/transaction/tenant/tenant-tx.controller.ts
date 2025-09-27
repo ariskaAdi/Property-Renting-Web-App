@@ -13,7 +13,6 @@ import {
 import { getEmailAndFullnameById } from "../../../repositories/user/user.respository";
 import {
   getRoomAmount,
-  scheduleReminder,
   sendRejectionNotification,
   sendUserBookingConfirmation,
 } from "../../../services/transaction/transaction.service";
@@ -21,7 +20,6 @@ import { Prisma } from "../../../../prisma/generated/client";
 import { isValidBookingStatus } from "../../../types/transaction/transactions.types";
 import { getFilteredBookings } from "../../../repositories/transaction/user-tx.repository";
 import { getDatesBetween } from "../../../utils/getDatesBetween";
-import { scheduleBookingReminder } from "../../../services/jobs/booking-reminder.worker";
 
 class TenantTransactions {
   public acceptPayment = async (

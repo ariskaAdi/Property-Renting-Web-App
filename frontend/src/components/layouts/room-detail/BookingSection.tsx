@@ -1,7 +1,6 @@
 "use client";
 
 import { Calendar } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
@@ -12,33 +11,21 @@ import {
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useRoomSearch } from "@/hooks/useRoom";
-import { formatCurrency } from "@/lib/utils";
+import { useRoomPricing, useRoomSearch } from "@/hooks/useRoom";
 import { DateRange } from "react-day-picker";
 import { addDays, format, startOfDay } from "date-fns";
 import { CardBookingSkeleton } from "@/components/fragment/loading-error/PropertyDetailSkeleton";
 import { DatePickerWithRange } from "@/components/fragment/date-picker/DatePickerPopover";
 import { GuestPicker } from "@/components/ui/GuestPicker";
-
-interface Review {
-  id: string;
-  userName: string;
-  userAvatar: string;
-  yearsOnPlatform: number;
-  rating: number;
-  date: string;
-  content: string;
-  isExpanded?: boolean;
-}
-
-interface ReviewsCardProps {
-  reviews: Review[];
-  reviewsPerPage?: number;
-}
+import { PriceSection } from "./PriceSection";
+import { RoomAvailabilityStatus } from "./RoomAvailabilityStatus";
+import { ReserveButton } from "./ReserveButton";
 
 export default function BookingSectionPage() {
   const router = useRouter();
   const params = useSearchParams();
+  const [isRoomFullyBooked, setIsRoomFullyBooked] = useState(false);
+  const [availabilityLoading, setAvailabilityLoading] = useState(true);
 
   const propertyname = params.get("propertyname") || undefined;
   const roomname = params.get("roomname") || undefined;
@@ -68,6 +55,7 @@ export default function BookingSectionPage() {
     rooms: 1,
   });
 
+  const [hasSelectedDate, setHasSelectedDate] = useState(false);
   useEffect(() => {
     const guestsParam = params.get("guests");
     const roomsParam = params.get("rooms");
@@ -90,6 +78,7 @@ export default function BookingSectionPage() {
       setOpen(true);
     }
   }, [params]);
+
   const checkInParam =
     params.get("checkIn") ?? format(todayDefault, "yyyy-MM-dd");
   const checkOutParam =
@@ -102,30 +91,38 @@ export default function BookingSectionPage() {
     checkOutParam
   );
 
-  const handleSearchDate = () => {
-    if (!dateRange?.from || !dateRange?.to) {
-      alert("Please select a date range.");
-      return;
+  const { data: priceData, isLoading: priceLoading } = useRoomPricing(
+    propertyname,
+    roomname,
+    hasSelectedDate ? format(dateRange!.from as Date, "yyyy-MM-dd") : undefined,
+    hasSelectedDate ? format(dateRange!.to as Date, "yyyy-MM-dd") : undefined
+  );
+
+  useEffect(() => {
+    if (hasSelectedDate && dateRange?.from && dateRange?.to) {
+      const timeoutId = setTimeout(() => {
+        const checkIn = format(dateRange.from as Date, "yyyy-MM-dd");
+        const checkOut = format(dateRange.to as Date, "yyyy-MM-dd");
+
+        const paramsObj = new URLSearchParams(window.location.search);
+        paramsObj.set("checkIn", checkIn);
+        paramsObj.set("checkOut", checkOut);
+
+        router.replace(`?${paramsObj.toString()}`, { scroll: false });
+      }, 1000);
+
+      return () => clearTimeout(timeoutId);
     }
+  }, [dateRange, hasSelectedDate, router]);
 
-    const checkIn = format(dateRange.from, "yyyy-MM-dd");
-    const checkOut = format(dateRange.to, "yyyy-MM-dd");
-
-    const paramsObj = new URLSearchParams(Array.from(params.entries()));
-    paramsObj.set("checkIn", checkIn);
-    paramsObj.set("checkOut", checkOut);
-
-    router.replace(`?${paramsObj.toString()}`, { scroll: false });
-  };
+  if (isLoading) return <CardBookingSkeleton />;
+  if (isError) return <div className="p-8">Something went wrong</div>;
 
   const propertyId = data?.property?.id;
   const roomId = data?.id;
 
   const totalGuests = guests.guests.toString();
   const rooms = guests.rooms.toString();
-
-  if (isLoading) return <CardBookingSkeleton />;
-  if (isError) return <div className="p-8">Something went wrong</div>;
 
   const handleReserveNow = () => {
     if (!dateRange?.from || !dateRange?.to) {
@@ -137,47 +134,23 @@ export default function BookingSectionPage() {
     const checkOut = format(dateRange.to, "yyyy-MM-dd");
 
     router.push(
-      `/dashboard/booking-detail?propertyId=${propertyId}&roomId=${roomId}&checkIn=${checkIn}&checkOut=${checkOut}&guests=${totalGuests}&rooms=${rooms}`
+      `/dashboard/booking-detail?propertyId=${propertyId}&roomId=${roomId}&checkIn=${checkIn}&checkOut=${checkOut}&guests=${totalGuests}&rooms=${rooms}&total=${priceData?.total}`
     );
   };
 
   return (
     <>
-      {/* Mobile Fixed Booking Bar */}
       {!open && (
         <div
           onClick={() => setOpen(true)}
           className="fixed bottom-0 left-0 w-full p-4 bg-white border-t shadow-lg z-40 lg:hidden cursor-pointer">
           <div className="flex justify-between items-center mt-4">
-            <div>
-              <span className="text-sm text-gray-600">From</span>
-              {data.pricing?.total ? (
-                <div className="flex flex-col">
-                  <span className="text-sm text-gray-500 line-through">
-                    {formatCurrency(data.base_price)}
-                  </span>
-                  <span className="text-2xl font-bold text-gray-900">
-                    {formatCurrency(data.pricing.total)}
-                  </span>
-                </div>
-              ) : (
-                <div className="text-2xl font-bold text-gray-900">
-                  {formatCurrency(data.base_price)}
-                </div>
-              )}
-            </div>
-
-            <div className="text-right">
-              {data.pricing?.total ? (
-                <span className="text-lg font-semibold text-green-600">
-                  Total Price
-                </span>
-              ) : data.peak_season_rates?.length > 0 ? (
-                <span className="text-lg font-semibold text-orange-500">
-                  Peak Rate
-                </span>
-              ) : null}
-            </div>
+            <PriceSection
+              basePrice={priceData?.base_price ?? data.base_price}
+              total={priceData?.total}
+              peakRates={priceData?.peak_season_rates}
+              loading={priceLoading}
+            />
           </div>
         </div>
       )}
@@ -191,17 +164,32 @@ export default function BookingSectionPage() {
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />
               <span className="text-sm text-gray-600">Choose a date</span>
-              <Button
-                onClick={handleSearchDate}
-                className="ml-auto rounded-4xl">
-                Search Date
-              </Button>
             </div>
             <DatePickerWithRange
               date={dateRange}
-              onDateChange={setDateRange}
-              className="mt-4"
+              onDateChange={(range) => {
+                if (!range?.from || !range?.to) {
+                  setDateRange(undefined);
+                  setHasSelectedDate(false);
+                  return;
+                }
+
+                setDateRange(range);
+                setHasSelectedDate(true);
+              }}
             />
+
+            {dateRange?.from && dateRange?.to && roomId && (
+              <RoomAvailabilityStatus
+                roomId={roomId}
+                startDate={checkInParam}
+                endDate={checkOutParam}
+                onAvailabilityChange={(fullyBooked, loading) => {
+                  setIsRoomFullyBooked(fullyBooked);
+                  setAvailabilityLoading(loading);
+                }}
+              />
+            )}
 
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-600">Guests & Rooms</span>
@@ -209,46 +197,20 @@ export default function BookingSectionPage() {
             <GuestPicker value={guests} onChange={setGuests} />
 
             <div className="flex justify-between items-center mt-4">
-              <div>
-                <span className="text-sm text-gray-600">From</span>
-                {data.pricing?.total ? (
-                  <div className="flex flex-col">
-                    <span className="text-sm text-gray-500 line-through">
-                      {formatCurrency(data.base_price)}
-                    </span>
-                    <span className="text-2xl font-bold text-gray-900">
-                      {formatCurrency(data.pricing.total)}
-                    </span>
-                  </div>
-                ) : (
-                  <div className="text-2xl font-bold text-gray-900">
-                    {formatCurrency(data.base_price)}
-                  </div>
-                )}
-              </div>
-
-              <div className="text-right">
-                {data.pricing?.total ? (
-                  <span className="text-lg font-semibold text-green-600">
-                    Total Price
-                  </span>
-                ) : data.peak_season_rates?.length > 0 ? (
-                  <span className="text-lg font-semibold text-orange-500">
-                    Peak Rate
-                  </span>
-                ) : null}
-              </div>
+              <PriceSection
+                basePrice={priceData?.base_price ?? data.base_price}
+                total={priceData?.total}
+                peakRates={priceData?.peak_season_rates}
+                loading={priceLoading}
+              />
             </div>
 
-            <Button
+            <ReserveButton
               onClick={handleReserveNow}
-              className="w-full bg-green-500 hover:bg-green-600 text-white">
-              Reserve now
-            </Button>
-            <div className="text-xs text-gray-500 text-center">
-              You won&apos;t be charged until after your reservation begins.
-              Cancellations are free up to 2 hours before.
-            </div>
+              isDisabled={
+                isRoomFullyBooked || availabilityLoading || !hasSelectedDate
+              }
+            />
           </div>
         </DialogContent>
       </Dialog>
@@ -260,63 +222,58 @@ export default function BookingSectionPage() {
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
                 <span className="text-sm text-gray-600">Choose a date</span>
-
-                <Button
-                  onClick={handleSearchDate}
-                  className="ml-auto rounded-4xl">
-                  search date
-                </Button>
               </div>
               <DatePickerWithRange
                 date={dateRange}
-                onDateChange={setDateRange}
+                onDateChange={(range) => {
+                  if (!range?.from || !range?.to) {
+                    setDateRange(undefined);
+                    setHasSelectedDate(false);
+                    return;
+                  }
+
+                  setDateRange(range);
+                  setHasSelectedDate(true);
+                }}
               />
 
-              <div className="flex items-center gap-2 mt-4">
+              {dateRange?.from && dateRange?.to && roomId && (
+                <RoomAvailabilityStatus
+                  roomId={roomId}
+                  startDate={checkInParam}
+                  endDate={checkOutParam}
+                  onAvailabilityChange={(fullyBooked, loading) => {
+                    setIsRoomFullyBooked(fullyBooked);
+                    setAvailabilityLoading(loading);
+                  }}
+                />
+              )}
+
+              <div className="flex items-center gap-2 mt-2">
                 <span className="text-sm text-gray-600">Guests & Rooms</span>
               </div>
               <GuestPicker value={guests} onChange={setGuests} />
+
               <div className="flex justify-between items-center mt-4">
-                <div>
-                  <span className="text-sm text-gray-600">From</span>
-
-                  {data.pricing?.total ? (
-                    <div className="flex flex-col">
-                      <span className="text-sm text-gray-500 line-through">
-                        {formatCurrency(data.base_price)}
-                      </span>
-                      <span className="text-2xl font-bold text-gray-900">
-                        {formatCurrency(data.pricing.total)}
-                      </span>
-                    </div>
-                  ) : (
-                    <div className="text-2xl font-bold text-gray-900">
-                      {formatCurrency(data.base_price)}
-                    </div>
-                  )}
-                </div>
-
-                <div className="text-right">
-                  {data.pricing?.total ? (
-                    <span className="text-lg font-semibold text-green-600">
-                      Total Price
-                    </span>
-                  ) : data.peak_season_rates?.length > 0 ? (
-                    <span className="text-lg font-semibold text-orange-500">
-                      Peak Rate
-                    </span>
-                  ) : null}
-                </div>
+                <PriceSection
+                  basePrice={priceData?.base_price ?? data.base_price}
+                  total={priceData?.total}
+                  peakRates={priceData?.peak_season_rates}
+                  loading={priceLoading}
+                />
               </div>
 
-              <Button
+              <ReserveButton
                 onClick={handleReserveNow}
-                className="w-full bg-green-500 hover:bg-green-600 text-white mt-4">
-                Reserve now
-              </Button>
-              <div className="text-xs text-gray-500 text-center">
-                You won&apos;t be charged until after your reservation begins.
-                Cancellations are free up to 2 hours before.
+                isDisabled={isRoomFullyBooked || availabilityLoading}
+              />
+
+              <div className="flex items-center gap-2 bg-gray-50 rounded-md p-2 border border-gray-200">
+                <span className="text-sm text-gray-600">
+                  Please note that higher rates may apply during weekends,
+                  holidays, or peak periods as per the property owner&apos;s
+                  policy.
+                </span>
               </div>
             </CardContent>
           </Card>

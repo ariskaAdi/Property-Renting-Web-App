@@ -58,6 +58,7 @@ export const UploadProofFunction = ({
       setIsSuccessModalOpen(true);
       router.push("/dashboard/bookings?page=1&sort=desc&status=waiting_confirmation");
     } catch (error) {
+
       toast.error(
        "Upload failed. Please try again."
       );

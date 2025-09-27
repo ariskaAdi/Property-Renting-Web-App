@@ -24,7 +24,7 @@ import {
   DialogHeader,
 } from "../ui/dialog";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
-
+        
 const getStatusColor = (status: string) => {
   switch (status) {
     case "waiting_confirmation":
@@ -145,6 +145,7 @@ export const BookingCard = ({ booking, role }: BookingCardProps) => {
         <Card key={booking.id} className="border border-gray-200">
           <CardContent className="p-4">
             <div className="flex flex-col lg:flex-row gap-4">
+
               <div className="w-full lg:w-32 h-20 rounded-lg overflow-hidden bg-gray-100">
                 <Image
                   height={80}
@@ -277,6 +278,7 @@ export const BookingCard = ({ booking, role }: BookingCardProps) => {
                         ) : (
                           "Resubmit Payment Proof"
                         )}
+
                       </Button>
                     )}
 

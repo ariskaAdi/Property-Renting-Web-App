@@ -11,11 +11,13 @@ class PricingQuoteController {
   ) => {
     try {
       const { roomId, checkIn, checkOut, total } = req.query as {
-        roomId: string; 
+        roomId: string;
         checkIn: string;
         checkOut: string;
         total: string;
       };
+
+      console.log("Received query params:", { roomId, checkIn, checkOut, total });
 
       const room = await prisma.rooms.findUnique({ where: { id: roomId } });
 
@@ -52,3 +54,4 @@ class PricingQuoteController {
 }
 
 export default PricingQuoteController;
+

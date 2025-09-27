@@ -39,7 +39,9 @@ export function PastBookingsClient({
     const search = current.toString();
     const query = search ? `?${search}` : "";
 
-    router.push(`/dashboard/pastbookings${query}`);
+    startTransition(() => {
+      router.push(`/dashboard/pastbookings${query}`);
+    });
   };
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,6 +63,7 @@ export function PastBookingsClient({
     startTransition(() => {
       router.push(`/dashboard/pastbookings?${current.toString()}`);
     });
+
   };
 
   return (

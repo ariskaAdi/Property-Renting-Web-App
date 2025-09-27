@@ -57,6 +57,7 @@ export const getPropertyByIdRepository = async (propertyId: string) => {
     where: { id: propertyId, deleted_at: null },
     include: {
       rooms: {
+        where: { deleted_at: null },
         select: {
           id: true,
           name: true,
@@ -80,9 +81,17 @@ export const getTenantWithPropertiesByUserId = async (userId: string) => {
         orderBy: { created_at: "desc" },
         include: {
           rooms: {
+            where: { deleted_at: null },
             include: {
               room_images: true,
-              room_availability: true,
+              room_availability: {
+                where: { is_available: false },
+                select: {
+                  id: true,
+                  date: true,
+                  is_available: true,
+                },
+              },
             },
           },
         },

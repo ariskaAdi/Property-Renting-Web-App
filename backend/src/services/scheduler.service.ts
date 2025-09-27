@@ -1,3 +1,4 @@
+
 import { expiredBookings } from "./jobs/expired-booking.worker";
 import { bookingReminder } from "./jobs/booking-reminder.worker";
 import { run } from "graphile-worker";
@@ -14,6 +15,7 @@ const SEND_CONFIRMATION_JOB = "send-confirmation-job"
 
 export const startAllWorkersAndSchedules = async () => {
   try {
+
     const taskList: TaskList = {
       [EXPIRE_BOOKINGS_JOB]: expiredBookings,
       [SEND_REMINDER_JOB]: bookingReminder

@@ -3,7 +3,11 @@ import RoomsController from "../controllers/rooms/rooms.controller";
 import { uploaderMemory } from "../middleware/uploader";
 import { verifyToken } from "../middleware/VerifyToken";
 import { onlyTenant } from "../middleware/by-role/tenantMiddleware";
-import { createRoomValidation, editRoomValidation } from "../middleware/validation/room";
+import {
+  createRoomValidation,
+  editRoomValidation,
+} from "../middleware/validation/room";
+
 
 class RoomRouter {
   private route: Router;

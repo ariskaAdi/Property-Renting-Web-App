@@ -26,6 +26,7 @@ import { useRoomAvailability } from "@/hooks/useRoom";
 import Image from "next/image";
 import { Spinner } from "@/components/ui/shadcn-io/spinner";
 
+
 export default function BookingDetailsForm() {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -315,6 +316,7 @@ export default function BookingDetailsForm() {
               ) : (
                 "Continue to Payment"
               )}
+
             </Button>
           </div>
 

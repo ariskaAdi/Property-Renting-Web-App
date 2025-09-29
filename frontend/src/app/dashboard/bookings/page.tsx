@@ -52,8 +52,13 @@ const fetchTenantBookings = async (searchParams: URLSearchParams) => {
 export default async function BookingsPage({
   searchParams,
 }: BookingsPageProps) {
-  const user = await getCurrentUser();
+  let user = null;
   const sp = await searchParams;
+  try {
+    user = await getCurrentUser();
+  } catch (error) {
+    console.error("Authentication check failed:", error);
+  }
 
   const { role } = user || {};
   console.log("role is:", role);
@@ -81,6 +86,14 @@ export default async function BookingsPage({
   let meta;
 
   const validRole = role === "tenant" ? "tenant" : "user";
+  if (!user) {
+    return (
+      <div className="p-6 text-red-500">
+        Failed to load bookings. Please try logging in again or refresh the
+        page.
+      </div>
+    );
+  }
   try {
     if (validRole === "tenant") {
       ({ data: bookings, meta } = await fetchTenantBookings(queryParams));

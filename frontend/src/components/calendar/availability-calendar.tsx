@@ -16,7 +16,10 @@ type TooltipInfo = {
   bookingEnd?: Date;
 } | null;
 
-const fetchAvailabilityEvents = async (fetchInfo: { start: Date; end: Date }) => {
+const fetchAvailabilityEvents = async (fetchInfo: {
+  start: Date;
+  end: Date;
+}) => {
   const { start, end } = fetchInfo;
 
   const params = {
@@ -24,12 +27,22 @@ const fetchAvailabilityEvents = async (fetchInfo: { start: Date; end: Date }) =>
     endDate: end.toISOString(),
   };
 
-  const response = await axios.get(`${BASE_URL}/payment/availability`, {
-    params,
-    withCredentials: true,
-  });
+  try {
+    const response = await axios.get(`${BASE_URL}/payment/availability`, {
+      params,
+      withCredentials: true,
+    });
 
-  return response.data.data;
+    return response.data.data;
+  } catch (error) {
+    console.error("Failed to fetch calendar events:", error);
+
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      throw new Error("Session expired. Please re-login.");
+    }
+
+    throw error;
+  }
 };
 
 export default function AvailabilityCalendar() {
@@ -85,8 +98,7 @@ export default function AvailabilityCalendar() {
             zIndex: 100,
             pointerEvents: "none",
           }}
-          className="bg-foreground text-background animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-fit origin-(--radix-tooltip-content-transform-origin) rounded-md px-3 py-1.5 text-xs text-balance"
-        >
+          className="bg-foreground text-background animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-fit origin-(--radix-tooltip-content-transform-origin) rounded-md px-3 py-1.5 text-xs text-balance">
           <p>Booking ID: {tooltipInfo?.bookingId?.slice(0, 6).toUpperCase()}</p>
           <p>Guest Name: {tooltipInfo?.bookingName}</p>
           <p>Guest Email: {tooltipInfo?.bookingEmail}</p>

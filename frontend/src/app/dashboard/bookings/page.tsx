@@ -21,10 +21,13 @@ const fetchUserBookings = async (searchParams: URLSearchParams) => {
   const endpoint = `${BASE_URL}/reservations/get`;
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
+  if (!token) {
+    throw new Error("Authentication token not found.");
+  }
   const response = await axios.get(endpoint, {
     params: searchParams,
     headers: {
-      Cookie: token ? `token=${token}` : "",
+      Authorization: `Bearer ${token}`,
     },
   });
   return response.data.data;
@@ -34,10 +37,13 @@ const fetchTenantBookings = async (searchParams: URLSearchParams) => {
   const endpoint = `${BASE_URL}/payment/orders/tenant`;
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
+  if (!token) {
+    throw new Error("Authentication token not found for tenant fetch.");
+  }
   const response = await axios.get(endpoint, {
     params: searchParams,
     headers: {
-      Cookie: token ? `token=${token}` : "",
+      Authorization: `Bearer ${token}`,
     },
   });
   return response.data.data;
@@ -65,7 +71,7 @@ export default async function BookingsPage({
       : "waiting_confirmation",
     sort: isValidSort(sort) ? (sort as SortStatus) : "asc",
     page: page || "1",
-    bookingId: bookingId as string || ""
+    bookingId: (bookingId as string) || "",
   };
 
   console.log("filters are: ", filters);
@@ -75,21 +81,30 @@ export default async function BookingsPage({
   let meta;
 
   const validRole = role === "tenant" ? "tenant" : "user";
+  try {
+    if (validRole === "tenant") {
+      ({ data: bookings, meta } = await fetchTenantBookings(queryParams));
+    } else {
+      ({ data: bookings, meta } = await fetchUserBookings(queryParams));
+    }
 
-  if (validRole === "tenant") {
-    ({ data: bookings, meta } = await fetchTenantBookings(queryParams));
-  } else {
-    ({ data: bookings, meta } = await fetchUserBookings(queryParams));
+    console.log("booking and meta are:", bookings, meta);
+
+    return (
+      <BookingsClient
+        bookings={bookings}
+        meta={meta}
+        filters={filters}
+        role={validRole}
+      />
+    );
+  } catch (error) {
+    console.error("Booking data fetch failed:", error);
+    return (
+      <div className="p-6 text-red-500">
+        Failed to load bookings. Please try logging in again or refresh the
+        page.
+      </div>
+    );
   }
-
-  console.log("booking and meta are:", bookings, meta);
-
-  return (
-    <BookingsClient
-      bookings={bookings}
-      meta={meta}
-      filters={filters}
-      role={validRole}
-    />
-  );
 }

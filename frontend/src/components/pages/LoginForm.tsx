@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useLoginUser } from "@/hooks/useAuth";
 import LoginGoogle from "@/components/fragment/button-action/LoginGoogle";
 import { useForm } from "react-hook-form";
@@ -21,7 +21,7 @@ import { loginSchema, LoginSchema } from "@/lib/validation/auth";
 import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
-  const router = useRouter();
+  // const router = useRouter();
   const searchParams = useSearchParams();
   console.log("searchParams login:", searchParams.toString());
 
@@ -47,7 +47,9 @@ export default function LoginPage() {
     login(
       { email: data.email, password: data.password },
       {
-        onSuccess: () => router.push(from),
+        onSuccess: () => {
+          window.location.href = from;
+        },
         onError: (err) => {
           console.log(err);
         },

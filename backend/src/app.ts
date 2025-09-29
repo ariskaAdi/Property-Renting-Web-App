@@ -31,6 +31,9 @@ class App {
 
   private configure(): void {
     const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || [];
+    if (process.env.NODE_ENV === "production") {
+      this.app.set("trust proxy", 1);
+    }
     this.app.use(
       cors({
         origin: (origin, callback) => {

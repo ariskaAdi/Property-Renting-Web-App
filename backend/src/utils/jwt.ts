@@ -28,10 +28,12 @@ export const generateTokenAndSetCookie = (
     }
   );
 
+  const cookieDomain = new URL(process.env.FRONTEND_URL!).hostname;
   res.cookie("token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    domain: cookieDomain,
     maxAge: 24 * 60 * 60 * 1000,
   });
 

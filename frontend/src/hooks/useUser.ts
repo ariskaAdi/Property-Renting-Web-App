@@ -8,15 +8,17 @@ import {
 } from "@/services/user.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const useFetchMe = (isLoggedIn: boolean = true) => {
+export const useFetchMe = () => {
   return useQuery({
     queryKey: ["me"],
     queryFn: fetchMe,
-    enabled: isLoggedIn,
     retry: false,
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
   });
 };
-
 export const useUpdateProfile = () => {
   const queryClient = useQueryClient();
 

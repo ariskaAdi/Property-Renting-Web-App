@@ -1,92 +1,152 @@
+"use client";
+
 import {
   BookingStatus,
   isValidBookingStatus,
   isValidSort,
   SortStatus,
+  Booking, // Import tipe Booking dari transactions
+  Meta, // Import tipe Meta dari transactions
+  Filters, // Import tipe Filters dari transactions
 } from "@/types/transactions/transactions";
-import { getCurrentUser } from "@/lib/cookie-auth";
 import { BookingsClient } from "@/components/dashboard/BookingsClientPage";
-import { cookies } from "next/headers";
+import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
 import axios from "axios";
 
-type SearchParams = { [key: string]: string | string[] | undefined };
+// ------------------------------------------------------------------
+// 1. DEFINISI TIPE DAN FUNGSI FETCH CLIENT-SIDE
+// ------------------------------------------------------------------
 
-type BookingsPageProps = {
-  searchParams: Promise<SearchParams>;
-};
+// Tipe respons untuk data booking yang sesuai dengan tipe Booking dan Meta Anda
+interface BookingApiResponse {
+  data: Booking[];
+  meta: Meta;
+}
+
+// Tipe respons minimal untuk endpoint /auth/me
+interface UserDataResponse {
+  role: "user" | "tenant";
+}
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-const fetchUserBookings = async (searchParams: URLSearchParams) => {
-  const endpoint = `${BASE_URL}/reservations/get`;
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
-  if (!token) {
-    throw new Error("Authentication token not found.");
-  }
-  const response = await axios.get(endpoint, {
-    params: searchParams,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data.data;
-};
-
-const fetchTenantBookings = async (searchParams: URLSearchParams) => {
-  const endpoint = `${BASE_URL}/payment/orders/tenant`;
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
-  if (!token) {
-    throw new Error("Authentication token not found for tenant fetch.");
-  }
-  const response = await axios.get(endpoint, {
-    params: searchParams,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data.data;
-};
-
-export default async function BookingsPage({
-  searchParams,
-}: BookingsPageProps) {
-  let user = null;
-  const sp = await searchParams;
+// Menggantikan getCurrentUser
+const fetchMe = async (): Promise<UserDataResponse | null> => {
   try {
-    user = await getCurrentUser();
+    // Menggunakan axios di browser, cookie akan dikirim otomatis
+    const response = await axios.get(`${BASE_URL}/user/me`, {
+      withCredentials: true,
+    });
+    // Asumsi data user ada di response.data.data
+    return response.data.data;
   } catch (error) {
-    console.error("Authentication check failed:", error);
+    console.log(error);
+    return null;
   }
+};
 
-  const { role } = user || {};
-  console.log("role is:", role);
+// Menggantikan fetchUserBookings/fetchTenantBookings
+const fetchBookingsClient = async (
+  role: string,
+  queryParams: URLSearchParams
+): Promise<BookingApiResponse> => {
+  const endpoint =
+    role === "tenant"
+      ? `${BASE_URL}/payment/orders/tenant`
+      : `${BASE_URL}/reservations/get`;
 
-  const status = Array.isArray(sp.status) ? sp.status[0] : sp.status;
-  const sort = Array.isArray(sp.sort) ? sp.sort[0] : sp.sort;
-  const page = Array.isArray(sp.page) ? sp.page[0] : sp.page;
-  const bookingId = Array.isArray(sp.bookingId)
-    ? sp.bookingId[0]
-    : sp.bookingId;
+  const response = await axios.get<{ data: BookingApiResponse }>(endpoint, {
+    params: queryParams,
+    // KUNCI: Memastikan cookie JWT dikirim dari browser
+    withCredentials: true,
+  });
 
-  const filters = {
-    status: isValidBookingStatus(status)
-      ? (status as BookingStatus)
-      : "waiting_confirmation",
-    sort: isValidSort(sort) ? (sort as SortStatus) : "asc",
-    page: page || "1",
-    bookingId: (bookingId as string) || "",
-  };
+  // Asumsi API mengembalikan { data: { data: bookings, meta: meta } }
+  return response.data.data;
+};
 
-  console.log("filters are: ", filters);
-  const queryParams = new URLSearchParams(filters);
+// ------------------------------------------------------------------
+// 2. KOMPONEN UTAMA BookingsPage
+// ------------------------------------------------------------------
 
-  let bookings;
-  let meta;
+export default function BookingsPage() {
+  const urlSearchParams = useSearchParams();
 
+  // --- A. Mengambil Role (Auth Status) ---
+  const { data: userData, isLoading: isUserLoading } =
+    useQuery<UserDataResponse | null>({
+      queryKey: ["me"],
+      queryFn: fetchMe,
+      retry: false,
+    });
+
+  const role = userData?.role || "user";
   const validRole = role === "tenant" ? "tenant" : "user";
-  if (!user) {
+  const userIsAuthenticated = !!userData;
+
+  // --- B. Parsing Filter dan Query Params ---
+  const filters: Filters = useMemo(() => {
+    // Mengambil nilai dari URLSearchParams
+    const status = urlSearchParams.get("status");
+    const sort = urlSearchParams.get("sort");
+    const page = urlSearchParams.get("page");
+    const bookingId = urlSearchParams.get("bookingId");
+
+    // Logika filters yang sama dengan Server Component asli
+    return {
+      status: isValidBookingStatus(status)
+        ? (status as BookingStatus)
+        : "waiting_confirmation",
+      sort: isValidSort(sort) ? (sort as SortStatus) : "asc",
+      page: page || "1",
+      bookingId: bookingId || "",
+    };
+    // Menggunakan assertion ke tipe Filters untuk konsistensi
+  }, [urlSearchParams]) as Filters;
+
+  const queryParams = useMemo(() => {
+    // Solusi aman: Menggunakan index signature untuk URLSearchParams
+    return new URLSearchParams(filters as Record<string, string>);
+  }, [filters]);
+
+  const queryString = queryParams.toString();
+
+  // --- C. Mengambil Data Booking ---
+  const {
+    data: bookingData,
+    isLoading: isBookingLoading,
+    isError: isBookingError,
+  } = useQuery<BookingApiResponse>({
+    queryKey: ["bookings", validRole, queryString],
+    queryFn: () => fetchBookingsClient(validRole, queryParams),
+    // Fetch hanya jika user sudah terotentikasi
+    enabled: userIsAuthenticated && !isUserLoading,
+  });
+
+  // ------------------------------------------------------------------
+  // D. Loading dan Error State
+  // ------------------------------------------------------------------
+
+  // Menggantikan blok 'if (!user)'
+  if (isUserLoading || !userIsAuthenticated) {
+    return (
+      <div className="p-6 text-red-500">
+        {isUserLoading
+          ? "Checking authentication..."
+          : "Failed to load bookings. Please try logging in again or refresh the page."}
+      </div>
+    );
+  }
+
+  // Status Fetch Booking
+  if (isBookingLoading) {
+    return <div className="p-6">Loading bookings...</div>;
+  }
+
+  if (isBookingError || !bookingData) {
+    console.error("Booking data fetch failed:", isBookingError);
     return (
       <div className="p-6 text-red-500">
         Failed to load bookings. Please try logging in again or refresh the
@@ -94,30 +154,16 @@ export default async function BookingsPage({
       </div>
     );
   }
-  try {
-    if (validRole === "tenant") {
-      ({ data: bookings, meta } = await fetchTenantBookings(queryParams));
-    } else {
-      ({ data: bookings, meta } = await fetchUserBookings(queryParams));
-    }
 
-    console.log("booking and meta are:", bookings, meta);
+  // Destructuring data dengan tipe yang benar
+  const { data: bookings, meta } = bookingData;
 
-    return (
-      <BookingsClient
-        bookings={bookings}
-        meta={meta}
-        filters={filters}
-        role={validRole}
-      />
-    );
-  } catch (error) {
-    console.error("Booking data fetch failed:", error);
-    return (
-      <div className="p-6 text-red-500">
-        Failed to load bookings. Please try logging in again or refresh the
-        page.
-      </div>
-    );
-  }
+  return (
+    <BookingsClient
+      bookings={bookings}
+      meta={meta}
+      filters={filters}
+      role={validRole}
+    />
+  );
 }

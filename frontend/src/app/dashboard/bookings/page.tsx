@@ -9,6 +9,7 @@ import { BookingsClient } from "@/components/dashboard/BookingsClientPage";
 import { cookies } from "next/headers";
 import axios from "axios";
 
+export const dynamic = "force-dynamic";
 type SearchParams = { [key: string]: string | string[] | undefined };
 
 type BookingsPageProps = {

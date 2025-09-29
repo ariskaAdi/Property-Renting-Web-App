@@ -17,7 +17,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const AuthHeader = () => {
-  const { data: user, isLoading } = useFetchMe(true);
+  const { data: user, isLoading } = useFetchMe();
   const isLoggedIn = !!user;
   const router = useRouter();
   return (

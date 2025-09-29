@@ -14,8 +14,9 @@ function decodeJwt(token: string): JwtPayload | null {
 }
 
 export function middleware(req: NextRequest) {
-  const authHeader = req.headers.get("authorization");
-  const token = authHeader?.split(" ")[1];
+  const tokenCookie = req.cookies.get("token");
+  const token = tokenCookie ? tokenCookie.value : null;
+
   const { pathname, search } = req.nextUrl;
 
   if (pathname.startsWith("/dashboard")) {

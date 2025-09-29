@@ -30,7 +30,7 @@ export const generateTokenAndSetCookie = (
   const isProduction = process.env.NODE_ENV === "production";
   res.cookie("token", token, {
     httpOnly: true,
-    secure: true,
+    secure: isProduction,
     sameSite: "none",
     maxAge: 24 * 60 * 60 * 1000,
     path: "/",

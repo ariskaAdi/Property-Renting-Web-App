@@ -31,21 +31,15 @@ class App {
         this.errorHandler();
     }
     configure() {
-        const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || [];
+        const allowedOrigins = [
+            "http://localhost:3000",
+            "https://property-renting-web-app.vercel.app",
+        ];
         if (process.env.NODE_ENV === "production") {
             this.app.set("trust proxy", 1);
         }
         this.app.use((0, cors_1.default)({
-            origin: (origin, callback) => {
-                if (!origin)
-                    return callback(null, true);
-                if (allowedOrigins.includes(origin)) {
-                    callback(null, true);
-                }
-                else {
-                    callback(new Error("Not allowed by CORS"));
-                }
-            },
+            origin: allowedOrigins,
             credentials: true,
         }));
         this.app.set("query parser", (str) => {

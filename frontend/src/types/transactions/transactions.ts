@@ -1,9 +1,9 @@
 export interface ReviewProps {
-    id: string;
-    rating: number;
-    comment: string | null;
-    tenant_reply: string | null;
-    created_at: string;
+  id: string;
+  rating: number;
+  comment: string | null;
+  tenant_reply: string | null;
+  created_at: string;
 }
 
 export interface Booking {
@@ -34,9 +34,8 @@ export interface Booking {
     room: Room;
   }[];
   _count: {
-    reviews: number
-  }
-  
+    reviews: number;
+  };
 }
 
 export interface Room {
@@ -59,7 +58,12 @@ export interface Filters {
     | "canceled_by_tenant"
     | "waiting_confirmation"
     | "expired";
-  sort: "asc" | "desc" | undefined
+
+  sort: "asc" | "desc";
+
+  page: string;
+  bookingId: string;
+  [key: string]: string;
 }
 
 export interface PaginatedBookings {
@@ -98,18 +102,22 @@ export const VALID_BOOKING_HISTORY_STATUS = [
 
 export type BookingStatus = (typeof VALID_BOOKING_STATUS)[number];
 
-export type BookingHistoryStatus = Exclude<BookingStatus, "waiting_payment" | "waiting_confirmation">;
+export type BookingHistoryStatus = Exclude<
+  BookingStatus,
+  "waiting_payment" | "waiting_confirmation"
+>;
 
 export function isValidBookingStatus(status: unknown): status is BookingStatus {
-  return typeof status === "string" && VALID_BOOKING_STATUS.includes(status as BookingStatus);
+  return (
+    typeof status === "string" &&
+    VALID_BOOKING_STATUS.includes(status as BookingStatus)
+  );
 }
 
 export function isValidBookingHistoryStatus(
   status: BookingHistoryStatus
 ): status is BookingHistoryStatus {
-  return (
-    VALID_BOOKING_HISTORY_STATUS.includes(status)
-  );
+  return VALID_BOOKING_HISTORY_STATUS.includes(status);
 }
 
 // Type Guard Sort

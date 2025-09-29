@@ -8,14 +8,12 @@ import {
 } from "@/services/user.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const useFetchMe = () => {
+export const useFetchMe = (isLoggedIn: boolean = true) => {
   return useQuery({
     queryKey: ["me"],
     queryFn: fetchMe,
+    enabled: isLoggedIn,
     retry: false,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    refetchOnReconnect: false,
   });
 };
 
@@ -70,8 +68,8 @@ export const useLogout = () => {
     mutationFn: logoutUser,
 
     onSuccess: () => {
-      queryClient.removeQueries({ queryKey: ["me"] });
-      queryClient.clear();
+      queryClient.setQueryData(["me"], null);
+      queryClient.removeQueries({ queryKey: ["me"], exact: true });
     },
     onError: (error) => {
       console.error("Logout mutation failed:", error);

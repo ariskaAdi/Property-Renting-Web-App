@@ -4,7 +4,6 @@ import { Spinner } from "@/components/ui/shadcn-io/spinner";
 
 export default function LoginPage() {
   return (
-
     <Suspense fallback={<LoadingSpinner />}>
       <LoginForm />
     </Suspense>

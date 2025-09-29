@@ -19,7 +19,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, LoginSchema } from "@/lib/validation/auth";
 import { Eye, EyeOff } from "lucide-react";
-import axios from "axios";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -43,22 +42,14 @@ export default function LoginPage() {
       password: "",
     },
   });
+
   const onSubmit = (data: LoginSchema) => {
     login(
       { email: data.email, password: data.password },
       {
-        onSuccess: (response) => {
-          const token = response.token;
-
-          if (token) {
-            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-          }
-
-          // Redirect setelah login
-          router.push(from);
-        },
+        onSuccess: () => router.push(from),
         onError: (err) => {
-          console.error(err);
+          console.log(err);
         },
       }
     );

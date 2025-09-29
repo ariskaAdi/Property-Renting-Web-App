@@ -1,26 +1,21 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { verify, JwtPayload } from "jsonwebtoken";
 
-function decodeJwt(token: string): JwtPayload | null {
+function decodeJwt(token: string) {
   try {
-    const secret = process.env.TOKEN_KEY;
-    if (!secret) return null;
-    return verify(token, secret) as JwtPayload;
-  } catch (errror) {
-    console.log(errror);
+    const base64 = token.split(".")[1];
+    return JSON.parse(Buffer.from(base64, "base64").toString("utf-8"));
+  } catch {
     return null;
   }
 }
 
 export function middleware(req: NextRequest) {
-  const tokenCookie = req.cookies.get("token");
-  const token = tokenCookie ? tokenCookie.value : null;
-
+  const token = req.cookies.get("token")?.value;
   const { pathname, search } = req.nextUrl;
 
   if (pathname.startsWith("/dashboard")) {
-    if (!token) {
+    if (!token || token.trim() === "") {
       const loginUrl = new URL("/auth/login", req.url);
       loginUrl.searchParams.set("from", `${pathname}${search}`);
       return NextResponse.redirect(loginUrl);
@@ -33,8 +28,10 @@ export function middleware(req: NextRequest) {
 
     const role = payload.role as string | undefined;
 
-    if (role === "tenant" && pathname.startsWith("/dashboard/history")) {
-      return NextResponse.redirect(new URL("/dashboard", req.url));
+    if (role === "tenant") {
+      if (pathname.startsWith("/dashboard/history")) {
+        return NextResponse.redirect(new URL("/dashboard", req.url));
+      }
     }
 
     if (role === "user") {

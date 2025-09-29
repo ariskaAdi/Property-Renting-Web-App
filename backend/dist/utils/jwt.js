@@ -17,13 +17,13 @@ const generateTokenAndSetCookie = (res, existingUser) => {
     }, process.env.TOKEN_KEY, {
         expiresIn: "24h",
     });
-    const cookieDomain = new URL(process.env.FRONTEND_URL).hostname;
+    const isProduction = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: isProduction,
         sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-        domain: cookieDomain,
         maxAge: 24 * 60 * 60 * 1000,
+        path: "/",
     });
     return token;
 };

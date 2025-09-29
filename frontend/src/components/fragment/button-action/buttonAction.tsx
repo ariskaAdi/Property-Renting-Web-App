@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { useLogoutUser } from "@/hooks/useAuth";
-
 import { useRouter } from "next/navigation";
 
 export const ButtonLogout = () => {
@@ -12,9 +11,11 @@ export const ButtonLogout = () => {
   const handleLogout = async () => {
     try {
       await logoutMutation.mutateAsync();
+
       router.push("/");
     } catch (err) {
-      console.error("Logout failed:", err);
+      console.error("Logout failed, but proceeding with navigation:", err);
+      router.push("/");
     }
   };
 

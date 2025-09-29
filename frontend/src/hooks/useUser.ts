@@ -1,3 +1,4 @@
+import { logoutUser } from "@/services/auth.services";
 import {
   changeEmailOtp,
   fetchMe,
@@ -62,3 +63,18 @@ export function useChangeEmailOtp() {
     },
   });
 }
+
+export const useLogout = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: logoutUser,
+
+    onSuccess: () => {
+      queryClient.removeQueries({ queryKey: ["me"] });
+    },
+    onError: (error) => {
+      console.error("Logout mutation failed:", error);
+    },
+  });
+};

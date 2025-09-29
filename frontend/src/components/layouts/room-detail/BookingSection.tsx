@@ -129,12 +129,13 @@ export default function BookingSectionPage() {
       alert("Please select a date range.");
       return;
     }
-
+    const finalTotal = priceData?.total ?? data.base_price ?? 0;
+    const totalParam = finalTotal.toString();
     const checkIn = format(dateRange.from, "yyyy-MM-dd");
     const checkOut = format(dateRange.to, "yyyy-MM-dd");
 
     router.push(
-      `/dashboard/booking-detail?propertyId=${propertyId}&roomId=${roomId}&checkIn=${checkIn}&checkOut=${checkOut}&guests=${totalGuests}&rooms=${rooms}&total=${priceData?.total}`
+      `/dashboard/booking-detail?propertyId=${propertyId}&roomId=${roomId}&checkIn=${checkIn}&checkOut=${checkOut}&guests=${totalGuests}&rooms=${rooms}&total=${totalParam}`
     );
   };
 

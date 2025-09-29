@@ -13,7 +13,6 @@ export const useFetchMe = () => {
     queryKey: ["me"],
     queryFn: fetchMe,
     retry: false,
-    staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     refetchOnReconnect: false,
@@ -72,6 +71,7 @@ export const useLogout = () => {
 
     onSuccess: () => {
       queryClient.removeQueries({ queryKey: ["me"] });
+      queryClient.clear();
     },
     onError: (error) => {
       console.error("Logout mutation failed:", error);

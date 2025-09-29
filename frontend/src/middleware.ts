@@ -15,10 +15,9 @@ function decodeJwt(token: string): JwtPayload | null {
 
 export function middleware(req: NextRequest) {
   const authHeader = req.headers.get("authorization");
-  const token = authHeader?.split(" ")[1]; // Bearer <token>
+  const token = authHeader?.split(" ")[1];
   const { pathname, search } = req.nextUrl;
 
-  // Proteksi semua route dashboard
   if (pathname.startsWith("/dashboard")) {
     if (!token) {
       const loginUrl = new URL("/auth/login", req.url);
@@ -33,12 +32,10 @@ export function middleware(req: NextRequest) {
 
     const role = payload.role as string | undefined;
 
-    // Tenant tidak boleh akses /dashboard/history
     if (role === "tenant" && pathname.startsWith("/dashboard/history")) {
       return NextResponse.redirect(new URL("/dashboard", req.url));
     }
 
-    // User hanya boleh akses halaman tertentu
     if (role === "user") {
       const allowed = [
         "/dashboard",

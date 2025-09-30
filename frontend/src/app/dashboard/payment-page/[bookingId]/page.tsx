@@ -63,7 +63,7 @@ export default function PaymentPage() {
     //   booking.payment_deadline as unknown as string
     // ); // ->> this is for 1 hour booking, change this
 
-    const endTime = DateTime.now().plus({seconds: 45}); // ->> this is for 15 minutes booking, change this
+    const endTime = DateTime.now().plus({seconds: 45}); // ->> this is for 45 seconds booking
 
     if (!endTime.isValid) {
       console.error(

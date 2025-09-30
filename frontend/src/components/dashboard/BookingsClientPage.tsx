@@ -6,16 +6,15 @@ import { BookingsToolbar } from "./BookingToolbar";
 import { PaginationControl } from "../fragment/pagination-control/PaginationControl";
 import { BookingList } from "./BookingList";
 import { Booking, Filters, Meta } from "@/types/transactions/transactions";
-
-import { useCallback, useState, useTransition } from "react";
-import { BookingList } from "./BookingList";
+import { useCallback, useState, useTransition } from "react"
 
 
 interface BookingsClientProps {
   bookings: Booking[];
-  meta: Meta;
+  meta?: Meta;
   filters: Filters;
   role: "user" | "tenant";
+  isFetching: boolean;
 }
 
 export function BookingsClient({
@@ -23,6 +22,7 @@ export function BookingsClient({
   meta,
   filters,
   role,
+  isFetching
 }: BookingsClientProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -66,12 +66,11 @@ export function BookingsClient({
     });
   }, [router]);
 
-  const handlePageChange = (newPage: number) => {
-    const current = new URLSearchParams(Array.from(searchParams.entries()));
-    current.set("page", String(newPage));
-    startTransition(() => {
-      router.push(`/dashboard/bookings?${current.toString()}`);
-    });
+   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setUploadFile(file);
+    }
   };
 
   return (

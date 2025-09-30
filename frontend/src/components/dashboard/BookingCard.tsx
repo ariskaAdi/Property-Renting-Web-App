@@ -109,8 +109,9 @@ export const BookingCard = ({ booking, role }: BookingCardProps) => {
           formData,
           { withCredentials: true }
         );
-        toast.success("Payment proof uploaded successfully!");
         setIsSuccessModalOpen(true);
+        toast.success("Payment proof uploaded successfully!");
+        
       } catch (error) {
         toast.error("Failed to upload payment proof. Please try again later.");
         console.log(error);

@@ -1,6 +1,7 @@
+"use client"
 import {
   Booking,
-  BookingsApiResponse,
+
   BookingStatus,
   Filters,
   isValidBookingStatus,

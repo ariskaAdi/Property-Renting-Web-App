@@ -60,17 +60,30 @@ export const verifyEmail = async (
   return response.data;
 };
 
-export const logoutUser = async () => {
+export const logoutUser = async (): Promise<{
+  success: boolean;
+  message: string;
+}> => {
   try {
     const response = await axios.post(
       `${BASE_URL}/auth/logout`,
       {},
-      { withCredentials: true }
+      {
+        withCredentials: true,
+        timeout: 5000,
+      }
     );
-    console.log("Logout success:", response.data);
-    return response.data;
+
+    return {
+      success: true,
+      message: response.data.message || "Logged out successfully",
+    };
   } catch (err) {
-    console.error("Logout error:");
-    throw err;
+    console.error(" Logout error:", err);
+
+    return {
+      success: true,
+      message: "Logged out (with errors)",
+    };
   }
 };

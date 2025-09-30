@@ -28,11 +28,13 @@ const getAllPropertiesRepository = async ({ property_category, name, page, limit
             },
             where: {
                 property: propertyWhere,
+                deleted_at: null,
             },
         }),
         prisma_1.prisma.rooms.count({
             where: {
                 property: propertyWhere,
+                deleted_at: null,
             },
         }),
     ]);

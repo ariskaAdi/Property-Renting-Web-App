@@ -40,7 +40,6 @@ class App {
     this.app.use(
       cors({
         origin: allowedOrigins,
-
         credentials: true,
       })
     );

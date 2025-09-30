@@ -32,6 +32,9 @@ export const BookingsToolbar = ({
     onFilterChange("bookingId", debouncedSearchTerm);
   }, [debouncedSearchTerm]);
 
+  useEffect(() => {
+    onFilterChangeRef.current("bookingId", debouncedSearchTerm || null);
+  }, [debouncedSearchTerm]);
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-5">
       <CardTitle className="text-xl font-semibold">Your Bookings</CardTitle>

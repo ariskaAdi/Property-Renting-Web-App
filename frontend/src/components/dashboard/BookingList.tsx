@@ -42,12 +42,13 @@ export const BookingList = ({
   if (isError) {
     return (
       <div className="text-center text-red-500 font-bold">
+        {" "}
         Failed to load bookings.
       </div>
     );
   }
 
-  if (!Array.isArray(bookings) || bookings.length === 0) {
+  if (!bookings || bookings.length === 0) {
     return (
       <div className="text-center py-12">
         <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-4" />
@@ -55,6 +56,7 @@ export const BookingList = ({
         No bookings found
         </h3>
         <p className="text-gray-500 mb-4">
+          {" "}
           Try adjusting your filters or start a new search!
         </p>
         <Button className="bg-orange-500 hover:bg-orange-600">

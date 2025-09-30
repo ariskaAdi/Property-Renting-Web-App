@@ -60,7 +60,13 @@ class AuthController {
             if (!userId) {
                 throw new AppError_1.default("Unauthorized access", 401);
             }
-            res.clearCookie("token");
+            const isProduction = process.env.NODE_ENV === "production";
+            res.clearCookie("token", {
+                httpOnly: true,
+                secure: isProduction,
+                sameSite: isProduction ? "none" : "lax",
+                path: "/",
+            });
             res.send({ message: "User logged out", success: true });
         }
         catch (error) {

@@ -73,7 +73,9 @@ export default function RegisterTenantPage() {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               {/* Company Name */}
               <div>
-                <Label htmlFor="company_name">Company Name</Label>
+                <Label htmlFor="company_name" className="mb-2">
+                  Company Name
+                </Label>
                 <Input id="company_name" {...register("company_name")} />
                 {errors.company_name && (
                   <p className="text-sm text-red-500 mt-1">
@@ -84,7 +86,9 @@ export default function RegisterTenantPage() {
 
               {/* Address */}
               <div>
-                <Label htmlFor="address">Address</Label>
+                <Label htmlFor="address" className="mb-2">
+                  Address
+                </Label>
                 <Input id="address" {...register("address")} />
                 {errors.address && (
                   <p className="text-sm text-red-500 mt-1">
@@ -95,7 +99,9 @@ export default function RegisterTenantPage() {
 
               {/* Phone Number */}
               <div>
-                <Label htmlFor="phone_number">Phone Number</Label>
+                <Label htmlFor="phone_number" className="mb-2">
+                  Phone Number
+                </Label>
                 <Input id="phone_number" {...register("phone_number")} />
                 {errors.phone_number && (
                   <p className="text-sm text-red-500 mt-1">
@@ -106,7 +112,9 @@ export default function RegisterTenantPage() {
 
               {/* Logo */}
               <div>
-                <Label htmlFor="logo">Company Logo</Label>
+                <Label htmlFor="logo" className="mb-2">
+                  Company Logo
+                </Label>
                 <Input
                   id="logo"
                   type="file"

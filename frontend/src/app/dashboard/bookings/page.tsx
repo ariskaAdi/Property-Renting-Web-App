@@ -1,7 +1,6 @@
-"use client"
+"use client";
 import {
   Booking,
-
   BookingStatus,
   Filters,
   isValidBookingStatus,
@@ -42,7 +41,6 @@ const fetchBookingsClient = async (
   return response.data;
 };
 
-
 export default function BookingsPage() {
   const searchParams = useSearchParams();
   const { data: userData, isLoading: isUserLoading } = useFetchMe();
@@ -66,7 +64,7 @@ export default function BookingsPage() {
       page: pageParam || "1",
       bookingId: bookingIdParam || "",
       startDate: startDateParam || "",
-      endDate: endDateParam || "",  
+      endDate: endDateParam || "",
     };
   }, [searchParams]);
 
@@ -80,12 +78,7 @@ export default function BookingsPage() {
     return ["bookings", role, queryString];
   }, [role, queryString]);
 
-  const {
-    data: bookingData,
-    isLoading: isBookingLoading,
-    isError: isBookingError,
-    isFetching,
-  } = useQuery<BookingApiResponse>({
+  const { data: bookingData, isFetching } = useQuery<BookingApiResponse>({
     queryKey: queryKeyArray,
     queryFn: () => {
       return fetchBookingsClient(role, filters);
@@ -98,7 +91,12 @@ export default function BookingsPage() {
   const bookingsArray = bookingData?.data.data ?? [];
   const meta = bookingData?.data.meta;
 
-  console.log("[BookingsPage] Fetched bookings:", bookingData, bookingsArray, meta);
+  console.log(
+    "[BookingsPage] Fetched bookings:",
+    bookingData,
+    bookingsArray,
+    meta
+  );
 
   if (isUserLoading || !userIsAuthenticated) {
     return (
@@ -108,8 +106,7 @@ export default function BookingsPage() {
           : "Failed to load bookings. Please login again or refresh."}
       </div>
     );
-
-  };
+  }
 
   return (
     <BookingsClient

@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import axios from "axios";
 import { Spinner } from "@/components/ui/shadcn-io/spinner";
 
@@ -31,6 +31,7 @@ export const UploadProofFunction = ({
   const router = useRouter();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
   const handleCloseModal = () => {
     setIsSuccessModalOpen(false);
     router.push("/dashboard/bookings");
@@ -40,6 +41,23 @@ export const UploadProofFunction = ({
     if (!uploadedFile) {
       toast.error("Please select a file to upload");
       return;
+    }
+
+    const fileExtension = uploadedFile.name.split(".").pop()?.toLowerCase();
+    const allowedExtensions = ["png", "jpg"];
+
+    const maxFileSizeMB = 1; // 1 MB
+
+    const fileSizeMB = uploadedFile.size / 1024 / 1024;
+
+    if (!allowedExtensions.includes(fileExtension || "")) {
+      toast.error("Invalid file type. Please upload a PNG or JPG image.");
+      return
+    }
+
+    if (fileSizeMB > maxFileSizeMB) {
+      toast.error(`File size exceeds ${maxFileSizeMB} MB.`);
+      return 
     }
 
     setIsLoading(true);
@@ -56,12 +74,11 @@ export const UploadProofFunction = ({
       );
       toast.success("Payment proof uploaded successfully!");
       setIsSuccessModalOpen(true);
-      router.push("/dashboard/bookings?page=1&sort=desc&status=waiting_confirmation");
-    } catch (error) {
-
-      toast.error(
-       "Upload failed. Please try again."
+      router.push(
+        "/dashboard/bookings?page=1&sort=desc&status=waiting_confirmation"
       );
+    } catch (error) {
+      toast.error("Upload failed. Please try again.");
       console.error("Error uploading payment proof:", error);
     } finally {
       setIsLoading(false);

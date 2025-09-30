@@ -5,14 +5,15 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { PaginationControl } from "../fragment/pagination-control/PaginationControl";
 import { BookingList } from "./BookingList";
 import { Booking, Filters, Meta } from "@/types/transactions/transactions";
-import { useState, useTransition } from "react";
+import { useCallback, useState, useTransition } from "react";
 import { PastBookingsToolbar } from "./PastBookingToolbar";
 
 interface PastBookingsClientProps {
   bookings: Booking[];
-  meta: Meta;
+  meta?: Meta;
   filters: Filters;
   role: "user" | "tenant";
+  isFetching: boolean;
 }
 
 export function PastBookingsClient({
@@ -20,13 +21,14 @@ export function PastBookingsClient({
   meta,
   filters,
   role,
+  isFetching
 }: PastBookingsClientProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  const handleFilterChange = (key: string, value: string | null) => {
+  const handleFilterChange = useCallback((key: string, value: string | null) => {
     const current = new URLSearchParams(Array.from(searchParams.entries()));
 
     if (!value) {
@@ -42,7 +44,7 @@ export function PastBookingsClient({
     startTransition(() => {
       router.push(`/dashboard/pastbookings${query}`);
     });
-  };
+  }, [router, searchParams]);
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -51,20 +53,19 @@ export function PastBookingsClient({
     }
   };
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     startTransition(() => {
       router.push(`/dashboard/pastbookings`);
     });
-  };
+  }, [router]);
 
-  const handlePageChange = (newPage: number) => {
+  const handlePageChange = useCallback((newPage: number) => {
     const current = new URLSearchParams(Array.from(searchParams.entries()));
     current.set("page", String(newPage));
     startTransition(() => {
       router.push(`/dashboard/pastbookings?${current.toString()}`);
     });
-
-  };
+  }, [router, searchParams]);
 
   return (
     <div className="p-6">
@@ -82,7 +83,7 @@ export function PastBookingsClient({
             <PaginationControl
               totalItems={meta.totalItems}
               pageSize={meta.limit}
-              currentPage={meta.page}
+              currentPage={Number(searchParams.get('page')) || meta.page}
               onPageChange={handlePageChange}
             />
           )}
@@ -93,8 +94,8 @@ export function PastBookingsClient({
               bookings={bookings}
               role={role}
               isError={false}
-              isFetching={isPending}
-              isLoading={isPending}
+              isFetching={isFetching || isPending}
+              isLoading={isFetching ||isPending}
             />
           )}
         </CardContent>

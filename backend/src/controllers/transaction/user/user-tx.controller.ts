@@ -139,10 +139,12 @@ class UserTransactions {
     next: NextFunction
   ) => {
     try {
+
+      console.log("Full req.query object received by server:", req.query)
       const {
         status,
-        check_in_date: startDate,
-        check_out_date: endDate,
+        startDate,
+        endDate,
         sort,
         bookingId,
       } = req.query;
@@ -201,7 +203,7 @@ class UserTransactions {
         // Check Date Validity
         if (!isNaN(start.getTime()) && !isNaN(end.getTime())) {
           whereClause.check_in_date = { gte: start };
-          whereClause.check_out_date = { lt: end };
+          whereClause.check_out_date = { lte: end };
         }
       }
 

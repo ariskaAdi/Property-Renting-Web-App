@@ -1,100 +1,128 @@
+"use client";
+
 import {
-  FlexibleBookingParams,
-} from "@/services/transactions.services";
-import {
-  BookingsApiResponse,
+  Booking,
   BookingStatus,
+  Filters,
   isValidBookingStatus,
   isValidSort,
-  PaginatedBookings,
+  Meta,
   SortStatus,
 } from "@/types/transactions/transactions";
 import axios from "axios";
-import qs from "qs";
-import { getCurrentUser } from "@/lib/cookie-auth";
 import { PastBookingsClient } from "@/components/dashboard/PastBookingsClientPage";
-import { cookies } from "next/headers";
+import { useSearchParams } from "next/navigation";
+import { useFetchMe } from "@/hooks/useUser";
+import { useMemo } from "react";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-type SearchParams = { [key: string]: string | string[] | undefined };
+export interface BookingApiResponse {
+  data: {
+    data: Booking[];
+    meta: Meta;
+  };
+}
 
-type BookingsPageProps = {
-  searchParams: Promise<SearchParams>;
+const fetchBookingsClient = async (
+  role: string,
+  filters: Filters
+): Promise<BookingApiResponse> => {
+  const endpoint =
+    role === "tenant"
+      ? `${BASE_URL}/payment/orders`
+      : `${BASE_URL}/reservations/get`;
+
+  const response = await axios.get<BookingApiResponse>(endpoint, {
+    params: filters,
+    withCredentials: true,
+  });
+
+  return response.data;
 };
 
-const fetchBookings = async <T extends FlexibleBookingParams>(
-  query: T
-): Promise<PaginatedBookings> => {
-  try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
-    const endpoint = `${BASE_URL}/reservations/get`;
-    const response = await axios.get<BookingsApiResponse>(endpoint, {
-      params: { ...query },
-      withCredentials: true,
-      paramsSerializer: {
-        serialize: (params) => {
-          return qs.stringify(params, { arrayFormat: "repeat" });
-        },
-      },
-      headers: {
-        Cookie: token ? `token=${token}` : "",
-      },
-    });
-    console.log(response.data.data);
-    return response.data.data;
-  } catch (error) {
-    console.error("Failed to fetch bookings:", error);
-    throw new Error("Could not retrieve bookings.");
+export default function PastBookingsPage() {
+  const searchParams = useSearchParams();
+  const { data: userData, isLoading: isUserLoading } = useFetchMe();
+
+  const role = userData?.role === "tenant" ? "tenant" : "user";
+  const userIsAuthenticated = !!userData;
+
+  const filters: Filters = useMemo(() => {
+    const statusParam = searchParams.get("status");
+    const sortParam = searchParams.get("sort");
+    const pageParam = searchParams.get("page");
+    const bookingIdParam = searchParams.get("bookingId");
+    const startDateParam = searchParams.get("startDate");
+    const endDateParam = searchParams.get("endDate");
+
+    return {
+      status: isValidBookingStatus(statusParam)
+        ? (statusParam as BookingStatus)
+        : "confirmed",
+      sort: isValidSort(sortParam) ? (sortParam as SortStatus) : "desc",
+      page: pageParam || "1",
+      bookingId: bookingIdParam || "",
+      startDate: startDateParam || "",
+      endDate: endDateParam || "",
+    };
+  }, [searchParams]);
+  const queryString = useMemo(() => {
+    return new URLSearchParams(filters as Record<string, string>).toString();
+  }, [filters]);
+
+  const queryKeyArray = useMemo(() => {
+    return ["bookings", role, queryString];
+  }, [role, queryString]);
+
+  const {
+    data: bookingData,
+    isLoading: isBookingLoading,
+    isError: isBookingError,
+    isFetching,
+  } = useQuery<BookingApiResponse>({
+    queryKey: queryKeyArray,
+    queryFn: () => {
+      return fetchBookingsClient(role, filters);
+    },
+    enabled: userIsAuthenticated && !isUserLoading,
+    staleTime: 1000 * 60 * 1,
+    placeholderData: keepPreviousData,
+  });
+
+  const bookingsArray = bookingData?.data.data ?? [];
+  const meta = bookingData?.data.meta;
+
+  if (isUserLoading || !userIsAuthenticated) {
+    return (
+      <div className="p-6 text-red-500">
+        {isUserLoading
+          ? "Checking authentication..."
+          : "Failed to load bookings. Please login again or refresh."}
+      </div>
+    );
   }
-};
 
-export default async function pastBookingsPage({
-  searchParams,
-}: BookingsPageProps) {
-  const user = await getCurrentUser();
-  const sp = await searchParams;
-  const role =
-    user?.role === "user" || user?.role === "tenant" ? user.role : "user";
+  if (isBookingLoading) {
+    return <div className="p-6">Loading bookings...</div>;
+  }
 
-  const status = Array.isArray(sp.status) ? sp.status[0] : sp.status;
-  const sort = Array.isArray(sp.sort) ? sp.sort[0] : sp.sort;
-  const page = Array.isArray(sp.page) ? sp.page[0] : sp.page;
-  const startDate = Array.isArray(sp.startDate) ? sp.startDate[0] : sp.startDate;
-  const endDate = Array.isArray(sp.endDate) ? sp.endDate[0] : sp.endDate;
-  const bookingId = Array.isArray(sp.bookingId)
-    ? sp.bookingId[0]
-    : sp.bookingId;
-
-  type Filters = {
-    status: BookingStatus;
-    sort: SortStatus;
-    page: string;
-    bookingId: string;
-    startDate?: string;
-    endDate?: string 
-  };
-
-  const filters: Filters = {
-    status: isValidBookingStatus(status)
-      ? (status as BookingStatus)
-      : "confirmed",
-    sort: isValidSort(sort) ? (sort as SortStatus) : "asc",
-    page: page || "1",
-    bookingId: (bookingId as string) || "",
-    startDate: startDate ?? undefined,
-    endDate: endDate ?? undefined,
-  };
-
-  const { data: bookings, meta } = await fetchBookings(filters);
+  if (isBookingError || !bookingData) {
+    return (
+      <div className="p-6 text-red-500">
+        Failed to load bookings. Please try refreshing the page.
+      </div>
+    );
+  }
 
   return (
     <PastBookingsClient
-      bookings={bookings}
+      bookings={bookingsArray}
       meta={meta}
       filters={filters}
       role={role}
+      isFetching={isFetching}
     />
   );
 }

@@ -91,7 +91,8 @@ class UserTransactions {
     };
     getReservations = async (req, res, next) => {
         try {
-            const { status, check_in_date: startDate, check_out_date: endDate, sort, bookingId, } = req.query;
+            console.log("Full req.query object received by server:", req.query);
+            const { status, startDate, endDate, sort, bookingId, } = req.query;
             const userId = res.locals.decrypt.userId;
             console.log("userId from token:", userId);
             let page = 1;
@@ -137,7 +138,7 @@ class UserTransactions {
                 // Check Date Validity
                 if (!isNaN(start.getTime()) && !isNaN(end.getTime())) {
                     whereClause.check_in_date = { gte: start };
-                    whereClause.check_out_date = { lt: end };
+                    whereClause.check_out_date = { lte: end };
                 }
             }
             const bookings = await (0, user_tx_repository_1.getFilteredBookings)(whereClause, sort, page, limit);

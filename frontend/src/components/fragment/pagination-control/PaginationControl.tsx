@@ -30,11 +30,7 @@ export const PaginationControl = ({
     pageSize,
   });
 
-
-  if (currentPage === 0 || !paginationRange || paginationRange.length < 1) {
-    return null;
-  }
-
+  console.log("[PaginationControl] Props and calculated values:", { currentPage, totalItems, pageSize, totalPageCount });
   return (
     <Pagination className="py-3">
       <PaginationContent>

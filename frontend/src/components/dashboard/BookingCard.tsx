@@ -1,3 +1,4 @@
+"use client"
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
@@ -27,14 +28,19 @@ import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
         
 const getStatusColor = (status: string) => {
   switch (status) {
-    case "waiting_confirmation":
-      return "bg-gray-100 text-green-700 hover:bg-green-100";
+    case "confirmed":
+      return "bg-green-50 text-green-700 ring-1 ring-inset ring-green-600/20";
     case "waiting_payment":
-      return "bg-yellow-100 text-yellow-700 hover:bg-yellow-100";
+      return "bg-yellow-50 text-yellow-700 ring-1 ring-inset ring-yellow-600/20";
+    case "waiting_confirmation":
+      return "bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-600/20";
+    case "expired":
+      return "bg-gray-50 text-gray-600 ring-1 ring-inset ring-gray-500/10";
     case "canceled":
-      return "bg-red-100 text-red-700 hover:bg-red-100";
+    case "canceled_by_tenant":
+      return "bg-red-50 text-red-700 ring-1 ring-inset ring-red-600/10";
     default:
-      return "bg-gray-100 text-gray-700 hover:bg-gray-100";
+      return "bg-gray-50 text-gray-600 ring-1 ring-inset ring-gray-500/10";
   }
 };
 
@@ -55,11 +61,14 @@ export const BookingCard = ({ booking, role }: BookingCardProps) => {
     (acc, num) => acc + num.guests_count,
     0
   );
+
+  console.log("[BookingCard] Rendering with props:", { booking, role });
   const roomName = booking.booking_rooms.map((br) => br.room.name).join(", ");
   const price = booking.amount;
 
   const bookingId = booking.id;
-  const hasReviewed = booking._count.reviews;
+  const hasReviewed = booking.reviews && booking.reviews.length > 0
+  console.log("reviews:", booking.reviews, hasReviewed);
 
   const isTenantActionRequired =
     role === "tenant" && booking.status === "waiting_confirmation";

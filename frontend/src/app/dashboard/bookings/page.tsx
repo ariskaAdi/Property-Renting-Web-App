@@ -16,26 +16,28 @@ import { useSearchParams } from "next/navigation";
 import axios from "axios";
 import { useFetchMe } from "@/hooks/useUser";
 
-interface BookingApiResponse {
-  data: Booking[];
-  meta: Meta;
+export interface BookingApiResponse {
+  data: {
+    data: Booking[];
+    meta: Meta;
+  };
 }
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const fetchBookingsClient = async (
   role: string,
-  queryString: string
+  filters: Filters
 ): Promise<BookingApiResponse> => {
   const endpoint =
     role === "tenant"
       ? `${BASE_URL}/payment/orders/tenant`
       : `${BASE_URL}/reservations/get`;
 
-  const response = await axios.get<BookingApiResponse>(
-    `${endpoint}?${queryString}`,
-    { withCredentials: true }
-  );
+  const response = await axios.get<BookingApiResponse>(endpoint, {
+    params: filters,
+    withCredentials: true,
+  });
 
   return response.data;
 };
@@ -52,16 +54,22 @@ export default function BookingsPage() {
     const sortParam = searchParams.get("sort");
     const pageParam = searchParams.get("page");
     const bookingIdParam = searchParams.get("bookingId");
+    const startDateParam = searchParams.get("startDate");
+    const endDateParam = searchParams.get("endDate");
 
     return {
       status: isValidBookingStatus(statusParam)
         ? (statusParam as BookingStatus)
         : "waiting_confirmation",
-      sort: isValidSort(sortParam) ? (sortParam as SortStatus) : "asc",
+      sort: isValidSort(sortParam) ? (sortParam as SortStatus) : "desc",
       page: pageParam || "1",
       bookingId: bookingIdParam || "",
+      startDate: startDateParam || "",
+      endDate: endDateParam || "",  
     };
   }, [searchParams]);
+
+  console.log("[BookingsPage] Current filters:", filters);
 
   const queryString = useMemo(() => {
     return new URLSearchParams(filters as Record<string, string>).toString();
@@ -78,11 +86,18 @@ export default function BookingsPage() {
     isFetching,
   } = useQuery<BookingApiResponse>({
     queryKey: queryKeyArray,
-    queryFn: () => fetchBookingsClient(role, queryString),
+    queryFn: () => {
+      return fetchBookingsClient(role, filters);
+    },
     enabled: userIsAuthenticated && !isUserLoading,
     staleTime: 1000 * 60 * 1,
     placeholderData: keepPreviousData,
   });
+
+  const bookingsArray = bookingData?.data.data ?? [];
+  const meta = bookingData?.data.meta;
+
+  console.log("[BookingsPage] Fetched bookings:", bookingData, bookingsArray, meta);
 
   if (isUserLoading || !userIsAuthenticated) {
     return (
@@ -108,10 +123,8 @@ export default function BookingsPage() {
 
   return (
     <BookingsClient
-      bookings={bookingData.data ?? []}
-      meta={
-        bookingData.meta ?? { totalPages: 0, totalItems: 0, limit: 10, page: 1 }
-      }
+      bookings={bookingsArray}
+      meta={meta}
       filters={filters}
       role={role}
       isFetching={isFetching}

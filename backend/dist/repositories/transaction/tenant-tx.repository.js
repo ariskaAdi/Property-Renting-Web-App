@@ -38,7 +38,7 @@ const UpdateBookings = async (bookingId, status, tx) => {
             booking_rooms: true
         }
     });
-    return updateBooking.user_id;
+    return updateBooking;
 };
 exports.UpdateBookings = UpdateBookings;
 const findBookingRoomsByBookingId = async (bookingId, tx) => {

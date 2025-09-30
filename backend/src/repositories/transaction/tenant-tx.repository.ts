@@ -53,7 +53,7 @@ export const UpdateBookings = async (
     }
   });
 
-  return updateBooking.user_id;
+  return updateBooking
 };
 
 export const findBookingRoomsByBookingId = async (

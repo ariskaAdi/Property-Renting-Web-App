@@ -33,9 +33,8 @@ export interface Booking {
     price_per_night: number;
     room: Room;
   }[];
-  _count: {
-    reviews: number;
-  };
+  reviews: ReviewProps[];
+
 }
 
 export interface Room {

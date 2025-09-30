@@ -9,7 +9,6 @@ const tenant_tx_repository_1 = require("../../../repositories/transaction/tenant
 const transaction_service_1 = require("../../../services/transaction/transaction.service");
 const transactions_types_1 = require("../../../types/transaction/transactions.types");
 const user_tx_repository_1 = require("../../../repositories/transaction/user-tx.repository");
-const getDatesBetween_1 = require("../../../utils/getDatesBetween");
 const graphile_worker_1 = require("graphile-worker");
 class TenantTransactions {
     acceptPayment = async (req, res, next) => {
@@ -34,30 +33,31 @@ class TenantTransactions {
     };
     rejectPayment = async (req, res, next) => {
         try {
-            const role = res.locals.decrypt.role;
+            const user = res.locals.decrypt;
             const bookingId = req.params.id;
             console.log("Fetching from bookingId:", bookingId);
             if (!bookingId) {
                 throw new AppError_1.default("Invalid transaction ID", 400);
             }
-            const rejectProcess = await prisma_1.prisma.$transaction(async (tx) => {
-                // Update booking and Return UserID
-                const updatedBooking = await (0, tenant_tx_repository_1.UpdateBookings)(bookingId, "waiting_payment", tx);
-                const datesToUpdate = (0, getDatesBetween_1.getDatesBetween)(updatedBooking.check_in_date, updatedBooking.check_out_date);
-                const roomId = updatedBooking.booking_rooms.room_id;
-                // Update Availability
-                await (0, tenant_tx_repository_1.UpdateRoomAvailability)(roomId, datesToUpdate, true, tx);
-                return updatedBooking;
-            });
+            await (0, tenant_tx_repository_1.UpdateBookings)(bookingId, "waiting_payment", prisma_1.prisma);
+            // const datesToUpdate = getDatesBetween(
+            //   updatedBooking.check_in_date,
+            //   updatedBooking.check_out_date
+            // );
+            // const roomId = updatedBooking.booking_rooms.room_id;
+            // // Update Availability
+            // await UpdateRoomAvailability(roomId, datesToUpdate, true, tx);
             // Send Rejection Notification
-            await (0, transaction_service_1.sendRejectionNotification)(bookingId, rejectProcess.userId);
+            await (0, transaction_service_1.sendRejectionNotification)(bookingId, user.userId);
             res.json({
                 message: "Payment rejected, booking updated",
-                userID: rejectProcess.userId,
+                success: true,
+                userID: user.userId,
             });
         }
         catch (error) {
             next(error);
+            console.error(error);
         }
     };
     cancelPayment = async (req, res, next) => {
@@ -106,6 +106,9 @@ class TenantTransactions {
                     whereClause.status = { in: validStatuses };
                 }
             }
+            if (start && typeof start === "string") {
+                whereClause.check_in_date = { gte: new Date(start) };
+            }
             if (end && typeof end === "string") {
                 whereClause.check_out_date = { lte: new Date(end) };
             }
@@ -148,7 +151,7 @@ class TenantTransactions {
     };
     getReservations = async (req, res, next) => {
         try {
-            const { status, check_in_date: startDate, check_out_date: endDate, sort, bookingId, } = req.query;
+            const { status, start, end, sort, bookingId, } = req.query;
             const userId = res.locals.decrypt.userId;
             let page = 1;
             let limit = 5;
@@ -176,6 +179,12 @@ class TenantTransactions {
                     tenant_id: tenantId,
                 },
             };
+            if (bookingId && typeof bookingId === "string") {
+                whereClause.id = {
+                    startsWith: bookingId,
+                    mode: "insensitive",
+                };
+            }
             if (status && typeof status === "string") {
                 const validStatuses = status
                     .split(",")
@@ -184,8 +193,11 @@ class TenantTransactions {
                     whereClause.status = { in: validStatuses };
                 }
             }
-            if (endDate && typeof endDate === "string") {
-                whereClause.check_out_date = { lte: new Date(endDate) };
+            if (start && typeof start === "string") {
+                whereClause.check_in_date = { gte: new Date(start) };
+            }
+            if (end && typeof end === "string") {
+                whereClause.check_out_date = { lte: new Date(end) };
             }
             const bookings = await (0, user_tx_repository_1.getFilteredBookings)(whereClause, sort, page, limit);
             if (bookings.data.length === 0) {

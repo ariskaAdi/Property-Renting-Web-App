@@ -33,7 +33,7 @@ interface SnapSuccessResult {
 
 interface SnapPayOptions {
   onSuccess: (result: SnapSuccessResult) => void;
-  onError: (result: Error) => void; // Midtrans docs specify an Error object
+  onError: (result: Error) => void;
   onClose: () => void;
 }
 
@@ -135,7 +135,7 @@ export const SnapMidtrans = ({ bookingId }: SnapProps) => {
           {paymentResult && "order_id" in paymentResult && (
             <div className="text-sm text-muted-foreground bg-slate-50 p-4 rounded-lg border text-left space-y-1">
               <p>
-                <strong>Order ID:</strong> {paymentResult.order_id}
+                <strong>Order ID:</strong> {paymentResult.order_id.slice(0,6).toUpperCase()}
               </p>
               <p className="capitalize">
                 <strong>Payment Type:</strong>{" "}

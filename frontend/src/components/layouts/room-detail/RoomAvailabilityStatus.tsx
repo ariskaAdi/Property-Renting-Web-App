@@ -32,12 +32,6 @@ export const RoomAvailabilityStatus = ({
     startDate,
     endDate
   );
-
-
-  console.log("DEBUG: Availability Data:", data);
-  console.log("DEBUG: Start Date:", startDate);
-  console.log("DEBUG: End Date:", endDate);
-  console.log("DEBUG: Room ID:", roomId);
         
   useEffect(() => {
     if (data?.availability && onAvailabilityChange) {

@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { BookingsToolbar } from "./BookingToolbar";
 import { PaginationControl } from "../fragment/pagination-control/PaginationControl";
 import { Booking, Filters, Meta } from "@/types/transactions/transactions";
-import { useState, useTransition } from "react";
+import { useCallback, useState, useTransition } from "react";
 import { BookingList } from "./BookingList";
 
 interface BookingsClientProps {
@@ -18,7 +18,7 @@ interface BookingsClientProps {
 
 export function BookingsClient({
   bookings,
-  meta = { totalPages: 0, totalItems: 0, limit: 10, page: 1 },
+  meta,
   filters,
   role,
   isFetching,
@@ -29,38 +29,39 @@ export function BookingsClient({
   const [isPending, startTransition] = useTransition();
 
   // Hanya dijalankan saat user action
-  const handleFilterChange = (key: string, value: string | null) => {
+  const handleFilterChange = useCallback((key: string, value: string | null) => {
     const current = new URLSearchParams(Array.from(searchParams.entries()));
     if (!value) current.delete(key);
     else current.set(key, value);
     current.set("page", "1");
 
-    startTransition(() => {
-      router.push(`/dashboard/bookings?${current.toString()}`);
-    });
-  };
+    const search = current.toString();
+    const query = search ? `?${search}` : "";
 
-  const handlePageChange = (newPage: number) => {
+    startTransition(() => {
+      router.push(`/dashboard/bookings${query}`);
+    });
+  }, [router, searchParams]);
+
+  const handlePageChange = useCallback((newPage: number) => {
     const current = new URLSearchParams(Array.from(searchParams.entries()));
     current.set("page", String(newPage));
 
     startTransition(() => {
       router.push(`/dashboard/bookings?${current.toString()}`);
     });
-  };
+  }, [router, searchParams]);
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     startTransition(() => {
       router.push(`/dashboard/bookings`);
     });
-  };
+  }, [router]);
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) setUploadFile(file);
   };
-
-  const isLoading = isPending && !bookings.length;
 
   return (
     <div className="p-6">
@@ -76,9 +77,9 @@ export function BookingsClient({
         <CardContent className="py-6">
           {meta?.totalPages && meta.totalPages >= 1 && (
             <PaginationControl
-              totalItems={meta.totalItems ?? 0}
-              pageSize={meta.limit ?? 10}
-              currentPage={meta.page ?? 1}
+              totalItems={meta.totalItems}
+              pageSize={meta.limit}
+              currentPage={Number(searchParams.get('page')) || meta.page}
               onPageChange={handlePageChange}
             />
           )}
@@ -87,7 +88,7 @@ export function BookingsClient({
             bookings={bookings}
             role={role}
             isFetching={isFetching || isPending}
-            isLoading={isLoading}
+            isLoading={isFetching || isPending}
             isError={false}
             uploadFile={uploadFile}
             onFileSelect={handleFileSelect}

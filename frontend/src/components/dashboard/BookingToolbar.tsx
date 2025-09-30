@@ -3,7 +3,7 @@ import { CardTitle } from "../ui/card";
 import { Search } from "lucide-react";
 import { Input } from "../ui/input";
 import { FilterPopover } from "../fragment/filter-popover/FilterPopover";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDebounce } from "use-debounce";
 
 type BookingsToolbarProps = {
@@ -23,10 +23,12 @@ export const BookingsToolbar = ({
   const [inputValue, setInputValue] = useState(filters.bookingId || "");
   const [debouncedSearchTerm] = useDebounce(inputValue, 500);
 
-  useEffect(() => {
-    onFilterChange('bookingId', debouncedSearchTerm)
-  }, [debouncedSearchTerm, onFilterChange])
+  const onFilterChangeRef = useRef(onFilterChange);
+  onFilterChangeRef.current = onFilterChange;
 
+  useEffect(() => {
+    onFilterChangeRef.current("bookingId", debouncedSearchTerm || null);
+  }, [debouncedSearchTerm]);
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-5">
       <CardTitle className="text-xl font-semibold">Your Bookings</CardTitle>

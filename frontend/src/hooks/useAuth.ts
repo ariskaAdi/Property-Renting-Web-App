@@ -5,7 +5,9 @@ import {
   registerUser,
   verifyEmail,
 } from "@/services/auth.services";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export const useLoginUser = () => {
   return useMutation({
@@ -44,11 +46,31 @@ export const useVerifyEmail = () => {
 };
 
 export const useLogoutUser = () => {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: async () => {
-      const res = await logoutUser();
-      localStorage.removeItem("token");
-      return res;
+    mutationFn: logoutUser,
+
+    onSuccess: (data) => {
+      queryClient.clear();
+
+      toast.success(data.message || "Logged out successfully");
+
+      router.push("/");
+
+      router.refresh();
+    },
+
+    onError: (error) => {
+      console.error("❌ Logout error:", error);
+
+      queryClient.clear();
+
+      toast.error("Logged out with errors");
+
+      router.push("/login");
+      router.refresh();
     },
   });
 };

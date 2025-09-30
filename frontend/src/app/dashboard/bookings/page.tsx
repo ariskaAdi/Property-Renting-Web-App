@@ -1,120 +1,102 @@
-"use client";
-
 import {
   BookingStatus,
   isValidBookingStatus,
   isValidSort,
   SortStatus,
-  Booking,
-  Meta,
-  Filters,
 } from "@/types/transactions/transactions";
+import { getCurrentUser } from "@/lib/cookie-auth";
 import { BookingsClient } from "@/components/dashboard/BookingsClientPage";
-import { useMemo } from "react";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
+import { cookies } from "next/headers";
 import axios from "axios";
-import { useFetchMe } from "@/hooks/useUser";
 
-interface BookingApiResponse {
-  data: Booking[];
-  meta: Meta;
-}
+type SearchParams = { [key: string]: string | string[] | undefined };
+
+type BookingsPageProps = {
+  searchParams: Promise<SearchParams>;
+};
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-const fetchBookingsClient = async (
-  role: string,
-  queryString: string
-): Promise<BookingApiResponse> => {
-  const endpoint =
-    role === "tenant"
-      ? `${BASE_URL}/payment/orders/tenant`
-      : `${BASE_URL}/reservations/get`;
-
-  const response = await axios.get<BookingApiResponse>(
-    `${endpoint}?${queryString}`,
-    { withCredentials: true }
-  );
-
-  return response.data;
+const fetchUserBookings = async (searchParams: URLSearchParams) => {
+  const endpoint = `${BASE_URL}/reservations/get`;
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+  const response = await axios.get(endpoint, {
+    params: searchParams,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data.data;
 };
 
-export default function BookingsPage() {
-  const searchParams = useSearchParams();
-  const { data: userData, isLoading: isUserLoading } = useFetchMe();
+const fetchTenantBookings = async (searchParams: URLSearchParams) => {
+  const endpoint = `${BASE_URL}/payment/orders/tenant`;
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
 
-  const role = userData?.role === "tenant" ? "tenant" : "user";
-  const userIsAuthenticated = !!userData;
-
-  const filters: Filters = useMemo(() => {
-    const statusParam = searchParams.get("status");
-    const sortParam = searchParams.get("sort");
-    const pageParam = searchParams.get("page");
-    const bookingIdParam = searchParams.get("bookingId");
-
-    return {
-      status: isValidBookingStatus(statusParam)
-        ? (statusParam as BookingStatus)
-        : "waiting_confirmation",
-      sort: isValidSort(sortParam) ? (sortParam as SortStatus) : "asc",
-      page: pageParam || "1",
-      bookingId: bookingIdParam || "",
-    };
-  }, [searchParams]);
-
-  const queryString = useMemo(() => {
-    return new URLSearchParams(filters as Record<string, string>).toString();
-  }, [filters]);
-
-  const queryKeyArray = useMemo(() => {
-    return ["bookings", role, queryString];
-  }, [role, queryString]);
-
-  const {
-    data: bookingData,
-    isLoading: isBookingLoading,
-    isError: isBookingError,
-    isFetching,
-  } = useQuery<BookingApiResponse>({
-    queryKey: queryKeyArray,
-    queryFn: () => fetchBookingsClient(role, queryString),
-    enabled: userIsAuthenticated && !isUserLoading,
-    staleTime: 1000 * 60 * 1,
-    placeholderData: keepPreviousData,
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+  const response = await axios.get(endpoint, {
+    params: searchParams,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
+  return response.data.data;
+};
 
-  if (isUserLoading || !userIsAuthenticated) {
-    return (
-      <div className="p-6 text-red-500">
-        {isUserLoading
-          ? "Checking authentication..."
-          : "Failed to load bookings. Please login again or refresh."}
-      </div>
-    );
+export default async function BookingsPage({
+  searchParams,
+}: BookingsPageProps) {
+  const user = await getCurrentUser();
+  const sp = await searchParams;
+
+  const { role } = user || {};
+  console.log("role is:", role);
+
+  const status = Array.isArray(sp.status) ? sp.status[0] : sp.status;
+  const sort = Array.isArray(sp.sort) ? sp.sort[0] : sp.sort;
+  const page = Array.isArray(sp.page) ? sp.page[0] : sp.page;
+  const bookingId = Array.isArray(sp.bookingId)
+    ? sp.bookingId[0]
+    : sp.bookingId;
+
+  const filters = {
+    status: isValidBookingStatus(status)
+      ? (status as BookingStatus)
+      : "waiting_confirmation",
+    sort: isValidSort(sort) ? (sort as SortStatus) : "asc",
+    page: page || "1",
+    bookingId: (bookingId as string) || "",
+  };
+
+  console.log("filters are: ", filters);
+  const queryParams = new URLSearchParams(filters);
+
+  let bookings;
+  let meta;
+
+  const validRole = role === "tenant" ? "tenant" : "user";
+
+  if (validRole === "tenant") {
+    ({ data: bookings, meta } = await fetchTenantBookings(queryParams));
+  } else {
+    ({ data: bookings, meta } = await fetchUserBookings(queryParams));
   }
 
-  if (isBookingLoading) {
-    return <div className="p-6">Loading bookings...</div>;
-  }
-
-  if (isBookingError || !bookingData) {
-    return (
-      <div className="p-6 text-red-500">
-        Failed to load bookings. Please try refreshing the page.
-      </div>
-    );
-  }
+  console.log("booking and meta are:", bookings, meta);
 
   return (
     <BookingsClient
-      bookings={bookingData.data ?? []}
-      meta={
-        bookingData.meta ?? { totalPages: 0, totalItems: 0, limit: 10, page: 1 }
-      }
+      bookings={bookings}
+      meta={meta}
       filters={filters}
-      role={role}
-      isFetching={isFetching}
+      role={validRole}
     />
   );
 }

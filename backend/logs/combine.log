@@ -127,3 +127,7 @@ Argument `where` of type usersWhereUniqueInput needs at least one of `id` or `em
 2025-09-30 17:56:40 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
 2025-09-30 17:57:18 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
 2025-09-30 17:59:49 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-09-30 18:57:34 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-09-30 19:43:09 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-09-30 19:46:31 [ERROR]: GET /reservations/get Unauthorized access, only user can access this route {"statusCode":403,"success":false,"message":"Unauthorized access, only user can access this route"}
+2025-09-30 19:46:33 [ERROR]: GET /reservations/get Unauthorized access, only user can access this route {"statusCode":403,"success":false,"message":"Unauthorized access, only user can access this route"}

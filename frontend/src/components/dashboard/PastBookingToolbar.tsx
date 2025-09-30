@@ -25,7 +25,7 @@ export const PastBookingsToolbar = ({
 
   useEffect(() => {
     onFilterChange('bookingId', debouncedSearchTerm)
-  }, [debouncedSearchTerm, onFilterChange])
+  }, [debouncedSearchTerm])
 
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-5">

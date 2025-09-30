@@ -23,6 +23,8 @@ type UploadProofParams = {
   isPending: boolean;
 };
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
 export const UploadProofFunction = ({
   onFileSelect,
   bookingId,
@@ -68,7 +70,7 @@ export const UploadProofFunction = ({
 
     try {
       await axios.patch(
-        `http://localhost:4000/reservations/proof/${bookingId}`,
+        `${BASE_URL}/reservations/proof/${bookingId}`,
         formData,
         { withCredentials: true }
       );

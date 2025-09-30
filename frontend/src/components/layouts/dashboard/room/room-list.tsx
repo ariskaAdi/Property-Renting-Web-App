@@ -115,7 +115,7 @@ export function RoomList({ rooms }: RoomListProps) {
                               variant={
                                 avail.is_available ? "default" : "destructive"
                               }>
-                              {avail.is_available ? "Available" : "Full/Booked"}
+                              {avail.is_available ? "Available" : "Unavailable"}
                             </Badge>
                           </div>
                         ))

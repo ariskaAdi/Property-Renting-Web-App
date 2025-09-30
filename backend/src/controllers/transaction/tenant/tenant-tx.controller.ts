@@ -80,19 +80,12 @@ class TenantTransactions {
           prisma
         );
 
-        // const datesToUpdate = getDatesBetween(
-        //   updatedBooking.check_in_date,
-        //   updatedBooking.check_out_date
-        // );
+      quickAddJob(
+      { connectionString: process.env.DIRECT_URL },
+      "send-rejection-job", 
+      { bookingId: bookingId, userId: user.userId }
+    );
 
-        // const roomId = updatedBooking.booking_rooms.room_id;
-
-        // // Update Availability
-        // await UpdateRoomAvailability(roomId, datesToUpdate, true, tx);
-
-
-      // Send Rejection Notification
-      await sendRejectionNotification(bookingId, user.userId);
 
       res.json({
         message: "Payment rejected, booking updated",

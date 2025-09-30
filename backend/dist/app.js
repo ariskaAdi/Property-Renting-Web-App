@@ -39,21 +39,9 @@ class App {
             this.app.set("trust proxy", 1);
         }
         this.app.use((0, cors_1.default)({
-            origin: (origin, callback) => {
-                if (!origin || allowedOrigins.includes(origin)) {
-                    callback(null, true);
-                }
-                else {
-                    callback(new Error(`Origin ${origin} not allowed by CORS`));
-                }
-            },
-            methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-            exposedHeaders: ["Set-Cookie"],
-            allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
-            optionsSuccessStatus: 200,
+            origin: allowedOrigins,
             credentials: true,
         }));
-        this.app.options("*", (0, cors_1.default)());
         this.app.set("query parser", (str) => {
             return qs_1.default.parse(str, { arrayLimit: 20 });
         });

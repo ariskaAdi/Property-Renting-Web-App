@@ -40,15 +40,7 @@ class TenantTransactions {
                 throw new AppError_1.default("Invalid transaction ID", 400);
             }
             await (0, tenant_tx_repository_1.UpdateBookings)(bookingId, "waiting_payment", prisma_1.prisma);
-            // const datesToUpdate = getDatesBetween(
-            //   updatedBooking.check_in_date,
-            //   updatedBooking.check_out_date
-            // );
-            // const roomId = updatedBooking.booking_rooms.room_id;
-            // // Update Availability
-            // await UpdateRoomAvailability(roomId, datesToUpdate, true, tx);
-            // Send Rejection Notification
-            await (0, transaction_service_1.sendRejectionNotification)(bookingId, user.userId);
+            (0, graphile_worker_1.quickAddJob)({ connectionString: process.env.DIRECT_URL }, "send-rejection-job", { bookingId: bookingId, userId: user.userId });
             res.json({
                 message: "Payment rejected, booking updated",
                 success: true,

@@ -22,8 +22,8 @@ export const startAllWorkersAndSchedules = async () => {
     const taskList: TaskList = {
       [EXPIRE_BOOKINGS_JOB]: expiredBookings,
       [SEND_REMINDER_JOB]: bookingReminder,
-      [SEND_CONFIRMATION_JOB]: sendConfirmationEmail,
-      [SEND_REJECTION_JOB]: sendRejectionEmail,
+      "send-confirmation-job": sendConfirmationEmail,
+      "send-rejection-job": sendRejectionEmail,
     }
 
     const runner = run({

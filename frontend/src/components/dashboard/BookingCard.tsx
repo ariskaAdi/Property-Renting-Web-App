@@ -84,9 +84,11 @@ export const BookingCard = ({ booking, role }: BookingCardProps) => {
 
   const handleAccept = (bookingId: string) => {
     acceptBookingMutation.mutate(bookingId);
+    toast.success("Booking accepted successfully!");
   };
   const handleReject = (bookingId: string) => {
     rejectBookingMutation.mutate(bookingId);
+    toast.success("Booking rejected successfully!");
   };
 
   const handleButtonClick = async () => {

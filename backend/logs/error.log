@@ -123,3 +123,7 @@ Invalid `prisma.users.findUnique()` invocation:
 
 Argument `where` of type usersWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?. {"name":"PrismaClientValidationError","clientVersion":"6.13.0"}
 2025-09-30 16:36:11 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-09-30 17:51:49 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-09-30 17:56:40 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-09-30 17:57:18 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}
+2025-09-30 17:59:49 [ERROR]: GET /user/me Unauthorized {"statusCode":401,"success":false,"message":"Unauthorized"}

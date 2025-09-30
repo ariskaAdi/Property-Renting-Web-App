@@ -26,7 +26,6 @@ export const sendConfirmationEmail: Task = async (
 
     helpers.logger.info(`Sending confirmation email for booking ${bookingData.id}...`);
 
-
     await sendUserBookingConfirmation(bookingData);
 
     helpers.logger.info(`Successfully sent confirmation for booking ${bookingData.id}.`);

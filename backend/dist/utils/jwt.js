@@ -21,7 +21,7 @@ const generateTokenAndSetCookie = (res, existingUser) => {
     res.cookie("token", token, {
         httpOnly: true,
         secure: isProduction,
-        sameSite: "none",
+        sameSite: isProduction ? "none" : "lax",
         maxAge: 24 * 60 * 60 * 1000,
         path: "/",
     });

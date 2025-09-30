@@ -34,23 +34,37 @@ class App {
       "http://localhost:3000",
       "https://property-renting-web-app.vercel.app",
     ];
+
     if (process.env.NODE_ENV === "production") {
       this.app.set("trust proxy", 1);
     }
+
     this.app.use(
       cors({
-        origin: allowedOrigins,
-
+        origin: (origin, callback) => {
+          if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+          } else {
+            callback(new Error(`Origin ${origin} not allowed by CORS`));
+          }
+        },
+        methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+        exposedHeaders: ["Set-Cookie"],
+        allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
+        optionsSuccessStatus: 200,
         credentials: true,
       })
     );
+
+    this.app.options("*", cors());
+
     this.app.set("query parser", (str: string) => {
       return qs.parse(str, { arrayLimit: 20 });
     });
+
     this.app.use(express.json());
     this.app.use(cookieParser());
   }
-
   private route(): void {
     const authRouter = new AuthRouter();
     const userRouter = new UserRouter();

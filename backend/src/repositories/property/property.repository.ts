@@ -40,11 +40,13 @@ export const getAllPropertiesRepository = async ({
       },
       where: {
         property: propertyWhere,
+        deleted_at: null,
       },
     }),
     prisma.rooms.count({
       where: {
         property: propertyWhere,
+        deleted_at: null,
       },
     }),
   ]);
